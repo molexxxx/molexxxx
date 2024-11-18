@@ -19,8 +19,6 @@ While my expertise lies in full-stack web development, I also have hands-on expe
 | **[222-discord-bot](https://github.com/tonywied17/222-discord-bot)** | A Discord bot for music and fun, featuring a React-powered dashboard.                  | `JavaScript`         | ![Stars](https://img.shields.io/github/stars/tonywied17/222-discord-bot?style=social) |
 | **[nvidia-drivers-scrape](https://github.com/tonywied17/nvidia-drivers-scrape)** | Scrape NVIDIA's driver endpoint for updates.                                           | `JavaScript`         | ![Stars](https://img.shields.io/github/stars/tonywied17/nvidia-drivers-scrape?style=social) |
 
----
-
 ## 🛠️ Technologies & Tools  
 
 ![JavaScript](https://img.shields.io/badge/-JavaScript-F7DF1E?logo=javascript&logoColor=black&style=for-the-badge)
@@ -33,7 +31,6 @@ While my expertise lies in full-stack web development, I also have hands-on expe
 ![Shell](https://img.shields.io/badge/-Shell-4EAA25?logo=gnu-bash&logoColor=white&style=for-the-badge)
 ![Python](https://img.shields.io/badge/-Python-3776AB?logo=python&logoColor=white&style=for-the-badge)
 
----
 
 ## 📊 GitHub Stats  
 

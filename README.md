@@ -7,7 +7,6 @@ I'm a developer passionate about building modern, efficient, and scalable web ap
 
 While my expertise lies in full-stack web development, I also have hands-on experience with computer and server hardware and networking, along with proficiency in scripting languages such as Bash, PowerShell, and Batch. This diverse skill set allows me to approach both web development and system administration challenges with flexibility and adaptability.
  
-
 ## 🔥 Featured Projects  
 
 | Project Name                  | Description                                                                                   | Tech Stack           | 🌟 Stars |
@@ -38,8 +37,6 @@ While my expertise lies in full-stack web development, I also have hands-on expe
   <img src="https://github-readme-stats.vercel.app/api?username=tonywied17&show_icons=true&hide_rank=true&theme=tokyonight" alt="Tony Wiedman's GitHub Stats" />
   <img src="https://github-readme-streak-stats.herokuapp.com/?user=tonywied17&theme=tokyonight" alt="GitHub Streak" />
 </p>
-
----
 
 ## 🌐 Let's Connect!  
 

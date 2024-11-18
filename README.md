@@ -2,10 +2,14 @@
 
 ☝️ **Passionate Developer | Automation Enthusiast**
 
-## About Me 🫴
-I'm a developer passionate about building modern, efficient, and scalable web applications. As a full-stack developer, I specialize in crafting dynamic user interfaces with frameworks like React and Angular, designing elegant, responsive front-end experiences with advanced CSS techniques. I also have strong experience in building and integrating APIs, and ensuring seamless communication between the front-end and back-end. My work with backend APIs and relational databases has exposed me to strictly typed languages such as Java and C#, where I gained experience object oriented programming and MVC design patterns using servlets, prepared statements, and JDBC, and also object-relational mappers (ORMs) like Spring with Java, EF Core with C#, and Sequelize with JavaScript. While I excel in front-end development and user interface design, my versatility allows me to tackle both client-side and server-side challenges effectively.
+## About Me 🫴  
 
-Outside of specialty in full-stack web development my geniune interest and inner hobbyist have led me to hands-on experience with computer and server hardware and networking, along with proficiency in scripting languages such as Bash, PowerShell, and Batch to help with the automation of OS related tasks and processes. This diverse skill set allows me to approach both web development and system administration challenges with flexibility and adaptability.
+I'm a developer passionate about building modern, efficient, and scalable web applications. As a full-stack developer, I specialize in crafting dynamic user interfaces with frameworks like React and Angular, designing elegant, responsive front-end experiences using advanced CSS techniques. I also have extensive experience in building and integrating APIs, ensuring seamless communication between the front-end and back-end.  
+
+My work with backend APIs and relational databases has given me strong exposure to strictly typed languages such as Java and C#. I've gained experience with object-oriented programming and MVC design patterns through technologies like servlets, prepared statements, and JDBC, as well as object-relational mappers (ORMs) such as Spring with Java, EF Core with C#, and Sequelize with JavaScript. While I excel in front-end development and user interface design, my versatility enables me to tackle both client-side and server-side challenges effectively.  
+
+Beyond my expertise in full-stack web development, my genuine curiosity and hobbyist mindset have led me to gain hands-on experience with computer and server hardware, as well as networking. I'm also proficient in scripting languages like Bash, PowerShell, and Batch, which I use to automate operating system tasks and processes. This diverse skill set allows me to approach both web development and system administration challenges with flexibility and adaptability.  
+
  
 ## 🔥 Featured Projects  
 

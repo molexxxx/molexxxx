@@ -42,4 +42,4 @@ While my expertise lies in full-stack web development, I also have hands-on expe
 
 - 🌍 [Website](https://molexworks.com)
 - 💼 [LinkedIn](https://www.linkedin.com/in/tony-wiedman-1ba44a187/)
-- 📧 Email me: **tonywied17gmail.com** || **mail@molex.cloud**
+- 📧 Email me: **tonywied17@gmail.com** || **mail@molex.cloud**

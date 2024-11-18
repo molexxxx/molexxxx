@@ -1,4 +1,4 @@
-# Hi, I'm Tony! 🤙
+# Hi, I'm Tony!
 
 ☝️ **Passionate Developer | Automation Enthusiast**
 

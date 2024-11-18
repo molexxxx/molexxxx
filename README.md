@@ -11,7 +11,7 @@ My work with backend APIs and relational databases has given me strong exposure 
 Beyond my expertise in full-stack web development, my genuine curiosity and hobbyist mindset have led me to gain hands-on experience with computer and server hardware, as well as networking. I'm also proficient in scripting languages like Bash, PowerShell, and Batch, which I use to automate operating system tasks and processes. This diverse skill set allows me to approach both web development and system administration challenges with flexibility and adaptability.  
 
  
-## 🔥 Featured Projects  
+## 🔥 Recent Projects  
 
 | Project Name                  | Description                                                                                   | Tech Stack           | 🌟 Stars |
 |-------------------------------|-----------------------------------------------------------------------------------------------|----------------------|----------|
@@ -22,7 +22,7 @@ Beyond my expertise in full-stack web development, my genuine curiosity and hobb
 | **[222-discord-bot](https://github.com/tonywied17/222-discord-bot)** | A Discord bot for music and fun, featuring a React-powered dashboard.                  | `JavaScript`         | ![Stars](https://img.shields.io/github/stars/tonywied17/222-discord-bot?style=social) |
 | **[nvidia-drivers-scrape](https://github.com/tonywied17/nvidia-drivers-scrape)** | Scrape NVIDIA's driver endpoint for updates.                                           | `JavaScript`         | ![Stars](https://img.shields.io/github/stars/tonywied17/nvidia-drivers-scrape?style=social) |
 
-## 🛠️ Technologies & Tools  
+## 🛠️ Technologies
 
 ![JavaScript](https://img.shields.io/badge/-JavaScript-F7DF1E?logo=javascript&logoColor=black&style=for-the-badge)
 ![CSS3](https://img.shields.io/badge/-CSS3-1572B6?logo=css3&logoColor=white&style=for-the-badge)

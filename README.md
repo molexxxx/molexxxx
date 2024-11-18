@@ -2,15 +2,11 @@
 
 🎯 **Passionate Developer | Automation Enthusiast**
 
----
-
 ## 🚀 About Me  
 I'm a developer passionate about building modern, efficient, and scalable web applications. As a full-stack developer, I specialize in crafting dynamic user interfaces with frameworks like React and Angular, designing elegant, responsive front-end experiences with advanced CSS techniques. I also have strong experience in building and integrating APIs, working with relational databases, and ensuring seamless communication between the front-end and back-end. My work with backend APIs and relational databases has exposed me to strictly typed languages such as Java and C#, where I gained experience with prepared statements, JDBC, and object-relational mappers (ORMs) like Spring with Java, EF Core with C#, and Sequelize with JavaScript. Additionally, I have experience working with authentication libraries such as MS Identity. While I excel in front-end development, my versatility allows me to tackle both client-side and server-side challenges effectively.
 
 While my expertise lies in full-stack web development, I also have hands-on experience with computer and server hardware and networking, along with proficiency in scripting languages such as Bash, PowerShell, and Batch. This diverse skill set allows me to approach both web development and system administration challenges with flexibility and adaptability.
  
-
----
 
 ## 🔥 Featured Projects  
 

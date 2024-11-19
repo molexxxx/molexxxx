@@ -11,6 +11,7 @@ Beyond my expertise in full-stack web development, my genuine curiosity and hobb
 
 <div align="center">
   <img src="https://img.shields.io/badge/-JavaScript-F7DF1E?logo=javascript&logoColor=black&style=flat" alt="JavaScript">
+<img src="https://img.shields.io/badge/-TypeScript-3178C6?logo=typescript&logoColor=white&style=flat" alt="TypeScript">
   <img src="https://img.shields.io/badge/-CSS3-1572B6?logo=css3&logoColor=white&style=flat" alt="CSS3">
   <img src="https://img.shields.io/badge/-React-61DAFB?logo=react&logoColor=black&style=flat" alt="React">
   <img src="https://img.shields.io/badge/-Angular-DD0031?logo=angular&logoColor=white&style=flat" alt="Angular">
@@ -19,6 +20,7 @@ Beyond my expertise in full-stack web development, my genuine curiosity and hobb
   <img src="https://img.shields.io/badge/-Java-007396?logo=java&logoColor=white&style=flat" alt="Java">
   <img src="https://img.shields.io/badge/-Shell-4EAA25?logo=gnu-bash&logoColor=white&style=flat" alt="Shell">
   <img src="https://img.shields.io/badge/-Python-3776AB?logo=python&logoColor=white&style=flat" alt="Python">
+<img src="https://img.shields.io/badge/-CustomTkinter-2B2B2B?style=flat&logo=python&logoColor=white" alt="CustomTkinter">
 </div>
 
 ## 🔥 Recent Projects  
@@ -39,7 +41,7 @@ Beyond my expertise in full-stack web development, my genuine curiosity and hobb
   <img src="https://github-readme-stats.vercel.app/api?username=tonywied17&show_icons=true&hide_rank=true&theme=yeblu&hide_border=true&count_private=true" alt="Tony Wiedman's GitHub Stats" />
 </p>
 
-## 🌐 Let's Connect!  
+## 🌐 Connect
 
 🌍 **[Website](https://molexworks.com)**<br />
 💼 **[LinkedIn](https://www.linkedin.com/in/tony-wiedman-1ba44a187/)**<br /><br />

@@ -13,7 +13,9 @@ Beyond my expertise in full-stack web development, my genuine curiosity and hobb
   <img src="https://img.shields.io/badge/-JavaScript-F7DF1E?logo=javascript&logoColor=black&style=flat" alt="JavaScript">
 <img src="https://img.shields.io/badge/-TypeScript-3178C6?logo=typescript&logoColor=white&style=flat" alt="TypeScript">
   <img src="https://img.shields.io/badge/-CSS3-1572B6?logo=css3&logoColor=white&style=flat" alt="CSS3">
-  <img src="https://img.shields.io/badge/-React-61DAFB?logo=react&logoColor=black&style=flat" alt="React">
+  <img src="https://img.shields.io/badge/-SCSS-CC6699?logo=sass&logoColor=white&style=flat" alt="SCSS">
+<img src="https://img.shields.io/badge/-Tailwind%20CSS-06B6D4?logo=tailwindcss&logoColor=white&style=flat" alt="Tailwind CSS">
+<img src="https://img.shields.io/badge/-React-61DAFB?logo=react&logoColor=black&style=flat" alt="React">
   <img src="https://img.shields.io/badge/-Angular-DD0031?logo=angular&logoColor=white&style=flat" alt="Angular">
   <img src="https://img.shields.io/badge/-Node.js-339933?logo=node.js&logoColor=white&style=flat" alt="Node.js">
   <img src="https://img.shields.io/badge/-C%23-800080?logo=csharp&logoColor=white&style=flat" alt="C#">

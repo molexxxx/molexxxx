@@ -25,7 +25,7 @@ Beyond my expertise in full-stack web development, my genuine curiosity and hobb
 <img src="https://img.shields.io/badge/-CustomTkinter-2B2B2B?style=flat&logo=python&logoColor=white" alt="CustomTkinter">
 </div>
 
-## 🔥 Recent Projects  
+## 🆕 Recent Projects  
 
 | Project Name                  | Description                                                                                   | Tech Stack           | 🌟 Stars |
 |-------------------------------|-----------------------------------------------------------------------------------------------|----------------------|----------|

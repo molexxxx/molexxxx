@@ -29,6 +29,7 @@ Beyond my expertise in full-stack web development, my genuine curiosity and hobb
 
 | Project Name                  | Description                                                                                   | Tech Stack           | 🌟 Stars |
 |-------------------------------|-----------------------------------------------------------------------------------------------|----------------------|----------|
+| **[audio-normalization](https://github.com/tonywied17/audio-normalization)** | Normalize or boost audio tracks of movies and shows    |  `Python`        | ![Stars](https://img.shields.io/github/stars/tonywied17/audio-normalization?style=social) | 
 | **[youtube-downloader](https://github.com/tonywied17/youtube-downloader)** | Download videos, mp3s, and more with CLI or GUI. Includes AAC audio conversion.         | `Python`             | ![Stars](https://img.shields.io/github/stars/tonywied17/youtube-downloader?style=social) |
 | **[plex-poster-set-helper](https://github.com/tonywied17/plex-poster-set-helper)** | Upload poster sets to Plex from ThePosterDB or MediUX in seconds!                      | `Python`             | ![Stars](https://img.shields.io/github/stars/tonywied17/plex-poster-set-helper?style=social) |
 | **[linux-bin-scripts](https://github.com/tonywied17/linux-bin-scripts)** | A collection of bin scripts for automating web server tasks.                           | `Shell`              | ![Stars](https://img.shields.io/github/stars/tonywied17/linux-bin-scripts?style=social) |

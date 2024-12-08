@@ -3,9 +3,9 @@
 ☝️ **Passionate Developer | Automation Enthusiast**
 
 ## About Me 🫴  
-I’m a passionate full-stack developer focused on building modern, scalable web applications. With expertise in React, Angular, and advanced CSS, I create dynamic, responsive user interfaces that stand out. My backend experience spans building APIs, integrating relational databases, and leveraging strictly typed languages like Java and C# through frameworks like Spring, EF Core, and Sequelize.
+I’m a full-stack developer focused on building scalable web applications. With experience in React, Angular, and advanced CSS, I create responsive user interfaces. While I work extensively with popular frameworks, I also enjoy building projects with vanilla CSS and JavaScript and developing custom libraries and wrappers for both frontend and backend tasks. On the backend, I work with APIs, relational databases, and strictly typed languages like Java and C# using frameworks such as Spring and EF Core. I also use JavaScript libraries like Sequelize for database management.
 
-Beyond coding, my hands-on knowledge of computer hardware, networking, and scripting (Bash, PowerShell, Batch) complements my development work, making me a versatile problem-solver in both software and system administration.
+In addition to web development, I enjoy using Python to build cross-platform utility applications, including interactive CLI tools with libraries like Rich and quick GUIs using customtkinter. Combined with hands-on knowledge of computer hardware, networking, and scripting (Bash, PowerShell, Batch), I can tackle a variety of software and system challenges effectively.
 
 <div align="center">
   <img src="https://img.shields.io/badge/-JavaScript-F7DF1E?logo=javascript&logoColor=black&style=flat" alt="JavaScript">

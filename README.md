@@ -3,7 +3,7 @@
 ☝️ **Passionate Developer | Automation Enthusiast**
 
 ## About Me 🫴  
-I’m a full-stack developer focused on building scalable web applications. With experience in React, Angular, and advanced CSS, I create responsive user interfaces. While I work extensively with popular frameworks, I also enjoy building projects with vanilla CSS and JavaScript and developing custom libraries and wrappers for both frontend and backend tasks. On the backend, I work with APIs, relational databases, and strictly typed languages like Java and C# using frameworks such as Spring and EF Core. I also use JavaScript libraries like Sequelize for database management.
+I’m a full-stack developer focused on building scalable web applications. With experience in React, Angular, and advanced CSS, I create responsive user interfaces. While I work extensively with popular frameworks, I also enjoy building projects with vanilla CSS and JavaScript and developing custom libraries and wrappers for both frontend and backend tasks. On the backend, I work with APIs, relational databases, and strictly typed languages like Java and C# using frameworks such as Spring and EF Core. I also enjoy using JavaScript ORM libraries like Sequelize for quick deployment and database management.
 
 In addition to web development, I enjoy using Python to build cross-platform utility applications, including interactive CLI tools with libraries like Rich and quick GUIs using customtkinter. Combined with hands-on knowledge of computer hardware, networking, and scripting (Bash, PowerShell, Batch), I can tackle a variety of software and system challenges effectively.
 

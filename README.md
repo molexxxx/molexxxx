@@ -3,11 +3,9 @@
 ☝️ **Passionate Developer | Automation Enthusiast**
 
 ## About Me 🫴  
-I'm a developer passionate about building modern, efficient, and scalable web applications. As a full-stack developer, I specialize in crafting dynamic user interfaces with frameworks like React and Angular, designing elegant, responsive front-end experiences using advanced CSS techniques. I also have extensive experience in building and integrating APIs, ensuring seamless communication between the front-end and back-end.  
+I’m a passionate full-stack developer focused on building modern, scalable web applications. With expertise in React, Angular, and advanced CSS, I create dynamic, responsive user interfaces that stand out. My backend experience spans building APIs, integrating relational databases, and leveraging strictly typed languages like Java and C# through frameworks like Spring, EF Core, and Sequelize.
 
-My work with backend APIs and relational databases has given me strong exposure to strictly typed languages such as Java and C#. I've gained experience with object-oriented programming and MVC design patterns through technologies like servlets, prepared statements, and JDBC, as well as object-relational mappers (ORMs) such as Spring with Java, EF Core with C#, and Sequelize with JavaScript. While I excel in front-end development and user interface design, my versatility enables me to tackle both client-side and server-side challenges effectively.  
-
-Beyond my expertise in full-stack web development, my genuine curiosity and hobbyist mindset have led me to gain hands-on experience with computer and server hardware, as well as networking. I'm also proficient in scripting languages like Bash, PowerShell, and Batch, which I use to automate operating system tasks and processes. This diverse skill set allows me to approach both web development and system administration challenges with flexibility and adaptability.  
+Beyond coding, my hands-on knowledge of computer hardware, networking, and scripting (Bash, PowerShell, Batch) complements my development work, making me a versatile problem-solver in both software and system administration.
 
 <div align="center">
   <img src="https://img.shields.io/badge/-JavaScript-F7DF1E?logo=javascript&logoColor=black&style=flat" alt="JavaScript">

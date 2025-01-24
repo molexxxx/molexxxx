@@ -27,6 +27,7 @@ In addition to web development, I enjoy using Python to build cross-platform uti
 
 | Project Name                  | Description                                                                                   | Tech Stack           | 🌟 Stars |
 |-------------------------------|-----------------------------------------------------------------------------------------------|----------------------|----------|
+| **[ftp-client-cpp](https://github.com/tonywied17/ftp-client-cpp)** |  A simple FTP client and library created in C++.   |  `C++`        | ![Stars](https://img.shields.io/github/stars/tonywied17/ftp-client-cpp?style=social) | 
 | **[audio-normalization](https://github.com/tonywied17/audio-normalization)** | Normalize or boost audio tracks of movies and shows    |  `Python`        | ![Stars](https://img.shields.io/github/stars/tonywied17/audio-normalization?style=social) | 
 | **[youtube-downloader](https://github.com/tonywied17/youtube-downloader)** | Download videos, mp3s, and more with CLI or GUI. Includes audio compatibility conversion.         | `Python`             | ![Stars](https://img.shields.io/github/stars/tonywied17/youtube-downloader?style=social) |
 | **[plex-poster-set-helper](https://github.com/bbrown430/plex-poster-set-helper)** | Upload poster sets to Plex from ThePosterDB or MediUX in seconds!                      | `Python`             | ![Stars](https://img.shields.io/github/stars/bbrown430/plex-poster-set-helper?style=social) |

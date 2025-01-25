@@ -25,7 +25,7 @@ In addition to web development, I enjoy using Python to build cross-platform uti
 
 ## 🆕 Recent Projects  
 
-| Project Name                  | Description                                                                                   | Tech Stack           | 
+| Project Name                  | Description                                                                                   | Language           | 
 |-------------------------------|-----------------------------------------------------------------------------------------------|----------------------|
 | **[ftp-client-cpp](https://github.com/tonywied17/ftp-client-cpp)** |  A simple FTP client and library created in C++.   |  `C++`        |
 | **[audio-normalization](https://github.com/tonywied17/audio-normalization)** | Normalize or boost audio tracks of movies and shows    |  `Python`        | 

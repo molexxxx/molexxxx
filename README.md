@@ -5,7 +5,7 @@
 ## About Me 🫴  
 I’m a full-stack developer focused on building scalable web applications. With experience in React, Angular, and advanced CSS, I create responsive user interfaces. While I work extensively with popular frameworks, I also enjoy building projects with vanilla CSS and JavaScript and developing custom libraries and wrappers for both frontend and backend tasks. On the backend, I work with APIs, relational databases, and strictly typed languages like Java and C# using frameworks such as Spring and EF Core. I also enjoy using JavaScript ORM libraries like Sequelize for quick deployment and database management.
 
-In addition to web development, I enjoy using Python and C++ to build cross-platform utility applications, including interactive CLI tools GUIs using toolkits such as customtkinter and Qt. Combined with hands-on knowledge of computer hardware, networking, and scripting (Bash, PowerShell, Batch), I can tackle a variety of software and system challenges effectively.
+In addition to web development, I enjoy using Python and C++ to build cross-platform utility applications in the form of interactive CLI tools with argument parsing, or GUIs using toolkits such as customtkinter and Qt. Combined with hands-on knowledge of computer hardware, networking, and scripting (Bash, PowerShell, Batch), I can tackle a variety of software and system challenges effectively.
 
 <div align="center">
   <img src="https://img.shields.io/badge/-JavaScript-F7DF1E?logo=javascript&logoColor=black&style=flat" alt="JavaScript">

@@ -1,11 +1,3 @@
-# Hi, I'm Tony!
-
-☝️ **Passionate Developer | Automation Enthusiast**
-
-## About Me 🫴  
-I’m a full-stack developer focused on building scalable web applications. With experience in React, Angular, and advanced CSS, I create responsive user interfaces. While I work extensively with popular frameworks, I also enjoy building projects with vanilla CSS and JavaScript and developing custom libraries and wrappers for both frontend and backend tasks. On the backend, I work with APIs, relational databases, and strictly typed languages like Java and C# using frameworks such as Spring and EF Core. I also enjoy using JavaScript ORM libraries like Sequelize for quick deployment and database management.
-
-In addition to web development, I enjoy using Python and C++ to build cross-platform utility applications in the form of interactive CLI tools with argument parsing, or GUIs using toolkits such as customtkinter and Qt. Combined with hands-on knowledge of computer hardware, networking, and scripting (Bash, PowerShell, Batch), I can tackle a variety of software and system challenges effectively.
 
 <div align="center">
   <img src="https://img.shields.io/badge/-JavaScript-F7DF1E?logo=javascript&logoColor=black&style=flat" alt="JavaScript">
@@ -31,9 +23,9 @@ In addition to web development, I enjoy using Python and C++ to build cross-plat
 
 | Project Name                  | Description                                                                                   | Language           | 
 |-------------------------------|-----------------------------------------------------------------------------------------------|----------------------|
-| **[magnet-link-cpp](https://github.com/tonywied17/magnet-link-cpp)** |  A simple C++ torrent client that parses magnet links, discovers peers using DHT, and downloads torrents.   |  `C++`        |
 | **[ftp-client-cpp](https://github.com/tonywied17/ftp-client-cpp)** |  A simple FTP client and library created in C++.   |  `C++`        |
 | **[audio-normalization](https://github.com/tonywied17/audio-normalization)** | Normalize or boost audio tracks of movies and shows    |  `Python`        | 
+| **[magnet-link-cpp](https://github.com/tonywied17/magnet-link-cpp)** |  A simple C++ torrent client that parses magnet links, discovers peers using DHT, and downloads torrents.   |  `C++`        |
 | **[youtube-downloader](https://github.com/tonywied17/youtube-downloader)** | Download videos, mp3s, and more with CLI or GUI. Includes audio compatibility conversion.         | `Python`             |
 | **[plex-poster-set-helper](https://github.com/bbrown430/plex-poster-set-helper)** | Upload poster sets to Plex from ThePosterDB or MediUX in seconds!                      | `Python`             |
 | **[linux-bin-scripts](https://github.com/tonywied17/linux-bin-scripts)** | A collection of bin scripts for automating web server tasks.                           | `Shell`              | 

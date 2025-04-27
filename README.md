@@ -24,6 +24,7 @@
 
 | Project Name                  | Description                                                                                   | Language           | 
 |-------------------------------|-----------------------------------------------------------------------------------------------|----------------------|
+| **[MagnifyShit-cpp](https://github.com/tonywied17/MagnifyShit-cpp)** |  Mainly created to emulate a bifocal lense as a borderless window for my one monitor that is too far away because i'm blind.   |  `C++`        |
 | **[ftp-client-cpp](https://github.com/tonywied17/ftp-client-cpp)** |  A simple FTP client and library created in C++.   |  `C++`        |
 | **[audio-normalization](https://github.com/tonywied17/audio-normalization)** | Normalize or boost audio tracks of movies and shows    |  `Python`        | 
 | **[magnet-link-cpp](https://github.com/tonywied17/magnet-link-cpp)** |  A simple C++ torrent client that parses magnet links, discovers peers using DHT, and downloads torrents.   |  `C++`        |

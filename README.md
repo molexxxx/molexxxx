@@ -18,23 +18,6 @@
   <img src="https://img.shields.io/badge/-Qt-41CD52?logo=qt&logoColor=white&style=flat" alt="Qt">
 </div>
 
-
-
-## 🆕 Recent Projects  
-
-| Project Name                  | Description                                                                                   | Language           | 
-|-------------------------------|-----------------------------------------------------------------------------------------------|----------------------|
-| **[MagnifyShit-cpp](https://github.com/tonywied17/MagnifyShit-cpp)** |  Mainly created to emulate a bifocal lense as a borderless window for my one monitor that is too far away because i'm blind.   |  `C++`        |
-| **[ftp-client-cpp](https://github.com/tonywied17/ftp-client-cpp)** |  A simple FTP client and library created in C++.   |  `C++`        |
-| **[audio-normalization](https://github.com/tonywied17/audio-normalization)** | Normalize or boost audio tracks of movies and shows    |  `Python`        | 
-| **[magnet-link-cpp](https://github.com/tonywied17/magnet-link-cpp)** |  A simple C++ torrent client that parses magnet links, discovers peers using DHT, and downloads torrents.   |  `C++`        |
-| **[youtube-downloader](https://github.com/tonywied17/youtube-downloader)** | Download videos, mp3s, and more with CLI or GUI. Includes audio compatibility conversion.         | `Python`             |
-| **[plex-poster-set-helper](https://github.com/bbrown430/plex-poster-set-helper)** | Upload poster sets to Plex from ThePosterDB or MediUX in seconds!                      | `Python`             |
-| **[linux-bin-scripts](https://github.com/tonywied17/linux-bin-scripts)** | A collection of bin scripts for automating web server tasks.                           | `Shell`              | 
-| **[plex-webhook-debugger](https://github.com/tonywied17/plex-webhook-debugger)** | Debug and manage custom Plex webhook events.                                           | `JavaScript`         | 
-| **[222-discord-bot](https://github.com/tonywied17/222-discord-bot)** | A Discord bot for music and fun, featuring a React-powered dashboard.                  | `JavaScript`         |
-| **[nvidia-drivers-scrape](https://github.com/tonywied17/nvidia-drivers-scrape)** | Scrape NVIDIA's driver endpoint for updates.                                           | `JavaScript`         | 
-
 ## 🤓 GitHub Stats  
 
 <p align="center">

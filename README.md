@@ -18,8 +18,6 @@
   <img src="https://img.shields.io/badge/-Qt-41CD52?logo=qt&logoColor=white&style=flat" alt="Qt">
 </div>
 
-## 🤓 GitHub Stats  
-
 <p align="center">
   <a href="https://git.io/streak-stats"><img src="https://github-readme-streak-stats-silk-tau.vercel.app?user=tonywied17&theme=yeblu&hide_border=true" alt="GitHub Streak" /></a>
 </p>

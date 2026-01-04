@@ -22,7 +22,6 @@
 
 <p align="center">
   <a href="https://git.io/streak-stats"><img src="https://github-readme-streak-stats-silk-tau.vercel.app?user=tonywied17&theme=yeblu&hide_border=true" alt="GitHub Streak" /></a>
-  <img src="https://github-readme-stats.vercel.app/api?username=tonywied17&show_icons=true&hide_rank=true&theme=yeblu&hide_border=true&count_private=true" alt="Tony Wiedman's GitHub Stats" />
 </p>
 
 ## 🌐 Connect

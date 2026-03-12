@@ -23,8 +23,6 @@
 </p>
 
 ## 🌐 Connect
-
-🌍 **[Website](https://molexworks.com)**<br />
 💼 **[LinkedIn](https://www.linkedin.com/in/anthony-wiedman-1ba44a187/)**<br /><br />
 📧 **Email me:** <br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**tonywied17@gmail.com**<br />

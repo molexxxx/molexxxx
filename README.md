@@ -21,9 +21,3 @@
 <p align="center">
   <a href="https://git.io/streak-stats"><img src="https://github-readme-streak-stats-silk-tau.vercel.app?user=tonywied17&theme=yeblu&hide_border=true" alt="GitHub Streak" /></a>
 </p>
-
-## 🌐 Connect
-💼 **[LinkedIn](https://www.linkedin.com/in/anthony-wiedman-1ba44a187/)**<br /><br />
-📧 **Email me:** <br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**tonywied17@gmail.com**<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**mail@molex.cloud**

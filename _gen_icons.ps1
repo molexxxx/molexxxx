@@ -1,0 +1,13 @@
+$icons = [ordered]@{
+  'matlab_w'   = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20 L7 5 L11 14 L16 7 L22 20"/></svg>'
+  'matlab_d'   = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#1f2328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20 L7 5 L11 14 L16 7 L22 20"/></svg>'
+  'simulink_w' = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="8" width="6" height="8" rx="1"/><rect x="16" y="8" width="6" height="8" rx="1"/><line x1="8" y1="12" x2="16" y2="12"/><polyline points="14,10 16,12 14,14"/></svg>'
+  'simulink_d' = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#1f2328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="8" width="6" height="8" rx="1"/><rect x="16" y="8" width="6" height="8" rx="1"/><line x1="8" y1="12" x2="16" y2="12"/><polyline points="14,10 16,12 14,14"/></svg>'
+  'juce_w'     = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#ffffff"><path d="M14 3h4v13a5 5 0 0 1-10 0v-1h4v1a1 1 0 0 0 2 0z"/><circle cx="6" cy="20" r="1.5"/></svg>'
+  'juce_d'     = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#1f2328"><path d="M14 3h4v13a5 5 0 0 1-10 0v-1h4v1a1 1 0 0 0 2 0z"/><circle cx="6" cy="20" r="1.5"/></svg>'
+  'svg_w'      = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12,3 21,8 21,16 12,21 3,16 3,8"/><circle cx="12" cy="12" r="3" fill="#ffffff" stroke="none"/></svg>'
+  'svg_d'      = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#1f2328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12,3 21,8 21,16 12,21 3,16 3,8"/><circle cx="12" cy="12" r="3" fill="#1f2328" stroke="none"/></svg>'
+  'canvas_w'   = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="1"/><path d="M3 14l5-4 4 3 4-5 5 4"/></svg>'
+  'canvas_d'   = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#1f2328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="1"/><path d="M3 14l5-4 4 3 4-5 5 4"/></svg>'
+}
+foreach($k in $icons.Keys){ "$k = $([Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($icons[$k])))" }

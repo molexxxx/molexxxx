@@ -1,23 +1,48 @@
-
-
-<div align="center">
-  <img src="https://img.shields.io/badge/-JavaScript-F7DF1E?logo=javascript&logoColor=black&style=flat" alt="JavaScript">
-<img src="https://img.shields.io/badge/-Node.js-339933?logo=node.js&logoColor=white&style=flat" alt="Node.js">
-  <img src="https://img.shields.io/badge/-TypeScript-3178C6?logo=typescript&logoColor=white&style=flat" alt="TypeScript">
-  <img src="https://img.shields.io/badge/-CSS3-1572B6?logo=css3&logoColor=white&style=flat" alt="CSS3">
-  <img src="https://img.shields.io/badge/-SCSS-CC6699?logo=sass&logoColor=white&style=flat" alt="SCSS">
-  <img src="https://img.shields.io/badge/-Tailwind%20CSS-06B6D4?logo=tailwindcss&logoColor=white&style=flat" alt="Tailwind CSS">
-  <img src="https://img.shields.io/badge/-React-61DAFB?logo=react&logoColor=black&style=flat" alt="React">
-  <img src="https://img.shields.io/badge/-Angular-DD0031?logo=angular&logoColor=white&style=flat" alt="Angular">
-<img src="https://img.shields.io/badge/-Shell-4EAA25?logo=gnu-bash&logoColor=white&style=flat" alt="Shell">
-  <img src="https://img.shields.io/badge/-Python-3776AB?logo=python&logoColor=white&style=flat" alt="Python">
-  <img src="https://img.shields.io/badge/-C%23-800080?logo=csharp&logoColor=white&style=flat" alt="C#">
-  <img src="https://img.shields.io/badge/-Java-007396?logo=java&logoColor=white&style=flat" alt="Java">
-  <img src="https://img.shields.io/badge/-C%2B%2B-00599C?logo=cplusplus&logoColor=white&style=flat" alt="C++">
-  <img src="https://img.shields.io/badge/-CustomTkinter-2B2B2B?style=flat&logo=python&logoColor=white" alt="CustomTkinter">
-  <img src="https://img.shields.io/badge/-Qt-41CD52?logo=qt&logoColor=white&style=flat" alt="Qt">
-</div>
+<h1 align="center">Tony Wiedman</h1>
+<p align="center">Full-stack developer · TypeScript, Node, real-time systems</p>
 
 <p align="center">
-  <a href="https://git.io/streak-stats"><img src="https://github-readme-streak-stats-silk-tau.vercel.app?user=tonywied17&theme=yeblu&hide_border=true" alt="GitHub Streak" /></a>
+  <a href="https://z-query.com">z-query.com</a> &nbsp;·&nbsp;
+  <a href="https://z-server.dev">z-server.dev</a> &nbsp;·&nbsp;
+  <a href="https://github.com/tonywied17?tab=repositories">repositories</a>
 </p>
+
+---
+
+### Projects
+
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <h4><a href="https://github.com/tonywied17/zero-query">zQuery</a></h4>
+      <p>Zero-dependency frontend library - reactive components, SPA router, store, HTTP, SSR, and a full WebRTC stack in a ~130&nbsp;KB browser bundle.</p>
+      <sub>
+        <a href="https://z-query.com">site</a> ·
+        <a href="https://www.npmjs.com/package/zero-query">npm</a> ·
+        <a href="https://github.com/tonywied17/zero-query">source</a>
+      </sub>
+    </td>
+    <td width="50%" valign="top">
+      <h4><a href="https://github.com/tonywied17/zero-server">zero-server</a></h4>
+      <p>Zero-dependency Node.js backend framework - routing, ORM (7 adapters), auth, WebSocket, SSE, WebRTC, gRPC, and observability as one SDK.</p>
+      <sub>
+        <a href="https://z-server.dev">site</a> ·
+        <a href="https://www.npmjs.com/package/@zero-server/sdk">npm</a> ·
+        <a href="https://github.com/tonywied17/zero-server">source</a>
+      </sub>
+    </td>
+  </tr>
+</table>
+
+### Stack
+
+|              |                                                                        |
+| ------------ | ---------------------------------------------------------------------- |
+| Languages    | TypeScript · JavaScript · Python · C# · C++ · Java · Shell             |
+| Frontend     | zQuery · React · Angular · Tailwind · SCSS · Vite                      |
+| Backend      | zero-server · Node.js · Express · REST · GraphQL · OpenAPI             |
+| Real-time    | WebSocket · WebRTC · SSE · gRPC · HTTP/2 · STUN / TURN                 |
+| Data         | PostgreSQL · MySQL · SQLite · MongoDB · Redis                          |
+| Desktop      | Electron · Qt · CustomTkinter · WinForms                               |
+| Auth & Sec   | JWT · OAuth 2.0 · WebAuthn · TOTP · CSRF · Helmet                      |
+| Infra        | Docker · Nginx · Prometheus · Linux · Git · GitHub Actions             |

@@ -1,4 +1,4 @@
-<p align="center">Full-stack developer · TypeScript, Node, real-time systems</p>
+<p align="center">developer · TypeScript, Node, real-time systems</p>
 
 <p align="center">
   <a href="https://github.com/tonywied17?tab=repositories">repos</a> &nbsp;·&nbsp;

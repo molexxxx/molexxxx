@@ -1,4 +1,4 @@
-<p align="center">developer · applications, robots, drones, games, real-time systems</p>
+<p align="center"><b>developer</b> · web · desktop · games · robotics & drones · real-time · audio/DSP · graphics</p>
 
 <p align="center">
   <a href="https://github.com/tonywied17?tab=repositories">repos</a> &nbsp;·&nbsp;

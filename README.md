@@ -1,12 +1,9 @@
 <p align="center">Full-stack developer · TypeScript, Node, real-time systems</p>
 
 <p align="center">
-  <a href="https://z-query.com">z-query.com</a> &nbsp;·&nbsp;
-  <a href="https://z-server.dev">z-server.dev</a> &nbsp;·&nbsp;
-  <a href="https://tonywied17.github.io/zero-transfer/">zero-transfer</a> &nbsp;·&nbsp;
-  <a href="https://media.molex.cloud">media.molex.cloud</a> &nbsp;·&nbsp;
-  <a href="https://github.com/tonywied17/bladewake-demo">bladewake</a> &nbsp;·&nbsp;
-  <a href="https://github.com/tonywied17?tab=repositories">repos</a>
+  <a href="https://github.com/tonywied17?tab=repositories">repos</a> &nbsp;·&nbsp;
+  <a href="https://gist.github.com/tonywied17">gists</a> &nbsp;·&nbsp;
+  <a href="https://www.npmjs.com/~molex222">npm</a>
 </p>
 
 ### Projects

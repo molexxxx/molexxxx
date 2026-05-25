@@ -53,6 +53,19 @@
       </p>
     </td>
   </tr>
+  <tr>
+    <td colspan="3" valign="top">
+      <h4><a href="https://github.com/tonywied17/molex-media-electron">molex-media</a> &nbsp;<sub>· desktop app</sub></h4>
+      <p>Cross-platform media processing toolkit powered by FFmpeg — batch normalize / convert / compress, an NLE timeline editor with spatial compositing and keyframes, and a media player with 8 real-time audio visualizations. Electron · React · TypeScript · Tailwind.</p>
+      <p>
+        <a href="https://media.molex.cloud"><img src="https://img.shields.io/badge/website-media.molex.cloud-111827?style=flat-square&labelColor=1f2937" alt="website" /></a>
+        <a href="https://github.com/tonywied17/molex-media-electron/releases/latest"><img src="https://img.shields.io/badge/download-latest%20release-111827?style=flat-square&labelColor=1f2937&logo=github&logoColor=white" alt="download" /></a>
+        <a href="https://github.com/tonywied17/molex-media-electron/releases/latest"><img src="https://img.shields.io/github/v/release/tonywied17/molex-media-electron?style=flat-square&labelColor=1f2937&color=111827&label=release" alt="release" /></a>
+        <a href="https://github.com/tonywied17/molex-media-electron/releases"><img src="https://img.shields.io/github/downloads/tonywied17/molex-media-electron/total?style=flat-square&labelColor=1f2937&color=111827&label=downloads" alt="downloads" /></a>
+        <img src="https://img.shields.io/github/last-commit/tonywied17/molex-media-electron?style=flat-square&labelColor=1f2937&color=111827&display_timestamp=committer" alt="last commit" />
+      </p>
+    </td>
+  </tr>
 </table>
 
 ### Stack

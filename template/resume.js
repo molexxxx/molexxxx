@@ -156,9 +156,9 @@ refreshRepos();
 
   // Three parallax layers. Layer 0 = farthest (small, slow, dim), 2 = closest.
   const LAYERS = [
-    { count: 0, speed: 0.04, size: [0.4, 1.0], alpha: [0.25, 0.6] },
-    { count: 0, speed: 0.10, size: [0.7, 1.6], alpha: [0.40, 0.85] },
-    { count: 0, speed: 0.18, size: [1.0, 2.4], alpha: [0.55, 1.00] },
+    { count: 0, speed: 0.03, size: [0.25, 0.6], alpha: [0.15, 0.40] },
+    { count: 0, speed: 0.07, size: [0.40, 0.9], alpha: [0.25, 0.55] },
+    { count: 0, speed: 0.13, size: [0.55, 1.2], alpha: [0.35, 0.70] },
   ];
   let stars = [];
   let nebulae = [];
@@ -194,7 +194,7 @@ refreshRepos();
   function seed() {
     // Scale star count gently with viewport area.
     const area = w * h;
-    const baseTotal = Math.min(360, Math.max(140, Math.round(area / 6000)));
+    const baseTotal = Math.min(240, Math.max(90, Math.round(area / 9000)));
     LAYERS[0].count = Math.round(baseTotal * 0.55);
     LAYERS[1].count = Math.round(baseTotal * 0.30);
     LAYERS[2].count = Math.round(baseTotal * 0.15);
@@ -216,16 +216,16 @@ refreshRepos();
       }
     }
 
-    // A few large slow nebula blobs in two hues for depth.
+    // A couple very faint, very large washes — no more obvious "circle blobs".
     nebulae = [];
-    const blobCount = w > 1100 ? 4 : 3;
+    const blobCount = 2;
     for (let i = 0; i < blobCount; i++) {
       nebulae.push({
         x: Math.random() * w,
-        y: Math.random() * h,
-        r: rand(220, 420),
-        vx: rand(-0.05, 0.05),
-        vy: rand(-0.04, 0.04),
+        y: rand(h * 0.1, h * 0.6),
+        r: rand(Math.max(w, h) * 0.55, Math.max(w, h) * 0.9),
+        vx: rand(-0.02, 0.02),
+        vy: rand(-0.015, 0.015),
         hue: i % 2,
       });
     }
@@ -237,19 +237,23 @@ refreshRepos();
   });
   window.addEventListener('mouseleave', () => { mouse.active = false; });
 
-  // Card hover: spawn a few ember particles per frame from the card's bounds.
+  // Hover: spawn ember particles per frame from the element's bounds.
+  const HOVER_SEL = '.card, .hero-card, .btn, .icon-btn';
   document.addEventListener('pointerover', (e) => {
-    const card = e.target.closest?.('.card, .hero-card');
-    if (card) hoveredCard = card;
+    const el = e.target.closest?.(HOVER_SEL);
+    if (el) hoveredCard = el;
   });
   document.addEventListener('pointerout', (e) => {
-    const card = e.target.closest?.('.card, .hero-card');
-    if (card && card === hoveredCard) hoveredCard = null;
+    const el = e.target.closest?.(HOVER_SEL);
+    if (el && el === hoveredCard) hoveredCard = null;
   });
 
   function emitEmbers(rect, accent) {
-    // 1–2 embers per frame from a random point on the card's perimeter.
-    const n = 1 + (Math.random() < 0.4 ? 1 : 0);
+    // Sparse embers from a random point on the perimeter. Calmer than before.
+    const small = rect.width < 180 || rect.height < 60;
+    const n = small
+      ? (Math.random() < 0.25 ? 1 : 0)
+      : (Math.random() < 0.55 ? 1 : 0);
     for (let i = 0; i < n; i++) {
       const side = Math.floor(Math.random() * 4);
       let x, y, vx, vy;
@@ -265,6 +269,42 @@ refreshRepos();
         rgb: accent,
       });
     }
+  }
+
+  // Hero card gets a calm orbiting satellite + soft border halo instead of embers.
+  function drawHeroOrbit(rect, accent, accent2, light, now) {
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    const rx = rect.width / 2 + 14;
+    const ry = rect.height / 2 + 14;
+
+    // Soft halo ring around the card.
+    ctx.save();
+    ctx.globalCompositeOperation = light ? 'source-over' : 'lighter';
+    const ringAlpha = light ? 0.10 : 0.18;
+    ctx.strokeStyle = `rgba(${accent[0]},${accent[1]},${accent[2]},${ringAlpha})`;
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.ellipse(cx, cy, rx, ry, 0, 0, Math.PI * 2);
+    ctx.stroke();
+
+    // Two satellites on opposite sides, slowly orbiting.
+    for (let i = 0; i < 2; i++) {
+      const theta = now * 0.35 + i * Math.PI;
+      const sx = cx + Math.cos(theta) * rx;
+      const sy = cy + Math.sin(theta) * ry;
+      const rgb = i === 0 ? accent : accent2;
+      // Halo
+      const halo = ctx.createRadialGradient(sx, sy, 0, sx, sy, 16);
+      halo.addColorStop(0, `rgba(${rgb[0]},${rgb[1]},${rgb[2]},${light ? 0.35 : 0.55})`);
+      halo.addColorStop(1, `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0)`);
+      ctx.fillStyle = halo;
+      ctx.beginPath(); ctx.arc(sx, sy, 16, 0, Math.PI * 2); ctx.fill();
+      // Core
+      ctx.fillStyle = `rgba(255,255,255,${light ? 0.7 : 0.95})`;
+      ctx.beginPath(); ctx.arc(sx, sy, 1.6, 0, Math.PI * 2); ctx.fill();
+    }
+    ctx.restore();
   }
 
   function maybeSpawnComet() {
@@ -299,8 +339,9 @@ refreshRepos();
       if (b.y < -b.r) b.y = h + b.r; else if (b.y > h + b.r) b.y = -b.r;
       const rgb = b.hue === 0 ? accent : accent2;
       const g = ctx.createRadialGradient(b.x, b.y, 0, b.x, b.y, b.r);
-      const peak = light ? 0.08 : 0.16;
+      const peak = light ? 0.035 : 0.06;
       g.addColorStop(0, `rgba(${rgb[0]},${rgb[1]},${rgb[2]},${peak})`);
+      g.addColorStop(0.6, `rgba(${rgb[0]},${rgb[1]},${rgb[2]},${(peak * 0.25).toFixed(3)})`);
       g.addColorStop(1, `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0)`);
       ctx.fillStyle = g;
       ctx.beginPath(); ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2); ctx.fill();
@@ -365,7 +406,13 @@ refreshRepos();
     // --- Card embers ---
     if (hoveredCard && document.contains(hoveredCard)) {
       const r = hoveredCard.getBoundingClientRect();
-      if (r.bottom > 0 && r.top < h) emitEmbers(r, accent);
+      if (r.bottom > 0 && r.top < h) {
+        if (hoveredCard.classList.contains('hero-card')) {
+          drawHeroOrbit(r, accent, accent2, light, now);
+        } else {
+          emitEmbers(r, accent);
+        }
+      }
     }
     ctx.globalCompositeOperation = light ? 'source-over' : 'lighter';
     for (let i = embers.length - 1; i >= 0; i--) {

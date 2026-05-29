@@ -26,8 +26,7 @@ const html = Mustache.render(tpl, data);
 
 const outDir = resolve(root, 'dist');
 mkdirSync(outDir, { recursive: true });
-writeFileSync(resolve(outDir, 'resume.html'), html, 'utf8');
-writeFileSync(resolve(outDir, 'index.html'), html, 'utf8'); // GitHub Pages default
+writeFileSync(resolve(outDir, 'index.html'), html, 'utf8');
 copyFileSync(resolve(root, 'template/resume.css'), resolve(outDir, 'resume.css'));
 copyFileSync(resolve(root, 'template/resume.js'), resolve(outDir, 'resume.js'));
 
@@ -51,6 +50,5 @@ if (existsSync(assetsSrc)) {
 }
 
 console.log('  ✓ dist/index.html');
-console.log('  ✓ dist/resume.html');
 console.log('  ✓ dist/resume.css');
 console.log('  ✓ dist/resume.js');

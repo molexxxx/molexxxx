@@ -24,7 +24,7 @@ for (const f of ['resume.data.json', 'template/resume.html.mustache', 'template/
 const types = { '.html': 'text/html', '.css': 'text/css', '.js': 'text/javascript', '.json': 'application/json' };
 
 const server = createServer(async (req, res) => {
-  let url = req.url === '/' ? '/resume.html' : req.url.split('?')[0];
+  let url = req.url === '/' ? '/index.html' : req.url.split('?')[0];
   const path = resolve(dist, '.' + url);
   if (!path.startsWith(dist) || !existsSync(path) || !statSync(path).isFile()) {
     res.writeHead(404); return res.end('not found');

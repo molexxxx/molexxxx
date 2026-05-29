@@ -24,17 +24,17 @@ const BADGES = [
 
   // docs
   { id: 'zero-query-docs',    kind: 'static-pair', label: 'docs', message: 'API', icon: 'book' },
-  { id: 'zero-server-docs',   kind: 'static-pair', label: 'docs', message: 'API', icon: 'book' },
+  { id: 'zero-server-docs',   kind: 'static-pair', label: 'docs', message: 'z-server.dev', icon: 'book', theme: ZSERVER_THEME('#7c3aed', '#ffffff') },
   { id: 'zero-transfer-docs', kind: 'static-pair', label: 'docs', message: 'API', icon: 'book' },
 
   // npm version
   { id: 'zero-query-npm',    kind: 'npm-version', label: 'npm', pkg: 'zero-query',         icon: 'npm', theme: ZQUERY_THEME('#007acc', '#ffffff') },
-  { id: 'zero-server-npm',   kind: 'npm-version', label: 'npm', pkg: '@zero-server/sdk',   icon: 'npm', theme: ZSERVER_THEME('#00d8e0', '#0a1f24') },
+  { id: 'zero-server-npm',   kind: 'npm-version', label: 'npm', pkg: '@zero-server/sdk',   icon: 'npm', theme: ZSERVER_THEME('#7c3aed', '#ffffff') },
   { id: 'zero-transfer-npm', kind: 'npm-version', label: 'npm', pkg: '@zero-transfer/sdk', icon: 'npm' },
 
   // npm monthly downloads
   { id: 'zero-query-dm',    kind: 'npm-dm', label: 'downloads', pkg: 'zero-query',         icon: 'npm', theme: ZQUERY_THEME('#0288d1', '#ffffff') },
-  { id: 'zero-server-dm',   kind: 'npm-dm', label: 'downloads', pkg: '@zero-server/sdk',   icon: 'npm', theme: ZSERVER_THEME('#00bcd4', '#0a1f24') },
+  { id: 'zero-server-dm',   kind: 'npm-dm', label: 'downloads', pkg: '@zero-server/sdk',   icon: 'npm', theme: ZSERVER_THEME('#6366f1', '#ffffff') },
   { id: 'zero-transfer-dm', kind: 'npm-dm', label: 'downloads', pkg: '@zero-transfer/sdk', icon: 'npm' },
 
   // static call-to-action pairs
@@ -42,14 +42,25 @@ const BADGES = [
   { id: 'bladewake-download',   kind: 'static-pair', label: 'download', message: 'latest',  icon: 'github', theme: { name: 'game', labelBg: '#0a0510', labelFg: '#22d4f0', messageColor: '#22d4f0', textColor: '#0a0510' } },
   { id: 'bladewake-feedback',   kind: 'static-pair', label: 'feedback', message: 'welcome', icon: 'github', theme: { name: 'game', labelBg: '#0a0510', labelFg: '#22d4f0', messageColor: '#22d4f0', textColor: '#0a0510' } },
 
+  // zero-server static facts (tests/coverage/node/sdk-name update manually as project changes)
+  { id: 'zero-server-sdk-name', kind: 'static-pair', label: 'npm',      message: '@zero-server/sdk', icon: 'npm',    theme: ZSERVER_THEME('#1a1b3a', '#a78bfa') },
+  { id: 'zero-server-tests',    kind: 'static-pair', label: 'tests',    message: '8016 passing',    icon: 'github', theme: ZSERVER_THEME('#3b82f6', '#ffffff') },
+  { id: 'zero-server-coverage', kind: 'static-pair', label: 'coverage', message: '95.86%',          icon: 'github', theme: ZSERVER_THEME('#6366f1', '#ffffff') },
+  { id: 'zero-server-node',     kind: 'static-pair', label: 'node',     message: '>=18',            icon: 'github', theme: ZSERVER_THEME('#a78bfa', '#1a1b3a') },
+
+  // zero-query static facts
+  { id: 'zero-query-github',    kind: 'static-pair', label: 'GitHub',       message: 'zero-query', icon: 'github', theme: ZQUERY_THEME('#0a1929', '#4fc3f7') },
+  { id: 'zero-query-deps',      kind: 'static-pair', label: 'dependencies', message: '0',          icon: 'npm',    theme: ZQUERY_THEME('#4fc3f7', '#0a1929') },
+  { id: 'zero-query-vscode',    kind: 'static-pair', label: 'VS Code',      message: 'extension',  icon: 'github', theme: ZQUERY_THEME('#007acc', '#ffffff') },
+
   // GitHub-API badges
   { id: 'zero-query-last-commit',    repo: 'zero-query',           kind: 'last-commit', label: 'last commit', icon: 'git',    theme: ZQUERY_THEME('#4fc3f7', '#0a1929') },
-  { id: 'zero-server-last-commit',   repo: 'zero-server',          kind: 'last-commit', label: 'last commit', icon: 'git',    theme: ZSERVER_THEME('#26c6da', '#0a1f24') },
+  { id: 'zero-server-last-commit',   repo: 'zero-server',          kind: 'last-commit', label: 'last commit', icon: 'git',    theme: ZSERVER_THEME('#a78bfa', '#1a1b3a') },
   { id: 'zero-transfer-last-commit', repo: 'zero-transfer',        kind: 'last-commit', label: 'last commit', icon: 'git' },
   { id: 'zero-query-ci',             repo: 'zero-query',           kind: 'workflow',    label: 'CI',          workflow: 'ci.yml',    branch: 'main', icon: 'github', theme: ZQUERY_THEME('#007acc', '#ffffff') },
   { id: 'zero-query-license',        repo: 'zero-query',           kind: 'license',     label: 'license',     icon: 'github', theme: ZQUERY_THEME('#0288d1', '#ffffff') },
-  { id: 'zero-server-ci',            repo: 'zero-server',          kind: 'workflow',    label: 'CI',          workflow: 'ci.yml',    branch: 'main', icon: 'github', theme: ZSERVER_THEME('#00d8e0', '#0a1f24') },
-  { id: 'zero-server-license',       repo: 'zero-server',          kind: 'license',     label: 'license',     icon: 'github', theme: ZSERVER_THEME('#00bcd4', '#0a1f24') },
+  { id: 'zero-server-ci',            repo: 'zero-server',          kind: 'workflow',    label: 'CI',          workflow: 'ci.yml',    branch: 'main', icon: 'github', theme: ZSERVER_THEME('#7c3aed', '#ffffff') },
+  { id: 'zero-server-license',       repo: 'zero-server',          kind: 'license',     label: 'license',     icon: 'github', theme: ZSERVER_THEME('#6366f1', '#ffffff') },
   { id: 'molex-media-release',       repo: 'molex-media-electron', kind: 'release',     label: 'release',     icon: 'github', theme: MOLEX_THEME('#7c3aed', '#ffffff') },
   { id: 'molex-media-downloads',     repo: 'molex-media-electron', kind: 'downloads',   label: 'downloads',   icon: 'github', theme: MOLEX_THEME('#4f46e5', '#ffffff') },
   { id: 'molex-media-last-commit',   repo: 'molex-media-electron', kind: 'last-commit', label: 'last commit', icon: 'git',    theme: MOLEX_THEME('#a78bfa', '#1a0b2e') },
@@ -66,9 +77,9 @@ function MOLEX_THEME(messageColor, textColor) {
   return { name: 'molex', labelBg: '#1a0b2e', labelFg: '#c4b5fd', messageColor, textColor };
 }
 
-// zero-server palette: dark teal label half with cyan accent text.
+// zero-server palette: deep indigo label half with bright violet accent (matches logo lightning bolt).
 function ZSERVER_THEME(messageColor, textColor) {
-  return { name: 'zserver', labelBg: '#0a1f24', labelFg: '#00d8e0', messageColor, textColor };
+  return { name: 'zserver', labelBg: '#1a1b3a', labelFg: '#a78bfa', messageColor, textColor };
 }
 
 // zero-query palette: dark navy label half with bright blue accent text.

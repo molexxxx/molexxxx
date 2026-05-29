@@ -50,6 +50,8 @@ const BADGES = [
   { id: 'molex-media-downloads',     repo: 'molex-media-electron', kind: 'downloads',   label: 'downloads',   icon: 'github', theme: MOLEX_THEME('#4f46e5', '#ffffff') },
   { id: 'molex-media-last-commit',   repo: 'molex-media-electron', kind: 'last-commit', label: 'last commit', icon: 'git',    theme: MOLEX_THEME('#a78bfa', '#1a0b2e') },
   { id: 'molex-media-license',       repo: 'molex-media-electron', kind: 'license',     label: 'license',     icon: 'github', theme: MOLEX_THEME('#8b5cf6', '#ffffff') },
+  { id: 'molex-media-ci',            repo: 'molex-media-electron', kind: 'workflow',    label: 'CI',    workflow: 'ci.yml',    branch: 'main', icon: 'github', theme: MOLEX_THEME('#7c3aed', '#ffffff') },
+  { id: 'molex-media-build',         repo: 'molex-media-electron', kind: 'workflow',    label: 'build', workflow: 'build.yml', branch: 'main', icon: 'github', theme: MOLEX_THEME('#7c3aed', '#ffffff') },
   { id: 'bladewake-build',           repo: 'bladewake-demo',       kind: 'release',     label: 'build', prerelease: true, icon: 'github', theme: { name: 'game', labelBg: '#0a0510', labelFg: '#22d4f0', messageColor: '#22d4f0', textColor: '#0a0510' } },
   { id: 'bladewake-downloads',       repo: 'bladewake-demo',       kind: 'downloads',   label: 'downloads',   icon: 'github', theme: { name: 'game', labelBg: '#0a0510', labelFg: '#22d4f0', messageColor: '#d020e8', textColor: '#ffffff' } },
   { id: 'bladewake-last-commit',     repo: 'bladewake-demo',       kind: 'last-commit', label: 'last commit', icon: 'git',    theme: { name: 'game', labelBg: '#0a0510', labelFg: '#22d4f0', messageColor: '#8b11a8', textColor: '#ffffff' } },
@@ -137,6 +139,14 @@ async function getValue(b) {
   if (b.kind === 'license') {
     const r = await gh(`/repos/${OWNER}/${b.repo}/license`);
     return r.license?.spdx_id ?? 'unknown';
+  }
+  if (b.kind === 'workflow') {
+    const branch = b.branch ?? 'main';
+    const runs = await gh(`/repos/${OWNER}/${b.repo}/actions/workflows/${b.workflow}/runs?branch=${branch}&per_page=1`);
+    const run = runs.workflow_runs?.[0];
+    if (!run) return 'no runs';
+    if (run.status !== 'completed') return run.status.replace('_', ' ');
+    return run.conclusion ?? 'unknown';
   }
   throw new Error(`unknown kind: ${b.kind}`);
 }

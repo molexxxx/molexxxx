@@ -8,7 +8,7 @@ const root = resolve(__dirname, '..');
 const htmlPath = resolve(root, 'dist/resume.html');
 
 if (!existsSync(htmlPath)) {
-  console.error('dist/resume.html missing — run `npm run build:html` first.');
+  console.error('dist/resume.html missing - run `npm run build:html` first.');
   process.exit(1);
 }
 

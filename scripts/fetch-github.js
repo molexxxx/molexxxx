@@ -8,6 +8,24 @@ const root = resolve(__dirname, '..');
 const USER = process.env.GH_USER || 'tonywied17';
 const TOKEN = process.env.GITHUB_TOKEN;
 
+// Curated repo icons (matches the GitHub profile README). Unknown repos render
+// a generated letter tile in the client.
+const ICON_MAP = {
+  'zero-query': 'https://raw.githubusercontent.com/tonywied17/zero-query/main/.github/images/logo-animated.svg',
+  'zero-server': 'https://raw.githubusercontent.com/tonywied17/zero-server/main/website-docs/public/icons/logo-animated.svg',
+  'zero-transfer': 'https://tonywied17.github.io/zero-transfer/assets/zero-transfer-logo.svg',
+  'molex-media-electron': 'https://raw.githubusercontent.com/tonywied17/molex-media-electron/main/.github/assets/logo.svg',
+  'bladewake-demo': 'https://raw.githubusercontent.com/tonywied17/bladewake-demo/main/assets/bladewake_icon.svg',
+};
+const iconFor = (name) => ICON_MAP[name] ?? null;
+
+// Repos to hide from the live grid (e.g. WIP/abandoned).
+const EXCLUDE = new Set(['ng-juwanji']);
+
+// Forks worth pinning. We replace the fork's stats (always 0★) with the
+// upstream's so the grid reflects the project's real reach.
+const INCLUDE_FORKS = ['plex-poster-set-helper'];
+
 const headers = {
   'User-Agent': `${USER}-resume-build`,
   Accept: 'application/vnd.github+json',
@@ -27,10 +45,31 @@ async function safe(promise, fallback) {
 
 const user = await safe(gh(`/users/${USER}`), null);
 
-// Pull all (non-fork) repos
 const allRepos = await safe(gh(`/users/${USER}/repos?per_page=100&sort=pushed&type=owner`), []);
-const repos = allRepos
-  .filter((r) => !r.fork && !r.archived)
+
+// Resolve upstream stats for any pinned forks so we can present them honestly.
+async function resolveFork(name) {
+  const detail = await safe(gh(`/repos/${USER}/${name}`), null);
+  if (!detail) return null;
+  const src = detail.source ?? detail.parent;
+  const upstreamStars = src?.stargazers_count ?? detail.stargazers_count;
+  const upstreamForks = src?.forks_count ?? detail.forks_count;
+  return {
+    ...detail,
+    stargazers_count: upstreamStars,
+    forks_count: upstreamForks,
+    _upstream: src ? src.full_name : null,
+  };
+}
+
+const forkDetails = (await Promise.all(INCLUDE_FORKS.map(resolveFork))).filter(Boolean);
+
+const combined = [
+  ...allRepos.filter((r) => !r.fork && !r.archived && !EXCLUDE.has(r.name)),
+  ...forkDetails,
+];
+
+const repos = combined
   .sort((a, b) => (b.stargazers_count - a.stargazers_count) || (Date.parse(b.pushed_at) - Date.parse(a.pushed_at)))
   .slice(0, 9)
   .map((r) => ({
@@ -44,9 +83,12 @@ const repos = allRepos
     stars: r.stargazers_count,
     forks: r.forks_count,
     pushed_at: r.pushed_at,
+    icon: iconFor(r.name),
+    initial: (r.name || '?').charAt(0).toUpperCase(),
+    upstream: r._upstream ?? null,
   }));
 
-const totalStars = allRepos.reduce((s, r) => s + (r.fork ? 0 : r.stargazers_count), 0);
+const totalStars = combined.reduce((s, r) => s + r.stargazers_count, 0);
 
 const out = {
   user: user

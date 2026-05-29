@@ -1,6 +1,7 @@
 <p align="center"><b>developer</b> · web · desktop · games · robotics & drones · real-time · audio/DSP · graphics</p>
 
 <p align="center">
+  <a href="https://tonywied17.github.io/"><b>résumé</b></a> &nbsp;·&nbsp;
   <a href="https://github.com/tonywied17?tab=repositories">repos</a> &nbsp;·&nbsp;
   <a href="https://gist.github.com/tonywied17">gists</a> &nbsp;·&nbsp;
   <a href="https://www.npmjs.com/~molex222">npm</a>

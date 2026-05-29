@@ -61,7 +61,6 @@ children.push(new Paragraph({
 const contactRuns = [
   new TextRun({ text: `${data.location}  ·  `, color: MUTED, size: 20 }),
   link(data.email, `mailto:${data.email}`),
-  new TextRun({ text: `  ·  ${data.phone}`, color: MUTED, size: 20 }),
 ];
 for (const l of data.links) {
   contactRuns.push(new TextRun({ text: '  ·  ', color: MUTED, size: 20 }));
@@ -144,7 +143,7 @@ for (const e of data.education) {
 
 const doc = new Document({
   creator: data.name,
-  title: `${data.name} — Resume`,
+  title: `${data.name} - Resume`,
   styles: {
     default: {
       document: { run: { font: 'Calibri', size: 20, color: INK } },

@@ -4,12 +4,12 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <meta name="color-scheme" content="dark light" />
-<title>{{name}} — {{title}}</title>
+<title>{{name}} - {{title}}</title>
 <meta name="description" content="{{summary}}" />
-<meta property="og:title" content="{{name}} — {{title}}" />
+<meta property="og:title" content="{{name}} - {{title}}" />
 <meta property="og:description" content="{{tagline}}" />
 <meta property="og:type" content="website" />
-{{#github.user.avatar_url}}<meta property="og:image" content="{{github.user.avatar_url}}" />{{/github.user.avatar_url}}
+{{#photo}}<meta property="og:image" content="{{photo}}" />{{/photo}}{{^photo}}{{#github.user.avatar_url}}<meta property="og:image" content="{{github.user.avatar_url}}" />{{/github.user.avatar_url}}{{/photo}}
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232563eb'/%3E%3Ctext x='16' y='22' font-family='Inter,sans-serif' font-weight='800' font-size='18' fill='white' text-anchor='middle'%3EAW%3C/text%3E%3C/svg%3E" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,6 +17,8 @@
 <link rel="stylesheet" href="resume.css" />
 </head>
 <body>
+
+<canvas id="bg-fx" class="bg-fx no-print" aria-hidden="true"></canvas>
 
 <nav class="nav no-print">
   <div class="nav-inner">
@@ -64,12 +66,12 @@
       <div class="hero-meta">
         <span>{{location}}</span>
         <span><a href="mailto:{{email}}">{{email}}</a></span>
-        <span>{{phone}}</span>
       </div>
     </div>
 
     <aside class="hero-card reveal" id="about">
-      {{#github.user.avatar_url}}<img class="avatar" src="{{github.user.avatar_url}}" alt="{{name}}" />{{/github.user.avatar_url}}
+      {{#photo}}<img class="avatar" src="{{photo}}" alt="{{name}}" />{{/photo}}
+      {{^photo}}{{#github.user.avatar_url}}<img class="avatar" src="{{github.user.avatar_url}}" alt="{{name}}" />{{/github.user.avatar_url}}{{/photo}}
       <div class="stats">
         <div class="stat"><span class="num">{{github.totals.repos}}</span><span class="lbl">Repos</span></div>
         <div class="stat"><span class="num">{{github.totals.stars}}</span><span class="lbl">Stars</span></div>
@@ -114,8 +116,14 @@
   <div class="grid grid-2">
     {{#projects}}
     <a class="card project reveal" href="{{url}}" target="_blank" rel="noopener">
-      <h3>{{name}} <span class="arrow">↗</span></h3>
-      <p>{{blurb}}</p>
+      <div class="card-row">
+        {{#icon}}<img class="card-icon" src="{{icon}}" alt="" loading="lazy" data-initial="{{initial}}" onerror="const s=document.createElement('span');s.className='card-icon letter';s.textContent=this.dataset.initial;this.replaceWith(s);" />{{/icon}}
+        {{^icon}}<span class="card-icon letter">{{initial}}</span>{{/icon}}
+        <div class="card-body">
+          <h3>{{name}} <span class="arrow">↗</span></h3>
+          <p>{{blurb}}</p>
+        </div>
+      </div>
     </a>
     {{/projects}}
   </div>
@@ -130,15 +138,21 @@
   <div class="grid grid-3" id="repos">
     {{#github.repos}}
     <a class="card repo reveal" href="{{url}}" target="_blank" rel="noopener">
-      <div class="repo-head">
-        <h3>{{name}}</h3>
-        <span class="arrow">↗</span>
-      </div>
-      <p class="repo-desc">{{description}}</p>
-      <div class="repo-meta">
-        {{#language}}<span class="tag lang" data-lang="{{language}}"><span class="dot"></span>{{language}}</span>{{/language}}
-        <span class="tag">★ {{stars}}</span>
-        {{#forks}}<span class="tag">⑂ {{forks}}</span>{{/forks}}
+      <div class="card-row">
+        {{#icon}}<img class="card-icon" src="{{icon}}" alt="" loading="lazy" data-initial="{{initial}}" onerror="const s=document.createElement('span');s.className='card-icon letter';s.textContent=this.dataset.initial;this.replaceWith(s);" />{{/icon}}
+        {{^icon}}<span class="card-icon letter">{{initial}}</span>{{/icon}}
+        <div class="card-body">
+          <div class="repo-head">
+            <h3>{{name}}</h3>
+            <span class="arrow">↗</span>
+          </div>
+          <p class="repo-desc">{{description}}</p>
+          <div class="repo-meta">
+            {{#language}}<span class="tag lang" data-lang="{{language}}"><span class="dot"></span>{{language}}</span>{{/language}}
+            <span class="tag">★ {{stars}}</span>
+            {{#forks}}<span class="tag">⑂ {{forks}}</span>{{/forks}}
+          </div>
+        </div>
       </div>
     </a>
     {{/github.repos}}

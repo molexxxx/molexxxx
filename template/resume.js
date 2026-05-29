@@ -1,24 +1,41 @@
-// Theme toggle
+/* -------------------------------------------------------------------------- */
+/*                                Theme toggle                                */
+/* -------------------------------------------------------------------------- */
+
 const root = document.documentElement;
-const KEY = 'resume-theme';
-const saved = localStorage.getItem(KEY);
-if (saved) root.setAttribute('data-theme', saved);
+const THEME_STORAGE_KEY = 'resume-theme';
+const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
+if (savedTheme) root.setAttribute('data-theme', savedTheme);
 else if (window.matchMedia('(prefers-color-scheme: light)').matches) root.setAttribute('data-theme', 'light');
 
-document.getElementById('theme-toggle')?.addEventListener('click', () => {
+document.getElementById('theme-toggle')?.addEventListener('click', () =>
+{
   const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
   root.setAttribute('data-theme', next);
-  localStorage.setItem(KEY, next);
+  localStorage.setItem(THEME_STORAGE_KEY, next);
 });
 
-// Mobile nav drawer
-(() => {
+/* -------------------------------------------------------------------------- */
+/*                              Mobile nav drawer                             */
+/* -------------------------------------------------------------------------- */
+
+(() =>
+{
   const nav = document.querySelector('.nav');
   const toggle = document.getElementById('nav-toggle');
   const scrim = document.getElementById('nav-scrim');
   const links = document.getElementById('nav-links');
   if (!nav || !toggle || !links) return;
-  const setOpen = (open) => {
+
+  /**
+   * Toggle the mobile navigation drawer open/closed and sync the related
+   * accessibility attributes and body scroll lock.
+   *
+   * @param {boolean} open True to open the drawer, false to close it.
+   * @returns {void}
+   */
+  const setOpen = (open) =>
+  {
     nav.classList.toggle('is-open', open);
     toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
     toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
@@ -26,41 +43,52 @@ document.getElementById('theme-toggle')?.addEventListener('click', () => {
   };
   toggle.addEventListener('click', () => setOpen(!nav.classList.contains('is-open')));
   scrim?.addEventListener('click', () => setOpen(false));
-  links.addEventListener('click', (e) => {
+  links.addEventListener('click', (e) =>
+  {
     if (e.target.closest('a')) setOpen(false);
   });
-  document.addEventListener('keydown', (e) => {
+  document.addEventListener('keydown', (e) =>
+  {
     if (e.key === 'Escape' && nav.classList.contains('is-open')) setOpen(false);
   });
-  // Close drawer if viewport grows past mobile breakpoint.
   const mq = window.matchMedia('(min-width: 769px)');
   mq.addEventListener?.('change', (e) => { if (e.matches) setOpen(false); });
 })();
 
-// Footer year
-const y = document.getElementById('year');
-if (y) y.textContent = new Date().getFullYear();
+/* -------------------------------------------------------------------------- */
+/*                              Footer year stamp                             */
+/* -------------------------------------------------------------------------- */
 
-// Reveal on scroll
-const io = new IntersectionObserver(
-  (entries) => {
-    for (const e of entries) {
-      if (e.isIntersecting) {
-        e.target.classList.add('in');
-        io.unobserve(e.target);
+const yearEl = document.getElementById('year');
+if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+/* -------------------------------------------------------------------------- */
+/*                          Reveal-on-scroll observer                         */
+/* -------------------------------------------------------------------------- */
+
+const revealObserver = new IntersectionObserver(
+  (entries) =>
+  {
+    for (const entry of entries)
+    {
+      if (entry.isIntersecting)
+      {
+        entry.target.classList.add('in');
+        revealObserver.unobserve(entry.target);
       }
     }
   },
   { threshold: 0.12, rootMargin: '0px 0px -40px 0px' },
 );
-document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el));
 
-// Refresh GitHub data live, with a 30-minute localStorage cache so we don't
-// burn through the 60-req/hr unauthenticated GitHub API rate limit per visitor.
+/* -------------------------------------------------------------------------- */
+/*                          GitHub repo grid (client)                         */
+/* -------------------------------------------------------------------------- */
+
 const GH_CACHE_KEY = 'resume-gh-cache-v2';
 const GH_CACHE_TTL_MS = 30 * 60 * 1000;
 
-// Curated repo icons (mirrors fetch-github.js).
 const ICON_MAP = {
   'zero-query': 'https://raw.githubusercontent.com/tonywied17/zero-query/main/.github/images/logo-animated.svg',
   'zero-server': 'https://raw.githubusercontent.com/tonywied17/zero-server/main/website-docs/public/icons/logo-animated.svg',
@@ -72,8 +100,17 @@ const ICON_MAP = {
 const EXCLUDE = new Set(['ng-juwanji']);
 const INCLUDE_FORKS = ['plex-poster-set-helper'];
 
-function readCache() {
-  try {
+/**
+ * Read the cached GitHub repo payload from `localStorage` if it is still
+ * within the configured TTL window.
+ *
+ * @returns {Array<object>|null} Cached repo list, or `null` when missing,
+ *   malformed, or expired.
+ */
+function readCache()
+{
+  try
+  {
     const raw = localStorage.getItem(GH_CACHE_KEY);
     if (!raw) return null;
     const entry = JSON.parse(raw);
@@ -83,11 +120,30 @@ function readCache() {
   } catch { return null; }
 }
 
-function writeCache(data) {
-  try { localStorage.setItem(GH_CACHE_KEY, JSON.stringify({ t: Date.now(), data })); } catch {}
+/**
+ * Persist a fetched GitHub repo payload to `localStorage` with the current
+ * timestamp. Silently no-ops if storage is unavailable.
+ *
+ * @param {Array<object>} data Repo objects as returned by the GitHub API.
+ * @returns {void}
+ */
+function writeCache(data)
+{
+  try { localStorage.setItem(GH_CACHE_KEY, JSON.stringify({ t: Date.now(), data })); } catch { }
 }
 
-async function fetchRepos() {
+/**
+ * Fetch the user's public repos from the GitHub API, merging in any forks
+ * configured in {@link INCLUDE_FORKS} with upstream star/fork counts. Returns
+ * the cached payload when available to avoid hitting the unauthenticated
+ * 60-req/hr rate limit.
+ *
+ * @returns {Promise<{repos: Array<object>, fromCache: boolean}>} The repo
+ *   list and a flag indicating whether it came from the local cache.
+ * @throws {Error} If the live GitHub request fails and no cache is available.
+ */
+async function fetchRepos()
+{
   const cached = readCache();
   if (cached) return { repos: cached, fromCache: true };
   const headers = { Accept: 'application/vnd.github+json' };
@@ -97,7 +153,8 @@ async function fetchRepos() {
   ]);
   if (!listRes.ok) throw new Error(`gh ${listRes.status}`);
   const all = await listRes.json();
-  const forks = (await Promise.all(forkRes.map(async (r) => {
+  const forks = (await Promise.all(forkRes.map(async (r) =>
+  {
     if (!r.ok) return null;
     const d = await r.json();
     const src = d.source ?? d.parent;
@@ -113,10 +170,19 @@ async function fetchRepos() {
   return { repos: merged, fromCache: false };
 }
 
-async function refreshRepos() {
+/**
+ * Populate the `#repos` grid with the current top repos by stars (then most
+ * recently pushed) and refresh the `Repos` / `Stars` stat counters. Fails
+ * silently when offline or rate-limited so the build-time markup remains.
+ *
+ * @returns {Promise<void>}
+ */
+async function refreshRepos()
+{
   const grid = document.getElementById('repos');
   if (!grid) return;
-  try {
+  try
+  {
     const { repos: all } = await fetchRepos();
     const repos = all
       .filter((r) => !r.fork && !r.archived && !EXCLUDE.has(r.name))
@@ -131,7 +197,15 @@ async function refreshRepos() {
   } catch { /* offline / rate-limited - keep build-time content */ }
 }
 
-function repoCard(r) {
+/**
+ * Render a single repo as an anchor card matching the build-time markup.
+ * All interpolated values are HTML-escaped.
+ *
+ * @param {object} r GitHub repo object.
+ * @returns {string} HTML string for one repo card.
+ */
+function repoCard(r)
+{
   const esc = (s) => (s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const initial = (r.name || '?').charAt(0).toUpperCase();
   const icon = ICON_MAP[r.name];
@@ -154,24 +228,41 @@ function repoCard(r) {
   </a>`;
 }
 
-function setStat(label, value) {
-  for (const s of document.querySelectorAll('.stat')) {
-    const lbl = s.querySelector('.lbl');
-    if (lbl?.textContent?.trim().toLowerCase() === label.toLowerCase()) {
-      const num = s.querySelector('.num');
-      if (num) num.textContent = String(value);
+/**
+ * Update the numeric value on the hero stat whose label matches `label`
+ * (case-insensitive). No-ops if no matching stat is present.
+ *
+ * @param {string} label Stat label text, e.g. `'Stars'` or `'Repos'`.
+ * @param {number|string} value Value to display.
+ * @returns {void}
+ */
+function setStat(label, value)
+{
+  for (const stat of document.querySelectorAll('.stat'))
+  {
+    const labelEl = stat.querySelector('.lbl');
+    if (labelEl?.textContent?.trim().toLowerCase() === label.toLowerCase())
+    {
+      const numEl = stat.querySelector('.num');
+      if (numEl) numEl.textContent = String(value);
     }
   }
 }
 
 refreshRepos();
 
-// --------------------------------------------------------------------
-// Cosmic background: parallax starfield with drifting nebula clouds,
-// gravitational-lens cursor that bends nearby stars, and per-card
-// ember bursts that flare from the card you're hovering.
-// --------------------------------------------------------------------
-(function bgFx() {
+/* -------------------------------------------------------------------------- */
+/*                Background canvas FX + custom DOM cursor                    */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * Self-invoking module that owns the full-viewport background canvas:
+ * parallax starfield, drifting nebula washes, occasional comets, hovered-card
+ * embers, cursor spark trail, and the synthetic DOM cursor (with comet-hit
+ * shatter/reform). Bails out entirely when the user prefers reduced motion.
+ */
+(function bgFx()
+{
   const canvas = document.getElementById('bg-fx');
   if (!canvas) return;
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -180,7 +271,6 @@ refreshRepos();
   let DPR = Math.min(window.devicePixelRatio || 1, 2);
   let w = 0, h = 0;
 
-  // Three parallax layers. Layer 0 = farthest (small, slow, dim), 2 = closest.
   const LAYERS = [
     { count: 0, speed: 0.03, size: [0.25, 0.6], alpha: [0.15, 0.40] },
     { count: 0, speed: 0.07, size: [0.40, 0.9], alpha: [0.25, 0.55] },
@@ -193,38 +283,50 @@ refreshRepos();
   const mouse = { x: -9999, y: -9999, active: false };
   let hoveredCard = null;
 
-  // Custom DOM cursor (always on top of page content). Only on fine-pointer
-  // devices so we don't hide a non-existent system cursor on touch.
   const finePointer = window.matchMedia('(pointer: fine)').matches;
   let cur = null;
   let cursorExploding = false;
   let cursorReformTimer = 0;
-  if (finePointer) {
+  if (finePointer)
+  {
     document.documentElement.classList.add('fx-cursor');
     cur = document.createElement('div');
     cur.className = 'fx-cursor-el';
     cur.innerHTML = '<span class="fx-cursor-ring"></span><span class="fx-cursor-dot"></span>';
     document.body.appendChild(cur);
     const CURSOR_INTERACTIVE_SEL = 'a, button, [role="button"], input, textarea, select, label[for], .card, summary';
-    document.addEventListener('pointermove', (e) => {
+    document.addEventListener('pointermove', (e) =>
+    {
       cur.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
       cur.classList.add('is-visible');
     });
-    document.addEventListener('pointerover', (e) => {
+    document.addEventListener('pointerover', (e) =>
+    {
       cur.classList.toggle('is-hot', !!e.target.closest?.(CURSOR_INTERACTIVE_SEL));
     });
     document.addEventListener('pointerdown', () => cur.classList.add('is-down'));
-    document.addEventListener('pointerup',   () => cur.classList.remove('is-down'));
-    window.addEventListener('blur',          () => cur.classList.remove('is-down'));
-    document.addEventListener('mouseleave',  () => cur.classList.remove('is-visible'));
+    document.addEventListener('pointerup', () => cur.classList.remove('is-down'));
+    window.addEventListener('blur', () => cur.classList.remove('is-down'));
+    document.addEventListener('mouseleave', () => cur.classList.remove('is-visible'));
   }
-  function explodeCursor(accent, accent2) {
+  /**
+   * Trigger the cursor shatter animation: emit a radial ember burst from the
+   * cursor's current position and toggle the `is-exploding` class on the
+   * cursor element. A timer auto-clears the class so the cursor reforms even
+   * if the pointer never moves.
+   *
+   * @param {[number, number, number]} accent  Primary accent color as RGB.
+   * @param {[number, number, number]} accent2 Secondary accent color as RGB.
+   * @returns {void}
+   */
+  function explodeCursor(accent, accent2)
+  {
     if (!cur || cursorExploding) return;
     cursorExploding = true;
     cur.classList.add('is-exploding');
-    // Burst of outward sparks from the cursor position.
     const N = 14;
-    for (let i = 0; i < N; i++) {
+    for (let i = 0; i < N; i++)
+    {
       const ang = (i / N) * Math.PI * 2 + rand(-0.2, 0.2);
       const spd = rand(1.8, 3.4);
       embers.push({
@@ -238,25 +340,62 @@ refreshRepos();
       });
     }
     clearTimeout(cursorReformTimer);
-    cursorReformTimer = setTimeout(() => {
+    cursorReformTimer = setTimeout(() =>
+    {
       if (cur) cur.classList.remove('is-exploding');
       cursorExploding = false;
     }, 420);
   }
 
-  function readVar(name, fallback) {
+  /**
+   * Read a CSS custom property from the document root, falling back to a
+   * default when it is unset.
+   *
+   * @param {string} name     CSS variable name, including the leading `--`.
+   * @param {string} fallback Value to return when the property is empty.
+   * @returns {string} The computed value or the fallback.
+   */
+  function readVar(name, fallback)
+  {
     const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
     return v || fallback;
   }
-  function hexToRgb(hex) {
+
+  /**
+   * Parse a 6-digit hex color into an `[r, g, b]` tuple.
+   *
+   * @param {string} hex Hex color string, with or without a leading `#`.
+   * @returns {[number, number, number]} RGB channels in 0–255.
+   */
+  function hexToRgb(hex)
+  {
     const m = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
     if (!m) return [120, 180, 255];
     return [parseInt(m[1], 16), parseInt(m[2], 16), parseInt(m[3], 16)];
   }
+
+  /**
+   * Uniformly distributed random float in `[a, b)`.
+   *
+   * @param {number} a Inclusive lower bound.
+   * @param {number} b Exclusive upper bound.
+   * @returns {number}
+   */
   const rand = (a, b) => a + Math.random() * (b - a);
+
+  /**
+   * @returns {boolean} `true` when the document is currently in light theme.
+   */
   const isLight = () => document.documentElement.getAttribute('data-theme') === 'light';
 
-  function resize() {
+  /**
+   * Re-measure the viewport, resize the canvas for the current DPR, and
+   * re-seed the starfield and nebulae to fit the new dimensions.
+   *
+   * @returns {void}
+   */
+  function resize()
+  {
     DPR = Math.min(window.devicePixelRatio || 1, 2);
     w = window.innerWidth;
     h = window.innerHeight;
@@ -268,8 +407,14 @@ refreshRepos();
     seed();
   }
 
-  function seed() {
-    // Scale star count gently with viewport area.
+  /**
+   * Populate the star and nebula arrays based on the current viewport size.
+   * Star count scales gently with viewport area within a sensible floor/ceiling.
+   *
+   * @returns {void}
+   */
+  function seed()
+  {
     const area = w * h;
     const baseTotal = Math.min(240, Math.max(90, Math.round(area / 9000)));
     LAYERS[0].count = Math.round(baseTotal * 0.55);
@@ -277,9 +422,11 @@ refreshRepos();
     LAYERS[2].count = Math.round(baseTotal * 0.15);
 
     stars = [];
-    for (let li = 0; li < LAYERS.length; li++) {
+    for (let li = 0; li < LAYERS.length; li++)
+    {
       const L = LAYERS[li];
-      for (let i = 0; i < L.count; i++) {
+      for (let i = 0; i < L.count; i++)
+      {
         stars.push({
           layer: li,
           x: Math.random() * w,
@@ -293,10 +440,10 @@ refreshRepos();
       }
     }
 
-    // A couple very faint, very large washes — no more obvious "circle blobs".
     nebulae = [];
     const blobCount = 2;
-    for (let i = 0; i < blobCount; i++) {
+    for (let i = 0; i < blobCount; i++)
+    {
       nebulae.push({
         x: Math.random() * w,
         y: rand(h * 0.1, h * 0.6),
@@ -309,43 +456,55 @@ refreshRepos();
   }
 
   window.addEventListener('resize', resize);
-  window.addEventListener('mousemove', (e) => {
+  window.addEventListener('mousemove', (e) =>
+  {
     mouse.x = e.clientX; mouse.y = e.clientY; mouse.active = true;
   });
   window.addEventListener('mouseleave', () => { mouse.active = false; });
 
-  // Hover: spawn ember particles per frame from the element's bounds.
-  // Buttons get a CSS-only hover (sheen + glow), not embers — too much when stacked.
   const HOVER_SEL = '.card, .hero-card';
-  document.addEventListener('pointerover', (e) => {
+  document.addEventListener('pointerover', (e) =>
+  {
     const el = e.target.closest?.(HOVER_SEL);
     if (el) hoveredCard = el;
   });
-  document.addEventListener('pointerout', (e) => {
+  document.addEventListener('pointerout', (e) =>
+  {
     const el = e.target.closest?.(HOVER_SEL);
     if (el && el === hoveredCard) hoveredCard = null;
   });
 
-  // Cursor spark trail + ambient/click rings, active anywhere on the page.
   const rings = [];
   let lastRingT = 0;
   let lastMoveT = 0;
   window.addEventListener('mousemove', () => { lastMoveT = performance.now(); });
-  window.addEventListener('pointerdown', (e) => {
+  window.addEventListener('pointerdown', (e) =>
+  {
     rings.push({ x: e.clientX, y: e.clientY, life: 0, ttl: 55 });
   });
-  function emitCursorSparks(accent, accent2) {
+
+  /**
+   * Emit a short cursor-trail of upward-drifting sparks plus an occasional
+   * ambient pulse ring. Throttled to skip emission when the pointer has been
+   * idle so the field stays calm while reading.
+   *
+   * @param {[number, number, number]} accent  Primary accent RGB.
+   * @param {[number, number, number]} accent2 Secondary accent RGB.
+   * @returns {void}
+   */
+  function emitCursorSparks(accent, accent2)
+  {
     if (!mouse.active) return;
     const t = performance.now();
-    // Only emit while the cursor has moved recently — feels alive on motion,
-    // calm at rest.
     if (t - lastMoveT > 600) return;
-    if (t - lastRingT > 1400) {
+    if (t - lastRingT > 1400)
+    {
       lastRingT = t;
       rings.push({ x: mouse.x, y: mouse.y, life: 0, ttl: 70, soft: true });
     }
     const n = Math.random() < 0.85 ? 1 : 2;
-    for (let i = 0; i < n; i++) {
+    for (let i = 0; i < n; i++)
+    {
       const rgb = Math.random() < 0.5 ? accent : accent2;
       const ang = rand(-Math.PI, 0);
       const spd = rand(0.4, 1.3);
@@ -361,11 +520,22 @@ refreshRepos();
       });
     }
   }
-  function drawRings(accent, light) {
+  /**
+   * Advance and render all active expanding rings, removing any that have
+   * exceeded their TTL.
+   *
+   * @param {[number, number, number]} accent Stroke color as RGB.
+   * @param {boolean} light Whether the page is in light theme; controls
+   *   compositing and alpha levels.
+   * @returns {void}
+   */
+  function drawRings(accent, light)
+  {
     if (!rings.length) return;
     ctx.save();
     ctx.globalCompositeOperation = light ? 'source-over' : 'lighter';
-    for (let i = rings.length - 1; i >= 0; i--) {
+    for (let i = rings.length - 1; i >= 0; i--)
+    {
       const ring = rings[i];
       ring.life++;
       const t = ring.life / ring.ttl;
@@ -381,19 +551,28 @@ refreshRepos();
     ctx.restore();
   }
 
-  function emitEmbers(rect, accent) {
-    // Sparse embers from a random point on the perimeter. Calmer than before.
+  /**
+   * Spawn 0–1 ember particles from a random side of the given rectangle.
+   * Small rectangles emit less often than large ones.
+   *
+   * @param {DOMRect} rect Bounding rect of the hovered element.
+   * @param {[number, number, number]} accent Ember color as RGB.
+   * @returns {void}
+   */
+  function emitEmbers(rect, accent)
+  {
     const small = rect.width < 180 || rect.height < 60;
     const n = small
       ? (Math.random() < 0.25 ? 1 : 0)
       : (Math.random() < 0.55 ? 1 : 0);
-    for (let i = 0; i < n; i++) {
+    for (let i = 0; i < n; i++)
+    {
       const side = Math.floor(Math.random() * 4);
       let x, y, vx, vy;
-      if (side === 0)       { x = rect.left + Math.random() * rect.width; y = rect.top;             vy = -rand(0.3, 0.9); vx = rand(-0.3, 0.3); }
-      else if (side === 1)  { x = rect.right;                              y = rect.top + Math.random() * rect.height; vx = rand(0.3, 0.9); vy = rand(-0.3, 0.3); }
-      else if (side === 2)  { x = rect.left + Math.random() * rect.width; y = rect.bottom;          vy = rand(0.3, 0.9); vx = rand(-0.3, 0.3); }
-      else                  { x = rect.left;                               y = rect.top + Math.random() * rect.height; vx = -rand(0.3, 0.9); vy = rand(-0.3, 0.3); }
+      if (side === 0) { x = rect.left + Math.random() * rect.width; y = rect.top; vy = -rand(0.3, 0.9); vx = rand(-0.3, 0.3); }
+      else if (side === 1) { x = rect.right; y = rect.top + Math.random() * rect.height; vx = rand(0.3, 0.9); vy = rand(-0.3, 0.3); }
+      else if (side === 2) { x = rect.left + Math.random() * rect.width; y = rect.bottom; vy = rand(0.3, 0.9); vx = rand(-0.3, 0.3); }
+      else { x = rect.left; y = rect.top + Math.random() * rect.height; vx = -rand(0.3, 0.9); vy = rand(-0.3, 0.3); }
       embers.push({
         x, y, vx, vy,
         life: 0,
@@ -404,14 +583,24 @@ refreshRepos();
     }
   }
 
-  // Hero card gets a calm orbiting satellite + soft border halo instead of embers.
-  function drawHeroOrbit(rect, accent, accent2, light, now) {
+  /**
+   * Draw the hero card's hover treatment: a soft halo ellipse plus two
+   * satellites orbiting in opposition.
+   *
+   * @param {DOMRect} rect The hero card's bounding rect.
+   * @param {[number, number, number]} accent  Primary accent RGB.
+   * @param {[number, number, number]} accent2 Secondary accent RGB.
+   * @param {boolean} light Whether the page is in light theme.
+   * @param {number} now Animation clock in seconds.
+   * @returns {void}
+   */
+  function drawHeroOrbit(rect, accent, accent2, light, now)
+  {
     const cx = rect.left + rect.width / 2;
     const cy = rect.top + rect.height / 2;
     const rx = rect.width / 2 + 14;
     const ry = rect.height / 2 + 14;
 
-    // Soft halo ring around the card.
     ctx.save();
     ctx.globalCompositeOperation = light ? 'source-over' : 'lighter';
     const ringAlpha = light ? 0.10 : 0.18;
@@ -421,27 +610,31 @@ refreshRepos();
     ctx.ellipse(cx, cy, rx, ry, 0, 0, Math.PI * 2);
     ctx.stroke();
 
-    // Two satellites on opposite sides, slowly orbiting.
-    for (let i = 0; i < 2; i++) {
+    for (let i = 0; i < 2; i++)
+    {
       const theta = now * 0.35 + i * Math.PI;
       const sx = cx + Math.cos(theta) * rx;
       const sy = cy + Math.sin(theta) * ry;
       const rgb = i === 0 ? accent : accent2;
-      // Halo
       const halo = ctx.createRadialGradient(sx, sy, 0, sx, sy, 16);
       halo.addColorStop(0, `rgba(${rgb[0]},${rgb[1]},${rgb[2]},${light ? 0.35 : 0.55})`);
       halo.addColorStop(1, `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0)`);
       ctx.fillStyle = halo;
       ctx.beginPath(); ctx.arc(sx, sy, 16, 0, Math.PI * 2); ctx.fill();
-      // Core
       ctx.fillStyle = `rgba(255,255,255,${light ? 0.7 : 0.95})`;
       ctx.beginPath(); ctx.arc(sx, sy, 1.6, 0, Math.PI * 2); ctx.fill();
     }
     ctx.restore();
   }
 
-  function maybeSpawnComet() {
-    if (Math.random() > 0.004) return; // ~once every ~250 frames
+  /**
+   * With low probability per frame, spawn a comet that crosses the viewport.
+   *
+   * @returns {void}
+   */
+  function maybeSpawnComet()
+  {
+    if (Math.random() > 0.004) return;
     const fromLeft = Math.random() < 0.5;
     comets.push({
       x: fromLeft ? -40 : w + 40,
@@ -455,7 +648,16 @@ refreshRepos();
 
   resize();
 
-  function tick() {
+  /**
+   * Main render loop. Composites the background layers in z-order:
+   * nebulae, parallax stars (with cursor-lens bend), comets, hovered-card
+   * embers/orbit, cursor sparks, rings, and finally the ember particles
+   * themselves. Schedules itself via `requestAnimationFrame`.
+   *
+   * @returns {void}
+   */
+  function tick()
+  {
     const accentHex = readVar('--accent', '#3b82f6');
     const accent2Hex = readVar('--accent-2', '#1d4ed8');
     const accent = hexToRgb(accentHex);
@@ -464,9 +666,9 @@ refreshRepos();
 
     ctx.clearRect(0, 0, w, h);
 
-    // --- Nebula clouds (soft, slow) ---
     ctx.globalCompositeOperation = light ? 'multiply' : 'screen';
-    for (const b of nebulae) {
+    for (const b of nebulae)
+    {
       b.x += b.vx; b.y += b.vy;
       if (b.x < -b.r) b.x = w + b.r; else if (b.x > w + b.r) b.x = -b.r;
       if (b.y < -b.r) b.y = h + b.r; else if (b.y > h + b.r) b.y = -b.r;
@@ -481,27 +683,28 @@ refreshRepos();
     }
     ctx.globalCompositeOperation = 'source-over';
 
-    // --- Stars (parallax + twinkle + gravitational lens bend) ---
     const now = performance.now() * 0.001;
     const LENS_R = 160;
-    for (const s of stars) {
+    for (const s of stars)
+    {
       const L = LAYERS[s.layer];
       s.x += L.speed * s.drift;
       if (s.x > w + 4) s.x = -4;
       if (s.x < -4) s.x = w + 4;
 
       let dx = 0, dy = 0;
-      if (mouse.active) {
+      if (mouse.active)
+      {
         const mx = mouse.x - s.x;
         const my = mouse.y - s.y;
         const d2 = mx * mx + my * my;
-        if (d2 < LENS_R * LENS_R) {
+        if (d2 < LENS_R * LENS_R)
+        {
           const d = Math.sqrt(d2) || 1;
-          // Tangential bend: stars curve *around* the cursor (perpendicular push).
           const t = (1 - d / LENS_R);
           const push = t * t * 14 * (0.6 + L.speed * 2);
           dx = (-my / d) * push;
-          dy = ( mx / d) * push;
+          dy = (mx / d) * push;
         }
       }
 
@@ -514,9 +717,9 @@ refreshRepos();
       ctx.fill();
     }
 
-    // --- Comets ---
     maybeSpawnComet();
-    for (let i = comets.length - 1; i >= 0; i--) {
+    for (let i = comets.length - 1; i >= 0; i--)
+    {
       const c = comets[i];
       c.life++;
       const headX = c.x + c.vx * c.life;
@@ -533,21 +736,24 @@ refreshRepos();
       ctx.moveTo(headX, headY);
       ctx.lineTo(tailX, tailY);
       ctx.stroke();
-      // Cursor hit: comet head within ~22px of the cursor — explode + reform.
-      if (finePointer && mouse.active && !cursorExploding) {
+      if (finePointer && mouse.active && !cursorExploding)
+      {
         const dx = headX - mouse.x, dy = headY - mouse.y;
         if (dx * dx + dy * dy < 22 * 22) explodeCursor(accent, accent2);
       }
       if (c.life > c.ttl || headX < -60 || headX > w + 60) comets.splice(i, 1);
     }
 
-    // --- Card embers ---
-    if (hoveredCard && document.contains(hoveredCard)) {
+    if (hoveredCard && document.contains(hoveredCard))
+    {
       const r = hoveredCard.getBoundingClientRect();
-      if (r.bottom > 0 && r.top < h) {
-        if (hoveredCard.classList.contains('hero-card')) {
+      if (r.bottom > 0 && r.top < h)
+      {
+        if (hoveredCard.classList.contains('hero-card'))
+        {
           drawHeroOrbit(r, accent, accent2, light, now);
-        } else {
+        } else
+        {
           emitEmbers(r, accent);
         }
       }
@@ -555,12 +761,13 @@ refreshRepos();
     emitCursorSparks(accent, accent2);
     drawRings(accent, light);
     ctx.globalCompositeOperation = light ? 'source-over' : 'lighter';
-    for (let i = embers.length - 1; i >= 0; i--) {
+    for (let i = embers.length - 1; i >= 0; i--)
+    {
       const e = embers[i];
       e.life++;
       e.x += e.vx;
       e.y += e.vy;
-      e.vy -= 0.005; // slight upward float
+      e.vy -= 0.005;
       const t = e.life / e.ttl;
       if (t >= 1) { embers.splice(i, 1); continue; }
       const a = (1 - t) * 0.9;

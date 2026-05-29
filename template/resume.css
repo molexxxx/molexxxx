@@ -60,7 +60,12 @@ html, body {
   font-size: 15px;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
+
+img, svg, canvas, video { max-width: 100%; }
+.hero h1 { overflow-wrap: anywhere; word-break: break-word; }
+.hero-meta a { word-break: break-word; }
 
 @media (pointer: fine) {
   html.fx-cursor, html.fx-cursor * { cursor: none !important; }
@@ -171,13 +176,11 @@ a:hover { color: var(--accent-2); }
 .nav-links a:hover { color: var(--ink); background: var(--surface-2); }
 .nav-actions { display: flex; align-items: center; gap: 8px; margin-left: auto; }
 
-/* Hamburger toggle — desktop hides it. */
 .nav .nav-toggle { display: none; }
 .nav-toggle .i-close { display: none; }
 .nav.is-open .nav-toggle .i-menu { display: none; }
 .nav.is-open .nav-toggle .i-close { display: block; }
 
-/* Scrim — only visible when drawer is open on mobile. */
 .nav-scrim {
   display: none;
   position: fixed; inset: 0;
@@ -570,7 +573,6 @@ main { max-width: 1100px; margin: 0 auto; padding: 0 24px 80px; }
 
 /* ---------- Responsive ---------- */
 
-/* Tablet: 1024px and below — collapse hero to single column, tighten nav spacing. */
 @media (max-width: 1024px) {
   .nav-inner { padding: 12px 20px; gap: 16px; }
   .nav-links { gap: 2px; font-size: 13px; }
@@ -582,14 +584,12 @@ main { max-width: 1100px; margin: 0 auto; padding: 0 24px 80px; }
   .job, .edu { grid-template-columns: 150px 1fr; gap: 18px; }
 }
 
-/* Small tablet / large phone landscape: 768px — hamburger drawer takes over. */
 @media (max-width: 768px) {
   .nav-inner { padding: 10px 14px; gap: 8px; }
   .nav .nav-toggle { display: inline-grid; }
   .nav-scrim { display: block; pointer-events: none; }
   .nav.is-open .nav-scrim { pointer-events: auto; }
 
-  /* Drawer panel: slides down from below the nav bar. */
   .nav-links {
     position: fixed;
     top: 56px; left: 0; right: 0;
@@ -623,7 +623,6 @@ main { max-width: 1100px; margin: 0 auto; padding: 0 24px 80px; }
   .nav-links a:active { background: var(--surface-2); color: var(--accent); }
 
   .nav-actions { gap: 6px; margin-left: auto; }
-  /* Hide DOCX in nav on mobile; Download PDF stays as the primary CTA. */
   .nav-actions .btn-ghost { display: none; }
   .nav .btn { padding: 8px 12px; font-size: 12.5px; }
 
@@ -634,11 +633,10 @@ main { max-width: 1100px; margin: 0 auto; padding: 0 24px 80px; }
     gap: 28px;
   }
   .hero-card {
-    max-width: 420px;
-    margin: 0 auto;
+    max-width: none;
+    margin: 0;
   }
   .hero .lede { font-size: 15px; }
-  /* Kicker: smaller text, tighter padding so it stays one line. */
   .kicker {
     font-size: 10.5px;
     letter-spacing: 0.10em;
@@ -652,7 +650,6 @@ main { max-width: 1100px; margin: 0 auto; padding: 0 24px 80px; }
   .footer { flex-direction: column; gap: 10px; text-align: center; padding: 20px 16px; }
 }
 
-/* Phone: 480px — tighten further. */
 @media (max-width: 480px) {
   html { font-size: 14.5px; }
   .nav-inner { padding: 9px 10px; gap: 6px; }
@@ -696,7 +693,6 @@ main { max-width: 1100px; margin: 0 auto; padding: 0 24px 80px; }
   .no-print { display: none !important; }
   main { max-width: none; padding: 0; }
 
-  /* Header: name + role + summary + contact line */
   .hero { padding: 0 0 8px; border-bottom: 1.5pt solid #0b1220; margin-bottom: 10px; }
   .hero-card, .hero-actions { display: none !important; }
   .hero-grid { display: block; grid-template-columns: 1fr; gap: 0; }
@@ -711,7 +707,6 @@ main { max-width: 1100px; margin: 0 auto; padding: 0 24px 80px; }
   .hero-meta { gap: 14px; font-size: 9.5pt; color: var(--muted); margin-top: 4px; }
   .hero-meta a { color: var(--muted); }
 
-  /* Sections */
   .block { margin-top: 14px; page-break-inside: auto; }
   .block-head {
     margin: 0 0 6px; padding: 0 0 3px;
@@ -726,7 +721,6 @@ main { max-width: 1100px; margin: 0 auto; padding: 0 24px 80px; }
   .eyebrow { display: none; }
   .head-sub { display: none; }
 
-  /* Experience / Education timeline */
   .timeline { display: block; }
   .job, .edu {
     display: grid; grid-template-columns: 110px 1fr; gap: 14px;
@@ -746,7 +740,6 @@ main { max-width: 1100px; margin: 0 auto; padding: 0 24px 80px; }
   .job-body ul { margin: 3px 0 0; padding-left: 16px; }
   .job-body li { margin: 1px 0; font-size: 10pt; color: #1f2937; line-height: 1.4; }
 
-  /* Projects: flat, no card backgrounds */
   .grid-2 { grid-template-columns: 1fr 1fr; gap: 10px 18px; }
   .card {
     display: block;
@@ -765,7 +758,6 @@ main { max-width: 1100px; margin: 0 auto; padding: 0 24px 80px; }
   .card-icon { display: none !important; }
   .card-body { display: block; }
 
-  /* Skills: clean rows with no surface */
   .skills { gap: 4px; }
   .skill-row {
     background: none; border: none; border-radius: 0;
@@ -791,7 +783,6 @@ main { max-width: 1100px; margin: 0 auto; padding: 0 24px 80px; }
   a { color: var(--accent); text-decoration: none; }
   .footer { display: none; }
 
-  /* Page break behavior */
   h2, h3 { page-break-after: avoid; }
   .job, .edu, .card, .skill-row { page-break-inside: avoid; }
 }

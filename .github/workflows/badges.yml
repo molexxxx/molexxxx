@@ -30,6 +30,7 @@ jobs:
       - name: Generate badges
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          SYNC_EXTERNAL: '1'
         run: node .github/scripts/generate-badges.mjs
 
       - name: Commit changes

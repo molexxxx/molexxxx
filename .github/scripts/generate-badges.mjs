@@ -1,7 +1,9 @@
 #!/usr/bin/env node
 
-import { writeFileSync, readFileSync, mkdirSync } from 'node:fs';
+import { writeFileSync, readFileSync, mkdirSync, rmSync, existsSync } from 'node:fs';
 import { createHash } from 'node:crypto';
+import { execFileSync } from 'node:child_process';
+import { tmpdir } from 'node:os';
 import path from 'node:path';
 
 const TOKEN = process.env.GH_TOKEN;
@@ -310,3 +312,52 @@ for (const [id, hash] of Object.entries(manifest)) {
 }
 writeFileSync(README, readme);
 console.log('README updated with cache-busting hashes');
+
+const EXTERNAL_REPOS = [
+  { repo: 'molex-media-electron', branch: 'main', readme: 'README.md' },
+  { repo: 'bladewake-demo',       branch: 'main', readme: 'README.md' },
+  { repo: 'zero-server',          branch: 'main', readme: 'README.md' },
+  { repo: 'zero-query',           branch: 'main', readme: 'README.md' },
+  { repo: 'zero-transfer',        branch: 'main', readme: 'README.md' },
+];
+
+if (process.env.SYNC_EXTERNAL === '1') {
+  const work = path.join(tmpdir(), 'badge-sync');
+  rmSync(work, { recursive: true, force: true });
+  mkdirSync(work, { recursive: true });
+
+  for (const ext of EXTERNAL_REPOS) {
+    const dir = path.join(work, ext.repo);
+    const url = `https://x-access-token:${TOKEN}@github.com/${OWNER}/${ext.repo}.git`;
+    try {
+      execFileSync('git', ['clone', '--depth=1', '--branch', ext.branch, url, dir], { stdio: 'inherit' });
+      const readmePath = path.join(dir, ext.readme);
+      if (!existsSync(readmePath)) {
+        console.error(`skip ${ext.repo}: ${ext.readme} not found`);
+        continue;
+      }
+      let content = readFileSync(readmePath, 'utf8');
+      const before = content;
+      for (const [id, hash] of Object.entries(manifest)) {
+        const re = new RegExp(`(${OUT.replace(/[/.]/g, '\\$&')}/${id}-[a-z]+\\.svg)(\\?v=[a-z0-9]+)?`, 'g');
+        content = content.replace(re, `$1?v=${hash}`);
+      }
+      if (content === before) {
+        console.log(`unchanged ${ext.repo}`);
+        continue;
+      }
+      writeFileSync(readmePath, content);
+      const run = (...args) => execFileSync('git', args, { cwd: dir, stdio: 'inherit' });
+      run('config', 'user.name',  'github-actions[bot]');
+      run('config', 'user.email', '41898282+github-actions[bot]@users.noreply.github.com');
+      run('add', ext.readme);
+      run('commit', '-m', 'chore(badges): refresh cache-bust hashes');
+      run('push', 'origin', ext.branch);
+      console.log(`pushed ${ext.repo}`);
+    } catch (e) {
+      console.error(`err ${ext.repo}: ${e.message}`);
+    }
+  }
+
+  rmSync(work, { recursive: true, force: true });
+}

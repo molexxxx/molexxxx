@@ -39,20 +39,26 @@ const BADGES = [
 
   // static call-to-action pairs
   { id: 'molex-media-download', kind: 'static-pair', label: 'download', message: 'latest',  icon: 'github' },
-  { id: 'bladewake-download',   kind: 'static-pair', label: 'download', message: 'latest',  icon: 'github', game: { messageColor: '#22d4f0', textColor: '#0a0510' } },
-  { id: 'bladewake-feedback',   kind: 'static-pair', label: 'feedback', message: 'welcome', icon: 'github', game: { messageColor: '#22d4f0', textColor: '#0a0510' } },
+  { id: 'bladewake-download',   kind: 'static-pair', label: 'download', message: 'latest',  icon: 'github', theme: { name: 'game', labelBg: '#0a0510', labelFg: '#22d4f0', messageColor: '#22d4f0', textColor: '#0a0510' } },
+  { id: 'bladewake-feedback',   kind: 'static-pair', label: 'feedback', message: 'welcome', icon: 'github', theme: { name: 'game', labelBg: '#0a0510', labelFg: '#22d4f0', messageColor: '#22d4f0', textColor: '#0a0510' } },
 
   // GitHub-API badges
   { id: 'zero-query-last-commit',    repo: 'zero-query',           kind: 'last-commit', label: 'last commit', icon: 'git' },
   { id: 'zero-server-last-commit',   repo: 'zero-server',          kind: 'last-commit', label: 'last commit', icon: 'git' },
   { id: 'zero-transfer-last-commit', repo: 'zero-transfer',        kind: 'last-commit', label: 'last commit', icon: 'git' },
-  { id: 'molex-media-release',       repo: 'molex-media-electron', kind: 'release',     label: 'release',     icon: 'github' },
-  { id: 'molex-media-downloads',     repo: 'molex-media-electron', kind: 'downloads',   label: 'downloads',   icon: 'github' },
-  { id: 'molex-media-last-commit',   repo: 'molex-media-electron', kind: 'last-commit', label: 'last commit', icon: 'git' },
-  { id: 'bladewake-build',           repo: 'bladewake-demo',       kind: 'release',     label: 'build', prerelease: true, icon: 'github', game: { messageColor: '#22d4f0', textColor: '#0a0510' } },
-  { id: 'bladewake-downloads',       repo: 'bladewake-demo',       kind: 'downloads',   label: 'downloads',   icon: 'github', game: { messageColor: '#d020e8', textColor: '#ffffff' } },
-  { id: 'bladewake-last-commit',     repo: 'bladewake-demo',       kind: 'last-commit', label: 'last commit', icon: 'git',    game: { messageColor: '#8b11a8', textColor: '#ffffff' } },
+  { id: 'molex-media-release',       repo: 'molex-media-electron', kind: 'release',     label: 'release',     icon: 'github', theme: MOLEX_THEME('#7c3aed', '#ffffff') },
+  { id: 'molex-media-downloads',     repo: 'molex-media-electron', kind: 'downloads',   label: 'downloads',   icon: 'github', theme: MOLEX_THEME('#4f46e5', '#ffffff') },
+  { id: 'molex-media-last-commit',   repo: 'molex-media-electron', kind: 'last-commit', label: 'last commit', icon: 'git',    theme: MOLEX_THEME('#a78bfa', '#1a0b2e') },
+  { id: 'molex-media-license',       repo: 'molex-media-electron', kind: 'license',     label: 'license',     icon: 'github', theme: MOLEX_THEME('#8b5cf6', '#ffffff') },
+  { id: 'bladewake-build',           repo: 'bladewake-demo',       kind: 'release',     label: 'build', prerelease: true, icon: 'github', theme: { name: 'game', labelBg: '#0a0510', labelFg: '#22d4f0', messageColor: '#22d4f0', textColor: '#0a0510' } },
+  { id: 'bladewake-downloads',       repo: 'bladewake-demo',       kind: 'downloads',   label: 'downloads',   icon: 'github', theme: { name: 'game', labelBg: '#0a0510', labelFg: '#22d4f0', messageColor: '#d020e8', textColor: '#ffffff' } },
+  { id: 'bladewake-last-commit',     repo: 'bladewake-demo',       kind: 'last-commit', label: 'last commit', icon: 'git',    theme: { name: 'game', labelBg: '#0a0510', labelFg: '#22d4f0', messageColor: '#8b11a8', textColor: '#ffffff' } },
 ];
+
+// Molex Media app palette: deep purple label half with violet accent text.
+function MOLEX_THEME(messageColor, textColor) {
+  return { name: 'molex', labelBg: '#1a0b2e', labelFg: '#c4b5fd', messageColor, textColor };
+}
 
 async function gh(p) {
   const r = await fetch(`https://api.github.com${p}`, {
@@ -128,6 +134,10 @@ async function getValue(b) {
     }
     return fmtNum(total);
   }
+  if (b.kind === 'license') {
+    const r = await gh(`/repos/${OWNER}/${b.repo}/license`);
+    return r.license?.spdx_id ?? 'unknown';
+  }
   throw new Error(`unknown kind: ${b.kind}`);
 }
 
@@ -195,47 +205,43 @@ function svgSingle({ message, color, textColor, icon, iconColor }) {
 
 mkdirSync(OUT, { recursive: true });
 
-// Shared label half for game-themed badges: deep near-black with cyan accent text.
-const GAME_LABEL_BG = '#0a0510';
-const GAME_LABEL_FG = '#22d4f0';
-
 const manifest = {};
 for (const b of BADGES) {
   try {
     const message = await getValue(b);
-    let dark, light, game;
+    let dark, light, themed;
     if (b.kind === 'static-single') {
       dark  = svgSingle({ message, color: '#21262d', textColor: '#ffffff', icon: b.icon, iconColor: '#ffffff' });
       light = svgSingle({ message, color: '#d0d7de', textColor: '#1f2328', icon: b.icon, iconColor: '#1f2328' });
-      if (b.game) {
-        game = svgSingle({
+      if (b.theme) {
+        themed = svgSingle({
           message,
-          color: b.game.messageColor,
-          textColor: b.game.textColor,
+          color: b.theme.messageColor,
+          textColor: b.theme.textColor,
           icon: b.icon,
-          iconColor: b.game.textColor,
+          iconColor: b.theme.textColor,
         });
       }
     } else {
       dark  = svg({ label: b.label, message, labelColor: '#21262d', messageColor: '#0d1117', textColor: '#ffffff', icon: b.icon, iconColor: '#ffffff' });
       light = svg({ label: b.label, message, labelColor: '#d0d7de', messageColor: '#ffffff', textColor: '#1f2328', icon: b.icon, iconColor: '#1f2328' });
-      if (b.game) {
-        game = svg({
+      if (b.theme) {
+        themed = svg({
           label: b.label,
           message,
-          labelColor: GAME_LABEL_BG,
-          messageColor: b.game.messageColor,
-          textColor: b.game.textColor,
-          labelTextColor: GAME_LABEL_FG,
+          labelColor: b.theme.labelBg,
+          messageColor: b.theme.messageColor,
+          textColor: b.theme.textColor,
+          labelTextColor: b.theme.labelFg,
           icon: b.icon,
-          iconColor: GAME_LABEL_FG,
+          iconColor: b.theme.labelFg,
         });
       }
     }
     writeFileSync(path.join(OUT, `${b.id}-dark.svg`),  dark);
     writeFileSync(path.join(OUT, `${b.id}-light.svg`), light);
-    if (game) writeFileSync(path.join(OUT, `${b.id}-game.svg`), game);
-    const hashInput = dark + light + (game ?? '');
+    if (themed) writeFileSync(path.join(OUT, `${b.id}-${b.theme.name}.svg`), themed);
+    const hashInput = dark + light + (themed ?? '');
     manifest[b.id] = createHash('sha1').update(hashInput).digest('hex').slice(0, 8);
     console.log(`ok  ${b.id.padEnd(30)} ${message}`);
   } catch (e) {

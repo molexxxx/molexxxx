@@ -141,9 +141,9 @@ function setStat(label, value) {
 refreshRepos();
 
 // --------------------------------------------------------------------
-// Animated background: a constellation of nodes that drift, link to
-// nearby neighbors, and are pulled toward the mouse. Cards "boost" the
-// field while hovered to feel reactive.
+// Cosmic background: parallax starfield with drifting nebula clouds,
+// gravitational-lens cursor that bends nearby stars, and per-card
+// ember bursts that flare from the card you're hovering.
 // --------------------------------------------------------------------
 (function bgFx() {
   const canvas = document.getElementById('bg-fx');
@@ -153,20 +153,31 @@ refreshRepos();
   const ctx = canvas.getContext('2d');
   let DPR = Math.min(window.devicePixelRatio || 1, 2);
   let w = 0, h = 0;
-  let nodes = [];
+
+  // Three parallax layers. Layer 0 = farthest (small, slow, dim), 2 = closest.
+  const LAYERS = [
+    { count: 0, speed: 0.04, size: [0.4, 1.0], alpha: [0.25, 0.6] },
+    { count: 0, speed: 0.10, size: [0.7, 1.6], alpha: [0.40, 0.85] },
+    { count: 0, speed: 0.18, size: [1.0, 2.4], alpha: [0.55, 1.00] },
+  ];
+  let stars = [];
+  let nebulae = [];
+  let comets = [];
+  let embers = [];
   const mouse = { x: -9999, y: -9999, active: false };
-  let boost = 0; // 0..1, ramps when a card is hovered
+  let hoveredCard = null;
 
-  function accentColor() {
-    const v = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim();
-    return v || '#3b82f6';
+  function readVar(name, fallback) {
+    const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+    return v || fallback;
   }
-
   function hexToRgb(hex) {
     const m = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    if (!m) return [59, 130, 246];
+    if (!m) return [120, 180, 255];
     return [parseInt(m[1], 16), parseInt(m[2], 16), parseInt(m[3], 16)];
   }
+  const rand = (a, b) => a + Math.random() * (b - a);
+  const isLight = () => document.documentElement.getAttribute('data-theme') === 'light';
 
   function resize() {
     DPR = Math.min(window.devicePixelRatio || 1, 2);
@@ -181,111 +192,203 @@ refreshRepos();
   }
 
   function seed() {
-    // Density: ~1 node per 14k px², capped for big screens / mobile.
-    const target = Math.min(110, Math.max(40, Math.round((w * h) / 14000)));
-    nodes = new Array(target).fill(0).map(() => ({
-      x: Math.random() * w,
-      y: Math.random() * h,
-      vx: (Math.random() - 0.5) * 0.25,
-      vy: (Math.random() - 0.5) * 0.25,
-      r: 0.8 + Math.random() * 1.6,
-    }));
+    // Scale star count gently with viewport area.
+    const area = w * h;
+    const baseTotal = Math.min(360, Math.max(140, Math.round(area / 6000)));
+    LAYERS[0].count = Math.round(baseTotal * 0.55);
+    LAYERS[1].count = Math.round(baseTotal * 0.30);
+    LAYERS[2].count = Math.round(baseTotal * 0.15);
+
+    stars = [];
+    for (let li = 0; li < LAYERS.length; li++) {
+      const L = LAYERS[li];
+      for (let i = 0; i < L.count; i++) {
+        stars.push({
+          layer: li,
+          x: Math.random() * w,
+          y: Math.random() * h,
+          r: rand(L.size[0], L.size[1]),
+          baseAlpha: rand(L.alpha[0], L.alpha[1]),
+          twPhase: Math.random() * Math.PI * 2,
+          twSpeed: rand(0.5, 1.6),
+          drift: rand(0.4, 1.2),
+        });
+      }
+    }
+
+    // A few large slow nebula blobs in two hues for depth.
+    nebulae = [];
+    const blobCount = w > 1100 ? 4 : 3;
+    for (let i = 0; i < blobCount; i++) {
+      nebulae.push({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        r: rand(220, 420),
+        vx: rand(-0.05, 0.05),
+        vy: rand(-0.04, 0.04),
+        hue: i % 2,
+      });
+    }
   }
 
   window.addEventListener('resize', resize);
   window.addEventListener('mousemove', (e) => {
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
-    mouse.active = true;
+    mouse.x = e.clientX; mouse.y = e.clientY; mouse.active = true;
   });
-  window.addEventListener('mouseleave', () => { mouse.active = false; mouse.x = -9999; mouse.y = -9999; });
+  window.addEventListener('mouseleave', () => { mouse.active = false; });
 
-  // Cards lift the boost while hovered.
+  // Card hover: spawn a few ember particles per frame from the card's bounds.
   document.addEventListener('pointerover', (e) => {
-    if (e.target.closest?.('.card, .hero-card, .skill-row')) {
-      document.body.classList.add('fx-boost');
-    }
+    const card = e.target.closest?.('.card, .hero-card');
+    if (card) hoveredCard = card;
   });
   document.addEventListener('pointerout', (e) => {
-    if (e.target.closest?.('.card, .hero-card, .skill-row')) {
-      document.body.classList.remove('fx-boost');
-    }
+    const card = e.target.closest?.('.card, .hero-card');
+    if (card && card === hoveredCard) hoveredCard = null;
   });
+
+  function emitEmbers(rect, accent) {
+    // 1–2 embers per frame from a random point on the card's perimeter.
+    const n = 1 + (Math.random() < 0.4 ? 1 : 0);
+    for (let i = 0; i < n; i++) {
+      const side = Math.floor(Math.random() * 4);
+      let x, y, vx, vy;
+      if (side === 0)       { x = rect.left + Math.random() * rect.width; y = rect.top;             vy = -rand(0.3, 0.9); vx = rand(-0.3, 0.3); }
+      else if (side === 1)  { x = rect.right;                              y = rect.top + Math.random() * rect.height; vx = rand(0.3, 0.9); vy = rand(-0.3, 0.3); }
+      else if (side === 2)  { x = rect.left + Math.random() * rect.width; y = rect.bottom;          vy = rand(0.3, 0.9); vx = rand(-0.3, 0.3); }
+      else                  { x = rect.left;                               y = rect.top + Math.random() * rect.height; vx = -rand(0.3, 0.9); vy = rand(-0.3, 0.3); }
+      embers.push({
+        x, y, vx, vy,
+        life: 0,
+        ttl: rand(60, 110),
+        r: rand(1.0, 2.2),
+        rgb: accent,
+      });
+    }
+  }
+
+  function maybeSpawnComet() {
+    if (Math.random() > 0.004) return; // ~once every ~250 frames
+    const fromLeft = Math.random() < 0.5;
+    comets.push({
+      x: fromLeft ? -40 : w + 40,
+      y: rand(0, h * 0.6),
+      vx: (fromLeft ? 1 : -1) * rand(6, 9),
+      vy: rand(1.5, 3.5),
+      life: 0,
+      ttl: 90,
+    });
+  }
 
   resize();
 
-  const LINK_DIST = 130;
-  const MOUSE_PULL = 140;
-
   function tick() {
-    const [r, g, b] = hexToRgb(accentColor());
-    // Smoothly chase the boost target so transitions feel velvety.
-    const target = document.body.classList.contains('fx-boost') ? 1 : 0;
-    boost += (target - boost) * 0.06;
+    const accentHex = readVar('--accent', '#3b82f6');
+    const accent2Hex = readVar('--accent-2', '#1d4ed8');
+    const accent = hexToRgb(accentHex);
+    const accent2 = hexToRgb(accent2Hex);
+    const light = isLight();
 
     ctx.clearRect(0, 0, w, h);
 
-    for (const n of nodes) {
-      // Gentle drift
-      n.x += n.vx;
-      n.y += n.vy;
-      if (n.x < -10) n.x = w + 10; else if (n.x > w + 10) n.x = -10;
-      if (n.y < -10) n.y = h + 10; else if (n.y > h + 10) n.y = -10;
+    // --- Nebula clouds (soft, slow) ---
+    ctx.globalCompositeOperation = light ? 'multiply' : 'screen';
+    for (const b of nebulae) {
+      b.x += b.vx; b.y += b.vy;
+      if (b.x < -b.r) b.x = w + b.r; else if (b.x > w + b.r) b.x = -b.r;
+      if (b.y < -b.r) b.y = h + b.r; else if (b.y > h + b.r) b.y = -b.r;
+      const rgb = b.hue === 0 ? accent : accent2;
+      const g = ctx.createRadialGradient(b.x, b.y, 0, b.x, b.y, b.r);
+      const peak = light ? 0.08 : 0.16;
+      g.addColorStop(0, `rgba(${rgb[0]},${rgb[1]},${rgb[2]},${peak})`);
+      g.addColorStop(1, `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0)`);
+      ctx.fillStyle = g;
+      ctx.beginPath(); ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2); ctx.fill();
+    }
+    ctx.globalCompositeOperation = 'source-over';
 
-      // Mouse magnetism
+    // --- Stars (parallax + twinkle + gravitational lens bend) ---
+    const now = performance.now() * 0.001;
+    const LENS_R = 160;
+    for (const s of stars) {
+      const L = LAYERS[s.layer];
+      s.x += L.speed * s.drift;
+      if (s.x > w + 4) s.x = -4;
+      if (s.x < -4) s.x = w + 4;
+
+      let dx = 0, dy = 0;
       if (mouse.active) {
-        const dx = mouse.x - n.x;
-        const dy = mouse.y - n.y;
-        const d2 = dx * dx + dy * dy;
-        if (d2 < MOUSE_PULL * MOUSE_PULL) {
+        const mx = mouse.x - s.x;
+        const my = mouse.y - s.y;
+        const d2 = mx * mx + my * my;
+        if (d2 < LENS_R * LENS_R) {
           const d = Math.sqrt(d2) || 1;
-          const pull = (1 - d / MOUSE_PULL) * 0.6;
-          n.x += (dx / d) * pull;
-          n.y += (dy / d) * pull;
+          // Tangential bend: stars curve *around* the cursor (perpendicular push).
+          const t = (1 - d / LENS_R);
+          const push = t * t * 14 * (0.6 + L.speed * 2);
+          dx = (-my / d) * push;
+          dy = ( mx / d) * push;
         }
       }
-    }
 
-    // Edges
-    for (let i = 0; i < nodes.length; i++) {
-      const a = nodes[i];
-      for (let j = i + 1; j < nodes.length; j++) {
-        const c = nodes[j];
-        const dx = a.x - c.x;
-        const dy = a.y - c.y;
-        const d2 = dx * dx + dy * dy;
-        if (d2 < LINK_DIST * LINK_DIST) {
-          const t = 1 - Math.sqrt(d2) / LINK_DIST;
-          const alpha = (0.10 + 0.35 * boost) * t;
-          ctx.strokeStyle = `rgba(${r},${g},${b},${alpha.toFixed(3)})`;
-          ctx.lineWidth = 0.7;
-          ctx.beginPath();
-          ctx.moveTo(a.x, a.y);
-          ctx.lineTo(c.x, c.y);
-          ctx.stroke();
-        }
-      }
-    }
-
-    // Nodes
-    const dotAlpha = 0.55 + 0.35 * boost;
-    ctx.fillStyle = `rgba(${r},${g},${b},${dotAlpha.toFixed(3)})`;
-    for (const n of nodes) {
+      const tw = 0.5 + 0.5 * Math.sin(now * s.twSpeed + s.twPhase);
+      const a = s.baseAlpha * (0.55 + 0.45 * tw);
+      const rgb = light ? [80, 110, 180] : [220, 230, 255];
+      ctx.fillStyle = `rgba(${rgb[0]},${rgb[1]},${rgb[2]},${a.toFixed(3)})`;
       ctx.beginPath();
-      ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+      ctx.arc(s.x + dx, s.y + dy, s.r, 0, Math.PI * 2);
       ctx.fill();
     }
 
-    // Cursor halo
-    if (mouse.active) {
-      const grad = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 180);
-      grad.addColorStop(0, `rgba(${r},${g},${b},${(0.18 + 0.25 * boost).toFixed(3)})`);
-      grad.addColorStop(1, `rgba(${r},${g},${b},0)`);
-      ctx.fillStyle = grad;
+    // --- Comets ---
+    maybeSpawnComet();
+    for (let i = comets.length - 1; i >= 0; i--) {
+      const c = comets[i];
+      c.life++;
+      const headX = c.x + c.vx * c.life;
+      const headY = c.y + c.vy * c.life;
+      const tailX = c.x + c.vx * (c.life - 14);
+      const tailY = c.y + c.vy * (c.life - 14);
+      const grad = ctx.createLinearGradient(headX, headY, tailX, tailY);
+      const headAlpha = 0.9 * (1 - c.life / c.ttl);
+      grad.addColorStop(0, `rgba(255,255,255,${headAlpha})`);
+      grad.addColorStop(1, `rgba(${accent[0]},${accent[1]},${accent[2]},0)`);
+      ctx.strokeStyle = grad;
+      ctx.lineWidth = 1.4;
       ctx.beginPath();
-      ctx.arc(mouse.x, mouse.y, 180, 0, Math.PI * 2);
-      ctx.fill();
+      ctx.moveTo(headX, headY);
+      ctx.lineTo(tailX, tailY);
+      ctx.stroke();
+      if (c.life > c.ttl || headX < -60 || headX > w + 60) comets.splice(i, 1);
     }
+
+    // --- Card embers ---
+    if (hoveredCard && document.contains(hoveredCard)) {
+      const r = hoveredCard.getBoundingClientRect();
+      if (r.bottom > 0 && r.top < h) emitEmbers(r, accent);
+    }
+    ctx.globalCompositeOperation = light ? 'source-over' : 'lighter';
+    for (let i = embers.length - 1; i >= 0; i--) {
+      const e = embers[i];
+      e.life++;
+      e.x += e.vx;
+      e.y += e.vy;
+      e.vy -= 0.005; // slight upward float
+      const t = e.life / e.ttl;
+      if (t >= 1) { embers.splice(i, 1); continue; }
+      const a = (1 - t) * 0.9;
+      const rgb = e.rgb;
+      // Glow halo
+      const halo = ctx.createRadialGradient(e.x, e.y, 0, e.x, e.y, e.r * 6);
+      halo.addColorStop(0, `rgba(${rgb[0]},${rgb[1]},${rgb[2]},${(a * 0.45).toFixed(3)})`);
+      halo.addColorStop(1, `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0)`);
+      ctx.fillStyle = halo;
+      ctx.beginPath(); ctx.arc(e.x, e.y, e.r * 6, 0, Math.PI * 2); ctx.fill();
+      // Core
+      ctx.fillStyle = `rgba(255,255,255,${a.toFixed(3)})`;
+      ctx.beginPath(); ctx.arc(e.x, e.y, e.r, 0, Math.PI * 2); ctx.fill();
+    }
+    ctx.globalCompositeOperation = 'source-over';
 
     requestAnimationFrame(tick);
   }

@@ -121,13 +121,17 @@ async function fetchJson(url) {
 function fmtRelative(iso) {
   const then = new Date(iso);
   const now  = new Date();
-  const startOfDay = d => Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate());
-  const days = Math.floor((startOfDay(now) - startOfDay(then)) / 86_400_000);
-  if (days <= 0)   return 'today';
-  if (days === 1)  return 'yesterday';
-  if (days < 30)   return `${days} days ago`;
-  if (days < 365)  return `${Math.floor(days / 30)} months ago`;
-  return `${Math.floor(days / 365)} years ago`;
+  const startOfDay = d => new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
+  const dayDiff = Math.floor((startOfDay(now) - startOfDay(then)) / 86400000);
+  if (dayDiff <= 0)    return 'today';
+  if (dayDiff === 1)   return 'yesterday';
+  if (dayDiff < 7)     return `${dayDiff} days ago`;
+  if (dayDiff < 14)    return 'last week';
+  if (dayDiff < 30)    return `${Math.floor(dayDiff/7)} weeks ago`;
+  if (dayDiff < 60)    return 'last month';
+  if (dayDiff < 365)   return `${Math.floor(dayDiff/30)} months ago`;
+  if (dayDiff < 730)   return 'last year';
+  return `${Math.floor(dayDiff/365)} years ago`;
 }
 
 function fmtNum(n) {

@@ -1,0 +1,45 @@
+name: badges
+
+on:
+  schedule:
+    - cron: '17 */6 * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/badges.yml'
+      - '.github/scripts/generate-badges.mjs'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: badges
+  cancel-in-progress: false
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Generate badges
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: node .github/scripts/generate-badges.mjs
+
+      - name: Commit changes
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .github/badges README.md
+          if git diff --staged --quiet; then
+            echo "No badge changes"
+          else
+            git commit -m "chore(badges): refresh"
+            git push
+          fi

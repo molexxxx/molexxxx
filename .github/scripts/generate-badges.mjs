@@ -25,17 +25,17 @@ const BADGES = [
   // docs
   { id: 'zero-query-docs',    kind: 'static-pair', label: 'docs', message: 'API', icon: 'book' },
   { id: 'zero-server-docs',   kind: 'static-pair', label: 'docs', message: 'z-server.dev', icon: 'book', theme: ZSERVER_THEME('#7c3aed', '#ffffff') },
-  { id: 'zero-transfer-docs', kind: 'static-pair', label: 'docs', message: 'API', icon: 'book' },
+  { id: 'zero-transfer-docs', kind: 'static-pair', label: 'docs', message: 'typedoc', icon: 'book', theme: ZTRANSFER_THEME('#00b4d8', '#0d1117') },
 
   // npm version
   { id: 'zero-query-npm',    kind: 'npm-version', label: 'npm', pkg: 'zero-query',         icon: 'npm', theme: ZQUERY_THEME('#007acc', '#ffffff') },
   { id: 'zero-server-npm',   kind: 'npm-version', label: 'npm', pkg: '@zero-server/sdk',   icon: 'npm', theme: ZSERVER_THEME('#7c3aed', '#ffffff') },
-  { id: 'zero-transfer-npm', kind: 'npm-version', label: 'npm', pkg: '@zero-transfer/sdk', icon: 'npm' },
+  { id: 'zero-transfer-npm', kind: 'npm-version', label: 'npm', pkg: '@zero-transfer/sdk', icon: 'npm', theme: ZTRANSFER_THEME('#00b4d8', '#0d1117') },
 
   // npm monthly downloads
   { id: 'zero-query-dm',    kind: 'npm-dm', label: 'downloads', pkg: 'zero-query',         icon: 'npm', theme: ZQUERY_THEME('#0288d1', '#ffffff') },
   { id: 'zero-server-dm',   kind: 'npm-dm', label: 'downloads', pkg: '@zero-server/sdk',   icon: 'npm', theme: ZSERVER_THEME('#6366f1', '#ffffff') },
-  { id: 'zero-transfer-dm', kind: 'npm-dm', label: 'downloads', pkg: '@zero-transfer/sdk', icon: 'npm' },
+  { id: 'zero-transfer-dm', kind: 'npm-dm', label: 'downloads', pkg: '@zero-transfer/sdk', icon: 'npm', theme: ZTRANSFER_THEME('#0096c7', '#ffffff') },
 
   // static call-to-action pairs
   { id: 'molex-media-download', kind: 'static-pair', label: 'download', message: 'latest',  icon: 'github' },
@@ -53,10 +53,18 @@ const BADGES = [
   { id: 'zero-query-deps',      kind: 'static-pair', label: 'dependencies', message: '0',          icon: 'npm',    theme: ZQUERY_THEME('#4fc3f7', '#0a1929') },
   { id: 'zero-query-vscode',    kind: 'static-pair', label: 'VS Code',      message: 'extension',  icon: 'github', theme: ZQUERY_THEME('#007acc', '#ffffff') },
 
+  // zero-transfer static facts
+  { id: 'zero-transfer-sdk-name', kind: 'static-pair', label: 'npm',      message: '@zero-transfer/sdk', icon: 'npm',    theme: ZTRANSFER_THEME('#0d1117', '#00b4d8') },
+  { id: 'zero-transfer-tests',    kind: 'static-pair', label: 'tests',    message: '808 passing',        icon: 'github', theme: ZTRANSFER_THEME('#00b4d8', '#0d1117') },
+  { id: 'zero-transfer-coverage', kind: 'static-pair', label: 'coverage', message: '96.3%',              icon: 'github', theme: ZTRANSFER_THEME('#0096c7', '#ffffff') },
+  { id: 'zero-transfer-node',     kind: 'static-pair', label: 'node',     message: '>=20',               icon: 'github', theme: ZTRANSFER_THEME('#48cae4', '#0d1117') },
+
   // GitHub-API badges
   { id: 'zero-query-last-commit',    repo: 'zero-query',           kind: 'last-commit', label: 'last commit', icon: 'git',    theme: ZQUERY_THEME('#4fc3f7', '#0a1929') },
   { id: 'zero-server-last-commit',   repo: 'zero-server',          kind: 'last-commit', label: 'last commit', icon: 'git',    theme: ZSERVER_THEME('#a78bfa', '#1a1b3a') },
-  { id: 'zero-transfer-last-commit', repo: 'zero-transfer',        kind: 'last-commit', label: 'last commit', icon: 'git' },
+  { id: 'zero-transfer-last-commit', repo: 'zero-transfer',        kind: 'last-commit', label: 'last commit', icon: 'git',    theme: ZTRANSFER_THEME('#48cae4', '#0d1117') },
+  { id: 'zero-transfer-ci',          repo: 'zero-transfer',        kind: 'workflow',    label: 'CI',          workflow: 'ci.yml', branch: 'main', icon: 'github', theme: ZTRANSFER_THEME('#00b4d8', '#0d1117') },
+  { id: 'zero-transfer-license',     repo: 'zero-transfer',        kind: 'license',     label: 'license',     icon: 'github', theme: ZTRANSFER_THEME('#0096c7', '#ffffff') },
   { id: 'zero-query-ci',             repo: 'zero-query',           kind: 'workflow',    label: 'CI',          workflow: 'ci.yml',    branch: 'main', icon: 'github', theme: ZQUERY_THEME('#007acc', '#ffffff') },
   { id: 'zero-query-license',        repo: 'zero-query',           kind: 'license',     label: 'license',     icon: 'github', theme: ZQUERY_THEME('#0288d1', '#ffffff') },
   { id: 'zero-server-ci',            repo: 'zero-server',          kind: 'workflow',    label: 'CI',          workflow: 'ci.yml',    branch: 'main', icon: 'github', theme: ZSERVER_THEME('#7c3aed', '#ffffff') },
@@ -85,6 +93,11 @@ function ZSERVER_THEME(messageColor, textColor) {
 // zero-query palette: dark navy label half with bright blue accent text.
 function ZQUERY_THEME(messageColor, textColor) {
   return { name: 'zquery', labelBg: '#0a1929', labelFg: '#4fc3f7', messageColor, textColor };
+}
+
+// zero-transfer palette: deep slate label with cyan accent (matches logo orb).
+function ZTRANSFER_THEME(messageColor, textColor) {
+  return { name: 'ztransfer', labelBg: '#0d1117', labelFg: '#00b4d8', messageColor, textColor };
 }
 
 async function gh(p) {

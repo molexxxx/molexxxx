@@ -11,6 +11,32 @@ document.getElementById('theme-toggle')?.addEventListener('click', () => {
   localStorage.setItem(KEY, next);
 });
 
+// Mobile nav drawer
+(() => {
+  const nav = document.querySelector('.nav');
+  const toggle = document.getElementById('nav-toggle');
+  const scrim = document.getElementById('nav-scrim');
+  const links = document.getElementById('nav-links');
+  if (!nav || !toggle || !links) return;
+  const setOpen = (open) => {
+    nav.classList.toggle('is-open', open);
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    document.body.style.overflow = open ? 'hidden' : '';
+  };
+  toggle.addEventListener('click', () => setOpen(!nav.classList.contains('is-open')));
+  scrim?.addEventListener('click', () => setOpen(false));
+  links.addEventListener('click', (e) => {
+    if (e.target.closest('a')) setOpen(false);
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && nav.classList.contains('is-open')) setOpen(false);
+  });
+  // Close drawer if viewport grows past mobile breakpoint.
+  const mq = window.matchMedia('(min-width: 769px)');
+  mq.addEventListener?.('change', (e) => { if (e.matches) setOpen(false); });
+})();
+
 // Footer year
 const y = document.getElementById('year');
 if (y) y.textContent = new Date().getFullYear();
@@ -167,6 +193,57 @@ refreshRepos();
   const mouse = { x: -9999, y: -9999, active: false };
   let hoveredCard = null;
 
+  // Custom DOM cursor (always on top of page content). Only on fine-pointer
+  // devices so we don't hide a non-existent system cursor on touch.
+  const finePointer = window.matchMedia('(pointer: fine)').matches;
+  let cur = null;
+  let cursorExploding = false;
+  let cursorReformTimer = 0;
+  if (finePointer) {
+    document.documentElement.classList.add('fx-cursor');
+    cur = document.createElement('div');
+    cur.className = 'fx-cursor-el';
+    cur.innerHTML = '<span class="fx-cursor-ring"></span><span class="fx-cursor-dot"></span>';
+    document.body.appendChild(cur);
+    const CURSOR_INTERACTIVE_SEL = 'a, button, [role="button"], input, textarea, select, label[for], .card, summary';
+    document.addEventListener('pointermove', (e) => {
+      cur.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
+      cur.classList.add('is-visible');
+    });
+    document.addEventListener('pointerover', (e) => {
+      cur.classList.toggle('is-hot', !!e.target.closest?.(CURSOR_INTERACTIVE_SEL));
+    });
+    document.addEventListener('pointerdown', () => cur.classList.add('is-down'));
+    document.addEventListener('pointerup',   () => cur.classList.remove('is-down'));
+    window.addEventListener('blur',          () => cur.classList.remove('is-down'));
+    document.addEventListener('mouseleave',  () => cur.classList.remove('is-visible'));
+  }
+  function explodeCursor(accent, accent2) {
+    if (!cur || cursorExploding) return;
+    cursorExploding = true;
+    cur.classList.add('is-exploding');
+    // Burst of outward sparks from the cursor position.
+    const N = 14;
+    for (let i = 0; i < N; i++) {
+      const ang = (i / N) * Math.PI * 2 + rand(-0.2, 0.2);
+      const spd = rand(1.8, 3.4);
+      embers.push({
+        x: mouse.x, y: mouse.y,
+        vx: Math.cos(ang) * spd,
+        vy: Math.sin(ang) * spd,
+        life: 0,
+        ttl: rand(40, 75),
+        r: rand(1.2, 2.4),
+        rgb: i % 2 ? accent : accent2,
+      });
+    }
+    clearTimeout(cursorReformTimer);
+    cursorReformTimer = setTimeout(() => {
+      if (cur) cur.classList.remove('is-exploding');
+      cursorExploding = false;
+    }, 420);
+  }
+
   function readVar(name, fallback) {
     const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
     return v || fallback;
@@ -238,7 +315,8 @@ refreshRepos();
   window.addEventListener('mouseleave', () => { mouse.active = false; });
 
   // Hover: spawn ember particles per frame from the element's bounds.
-  const HOVER_SEL = '.card, .hero-card, .btn, .icon-btn';
+  // Buttons get a CSS-only hover (sheen + glow), not embers — too much when stacked.
+  const HOVER_SEL = '.card, .hero-card';
   document.addEventListener('pointerover', (e) => {
     const el = e.target.closest?.(HOVER_SEL);
     if (el) hoveredCard = el;
@@ -247,6 +325,61 @@ refreshRepos();
     const el = e.target.closest?.(HOVER_SEL);
     if (el && el === hoveredCard) hoveredCard = null;
   });
+
+  // Cursor spark trail + ambient/click rings, active anywhere on the page.
+  const rings = [];
+  let lastRingT = 0;
+  let lastMoveT = 0;
+  window.addEventListener('mousemove', () => { lastMoveT = performance.now(); });
+  window.addEventListener('pointerdown', (e) => {
+    rings.push({ x: e.clientX, y: e.clientY, life: 0, ttl: 55 });
+  });
+  function emitCursorSparks(accent, accent2) {
+    if (!mouse.active) return;
+    const t = performance.now();
+    // Only emit while the cursor has moved recently — feels alive on motion,
+    // calm at rest.
+    if (t - lastMoveT > 600) return;
+    if (t - lastRingT > 1400) {
+      lastRingT = t;
+      rings.push({ x: mouse.x, y: mouse.y, life: 0, ttl: 70, soft: true });
+    }
+    const n = Math.random() < 0.85 ? 1 : 2;
+    for (let i = 0; i < n; i++) {
+      const rgb = Math.random() < 0.5 ? accent : accent2;
+      const ang = rand(-Math.PI, 0);
+      const spd = rand(0.4, 1.3);
+      embers.push({
+        x: mouse.x + rand(-8, 8),
+        y: mouse.y + rand(-6, 6),
+        vx: Math.cos(ang) * spd,
+        vy: Math.sin(ang) * spd,
+        life: 0,
+        ttl: rand(55, 110),
+        r: rand(0.8, 1.9),
+        rgb,
+      });
+    }
+  }
+  function drawRings(accent, light) {
+    if (!rings.length) return;
+    ctx.save();
+    ctx.globalCompositeOperation = light ? 'source-over' : 'lighter';
+    for (let i = rings.length - 1; i >= 0; i--) {
+      const ring = rings[i];
+      ring.life++;
+      const t = ring.life / ring.ttl;
+      if (t >= 1) { rings.splice(i, 1); continue; }
+      const radius = 8 + t * (ring.soft ? 90 : 160);
+      const alpha = (1 - t) * (ring.soft ? (light ? 0.18 : 0.28) : (light ? 0.45 : 0.6));
+      ctx.strokeStyle = `rgba(${accent[0]},${accent[1]},${accent[2]},${alpha.toFixed(3)})`;
+      ctx.lineWidth = ring.soft ? 1 : 1.6;
+      ctx.beginPath();
+      ctx.arc(ring.x, ring.y, radius, 0, Math.PI * 2);
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
 
   function emitEmbers(rect, accent) {
     // Sparse embers from a random point on the perimeter. Calmer than before.
@@ -400,6 +533,11 @@ refreshRepos();
       ctx.moveTo(headX, headY);
       ctx.lineTo(tailX, tailY);
       ctx.stroke();
+      // Cursor hit: comet head within ~22px of the cursor — explode + reform.
+      if (finePointer && mouse.active && !cursorExploding) {
+        const dx = headX - mouse.x, dy = headY - mouse.y;
+        if (dx * dx + dy * dy < 22 * 22) explodeCursor(accent, accent2);
+      }
       if (c.life > c.ttl || headX < -60 || headX > w + 60) comets.splice(i, 1);
     }
 
@@ -414,6 +552,8 @@ refreshRepos();
         }
       }
     }
+    emitCursorSparks(accent, accent2);
+    drawRings(accent, light);
     ctx.globalCompositeOperation = light ? 'source-over' : 'lighter';
     for (let i = embers.length - 1; i >= 0; i--) {
       const e = embers[i];

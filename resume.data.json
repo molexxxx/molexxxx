@@ -9,7 +9,7 @@
     { "label": "github.com/tonywied17", "url": "https://github.com/tonywied17" },
     { "label": "npmjs.com/~molex222", "url": "https://www.npmjs.com/~molex222" }
   ],
-  "summary": "Full-stack web engineer who ships end-to-end: TypeScript and Node.js services, reactive single-page frontends in React/Angular, real-time systems over WebSocket, WebRTC, and SSE, and PostgreSQL/MySQL data layers behind them. Author of zero-dependency open-source frameworks - zQuery (frontend), zero-server (backend), and zero-transfer (multi-cloud file SDK) - published on npm. Cross-platform experience extends into Electron desktop apps, FFmpeg-powered media tooling, and contributions to live commercial Steam titles and community-driven open-source projects, with production deployments running on AWS behind Docker and GitHub Actions pipelines.",
+  "summary": "Full-stack engineer shipping TypeScript/Node services, React and Angular frontends, and real-time systems over WebSocket, WebRTC, and SSE on PostgreSQL and MySQL. Author of the zero-dependency open-source stack on npm — zQuery (frontend), zero-server (backend), and zero-transfer (multi-cloud file SDK) — with production deployments on AWS via Docker and GitHub Actions. Also love cats.",
   "skills": [
     { "group": "Languages", "items": ["TypeScript", "JavaScript", "C#", "C++", "Python", "Java", "Go", "GDScript", "SQL"] },
     { "group": "Frontend", "items": ["zQuery", "React", "Angular", "Tailwind", "SCSS", "HTML5", "Web Components"] },

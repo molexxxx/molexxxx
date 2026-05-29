@@ -39,8 +39,8 @@ const BADGES = [
 
   // static call-to-action pairs
   { id: 'molex-media-download', kind: 'static-pair', label: 'download', message: 'latest',  icon: 'github' },
-  { id: 'bladewake-download',   kind: 'static-pair', label: 'download', message: 'latest',  icon: 'github' },
-  { id: 'bladewake-feedback',   kind: 'static-pair', label: 'feedback', message: 'welcome', icon: 'github' },
+  { id: 'bladewake-download',   kind: 'static-pair', label: 'download', message: 'latest',  icon: 'github', game: { messageColor: '#22d4f0', textColor: '#0a0510' } },
+  { id: 'bladewake-feedback',   kind: 'static-pair', label: 'feedback', message: 'welcome', icon: 'github', game: { messageColor: '#22d4f0', textColor: '#0a0510' } },
 
   // GitHub-API badges
   { id: 'zero-query-last-commit',    repo: 'zero-query',           kind: 'last-commit', label: 'last commit', icon: 'git' },
@@ -49,9 +49,9 @@ const BADGES = [
   { id: 'molex-media-release',       repo: 'molex-media-electron', kind: 'release',     label: 'release',     icon: 'github' },
   { id: 'molex-media-downloads',     repo: 'molex-media-electron', kind: 'downloads',   label: 'downloads',   icon: 'github' },
   { id: 'molex-media-last-commit',   repo: 'molex-media-electron', kind: 'last-commit', label: 'last commit', icon: 'git' },
-  { id: 'bladewake-build',           repo: 'bladewake-demo',       kind: 'release',     label: 'build', prerelease: true, icon: 'github' },
-  { id: 'bladewake-downloads',       repo: 'bladewake-demo',       kind: 'downloads',   label: 'downloads',   icon: 'github' },
-  { id: 'bladewake-last-commit',     repo: 'bladewake-demo',       kind: 'last-commit', label: 'last commit', icon: 'git' },
+  { id: 'bladewake-build',           repo: 'bladewake-demo',       kind: 'release',     label: 'build', prerelease: true, icon: 'github', game: { messageColor: '#22d4f0', textColor: '#0a0510' } },
+  { id: 'bladewake-downloads',       repo: 'bladewake-demo',       kind: 'downloads',   label: 'downloads',   icon: 'github', game: { messageColor: '#d020e8', textColor: '#ffffff' } },
+  { id: 'bladewake-last-commit',     repo: 'bladewake-demo',       kind: 'last-commit', label: 'last commit', icon: 'git',    game: { messageColor: '#8b11a8', textColor: '#ffffff' } },
 ];
 
 async function gh(p) {
@@ -161,19 +161,20 @@ const ICONS = {
 
 const ICON_EXTRA = 18; // 14px icon + 4px gap before label text
 
-function svg({ label, message, labelColor, messageColor, textColor, icon, iconColor }) {
+function svg({ label, message, labelColor, messageColor, textColor, labelTextColor, icon, iconColor }) {
   const PAD = 10;
   const lw  = textWidth(label)   + PAD + (icon ? ICON_EXTRA : 0);
   const mw  = textWidth(message) + PAD;
   const w   = lw + mw;
   const lx  = icon ? (PAD / 2 + ICON_EXTRA + textWidth(label) / 2) : lw / 2;
   const mx  = lw + mw / 2;
+  const labelFill = labelTextColor ?? textColor;
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="20" role="img" aria-label="${escapeXml(label)}: ${escapeXml(message)}">
   <rect width="${lw}" height="20" fill="${labelColor}"/>
   <rect x="${lw}" width="${mw}" height="20" fill="${messageColor}"/>${icon ? '\n  ' + ICONS[icon](iconColor) : ''}
-  <g fill="${textColor}" text-anchor="middle" font-family="Verdana,Geneva,DejaVu Sans,sans-serif" font-size="11">
-    <text x="${lx}" y="14">${escapeXml(label)}</text>
-    <text x="${mx}" y="14">${escapeXml(message)}</text>
+  <g font-family="Verdana,Geneva,DejaVu Sans,sans-serif" font-size="11" text-anchor="middle">
+    <text x="${lx}" y="14" fill="${labelFill}">${escapeXml(label)}</text>
+    <text x="${mx}" y="14" fill="${textColor}">${escapeXml(message)}</text>
   </g>
 </svg>
 `;
@@ -194,21 +195,48 @@ function svgSingle({ message, color, textColor, icon, iconColor }) {
 
 mkdirSync(OUT, { recursive: true });
 
+// Shared label half for game-themed badges: deep near-black with cyan accent text.
+const GAME_LABEL_BG = '#0a0510';
+const GAME_LABEL_FG = '#22d4f0';
+
 const manifest = {};
 for (const b of BADGES) {
   try {
     const message = await getValue(b);
-    let dark, light;
+    let dark, light, game;
     if (b.kind === 'static-single') {
       dark  = svgSingle({ message, color: '#21262d', textColor: '#ffffff', icon: b.icon, iconColor: '#ffffff' });
       light = svgSingle({ message, color: '#d0d7de', textColor: '#1f2328', icon: b.icon, iconColor: '#1f2328' });
+      if (b.game) {
+        game = svgSingle({
+          message,
+          color: b.game.messageColor,
+          textColor: b.game.textColor,
+          icon: b.icon,
+          iconColor: b.game.textColor,
+        });
+      }
     } else {
       dark  = svg({ label: b.label, message, labelColor: '#21262d', messageColor: '#0d1117', textColor: '#ffffff', icon: b.icon, iconColor: '#ffffff' });
       light = svg({ label: b.label, message, labelColor: '#d0d7de', messageColor: '#ffffff', textColor: '#1f2328', icon: b.icon, iconColor: '#1f2328' });
+      if (b.game) {
+        game = svg({
+          label: b.label,
+          message,
+          labelColor: GAME_LABEL_BG,
+          messageColor: b.game.messageColor,
+          textColor: b.game.textColor,
+          labelTextColor: GAME_LABEL_FG,
+          icon: b.icon,
+          iconColor: GAME_LABEL_FG,
+        });
+      }
     }
     writeFileSync(path.join(OUT, `${b.id}-dark.svg`),  dark);
     writeFileSync(path.join(OUT, `${b.id}-light.svg`), light);
-    manifest[b.id] = createHash('sha1').update(dark + light).digest('hex').slice(0, 8);
+    if (game) writeFileSync(path.join(OUT, `${b.id}-game.svg`), game);
+    const hashInput = dark + light + (game ?? '');
+    manifest[b.id] = createHash('sha1').update(hashInput).digest('hex').slice(0, 8);
     console.log(`ok  ${b.id.padEnd(30)} ${message}`);
   } catch (e) {
     console.error(`err ${b.id.padEnd(30)} ${e.message}`);

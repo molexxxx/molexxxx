@@ -82,11 +82,11 @@ const BADGES = [
   { id: 'bladewake-last-commit',     repo: 'bladewake-demo',       kind: 'last-commit', label: 'last commit', icon: 'git',    theme: { name: 'game', labelBg: '#0a0510', labelFg: '#22d4f0', messageColor: '#8b11a8', textColor: '#ffffff' } },
 
   // MagnifyShit (C++ Windows magnifier)
-  { id: 'magnifyshit-ci',          repo: 'MagnifyShit-cpp', kind: 'workflow',    label: 'build',       workflow: 'build.yml', branch: 'main', icon: 'github', theme: MAGNIFY_THEME('#2563eb', '#ffffff') },
-  { id: 'magnifyshit-release',     repo: 'MagnifyShit-cpp', kind: 'release',     label: 'release',                                              icon: 'github', theme: MAGNIFY_THEME('#0ea5e9', '#ffffff') },
-  { id: 'magnifyshit-downloads',   repo: 'MagnifyShit-cpp', kind: 'downloads',   label: 'downloads',                                            icon: 'github', theme: MAGNIFY_THEME('#7dd3fc', '#0b1220') },
-  { id: 'magnifyshit-last-commit', repo: 'MagnifyShit-cpp', kind: 'last-commit', label: 'last commit',                                          icon: 'git',    theme: MAGNIFY_THEME('#1e293b', '#7dd3fc') },
-  { id: 'magnifyshit-license',     repo: 'MagnifyShit-cpp', kind: 'license',     label: 'license',                                              icon: 'github', theme: MAGNIFY_THEME('#3b82f6', '#ffffff') },
+  { id: 'magnifyshit-ci',          repo: 'MagnifyShit-cpp', kind: 'workflow',    label: 'build',       workflow: 'build.yml', branch: 'main', icon: 'github', theme: MAGNIFY_THEME('#6b3410', '#f5deb3') },
+  { id: 'magnifyshit-release',     repo: 'MagnifyShit-cpp', kind: 'release',     label: 'release',                                              icon: 'github', theme: MAGNIFY_THEME('#8b4513', '#f5deb3') },
+  { id: 'magnifyshit-downloads',   repo: 'MagnifyShit-cpp', kind: 'downloads',   label: 'downloads',                                            icon: 'github', theme: MAGNIFY_THEME('#a0522d', '#fff8dc') },
+  { id: 'magnifyshit-last-commit', repo: 'MagnifyShit-cpp', kind: 'last-commit', label: 'last commit',                                          icon: 'git',    theme: MAGNIFY_THEME('#5a3a22', '#d4a574') },
+  { id: 'magnifyshit-license',     repo: 'MagnifyShit-cpp', kind: 'license',     label: 'license',                                              icon: 'github', theme: MAGNIFY_THEME('#7b4a1f', '#f5deb3') },
 ];
 
 // Molex Media app palette: deep purple label half with violet accent text.
@@ -109,9 +109,9 @@ function ZTRANSFER_THEME(messageColor, textColor) {
   return { name: 'ztransfer', labelBg: '#0d1117', labelFg: '#00b4d8', messageColor, textColor };
 }
 
-// MagnifyShit palette: deep slate label with sky-cyan accent (matches logo lens gradient).
+// MagnifyShit palette: deep poop-brown label with warm tan accent (on-brand for the name).
 function MAGNIFY_THEME(messageColor, textColor) {
-  return { name: 'magnify', labelBg: '#0b1220', labelFg: '#7dd3fc', messageColor, textColor };
+  return { name: 'magnify', labelBg: '#3a2418', labelFg: '#d4a574', messageColor, textColor };
 }
 
 async function gh(p) {

@@ -1,0 +1,21 @@
+{
+  "name": "tonywied17-resume",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Modern data-driven resume for Anthony Wiedman with HTML/PDF/DOCX exports and live GitHub data.",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.js",
+    "build:html": "node scripts/build-html.js",
+    "build:pdf": "node scripts/build-pdf.js",
+    "build:docx": "node scripts/build-docx.js",
+    "fetch:gh": "node scripts/fetch-github.js",
+    "serve": "node scripts/serve.js",
+    "dev": "node scripts/serve.js"
+  },
+  "dependencies": {
+    "docx": "^8.5.0",
+    "mustache": "^4.2.0",
+    "puppeteer": "^23.0.0"
+  }
+}

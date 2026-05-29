@@ -1,0 +1,4 @@
+node_modules/
+dist/
+data.github.json
+.DS_Store

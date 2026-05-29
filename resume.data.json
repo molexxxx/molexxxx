@@ -9,7 +9,7 @@
     { "label": "github.com/tonywied17", "url": "https://github.com/tonywied17" },
     { "label": "npmjs.com/~molex222", "url": "https://www.npmjs.com/~molex222" }
   ],
-  "summary": "Full-stack engineer shipping TypeScript/Node services, React and Angular frontends, and real-time systems over WebSocket, WebRTC, and SSE. Author of the zero-dependency open-source stack on npm (zQuery for frontend, zero-server for backend, zero-transfer for multi-cloud file transfer), with production deployments on AWS via Docker and GitHub Actions. Also love cats.",
+  "summary": "Full-stack engineer designing and shipping production systems end-to-end: TypeScript/Node services, reactive web clients, and real-time transport layers over WebSocket, WebRTC, and SSE. Author of the zero-dependency open-source stack on npm (zQuery for frontend, zero-server for backend, zero-transfer for multi-cloud file transfer). Run horizontally scalable cloud deployments across containerized and serverless workloads with automated CI/CD pipelines, tuned for low-latency throughput and zero-downtime releases. Also love cats.",
   "skills": [
     { "group": "Languages", "items": ["TypeScript", "JavaScript", "C#", "C++", "Python", "Java", "Go", "GDScript", "SQL"] },
     { "group": "Frontend", "items": ["zQuery", "React", "Angular", "Tailwind", "SCSS", "HTML5", "Web Components"] },

@@ -2,8 +2,8 @@
   <rect width="87" height="20" fill="#d0d7de"/>
   <rect x="87" width="78" height="20" fill="#ffffff"/>
   <svg x="5" y="3" width="14" height="14" viewBox="0 0 24 24" fill="#1f2328"><path d="M1.763 0C.786 0 0 .786 0 1.763v20.474C0 23.214.786 24 1.763 24h20.474c.977 0 1.763-.786 1.763-1.763V1.763C24 .786 23.214 0 22.237 0H1.763zM5.13 5.323l13.837.019-.009 13.836h-3.464l.01-10.382h-3.456L12.04 19.17H5.113L5.13 5.323z"/></svg>
-  <g fill="#1f2328" text-anchor="middle" font-family="Verdana,Geneva,DejaVu Sans,sans-serif" font-size="11">
-    <text x="52.5" y="14">downloads</text>
-    <text x="126" y="14">1.6k/month</text>
+  <g font-family="Verdana,Geneva,DejaVu Sans,sans-serif" font-size="11" text-anchor="middle">
+    <text x="52.5" y="14" fill="#1f2328">downloads</text>
+    <text x="126" y="14" fill="#1f2328">1.6k/month</text>
   </g>
 </svg>

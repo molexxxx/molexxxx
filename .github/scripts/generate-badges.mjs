@@ -16,11 +16,11 @@ const OUT   = '.github/badges';
 const RAW   = `https://raw.githubusercontent.com/${OWNER}/${REPO}/main/${OUT}`;
 
 const BADGES = [
-  // websites (single-block)
-  { id: 'zero-query-site',    kind: 'static-single', message: 'z-query.com',       icon: 'globe' },
-  { id: 'zero-server-site',   kind: 'static-single', message: 'z-server.dev',      icon: 'globe' },
-  { id: 'zero-transfer-site', kind: 'static-single', message: 'zero-transfer',     icon: 'globe' },
-  { id: 'molex-media-site',   kind: 'static-single', message: 'media.molex.cloud', icon: 'globe' },
+  // websites
+  { id: 'zero-query-site',    kind: 'static-pair', label: 'website', message: 'visit', icon: 'globe' },
+  { id: 'zero-server-site',   kind: 'static-pair', label: 'website', message: 'visit', icon: 'globe' },
+  { id: 'zero-transfer-site', kind: 'static-pair', label: 'website', message: 'visit', icon: 'globe' },
+  { id: 'molex-media-site',   kind: 'static-pair', label: 'website', message: 'visit', icon: 'globe' },
 
   // docs
   { id: 'zero-query-docs',    kind: 'static-pair', label: 'docs', message: 'API', icon: 'book' },

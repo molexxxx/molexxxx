@@ -351,7 +351,7 @@ if (process.env.SYNC_EXTERNAL === '1') {
       run('config', 'user.name',  'github-actions[bot]');
       run('config', 'user.email', '41898282+github-actions[bot]@users.noreply.github.com');
       run('add', ext.readme);
-      run('commit', '-m', 'chore(badges): refresh cache-bust hashes');
+      run('commit', '-m', 'chore(badges): refresh cache-bust hashes [skip ci]');
       run('push', 'origin', ext.branch);
       console.log(`pushed ${ext.repo}`);
     } catch (e) {

@@ -118,7 +118,7 @@ const out = {
     ? {
       login: user.login,
       name: user.name,
-      avatar_url: user.avatar_url ? `${user.avatar_url.split('?')[0]}?s=320` : user.avatar_url,
+      avatar_url: user.avatar_url,
       bio: user.bio,
       html_url: user.html_url,
       followers: user.followers,

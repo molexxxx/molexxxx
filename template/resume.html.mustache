@@ -29,7 +29,6 @@
     </button>
     <div class="nav-links" id="nav-links">
       <a href="#top">About</a>
-      <a href="#stats">Activity</a>
       <a href="#experience">Experience</a>
       <a href="#projects">Projects</a>
       <a href="#open-source">Open Source</a>
@@ -70,41 +69,6 @@
         <span>{{location}}</span>
         <span><a href="mailto:{{email}}">{{email}}</a></span>
       </div>
-
-      {{#badges.length}}
-      <ul class="badges no-print" role="list">
-        {{#badges}}
-        <li>
-          <a class="badge badge--{{id}}" href="{{href}}" {{#download}}download{{/download}} {{^download}}target="_blank" rel="noopener"{{/download}}>
-            <svg class="badge-fx" viewBox="0 0 220 64" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-              <defs>
-                <path id="bp-{{id}}" d="M 12 1.5 H 208 A 10.5 10.5 0 0 1 218.5 12 V 52 A 10.5 10.5 0 0 1 208 62.5 H 12 A 10.5 10.5 0 0 1 1.5 52 V 12 A 10.5 10.5 0 0 1 12 1.5 Z" fill="none"/>
-                <linearGradient id="bg-{{id}}" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stop-color="var(--badge-a)"/>
-                  <stop offset="100%" stop-color="var(--badge-b)"/>
-                </linearGradient>
-              </defs>
-              <use href="#bp-{{id}}" stroke="url(#bg-{{id}})" stroke-width="1.25" stroke-opacity="0.55" vector-effect="non-scaling-stroke"/>
-              <use href="#bp-{{id}}" stroke="url(#bg-{{id}})" stroke-width="2" stroke-dasharray="60 480" vector-effect="non-scaling-stroke">
-                <animate attributeName="stroke-dashoffset" from="0" to="-540" dur="6s" repeatCount="indefinite"/>
-              </use>
-              <circle r="1.8" fill="var(--badge-a)"><animateMotion dur="5s" repeatCount="indefinite" rotate="auto"><mpath href="#bp-{{id}}"/></animateMotion></circle>
-              <circle r="1.4" fill="var(--badge-b)"><animateMotion dur="5s" begin="-1.25s" repeatCount="indefinite" rotate="auto"><mpath href="#bp-{{id}}"/></animateMotion></circle>
-              <circle r="1.2" fill="var(--badge-a)" opacity="0.75"><animateMotion dur="5s" begin="-2.5s" repeatCount="indefinite" rotate="auto"><mpath href="#bp-{{id}}"/></animateMotion></circle>
-              <circle r="1" fill="var(--badge-b)" opacity="0.7"><animateMotion dur="5s" begin="-3.75s" repeatCount="indefinite" rotate="auto"><mpath href="#bp-{{id}}"/></animateMotion></circle>
-            </svg>
-            <span class="badge-content">
-              <span class="badge-icon">{{{iconSvg}}}</span>
-              <span class="badge-body">
-                <span class="badge-val">{{value}}</span>
-                <span class="badge-lbl">{{label}}</span>
-              </span>
-            </span>
-          </a>
-        </li>
-        {{/badges}}
-      </ul>
-      {{/badges.length}}
     </div>
 
     <aside class="hero-card reveal" id="about">
@@ -121,42 +85,6 @@
     </aside>
   </div>
 </section>
-
-{{#github.user}}
-<section class="block no-print" id="stats">
-  <div class="block-head reveal">
-    <span class="eyebrow">≡</span>
-    <h2>GitHub Activity <span class="head-sub">live</span></h2>
-  </div>
-  <div class="stat-cards reveal">
-    <div class="stat-card stat-card--wide">
-      <img alt="GitHub stats for {{ghUser}}"
-           loading="lazy"
-           src="https://github-readme-stats.vercel.app/api?username={{ghUser}}&show_icons=true&hide_rank=true&hide_border=true&hide_title=true&hide=stars&card_width=520&bg_color=00000000&title_color=60a5fa&text_color=c9cfdb&icon_color=60a5fa"/>
-    </div>
-    <div class="stat-card stat-card--wide">
-      <img alt="GitHub streak for {{ghUser}}"
-           loading="lazy"
-           src="https://streak-stats.demolab.com/?user={{ghUser}}&hide_border=true&background=00000000&stroke=00000000&ring=60a5fa&fire=3b82f6&currStreakLabel=60a5fa&sideLabels=8a93a4&currStreakNum=e6e9f1&sideNums=e6e9f1&dates=8a93a4"/>
-    </div>
-    <div class="stat-card stat-card--mini">
-      <span class="sc-num">{{github.totals.stars}}</span>
-      <span class="sc-lbl">Total Stars</span>
-      <span class="sc-sub">incl. <a href="https://github.com/bbrown430/plex-poster-set-helper" target="_blank" rel="noopener">plex-poster-set-helper</a> (lead contributor)</span>
-    </div>
-    <div class="stat-card stat-card--mini">
-      <span class="sc-num">{{github.user.followers}}</span>
-      <span class="sc-lbl">Followers</span>
-      <span class="sc-sub">{{github.user.following}} following</span>
-    </div>
-  </div>
-  <div class="stat-card stat-card--graph reveal">
-    <img alt="Contribution graph for {{ghUser}}"
-         loading="lazy"
-         src="https://ghchart.rshah.org/2563eb/{{ghUser}}"/>
-  </div>
-</section>
-{{/github.user}}
 
 <section class="block" id="experience">
   <div class="block-head reveal">

@@ -62,7 +62,7 @@
           Download PDF
         </a>
         <a class="btn btn-ghost" href="resume.docx" download>Download DOCX</a>
-        {{#github.user.html_url}}<a class="btn btn-ghost" href="{{github.user.html_url}}" target="_blank" rel="noopener">GitHub<span class="btn-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15"/><path d="M13 5l7 7-7 7"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15"/><path d="M13 5l7 7-7 7"/></svg></span></a>{{/github.user.html_url}}
+        {{#github.user.html_url}}<a class="btn btn-ghost" href="{{github.user.html_url}}" target="_blank" rel="noopener">GitHub<span class="btn-arrow" aria-hidden="true"><span class="btn-arrow-line"></span><svg class="btn-arrow-tip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 5 16 12 9 19"/></svg></span></a>{{/github.user.html_url}}
         <a class="btn btn-ghost" href="mailto:{{email}}">Email</a>
       </div>
       <div class="hero-meta">
@@ -80,7 +80,7 @@
         <div class="stat"><span class="num">{{github.user.followers}}</span><span class="lbl">Followers</span></div>
       </div>
       <div class="card-links">
-        {{#github.user.html_url}}<a class="link-arrow" href="{{github.user.html_url}}" target="_blank" rel="noopener">github.com/{{ghUser}}<span class="btn-arrow sm" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15"/><path d="M13 5l7 7-7 7"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15"/><path d="M13 5l7 7-7 7"/></svg></span></a>{{/github.user.html_url}}
+        {{#github.user.html_url}}<a class="link-arrow" href="{{github.user.html_url}}" target="_blank" rel="noopener">github.com/{{ghUser}}<span class="btn-arrow sm" aria-hidden="true"><span class="btn-arrow-line"></span><svg class="btn-arrow-tip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 5 16 12 9 19"/></svg></span></a>{{/github.user.html_url}}
       </div>
     </aside>
   </div>

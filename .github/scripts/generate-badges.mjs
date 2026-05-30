@@ -22,7 +22,7 @@ const BADGES = [
   { id: 'header-resume', kind: 'header-link', label: 'Resume', value: 'visit',                  icon: 'resume', accentA: '#f59e0b', accentB: '#ef4444' },
   { id: 'header-repos',  kind: 'header-link', label: 'Repos',  source: 'user-repos',            icon: 'github', accentA: '#60a5fa', accentB: '#2563eb' },
   { id: 'header-gists',  kind: 'header-link', label: 'Gists',  source: 'user-gists',            icon: 'gist',   accentA: '#a78bfa', accentB: '#7c3aed' },
-  { id: 'header-npm',    kind: 'header-link', label: 'npm',    source: 'npm-packages', npmUser: 'molex222', icon: 'npm-pkg', accentA: '#f87171', accentB: '#dc2626' },
+  { id: 'header-npm',    kind: 'header-link', label: 'npm packages',    source: 'npm-packages', npmUser: 'molex222', icon: 'npm-pkg', accentA: '#f87171', accentB: '#dc2626' },
 
   // websites
   { id: 'zero-query-site',    kind: 'static-pair', label: 'website', message: 'visit', icon: 'globe' },
@@ -172,8 +172,20 @@ async function getValue(b) {
       return String(list.length);
     }
     if (b.source === 'npm-packages') {
+      // Maintainer search misses packages where the user is only an org member,
+      // so merge in the package lists of every @scope/ org we see in the search
+      // results (then dedup). Matches the count shown on npmjs.com/~user.
       const r = await fetchJson(`https://registry.npmjs.org/-/v1/search?text=maintainer:${b.npmUser}&size=250`);
-      return String(r.total ?? (r.objects?.length ?? 0));
+      const names = new Set((r.objects ?? []).map(o => o.package.name));
+      const orgs = new Set();
+      for (const n of names) if (n.startsWith('@')) orgs.add(n.split('/')[0].slice(1));
+      for (const org of orgs) {
+        try {
+          const list = await fetchJson(`https://registry.npmjs.org/-/org/${org}/package`);
+          for (const pkg of Object.keys(list)) names.add(pkg);
+        } catch { /* org may be private or missing — skip */ }
+      }
+      return String(names.size);
     }
     return b.value ?? '';
   }

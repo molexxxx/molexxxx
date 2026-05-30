@@ -60,8 +60,8 @@ const BADGES = [
   { id: 'zero-query-github',    kind: 'static-pair', label: 'GitHub',       message: 'zero-query',   icon: 'github', theme: ZQUERY_THEME('#0a1929', '#4fc3f7') },
   { id: 'zero-query-deps',      kind: 'static-pair', label: 'dependencies', message: '0',            icon: 'npm',    theme: ZQUERY_THEME('#4fc3f7', '#0a1929') },
   { id: 'zero-query-vscode',    kind: 'static-pair', label: 'VS Code',      message: 'extension',    icon: 'github', theme: ZQUERY_THEME('#007acc', '#ffffff') },
-  { id: 'zero-query-tests',     kind: 'static-pair', label: 'tests',        message: '2535 passing', icon: 'github', theme: ZQUERY_THEME('#29b6f6', '#ffffff') },
-  { id: 'zero-query-coverage',  kind: 'static-pair', label: 'coverage',     message: '71.74%',       icon: 'github', theme: ZQUERY_THEME('#0288d1', '#ffffff') },
+  { id: 'zero-query-tests',     kind: 'static-pair', label: 'tests',        message: '2561 passing', icon: 'github', theme: ZQUERY_THEME('#29b6f6', '#ffffff') },
+  { id: 'zero-query-coverage',  kind: 'static-pair', label: 'coverage',     message: '91.19%',       icon: 'github', theme: ZQUERY_THEME('#0288d1', '#ffffff') },
 
   // zero-transfer static facts
   { id: 'zero-transfer-sdk-name', kind: 'static-pair', label: 'npm',      message: '@zero-transfer/sdk', icon: 'npm',    theme: ZTRANSFER_THEME('#0d1117', '#00b4d8') },

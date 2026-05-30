@@ -40,9 +40,7 @@ function buildBadge(tag, dark) {
 
   const H = 24;
   const PAD_X = 2;
-  const MARK_W = 2;
-  const MARK_H = 12;
-  const MARK_GAP = 7;
+  const MARK_GAP = 8;
   const font = tag.primary ? 14 : 13;
   const weight = tag.primary ? 700 : 500;
   const fill = tag.primary ? ink : muted;
@@ -50,19 +48,34 @@ function buildBadge(tag, dark) {
   const table = tag.primary ? CW_PRI : CW;
 
   const textW = measure(tag.label, table);
-  const W = Math.ceil(PAD_X + MARK_W + MARK_GAP + textW + PAD_X);
+  // Diamond mark: 6px square rotated 45 -> ~8.5px bbox.
+  const DIAMOND_R = tag.primary ? 3.4 : 2.8;
+  const MARK_BOX = Math.ceil(DIAMOND_R * 2 + 1);
+  const W = Math.ceil(PAD_X + MARK_BOX + MARK_GAP + textW + PAD_X);
 
   const yMid = H / 2;
   const yText = yMid + font * 0.36;
-  const markX = PAD_X;
-  const markY = (H - MARK_H) / 2;
-  const textX = PAD_X + MARK_W + MARK_GAP;
+  const cx = PAD_X + MARK_BOX / 2;
+  const cy = yMid;
+  const textX = PAD_X + MARK_BOX + MARK_GAP;
+  const diamond = `M ${cx} ${cy - DIAMOND_R} L ${cx + DIAMOND_R} ${cy} L ${cx} ${cy + DIAMOND_R} L ${cx - DIAMOND_R} ${cy} Z`;
+  const animate = tag.primary
+    ? `<animate attributeName="opacity" values="1;0.55;1" dur="3.6s" repeatCount="indefinite"/>`
+    : '';
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${xml(tag.label)}">
   <g font-family="Segoe UI, Inter, -apple-system, BlinkMacSystemFont, sans-serif">
-    <rect x="${markX}" y="${markY}" width="${MARK_W}" height="${MARK_H}" rx="1" fill="${markColor}" opacity="${tag.primary ? 1 : 0.6}"/>
+    <path d="${diamond}" fill="${markColor}" opacity="${tag.primary ? 1 : 0.65}">${animate}</path>
     <text x="${textX}" y="${yText}" font-size="${font}" font-weight="${weight}" fill="${fill}" letter-spacing="${tag.primary ? -0.1 : 0}">${xml(tag.label)}</text>
   </g>
+</svg>
+`;
+}
+
+function buildSeparator(dark) {
+  const c = dark ? '#6e7681' : '#9aa3ad';
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="10" height="24" viewBox="0 0 10 24" role="img" aria-hidden="true">
+  <circle cx="5" cy="12" r="1.4" fill="${c}" opacity="0.5"/>
 </svg>
 `;
 }
@@ -81,10 +94,18 @@ for (const tag of TAGS) {
   });
 }
 
+const sepDark  = buildSeparator(true);
+const sepLight = buildSeparator(false);
+writeFileSync(path.join(OUT, 'tag-sep-dark.svg'), sepDark);
+writeFileSync(path.join(OUT, 'tag-sep-light.svg'), sepLight);
+const sepDHash = createHash('sha1').update(sepDark).digest('hex').slice(0, 8);
+const sepLHash = createHash('sha1').update(sepLight).digest('hex').slice(0, 8);
+
 const ts = Date.now().toString(36);
+const sepPic = `<picture><source media="(prefers-color-scheme: dark)" srcset="${RAW}/tag-sep-dark.svg?v=${sepDHash}&t=${ts}"><img height="24" alt="" src="${RAW}/tag-sep-light.svg?v=${sepLHash}&t=${ts}" /></picture>`;
 const pics = meta.map(m =>
   `<picture><source media="(prefers-color-scheme: dark)" srcset="${RAW}/tag-${m.slug}-dark.svg?v=${m.dHash}&t=${ts}"><img height="24" alt="${xml(m.label)}" src="${RAW}/tag-${m.slug}-light.svg?v=${m.lHash}&t=${ts}" /></picture>`
-).join('\n  &nbsp;\n  ');
+).join(`\n  ${sepPic}\n  `);
 
 const replacement = `<p align="center">\n  ${pics}\n</p>`;
 

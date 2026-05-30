@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="81" height="24" viewBox="0 0 81 24" role="img" aria-label="developer">
+<svg xmlns="http://www.w3.org/2000/svg" width="88" height="24" viewBox="0 0 88 24" role="img" aria-label="developer">
   <g font-family="Segoe UI, Inter, -apple-system, BlinkMacSystemFont, sans-serif">
-    <rect x="2" y="6" width="2" height="12" rx="1" fill="#0969da" opacity="1"/>
-    <text x="11" y="17.04" font-size="14" font-weight="700" fill="#1f2328" letter-spacing="-0.1">developer</text>
+    <path d="M 6 8.6 L 9.4 12 L 6 15.4 L 2.6 12 Z" fill="#0969da" opacity="1"><animate attributeName="opacity" values="1;0.55;1" dur="3.6s" repeatCount="indefinite"/></path>
+    <text x="18" y="17.04" font-size="14" font-weight="700" fill="#1f2328" letter-spacing="-0.1">developer</text>
   </g>
 </svg>

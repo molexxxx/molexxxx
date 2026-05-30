@@ -23,23 +23,23 @@ const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const OUT  = resolve(ROOT, '.github', 'badges');
 mkdirSync(OUT, { recursive: true });
 
-const CARD_W       = 880;
-const PAD_X        = 14;
-const PAD_TOP      = 30;     // header band
-const PAD_BOTTOM   = 12;
-const CHIP_H       = 22;
-const CHIP_GAP_X   = 6;
-const CHIP_GAP_Y   = 6;
-const CHIP_PAD_X   = 8;
-const ICON_SIZE    = 11;
-const ICON_TEXT_GAP = 6;
-const CHIP_FONT    = 11;
+const CARD_W       = 960;
+const PAD_X        = 16;
+const PAD_TOP      = 34;     // header band
+const PAD_BOTTOM   = 14;
+const CHIP_H       = 26;
+const CHIP_GAP_X   = 7;
+const CHIP_GAP_Y   = 7;
+const CHIP_PAD_X   = 10;
+const ICON_SIZE    = 13;
+const ICON_TEXT_GAP = 7;
+const CHIP_FONT    = 12.5;
 const CHIP_FONT_W  = 600;
 
-// Approximate character widths for the chip font (Segoe UI / Inter @ 11/600).
+// Approximate character widths for the chip font (Segoe UI / Inter @ 12.5/600).
 // Rough but consistent - used only for chip-row wrap math; the SVG itself
 // lays out text by absolute x coordinates we compute here.
-const CHAR_W = { default: 6.2, ' ': 3.1, '.': 3.0, ',': 3.0, ':': 3.2, ';': 3.2, '/': 3.7, '-': 3.9, '+': 5.6, '#': 7.6, '%': 9.2, '&': 7.2, 'i': 3.0, 'l': 3.0, 'I': 3.2, 't': 3.7, 'r': 3.9, 'f': 3.9, 'j': 3.0, 'm': 9.7, 'w': 8.6, 'M': 9.2, 'W': 9.9 };
+const CHAR_W = { default: 7.05, ' ': 3.6, '.': 3.4, ',': 3.4, ':': 3.6, ';': 3.6, '/': 4.2, '-': 4.4, '+': 6.4, '#': 8.6, '%': 10.4, '&': 8.2, 'i': 3.4, 'l': 3.4, 'I': 3.6, 't': 4.2, 'r': 4.4, 'f': 4.4, 'j': 3.4, 'm': 11.0, 'w': 9.8, 'M': 10.4, 'W': 11.2 };
 const measureText = (s) => {
   let w = 0;
   for (const c of s) w += CHAR_W[c] ?? CHAR_W.default;
@@ -281,8 +281,8 @@ function renderCard(section, dark) {
   <line x1="${PAD_X}" y1="${PAD_TOP - 8}" x2="${CARD_W - PAD_X}" y2="${PAD_TOP - 8}" stroke="${sep}" stroke-width="1"/>
 
   <g font-family="Segoe UI, Inter, -apple-system, BlinkMacSystemFont, sans-serif">
-    <text x="${PAD_X}" y="18" font-size="12" font-weight="700" fill="${ink}" letter-spacing="-0.1">${escapeXml(section.label)}</text>
-    <text x="${CARD_W - PAD_X}" y="18" text-anchor="end" font-size="10" font-weight="600" fill="${muted}" letter-spacing="1.2">${count}</text>
+    <text x="${PAD_X}" y="20" font-size="13" font-weight="700" fill="${ink}" letter-spacing="-0.1">${escapeXml(section.label)}</text>
+    <text x="${CARD_W - PAD_X}" y="20" text-anchor="end" font-size="11" font-weight="600" fill="${muted}" letter-spacing="1.2">${count}</text>
     ${chipsSvg}
   </g>
 </svg>

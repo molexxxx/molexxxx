@@ -332,8 +332,6 @@ const RAW = 'https://raw.githubusercontent.com/tonywied17/tonywied17/main/.githu
 const ts = Date.now().toString(36);
 const IMG_W = 415;
 
-// Pair adjacent cards by chip count with a small lookahead so each row
-// stays roughly balanced in height. Keeps overall topical order.
 const queue = STACK.map(s => s);
 const pairs = [];
 while (queue.length)

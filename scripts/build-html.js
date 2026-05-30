@@ -9,7 +9,8 @@ const root = resolve(__dirname, '..');
 // Minify in CI (GitHub Actions sets CI=true) or when --minify flag passed.
 const MINIFY = process.env.CI === 'true' || process.argv.includes('--minify');
 
-function minifyCss(src) {
+function minifyCss(src)
+{
   return src
     .replace(/\/\*[\s\S]*?\*\//g, '')          // strip /* ... */ comments
     .replace(/\s+/g, ' ')                       // collapse whitespace
@@ -21,13 +22,14 @@ function minifyCss(src) {
 
 const data = JSON.parse(readFileSync(resolve(root, 'resume.data.json'), 'utf8'));
 
-// Precompute first-letter initial for letter-tile fallback (mustache can't slice).
-if (Array.isArray(data.projects)) {
+if (Array.isArray(data.projects))
+{
   for (const p of data.projects) p.initial = (p.name || '?').charAt(0).toUpperCase();
 }
 
 const ghPath = resolve(root, 'data.github.json');
-if (existsSync(ghPath)) {
+if (existsSync(ghPath))
+{
   try { data.github = JSON.parse(readFileSync(ghPath, 'utf8')); }
   catch { /* ignore */ }
 }
@@ -36,7 +38,6 @@ data.ghUser = data.github?.user?.login || 'tonywied17';
 
 const tpl = readFileSync(resolve(root, 'template/resume.html.mustache'), 'utf8');
 
-// Keep HTML escaping on for safety. (Avatar / URLs go through href which is fine.)
 const html = Mustache.render(tpl, data);
 
 const outDir = resolve(root, 'dist');
@@ -47,19 +48,23 @@ const cssSrc = readFileSync(resolve(root, 'template/resume.css'), 'utf8');
 writeFileSync(resolve(outDir, 'resume.css'), MINIFY ? minifyCss(cssSrc) : cssSrc, 'utf8');
 copyFileSync(resolve(root, 'template/resume.js'), resolve(outDir, 'resume.js'));
 
-// Copy any non-source files (images, etc.) from template/ alongside the html.
-for (const entry of readdirSync(resolve(root, 'template'))) {
-  if (/\.(png|jpe?g|gif|webp|svg|ico)$/i.test(entry)) {
+// Copy any non-source files (images, etc.) from template/ alongside the html
+for (const entry of readdirSync(resolve(root, 'template')))
+{
+  if (/\.(png|jpe?g|gif|webp|svg|ico)$/i.test(entry))
+  {
     copyFileSync(resolve(root, 'template', entry), resolve(outDir, entry));
   }
 }
 
-// Copy assets/ verbatim into dist/assets/ so referenced photos/files ship with the site.
+// Copy assets/ verbatim into dist/assets/ so referenced photos/files ship with the site
 const assetsSrc = resolve(root, 'assets');
-if (existsSync(assetsSrc)) {
+if (existsSync(assetsSrc))
+{
   const assetsOut = resolve(outDir, 'assets');
   mkdirSync(assetsOut, { recursive: true });
-  for (const entry of readdirSync(assetsSrc)) {
+  for (const entry of readdirSync(assetsSrc))
+  {
     const s = resolve(assetsSrc, entry);
     if (statSync(s).isFile()) copyFileSync(s, resolve(assetsOut, entry));
   }

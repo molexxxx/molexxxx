@@ -1,8 +1,4 @@
 #!/usr/bin/env node
-// Subtle tagline badges for the README header subtitle.
-// Each tag is its own small transparent SVG so the row wraps naturally on
-// mobile. Monochrome palette - no rainbow - just typography + a tiny
-// leading mark, slightly emphasized on the primary "developer" badge.
 
 import { writeFileSync, readFileSync, mkdirSync, existsSync } from 'node:fs';
 import { createHash } from 'node:crypto';
@@ -15,31 +11,32 @@ const RAW = 'https://raw.githubusercontent.com/tonywied17/tonywied17/main/.githu
 if (!existsSync(OUT)) mkdirSync(OUT, { recursive: true });
 
 const TAGS = [
-  { slug: 'developer',         label: 'developer',         primary: true },
-  { slug: 'web',               label: 'web' },
-  { slug: 'desktop',           label: 'desktop' },
-  { slug: 'games',             label: 'games' },
-  { slug: 'robotics-drones',   label: 'robotics & drones' },
-  { slug: 'real-time',         label: 'real-time' },
-  { slug: 'audio-dsp',         label: 'audio/DSP' },
-  { slug: 'graphics',          label: 'graphics' },
+  { slug: 'developer', label: 'developer', primary: true },
+  { slug: 'web', label: 'web' },
+  { slug: 'desktop', label: 'desktop' },
+  { slug: 'games', label: 'games' },
+  { slug: 'robotics-drones', label: 'robotics & drones' },
+  { slug: 'real-time', label: 'real-time' },
+  { slug: 'audio-dsp', label: 'audio/DSP' },
+  { slug: 'graphics', label: 'graphics' },
 ];
 
 const xml = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
 
 // Approx Segoe UI / Inter widths at 13/500 and 14/700 for primary.
-const CW     = { default: 7.6, ' ': 3.9, 'i': 3.6, 'l': 3.6, 'I': 3.8, 'r': 4.7, 't': 4.5, 'f': 4.7, '/': 4.4, '-': 4.6, '&': 8.6, '.': 3.6 };
+const CW = { default: 7.6, ' ': 3.9, 'i': 3.6, 'l': 3.6, 'I': 3.8, 'r': 4.7, 't': 4.5, 'f': 4.7, '/': 4.4, '-': 4.6, '&': 8.6, '.': 3.6 };
 const CW_PRI = { default: 8.4, ' ': 4.3, 'i': 4.0, 'l': 4.0, 'I': 4.2, 'r': 5.2, 't': 5.0, 'f': 5.0 };
 const measure = (s, t) => { let w = 0; for (const c of s) w += t[c] ?? t.default; return w; };
 
-function buildBadge(tag, dark) {
-  const ink           = dark ? '#e6edf3' : '#1f2328';
-  const muted         = dark ? '#a9b3bf' : '#57606a';
-  const borderMuted   = dark ? 'rgba(110,118,129,0.45)' : 'rgba(154,163,173,0.55)';
-  const bgMuted       = dark ? 'rgba(110,118,129,0.10)' : 'rgba(154,163,173,0.10)';
+function buildBadge(tag, dark)
+{
+  const ink = dark ? '#e6edf3' : '#1f2328';
+  const muted = dark ? '#a9b3bf' : '#57606a';
+  const borderMuted = dark ? 'rgba(110,118,129,0.45)' : 'rgba(154,163,173,0.55)';
+  const bgMuted = dark ? 'rgba(110,118,129,0.10)' : 'rgba(154,163,173,0.10)';
   const primaryAccent = dark ? '#58a6ff' : '#0969da';
   const primaryBorder = dark ? 'rgba(88,166,255,0.65)' : 'rgba(9,105,218,0.60)';
-  const primaryBg     = dark ? 'rgba(88,166,255,0.14)' : 'rgba(9,105,218,0.10)';
+  const primaryBg = dark ? 'rgba(88,166,255,0.14)' : 'rgba(9,105,218,0.10)';
 
   const H = 26;
   const PAD_X = 11;
@@ -71,14 +68,16 @@ function buildBadge(tag, dark) {
 `;
 }
 
-function buildSeparator(_dark) {
+function buildSeparator(_dark)
+{
   // No separator emitted any more; kept as no-op.
   return '';
 }
 
 const meta = [];
-for (const tag of TAGS) {
-  const dark  = buildBadge(tag, true);
+for (const tag of TAGS)
+{
+  const dark = buildBadge(tag, true);
   const light = buildBadge(tag, false);
   writeFileSync(path.join(OUT, `tag-${tag.slug}-dark.svg`), dark);
   writeFileSync(path.join(OUT, `tag-${tag.slug}-light.svg`), light);
@@ -90,7 +89,7 @@ for (const tag of TAGS) {
   });
 }
 
-const sepDark  = buildSeparator(true);
+const sepDark = buildSeparator(true);
 const sepLight = buildSeparator(false);
 void sepDark; void sepLight;
 
@@ -108,16 +107,20 @@ md = md.replace(/^<{7} .*\n/gm, '').replace(/^={7}\n/gm, '').replace(/^>{7} .*\n
 const taglineLine = /<p align="center">(?:\s|<picture>[\s\S]*?(?:tagline-|tag-)[\s\S]*?<\/picture>|&nbsp;|<b>developer<\/b>[^<]*)+<\/p>\s*\n/;
 // Collapse any duplicates.
 const all = [...md.matchAll(new RegExp(taglineLine.source, 'g'))];
-if (all.length > 1) {
-  for (let i = all.length - 1; i >= 1; i--) {
+if (all.length > 1)
+{
+  for (let i = all.length - 1; i >= 1; i--)
+  {
     md = md.slice(0, all[i].index) + md.slice(all[i].index + all[i][0].length);
   }
 }
-if (taglineLine.test(md)) {
+if (taglineLine.test(md))
+{
   md = md.replace(taglineLine, replacement + '\n');
   writeFileSync(README, md);
   console.log('updated README.md tagline');
-} else {
+} else
+{
   console.warn('tagline line not found in README.md - prepending');
   writeFileSync(README, replacement + '\n\n' + md);
 }

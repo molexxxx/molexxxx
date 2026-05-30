@@ -1,7 +1,8 @@
 import { readFileSync, writeFileSync, mkdirSync, rmSync, existsSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import {
+import
+{
   Document, Packer, Paragraph, TextRun,
   Tab, TabStopType, TabStopPosition, ExternalHyperlink, BorderStyle,
 } from 'docx';
@@ -10,14 +11,14 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = resolve(__dirname, '..');
 const data = JSON.parse(readFileSync(resolve(root, 'resume.data.json'), 'utf8'));
 
-// Palette mirrors print CSS.
+// Palette mirrors print CSS
 const INK = '0B1220';
 const INK_2 = '1F2937';
 const MUTED = '4B5563';
 const ACCENT = '1D4ED8';
 const RULE = '9CA3AF';
 
-// docx sizes are half-points (so 21 = 10.5pt). Mirror print CSS values.
+// docx sizes are half-points (so 21 = 10.5pt)
 const SIZE_BASE = 21;
 const SIZE_BULLET = 20;
 const SIZE_NAME = 48;
@@ -86,19 +87,20 @@ children.push(new Paragraph({
   children: [new TextRun({ text: data.title, color: ACCENT, bold: true, size: SIZE_ROLE, font: FONT })],
 }));
 
-// Summary - plain paragraph, no shaded box.
+// Summary
 children.push(new Paragraph({
   spacing: { after: 100, line: 300 },
   children: [new TextRun({ text: data.summary, color: INK_2, size: SIZE_BASE, font: FONT })],
 }));
 
-// Contact line - single row, separator dots, hyperlinked email + links.
+// Contact line
 const contactRuns = [
   new TextRun({ text: data.location, color: MUTED, size: SIZE_META, font: FONT }),
   new TextRun({ text: '   ·   ', color: MUTED, size: SIZE_META, font: FONT }),
   link(data.email, `mailto:${data.email}`, { size: SIZE_META, underline: false }),
 ];
-for (const l of data.links || []) {
+for (const l of data.links || [])
+{
   contactRuns.push(new TextRun({ text: '   ·   ', color: MUTED, size: SIZE_META, font: FONT }));
   contactRuns.push(link(l.label, l.url, { size: SIZE_META, underline: false }));
 }
@@ -110,9 +112,11 @@ children.push(new Paragraph({
 
 // ---------- EXPERIENCE ----------
 children.push(sectionHeading('Experience'));
-for (const job of data.experience) {
+for (const job of data.experience)
+{
   children.push(jobHeader(job.role, job.company, `${job.start} – ${job.end}`));
-  if (job.location) {
+  if (job.location)
+  {
     children.push(new Paragraph({
       spacing: { after: 60 },
       children: [new TextRun({ text: job.location, color: MUTED, italics: true, size: SIZE_META, font: FONT })],
@@ -123,14 +127,16 @@ for (const job of data.experience) {
 
 // ---------- SELECTED PROJECTS ----------
 children.push(sectionHeading('Selected Projects'));
-for (const proj of data.projects) {
+for (const proj of data.projects)
+{
   children.push(new Paragraph({
     spacing: { before: 100, after: 30 },
     children: [
       link(proj.name, proj.url, { size: SIZE_PROJECT, bold: true, underline: false }),
     ],
   }));
-  if (proj.blurb) {
+  if (proj.blurb)
+  {
     children.push(new Paragraph({
       spacing: { after: 40, line: 280 },
       children: [new TextRun({ text: proj.blurb, color: INK_2, size: SIZE_BULLET, font: FONT })],
@@ -140,7 +146,8 @@ for (const proj of data.projects) {
 
 // ---------- SKILLS ----------
 children.push(sectionHeading('Skills'));
-for (const s of data.skills) {
+for (const s of data.skills)
+{
   children.push(new Paragraph({
     spacing: { after: 50, line: 280 },
     children: [
@@ -159,9 +166,11 @@ for (const s of data.skills) {
 
 // ---------- EDUCATION ----------
 children.push(sectionHeading('Education'));
-for (const e of data.education) {
+for (const e of data.education)
+{
   children.push(jobHeader(e.degree, e.school, `${e.start} – ${e.end}`));
-  if (e.location) {
+  if (e.location)
+  {
     children.push(new Paragraph({
       spacing: { after: 40 },
       children: [new TextRun({ text: e.location, color: MUTED, italics: true, size: SIZE_META, font: FONT })],
@@ -181,7 +190,6 @@ const doc = new Document({
   sections: [{
     properties: {
       page: {
-        // 0.5in top/bottom (720 twips), 0.55in sides (~792 twips). Matches @page in print CSS.
         margin: { top: 720, right: 792, bottom: 720, left: 792 },
       },
     },

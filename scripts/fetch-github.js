@@ -9,8 +9,6 @@ const USER = process.env.GH_USER || 'tonywied17';
 const NPM_USER = process.env.NPM_USER || 'molex222';
 const TOKEN = process.env.GITHUB_TOKEN;
 
-// Curated repo icons (matches the GitHub profile README). Unknown repos render
-// a generated letter tile in the client.
 const ICON_MAP = {
   'zero-query': 'https://raw.githubusercontent.com/tonywied17/zero-query/main/.github/images/logo-animated.svg',
   'zero-server': 'https://raw.githubusercontent.com/tonywied17/zero-server/main/website-docs/public/icons/logo-animated.svg',
@@ -21,11 +19,7 @@ const ICON_MAP = {
 };
 const iconFor = (name) => ICON_MAP[name] ?? null;
 
-// Repos to hide from the live grid (e.g. WIP/abandoned).
 const EXCLUDE = new Set(['ng-juwanji']);
-
-// Forks worth pinning. We replace the fork's stats (always 0★) with the
-// upstream's so the grid reflects the project's real reach.
 const INCLUDE_FORKS = ['plex-poster-set-helper'];
 
 const headers = {
@@ -35,13 +29,15 @@ const headers = {
   ...(TOKEN ? { Authorization: `Bearer ${TOKEN}` } : {}),
 };
 
-async function gh(path) {
+async function gh(path)
+{
   const res = await fetch(`https://api.github.com${path}`, { headers });
   if (!res.ok) throw new Error(`GitHub ${path} → ${res.status} ${res.statusText}`);
   return res.json();
 }
 
-async function safe(promise, fallback) {
+async function safe(promise, fallback)
+{
   try { return await promise; } catch (e) { console.warn('  ! github fetch failed:', e.message); return fallback; }
 }
 
@@ -49,22 +45,24 @@ const user = await safe(gh(`/users/${USER}`), null);
 
 const allRepos = await safe(gh(`/users/${USER}/repos?per_page=100&sort=pushed&type=owner`), []);
 
-// Public gists count.
-async function fetchGistsCount() {
+async function fetchGistsCount()
+{
   const list = await safe(gh(`/users/${USER}/gists?per_page=100`), []);
   return Array.isArray(list) ? list.length : 0;
 }
 
-// Published npm packages for the registered npm user.
-async function fetchNpmCount() {
-  try {
+async function fetchNpmCount()
+{
+  try
+  {
     const res = await fetch(`https://registry.npmjs.org/-/v1/search?text=maintainer:${NPM_USER}&size=250`, {
       headers: { 'User-Agent': `${USER}-resume-build`, Accept: 'application/json' },
     });
     if (!res.ok) throw new Error(`npm ${res.status}`);
     const json = await res.json();
     return json.total ?? (Array.isArray(json.objects) ? json.objects.length : 0);
-  } catch (e) {
+  } catch (e)
+  {
     console.warn('  ! npm fetch failed:', e.message);
     return 0;
   }
@@ -72,8 +70,8 @@ async function fetchNpmCount() {
 
 const [gistsCount, npmCount] = await Promise.all([fetchGistsCount(), fetchNpmCount()]);
 
-// Resolve upstream stats for any pinned forks so we can present them honestly.
-async function resolveFork(name) {
+async function resolveFork(name)
+{
   const detail = await safe(gh(`/repos/${USER}/${name}`), null);
   if (!detail) return null;
   const src = detail.source ?? detail.parent;
@@ -118,15 +116,15 @@ const totalStars = combined.reduce((s, r) => s + r.stargazers_count, 0);
 const out = {
   user: user
     ? {
-        login: user.login,
-        name: user.name,
-        avatar_url: user.avatar_url,
-        bio: user.bio,
-        html_url: user.html_url,
-        followers: user.followers,
-        following: user.following,
-        public_repos: user.public_repos,
-      }
+      login: user.login,
+      name: user.name,
+      avatar_url: user.avatar_url,
+      bio: user.bio,
+      html_url: user.html_url,
+      followers: user.followers,
+      following: user.following,
+      public_repos: user.public_repos,
+    }
     : null,
   totals: { stars: totalStars, repos: allRepos.length, gists: gistsCount, npm: npmCount },
   repos,

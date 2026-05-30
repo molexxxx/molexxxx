@@ -217,7 +217,7 @@ function repoCard(r)
     <div class="card-row">
       ${iconEl}
       <div class="card-body">
-        <div class="repo-head"><h3>${esc(r.name)}</h3><span class="arrow" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M9 7h8v8"/></svg></span></div>
+        <div class="repo-head"><h3>${esc(r.name)}</h3><span class="arrow" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6"/><path d="M10 14L20 4"/><path d="M19 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span></div>
         <p class="repo-desc">${esc(r.description ?? '')}</p>
         <div class="repo-meta">
           ${r.language ? `<span class="tag lang" data-lang="${esc(r.language)}"><span class="dot"></span>${esc(r.language)}</span>` : ''}

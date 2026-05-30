@@ -176,9 +176,7 @@ const STACK = [
       { name: 'Cloudflare', slug: 'cloudflare' },
       { name: 'Akamai', slug: 'akamai' },
       { name: 'Azure', slug: 'microsoftazure' },
-      { name: 'Google Cloud', slug: 'googlecloud' },
-      { name: 'DigitalOcean', slug: 'digitalocean' },
-      { name: 'Vercel', slug: 'vercel' },
+      { name: 'GCP', slug: 'googlecloud' },
     ]
   },
 ];

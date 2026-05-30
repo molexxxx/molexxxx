@@ -19,7 +19,7 @@ const RAW   = `https://raw.githubusercontent.com/${OWNER}/${REPO}/main/${OUT}`;
 
 const BADGES = [
   // Header pill badges
-  { id: 'header-resume', kind: 'header-link', label: 'Resume', value: 'PDF',                    icon: 'resume', accentA: '#f59e0b', accentB: '#ef4444' },
+  { id: 'header-resume', kind: 'header-link', label: 'Resume', value: 'visit',                  icon: 'resume', accentA: '#f59e0b', accentB: '#ef4444' },
   { id: 'header-repos',  kind: 'header-link', label: 'Repos',  source: 'user-repos',            icon: 'github', accentA: '#60a5fa', accentB: '#2563eb' },
   { id: 'header-gists',  kind: 'header-link', label: 'Gists',  source: 'user-gists',            icon: 'gist',   accentA: '#a78bfa', accentB: '#7c3aed' },
   { id: 'header-npm',    kind: 'header-link', label: 'npm',    source: 'npm-packages', npmUser: 'molex222', icon: 'npm-pkg', accentA: '#f87171', accentB: '#dc2626' },

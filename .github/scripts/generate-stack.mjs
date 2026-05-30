@@ -23,9 +23,9 @@ const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const OUT  = resolve(ROOT, '.github', 'badges');
 mkdirSync(OUT, { recursive: true });
 
-const CARD_W       = 560;
-const PAD_X        = 12;
-const PAD_TOP      = 28;     // header band
+const CARD_W       = 880;
+const PAD_X        = 14;
+const PAD_TOP      = 30;     // header band
 const PAD_BOTTOM   = 12;
 const CHIP_H       = 22;
 const CHIP_GAP_X   = 6;
@@ -317,7 +317,7 @@ const block = STACK.map(s => {
   return `  <picture><source media="(prefers-color-scheme: dark)" srcset="${RAW}/stack-${slug}-dark.svg?v=${darkHash}&t=${ts}"><img alt="${escapeXml(s.label)}" src="${RAW}/stack-${slug}-light.svg?v=${lightHash}&t=${ts}" /></picture>`;
 }).join('\n  <br/>\n');
 
-const wrapped = `<!-- stack:start -->\n<p align="center">\n${block}\n</p>\n<!-- stack:end -->`;
+const wrapped = `<!-- stack:start -->\n${block}\n<!-- stack:end -->`;
 
 if (md.includes('<!-- stack:start -->') && md.includes('<!-- stack:end -->')) {
   md = md.replace(/<!-- stack:start -->[\s\S]*?<!-- stack:end -->/, wrapped);

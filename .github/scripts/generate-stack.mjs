@@ -333,8 +333,6 @@ const IMG_W = 415;
 const queue = STACK.map(s => s);
 const byLabel = Object.fromEntries(queue.map(s => [s.label, s]));
 
-// Hand-curated row pairings — keeps related categories together
-// and balances height by chip count.
 const PAIRINGS = [
   ['Languages', 'Backend'],
   ['Frontend', 'Real-time'],

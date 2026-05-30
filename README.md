@@ -1,10 +1,13 @@
 <p align="center"><b>developer</b> · web · desktop · games · robotics & drones · real-time · audio/DSP · graphics</p>
 
 <p align="center">
-  <a href="https://tonywied17.github.io/tonywied17/"><b>resume</b></a> &nbsp;·&nbsp;
-  <a href="https://github.com/tonywied17?tab=repositories">repos</a> &nbsp;·&nbsp;
-  <a href="https://gist.github.com/tonywied17">gists</a> &nbsp;·&nbsp;
-  <a href="https://www.npmjs.com/~molex222">npm</a>
+  <a href="https://tonywied17.github.io/tonywied17/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/header-resume-dark.svg?v=042b5aa3"><img height="44" src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/header-resume-light.svg?v=042b5aa3" alt="Resume" /></picture></a>
+  &nbsp;
+  <a href="https://github.com/tonywied17?tab=repositories"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/header-repos-dark.svg?v=b5798b42"><img height="44" src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/header-repos-light.svg?v=b5798b42" alt="Repos" /></picture></a>
+  &nbsp;
+  <a href="https://gist.github.com/tonywied17"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/header-gists-dark.svg?v=043b738b"><img height="44" src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/header-gists-light.svg?v=043b738b" alt="Gists" /></picture></a>
+  &nbsp;
+  <a href="https://www.npmjs.com/~molex222"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/header-npm-dark.svg?v=e238dc59"><img height="44" src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/header-npm-light.svg?v=e238dc59" alt="npm" /></picture></a>
 </p>
 
 ### Projects

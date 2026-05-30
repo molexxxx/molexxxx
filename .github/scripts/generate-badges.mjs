@@ -18,6 +18,12 @@ const OUT   = '.github/badges';
 const RAW   = `https://raw.githubusercontent.com/${OWNER}/${REPO}/main/${OUT}`;
 
 const BADGES = [
+  // Header pill badges
+  { id: 'header-resume', kind: 'header-link', label: 'Resume', value: 'PDF',                    icon: 'resume', accentA: '#f59e0b', accentB: '#ef4444' },
+  { id: 'header-repos',  kind: 'header-link', label: 'Repos',  source: 'user-repos',            icon: 'github', accentA: '#60a5fa', accentB: '#2563eb' },
+  { id: 'header-gists',  kind: 'header-link', label: 'Gists',  source: 'user-gists',            icon: 'gist',   accentA: '#a78bfa', accentB: '#7c3aed' },
+  { id: 'header-npm',    kind: 'header-link', label: 'npm',    source: 'npm-packages', npmUser: 'molex222', icon: 'npm-pkg', accentA: '#f87171', accentB: '#dc2626' },
+
   // websites
   { id: 'zero-query-site',    kind: 'static-pair', label: 'website', message: 'visit', icon: 'globe' },
   { id: 'zero-server-site',   kind: 'static-pair', label: 'website', message: 'visit', icon: 'globe' },
@@ -155,6 +161,22 @@ function fmtNum(n) {
 }
 
 async function getValue(b) {
+  if (b.kind === 'header-link') {
+    if (!b.source) return b.value ?? '';
+    if (b.source === 'user-repos') {
+      const u = await gh(`/users/${OWNER}`);
+      return String(u.public_repos);
+    }
+    if (b.source === 'user-gists') {
+      const list = await gh(`/users/${OWNER}/gists?per_page=100`);
+      return String(list.length);
+    }
+    if (b.source === 'npm-packages') {
+      const r = await fetchJson(`https://registry.npmjs.org/-/v1/search?text=maintainer:${b.npmUser}&size=250`);
+      return String(r.total ?? (r.objects?.length ?? 0));
+    }
+    return b.value ?? '';
+  }
   if (b.kind === 'static-single' || b.kind === 'static-pair') {
     return b.message;
   }
@@ -236,6 +258,82 @@ const ICONS = {
   git:    c => `<svg x="5" y="3" width="14" height="14" viewBox="0 0 24 24" fill="${c}"><path d="M23.546 10.93L13.067.452c-.604-.603-1.582-.603-2.188 0L8.708 2.627l2.76 2.76c.645-.215 1.379-.07 1.889.441.516.515.658 1.258.438 1.9l2.658 2.66c.645-.223 1.387-.078 1.9.435.721.72.721 1.884 0 2.604-.719.719-1.881.719-2.6 0-.539-.541-.674-1.337-.404-1.996L12.86 8.955v6.525c.176.086.342.203.488.348.713.721.713 1.883 0 2.6-.719.721-1.889.721-2.609 0-.719-.719-.719-1.879 0-2.598.182-.18.387-.316.605-.406V8.835c-.217-.091-.424-.222-.6-.401-.545-.545-.676-1.342-.396-2.009L7.636 3.7.45 10.881c-.6.605-.6 1.584 0 2.189l10.48 10.477c.604.604 1.582.604 2.186 0l10.43-10.43c.605-.603.605-1.582 0-2.187"/></svg>`,
 };
 
+// 22px header-pill icons (positioned by the header renderer).
+const HEADER_ICONS = {
+  resume: c => `<g fill="none" stroke="${c}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M8 13h8M8 17h8M8 9h2"/></g>`,
+  github: c => `<path fill="${c}" d="M12 .5a12 12 0 0 0-3.79 23.4c.6.11.82-.26.82-.58v-2.02c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.1-.75.08-.74.08-.74 1.21.09 1.85 1.24 1.85 1.24 1.08 1.85 2.83 1.32 3.52 1.01.11-.78.42-1.32.76-1.62-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.49 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58A12 12 0 0 0 12 .5Z"/>`,
+  gist:   c => `<g fill="none" stroke="${c}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></g>`,
+  'npm-pkg': c => `<path fill="${c}" d="M2 7v10h6v-7h3v7h11V7H2zm5 8H5V9h2v6zm8 0h-2V9h-2v6h-2V9h6v6z"/>`,
+};
+
+/**
+ * Render an animated pill-style header badge SVG with the stat value baked in.
+ * - Rounded rect background with a diagonal accent gradient.
+ * - Subtle border pulse + 3 particles orbiting along the border path via
+ *   animateMotion + mpath (works inside <img>-embedded SVGs on GitHub).
+ */
+function svgHeader({ label, value, icon, accentA, accentB, dark, id }) {
+  const W = 180, H = 44;
+  const RX = 12;
+  const ink = dark ? '#e6e9f1' : '#0b1220';
+  const muted = dark ? '#94a3b8' : '#5b6472';
+  const surfaceA = dark ? '#11151f' : '#ffffff';
+  const surfaceB = dark ? '#0a0d14' : '#f7f8fb';
+  const border = dark ? '#1f2533' : '#e4e7ee';
+  // Border path inset by 1px so the stroke sits inside the viewbox without clipping.
+  const bx = 1, by = 1, bw = W - 2, bh = H - 2, br = RX - 0.5;
+  const borderD = `M ${bx + br} ${by} H ${bx + bw - br} A ${br} ${br} 0 0 1 ${bx + bw} ${by + br} V ${by + bh - br} A ${br} ${br} 0 0 1 ${bx + bw - br} ${by + bh} H ${bx + br} A ${br} ${br} 0 0 1 ${bx} ${by + bh - br} V ${by + br} A ${br} ${br} 0 0 1 ${bx + br} ${by} Z`;
+  const iconSvg = HEADER_ICONS[icon] ? HEADER_ICONS[icon](accentA) : '';
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${escapeXml(label)}: ${escapeXml(value)}">
+  <defs>
+    <linearGradient id="bg-${id}" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="${surfaceA}"/>
+      <stop offset="100%" stop-color="${surfaceB}"/>
+    </linearGradient>
+    <linearGradient id="ac-${id}" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="${accentA}"/>
+      <stop offset="100%" stop-color="${accentB}"/>
+    </linearGradient>
+    <linearGradient id="tint-${id}" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="${accentA}" stop-opacity="${dark ? 0.18 : 0.10}"/>
+      <stop offset="100%" stop-color="${accentA}" stop-opacity="0"/>
+    </linearGradient>
+    <path id="bd-${id}" d="${borderD}" fill="none"/>
+    <clipPath id="clip-${id}"><rect x="0" y="0" width="${W}" height="${H}" rx="${RX}" ry="${RX}"/></clipPath>
+  </defs>
+
+  <rect x="0" y="0" width="${W}" height="${H}" rx="${RX}" ry="${RX}" fill="url(#bg-${id})"/>
+  <rect x="0" y="0" width="${W}" height="${H}" rx="${RX}" ry="${RX}" fill="url(#tint-${id})"/>
+
+  <use href="#bd-${id}" stroke="${border}" stroke-width="1"/>
+  <use href="#bd-${id}" stroke="url(#ac-${id})" stroke-width="1.2" stroke-opacity="0.55"/>
+  <use href="#bd-${id}" stroke="url(#ac-${id})" stroke-width="2" stroke-dasharray="55 380" stroke-linecap="round">
+    <animate attributeName="stroke-dashoffset" from="0" to="-435" dur="5.5s" repeatCount="indefinite"/>
+  </use>
+
+  <g clip-path="url(#clip-${id})">
+    <circle r="1.9" fill="${accentA}"><animateMotion dur="5s" repeatCount="indefinite" rotate="auto"><mpath href="#bd-${id}"/></animateMotion></circle>
+    <circle r="1.5" fill="${accentB}"><animateMotion dur="5s" begin="-1.25s" repeatCount="indefinite" rotate="auto"><mpath href="#bd-${id}"/></animateMotion></circle>
+    <circle r="1.3" fill="${accentA}" opacity="0.75"><animateMotion dur="5s" begin="-2.5s" repeatCount="indefinite" rotate="auto"><mpath href="#bd-${id}"/></animateMotion></circle>
+    <circle r="1" fill="${accentB}" opacity="0.7"><animateMotion dur="5s" begin="-3.75s" repeatCount="indefinite" rotate="auto"><mpath href="#bd-${id}"/></animateMotion></circle>
+  </g>
+
+  <g transform="translate(14 11)">
+    <rect x="-2" y="-2" width="28" height="26" rx="7" fill="${accentA}" fill-opacity="${dark ? 0.14 : 0.10}" stroke="${accentA}" stroke-opacity="0.35"/>
+    <g transform="translate(0 0) scale(${24/24})" >
+      <svg viewBox="0 0 24 24" width="24" height="24">${iconSvg}</svg>
+    </g>
+  </g>
+
+  <g font-family="Segoe UI, Inter, -apple-system, BlinkMacSystemFont, sans-serif">
+    <text x="54" y="24" font-size="18" font-weight="800" fill="${ink}" letter-spacing="-0.3">${escapeXml(value)}</text>
+    <text x="54" y="36" font-size="9.5" font-weight="700" fill="${muted}" letter-spacing="1.6">${escapeXml(label.toUpperCase())}</text>
+  </g>
+</svg>
+`;
+}
+
+
 const ICON_EXTRA = 18; // 14px icon + 4px gap before label text
 
 function svg({ label, message, labelColor, messageColor, textColor, labelTextColor, icon, iconColor }) {
@@ -277,7 +375,10 @@ for (const b of BADGES) {
   try {
     const message = await getValue(b);
     let dark, light, themed;
-    if (b.kind === 'static-single') {
+    if (b.kind === 'header-link') {
+      dark  = svgHeader({ label: b.label, value: message, icon: b.icon, accentA: b.accentA, accentB: b.accentB, dark: true,  id: b.id + '-d' });
+      light = svgHeader({ label: b.label, value: message, icon: b.icon, accentA: b.accentA, accentB: b.accentB, dark: false, id: b.id + '-l' });
+    } else if (b.kind === 'static-single') {
       dark  = svgSingle({ message, color: '#21262d', textColor: '#ffffff', icon: b.icon, iconColor: '#ffffff' });
       light = svgSingle({ message, color: '#d0d7de', textColor: '#1f2328', icon: b.icon, iconColor: '#1f2328' });
       if (b.theme) {

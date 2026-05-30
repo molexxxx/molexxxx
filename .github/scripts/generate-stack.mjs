@@ -342,7 +342,7 @@ while (queue.length)
   if (!queue.length) { pairs.push([a]); break; }
   let bestIdx = 0;
   let bestDiff = Math.abs(a.chips.length - queue[0].chips.length);
-  for (let i = 1; i < Math.min(2, queue.length); i++)
+  for (let i = 1; i < Math.min(4, queue.length); i++)
   {
     const d = Math.abs(a.chips.length - queue[i].chips.length);
     if (d < bestDiff) { bestDiff = d; bestIdx = i; }
@@ -358,7 +358,7 @@ const cardHtml = (s) =>
   return `<picture><source media="(prefers-color-scheme: dark)" srcset="${RAW}/stack-${slug}-dark.svg?v=${darkHash}&t=${ts}"><img alt="${escapeXml(s.label)}" width="${IMG_W}" src="${RAW}/stack-${slug}-light.svg?v=${lightHash}&t=${ts}" /></picture>`;
 };
 
-const block = pairs.map(p => p.map(cardHtml).join(' ')).join('\n  ');
+const block = pairs.map(p => p.map(cardHtml).join(' ')).join('<br/>\n  ');
 
 const wrapped = `<!-- stack:start -->\n${block}\n<!-- stack:end -->`;
 

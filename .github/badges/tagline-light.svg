@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="663" height="36" viewBox="0 0 663 36" role="img" aria-label="developer - web, desktop, games, robotics & drones, real-time, audio/DSP, graphics">
+  <defs>
+    <linearGradient id="acc" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2563eb" stop-opacity="0.0"/>
+      <stop offset="50%" stop-color="#2563eb" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#2563eb" stop-opacity="0.0"/>
+    </linearGradient>
+  </defs>
+  <g font-family="Segoe UI, Inter, -apple-system, BlinkMacSystemFont, sans-serif">
+    <rect x="4" y="9" width="3" height="18" rx="1.5" fill="url(#acc)"/>
+    <text x="17" y="22.6" font-size="14" font-weight="700" fill="#1f2328" letter-spacing="-0.1">developer</text>
+    <line x1="92" y1="10" x2="92" y2="26" stroke="#d0d7de" stroke-width="1"/>
+    <circle cx="101.8" cy="18" r="2.8" fill="#60a5fa" opacity="0.85"/>
+     <text x="111.6" y="22.6" font-size="13" font-weight="500" fill="#656d76">web</text>
+    <circle cx="151.2" cy="18" r="2.8" fill="#a78bfa" opacity="0.85"/>
+     <text x="161" y="22.6" font-size="13" font-weight="500" fill="#656d76">desktop</text>
+    <circle cx="227.9" cy="18" r="2.8" fill="#22d4f0" opacity="0.85"/>
+     <text x="237.70000000000002" y="22.6" font-size="13" font-weight="500" fill="#656d76">games</text>
+    <circle cx="292.50000000000006" cy="18" r="2.8" fill="#34d399" opacity="0.85"/>
+     <text x="302.30000000000007" y="22.6" font-size="13" font-weight="500" fill="#656d76">robotics &amp; drones</text>
+    <circle cx="429.00000000000006" cy="18" r="2.8" fill="#f59e0b" opacity="0.85"/>
+     <text x="438.80000000000007" y="22.6" font-size="13" font-weight="500" fill="#656d76">real-time</text>
+    <circle cx="507.00000000000006" cy="18" r="2.8" fill="#f472b6" opacity="0.85"/>
+     <text x="516.8000000000001" y="22.6" font-size="13" font-weight="500" fill="#656d76">audio/DSP</text>
+    <circle cx="594.8000000000001" cy="18" r="2.8" fill="#f87171" opacity="0.85"/>
+     <text x="604.6" y="22.6" font-size="13" font-weight="500" fill="#656d76">graphics</text>
+  </g>
+</svg>

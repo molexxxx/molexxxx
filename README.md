@@ -1,5 +1,4 @@
-<p align="center"><b>developer</b> · web · desktop · games · robotics & drones · real-time · audio/DSP · graphics</p>
-
+<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/tagline-dark.svg?v=022b720c&t=mpsf2t5l"><img alt="developer - web, desktop, games, robotics & drones, real-time, audio/DSP, graphics" src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/tagline-light.svg?v=cb40abd9&t=mpsf2t5l" /></picture></p>
 <p align="center">
   <a href="https://tonywied17.github.io/tonywied17/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/header-resume-dark.svg?v=ac0bcedb&t=1780142740"><img height="44" src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/header-resume-light.svg?v=ac0bcedb&t=1780142740" alt="Resume" /></picture></a>
   &nbsp;

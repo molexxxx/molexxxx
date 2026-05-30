@@ -12,6 +12,7 @@ on:
       - '.github/workflows/badges.yml'
       - '.github/scripts/generate-badges.mjs'
       - '.github/scripts/generate-stack.mjs'
+      - '.github/scripts/generate-tagline.mjs'
       - 'package.json'
       - 'package-lock.json'
 
@@ -45,6 +46,9 @@ jobs:
 
       - name: Generate stack cards
         run: node .github/scripts/generate-stack.mjs
+
+      - name: Generate tagline
+        run: node .github/scripts/generate-tagline.mjs
 
       - name: Commit changes
         run: |

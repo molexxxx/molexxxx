@@ -333,21 +333,21 @@ const ts = Date.now().toString(36);
 const IMG_W = 415;
 
 const queue = STACK.map(s => s);
-const pairs = [];
-while (queue.length)
-{
-  const a = queue.shift();
-  if (!queue.length) { pairs.push([a]); break; }
-  let bestIdx = 0;
-  let bestDiff = Math.abs(a.chips.length - queue[0].chips.length);
-  for (let i = 1; i < Math.min(4, queue.length); i++)
-  {
-    const d = Math.abs(a.chips.length - queue[i].chips.length);
-    if (d < bestDiff) { bestDiff = d; bestIdx = i; }
-  }
-  const b = queue.splice(bestIdx, 1)[0];
-  pairs.push([a, b]);
-}
+const byLabel = Object.fromEntries(queue.map(s => [s.label, s]));
+
+// Hand-curated row pairings — keeps related categories together
+// and balances height by chip count.
+const PAIRINGS = [
+  ['Languages', 'Backend'],
+  ['Frontend', 'Real-time'],
+  ['Data', 'Cloud'],
+  ['Audio & Graphics', 'Auth & Sec'],
+  ['Robotics & Drones', 'Infra'],
+  ['Desktop', 'Game Engines'],
+  ['DevOps'],
+];
+
+const pairs = PAIRINGS.map(row => row.map(l => byLabel[l]).filter(Boolean));
 
 const cardHtml = (s) =>
 {

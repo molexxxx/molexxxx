@@ -342,9 +342,9 @@ const PAIRINGS = [
   ['Frontend', 'Real-time'],
   ['Data', 'Cloud'],
   ['Audio & Graphics', 'Auth & Sec'],
-  ['Robotics & Drones', 'Infra'],
+  ['DevOps', 'Infra'],
   ['Desktop', 'Game Engines'],
-  ['DevOps'],
+  ['Robotics & Drones'],
 ];
 
 const pairs = PAIRINGS.map(row => row.map(l => byLabel[l]).filter(Boolean));

@@ -330,19 +330,15 @@ let md = readFileSync(README, 'utf8');
 
 const RAW = 'https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges';
 const ts = Date.now().toString(36);
+const IMG_W = 360;
 const cards = STACK.map(s =>
 {
   const slug = slugify(s.label);
   const { darkHash, lightHash } = generated[slug];
-  return `<picture><source media="(prefers-color-scheme: dark)" srcset="${RAW}/stack-${slug}-dark.svg?v=${darkHash}&t=${ts}"><img alt="${escapeXml(s.label)}" src="${RAW}/stack-${slug}-light.svg?v=${lightHash}&t=${ts}" /></picture>`;
+  return `<picture><source media="(prefers-color-scheme: dark)" srcset="${RAW}/stack-${slug}-dark.svg?v=${darkHash}&t=${ts}"><img alt="${escapeXml(s.label)}" width="${IMG_W}" src="${RAW}/stack-${slug}-light.svg?v=${lightHash}&t=${ts}" /></picture>`;
 });
 
-const rows = [];
-for (let i = 0; i < cards.length; i += 2)
-{
-  rows.push('  ' + cards.slice(i, i + 2).join(' '));
-}
-const block = rows.join('\n  <br/>\n');
+const block = cards.join(' ');
 
 const wrapped = `<!-- stack:start -->\n${block}\n<!-- stack:end -->`;
 

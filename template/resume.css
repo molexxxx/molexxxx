@@ -138,7 +138,7 @@ img, svg, canvas, video { max-width: 100%; }
   transition: width 140ms ease, height 140ms ease, opacity 140ms ease;
 }
 
-/* Cosmic background canvas — sits behind everything, ignores pointer events. */
+/* Cosmic background canvas - sits behind everything, ignores pointer events. */
 .bg-fx {
   position: fixed; inset: 0;
   width: 100vw; height: 100vh;

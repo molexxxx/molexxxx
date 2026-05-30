@@ -174,7 +174,7 @@ async function getValue(b) {
     }
     if (b.source === 'npm-packages') {
       // npmjs.com/~user JSON endpoint (x-spiferack: 1) is the authoritative
-      // count shown on the profile — it includes packages reachable through
+      // count shown on the profile - it includes packages reachable through
       // org membership that the maintainer-search API misses. Cloudflare
       // blocks Node's fetch on TLS fingerprint, so use curl which both Windows
       // and Linux Actions runners ship with.
@@ -247,7 +247,7 @@ async function getValue(b) {
   throw new Error(`unknown kind: ${b.kind}`);
 }
 
-// Verdana 11px width approximation. Good enough for flat-square layout.
+// Verdana 11px width approximation
 function textWidth(s) {
   let w = 0;
   for (const c of s) {
@@ -285,9 +285,6 @@ const HEADER_ICONS = {
 
 /**
  * Render an animated pill-style header badge SVG with the stat value baked in.
- * - Rounded rect background with a diagonal accent gradient.
- * - Subtle border pulse + 3 particles orbiting along the border path via
- *   animateMotion + mpath (works inside <img>-embedded SVGs on GitHub).
  */
 function svgHeader({ label, value, icon, accentA, accentB, dark, id }) {
   const W = 180, H = 44;
@@ -297,7 +294,6 @@ function svgHeader({ label, value, icon, accentA, accentB, dark, id }) {
   const surfaceA = dark ? '#11151f' : '#ffffff';
   const surfaceB = dark ? '#0a0d14' : '#f7f8fb';
   const border = dark ? '#1f2533' : '#e4e7ee';
-  // Border path inset by 1px so the stroke sits inside the viewbox without clipping.
   const bx = 1, by = 1, bw = W - 2, bh = H - 2, br = RX - 0.5;
   const borderD = `M ${bx + br} ${by} H ${bx + bw - br} A ${br} ${br} 0 0 1 ${bx + bw} ${by + br} V ${by + bh - br} A ${br} ${br} 0 0 1 ${bx + bw - br} ${by + bh} H ${bx + br} A ${br} ${br} 0 0 1 ${bx} ${by + bh - br} V ${by + br} A ${br} ${br} 0 0 1 ${bx + br} ${by} Z`;
   const iconSvg = HEADER_ICONS[icon] ? HEADER_ICONS[icon](accentA) : '';

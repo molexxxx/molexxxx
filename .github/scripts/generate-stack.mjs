@@ -4,7 +4,7 @@
  *
  *  - Per-section accent gradient (matches the header pill badges).
  *  - Animated dashed border pulse + 4 particles orbiting the border path
- *    (animateMotion + mpath — survives GitHub's SVG sanitizer when the file
+ *    (animateMotion + mpath - survives GitHub's SVG sanitizer when the file
  *    is loaded via <img> / <source srcset>).
  *  - Chips render simple-icons glyphs in the brand color when available; fall
  *    back to a first-letter tile colored from the section accent otherwise.
@@ -37,7 +37,7 @@ const CHIP_FONT    = 11;
 const CHIP_FONT_W  = 600;
 
 // Approximate character widths for the chip font (Segoe UI / Inter @ 11/600).
-// Rough but consistent — used only for chip-row wrap math; the SVG itself
+// Rough but consistent - used only for chip-row wrap math; the SVG itself
 // lays out text by absolute x coordinates we compute here.
 const CHAR_W = { default: 6.2, ' ': 3.1, '.': 3.0, ',': 3.0, ':': 3.2, ';': 3.2, '/': 3.7, '-': 3.9, '+': 5.6, '#': 7.6, '%': 9.2, '&': 7.2, 'i': 3.0, 'l': 3.0, 'I': 3.2, 't': 3.7, 'r': 3.9, 'f': 3.9, 'j': 3.0, 'm': 9.7, 'w': 8.6, 'M': 9.2, 'W': 9.9 };
 const measureText = (s) => {
@@ -255,7 +255,7 @@ function renderCard(section, dark) {
   }
 
   const count = section.chips.length;
-  // Very subtle moving sheen across the top edge — slow, low-opacity, no
+  // Very subtle moving sheen across the top edge - slow, low-opacity, no
   // orbiting particles or per-section color. Skips entirely in print/static.
   const sheenW = 180;
   const sheenDur = 9;
@@ -327,7 +327,7 @@ if (md.includes('<!-- stack:start -->') && md.includes('<!-- stack:end -->')) {
   if (m) {
     md = md.replace(m[0], `### Stack\n\n${wrapped}`);
   } else {
-    console.warn('  ! could not find a Stack table or markers in README.md — appending');
+    console.warn('  ! could not find a Stack table or markers in README.md - appending');
     md += `\n\n### Stack\n\n${wrapped}\n`;
   }
 }

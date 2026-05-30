@@ -86,13 +86,13 @@ children.push(new Paragraph({
   children: [new TextRun({ text: data.title, color: ACCENT, bold: true, size: SIZE_ROLE, font: FONT })],
 }));
 
-// Summary — plain paragraph, no shaded box.
+// Summary - plain paragraph, no shaded box.
 children.push(new Paragraph({
   spacing: { after: 100, line: 300 },
   children: [new TextRun({ text: data.summary, color: INK_2, size: SIZE_BASE, font: FONT })],
 }));
 
-// Contact line — single row, separator dots, hyperlinked email + links.
+// Contact line - single row, separator dots, hyperlinked email + links.
 const contactRuns = [
   new TextRun({ text: data.location, color: MUTED, size: SIZE_META, font: FONT }),
   new TextRun({ text: '   ·   ', color: MUTED, size: SIZE_META, font: FONT }),

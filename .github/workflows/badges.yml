@@ -34,7 +34,7 @@ jobs:
           cache: 'npm'
 
       - name: Install deps
-        # --ignore-scripts skips puppeteer's chromium download — badges don't need it.
+        # --ignore-scripts skips puppeteer's chromium download - badges don't need it.
         run: npm ci --ignore-scripts --no-audit --no-fund
 
       - name: Generate header + project badges

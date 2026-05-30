@@ -99,7 +99,7 @@
       "name": "MagnifyShit",
       "url": "https://github.com/tonywied17/MagnifyShit-cpp",
       "icon": "https://raw.githubusercontent.com/tonywied17/MagnifyShit-cpp/main/.github/assets/icon.svg",
-      "blurb": "Customizable Windows magnifier in C++ with D3D11, DXGI desktop duplication, and ImGui — a snappier replacement for the built-in magnifier."
+      "blurb": "Customizable Windows magnifier in C++ with D3D11, DXGI desktop duplication, and ImGui - a snappier replacement for the built-in magnifier."
     }
   ],
   "education": [

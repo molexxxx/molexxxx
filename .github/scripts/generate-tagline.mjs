@@ -109,7 +109,7 @@ const dHash = createHash('sha1').update(dark).digest('hex').slice(0, 8);
 const lHash = createHash('sha1').update(light).digest('hex').slice(0, 8);
 const ts = Date.now().toString(36);
 
-const replacement = `<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="${RAW}/tagline-dark.svg?v=${dHash}&t=${ts}"><img alt="developer - web, desktop, games, robotics & drones, real-time, audio/DSP, graphics" src="${RAW}/tagline-light.svg?v=${lHash}&t=${ts}" /></picture></p>`;
+const replacement = `<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="${RAW}/tagline-dark.svg?v=${dHash}&t=${ts}"><img height="36" alt="developer - web, desktop, games, robotics & drones, real-time, audio/DSP, graphics" src="${RAW}/tagline-light.svg?v=${lHash}&t=${ts}" /></picture></p>`;
 
 let md = readFileSync(README, 'utf8');
 // Strip any leftover git conflict markers around tagline lines so a botched

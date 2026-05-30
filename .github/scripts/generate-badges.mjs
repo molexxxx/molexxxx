@@ -132,8 +132,9 @@ async function gh(p) {
   return r.json();
 }
 
-async function fetchJson(url) {
-  const r = await fetch(url, { headers: { 'User-Agent': 'tonywied17-badge-gen' } });
+async function fetchJson(url, opts = {}) {
+  const headers = { 'User-Agent': 'tonywied17-badge-gen', ...(opts.headers || {}) };
+  const r = await fetch(url, { ...opts, headers });
   if (!r.ok) throw new Error(`${url}: HTTP ${r.status} ${r.statusText}`);
   return r.json();
 }
@@ -172,20 +173,24 @@ async function getValue(b) {
       return String(list.length);
     }
     if (b.source === 'npm-packages') {
-      // Maintainer search misses packages where the user is only an org member,
-      // so merge in the package lists of every @scope/ org we see in the search
-      // results (then dedup). Matches the count shown on npmjs.com/~user.
+      // npmjs.com/~user JSON endpoint (x-spiferack: 1) is the authoritative
+      // count shown on the profile — it includes packages reachable through
+      // org membership that the maintainer-search API misses. Cloudflare
+      // blocks Node's fetch on TLS fingerprint, so use curl which both Windows
+      // and Linux Actions runners ship with.
+      try {
+        const out = execFileSync('curl', [
+          '-sSL', '--max-time', '15',
+          '-H', 'x-spiferack: 1',
+          '-H', 'accept: application/json',
+          '-A', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+          `https://www.npmjs.com/~${b.npmUser}`,
+        ], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] });
+        const j = JSON.parse(out);
+        if (j?.packages?.total != null) return String(j.packages.total);
+      } catch { /* fall through to registry search */ }
       const r = await fetchJson(`https://registry.npmjs.org/-/v1/search?text=maintainer:${b.npmUser}&size=250`);
-      const names = new Set((r.objects ?? []).map(o => o.package.name));
-      const orgs = new Set();
-      for (const n of names) if (n.startsWith('@')) orgs.add(n.split('/')[0].slice(1));
-      for (const org of orgs) {
-        try {
-          const list = await fetchJson(`https://registry.npmjs.org/-/org/${org}/package`);
-          for (const pkg of Object.keys(list)) names.add(pkg);
-        } catch { /* org may be private or missing — skip */ }
-      }
-      return String(names.size);
+      return String(r.total ?? (r.objects?.length ?? 0));
     }
     return b.value ?? '';
   }

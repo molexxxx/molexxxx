@@ -112,8 +112,18 @@ const ts = Date.now().toString(36);
 const replacement = `<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="${RAW}/tagline-dark.svg?v=${dHash}&t=${ts}"><img alt="developer - web, desktop, games, robotics & drones, real-time, audio/DSP, graphics" src="${RAW}/tagline-light.svg?v=${lHash}&t=${ts}" /></picture></p>`;
 
 let md = readFileSync(README, 'utf8');
-// Match either the original plain-text line or a previously generated tagline <picture>.
-const taglineLine = /^<p align="center">(?:<picture>[\s\S]*?tagline-[\s\S]*?<\/picture>|<b>developer<\/b>[^<]*)<\/p>\s*\n/m;
+// Strip any leftover git conflict markers around tagline lines so a botched
+// rebase doesn't survive a regeneration.
+md = md.replace(/^<{7} .*\n/gm, '').replace(/^={7}\n/gm, '').replace(/^>{7} .*\n/gm, '');
+// Match either the original plain-text line or any previously generated tagline <picture>.
+const taglineLine = /<p align="center">(?:<picture>[\s\S]*?tagline-[\s\S]*?<\/picture>|<b>developer<\/b>[^<]*)<\/p>\s*\n/;
+// Collapse duplicate tagline <picture> blocks down to one.
+const all = [...md.matchAll(new RegExp(taglineLine.source, 'g'))];
+if (all.length > 1) {
+  for (let i = all.length - 1; i >= 1; i--) {
+    md = md.slice(0, all[i].index) + md.slice(all[i].index + all[i][0].length);
+  }
+}
 if (taglineLine.test(md)) {
   md = md.replace(taglineLine, replacement + '\n');
   writeFileSync(README, md);

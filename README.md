@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/tagline-dark.svg?v=022b720c&t=mpsf6b78"><img alt="developer - web, desktop, games, robotics & drones, real-time, audio/DSP, graphics" src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/tagline-light.svg?v=cb40abd9&t=mpsf6b78" /></picture></p>
-=======
-<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/tagline-dark.svg?v=022b720c&t=mpsf6082"><img alt="developer - web, desktop, games, robotics & drones, real-time, audio/DSP, graphics" src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/tagline-light.svg?v=cb40abd9&t=mpsf6082" /></picture></p>
->>>>>>> 5620ed8 (readme: bump tagline cache buster)
+<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/tagline-dark.svg?v=022b720c&t=mpsf7rxf"><img alt="developer - web, desktop, games, robotics & drones, real-time, audio/DSP, graphics" src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/tagline-light.svg?v=cb40abd9&t=mpsf7rxf" /></picture></p>
 <p align="center">
   <a href="https://tonywied17.github.io/tonywied17/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/header-resume-dark.svg?v=ac0bcedb&t=1780142740"><img height="44" src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/header-resume-light.svg?v=ac0bcedb&t=1780142740" alt="Resume" /></picture></a>
   &nbsp;

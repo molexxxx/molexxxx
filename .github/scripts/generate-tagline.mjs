@@ -34,50 +34,46 @@ const measure = (s, t) => { let w = 0; for (const c of s) w += t[c] ?? t.default
 
 function buildBadge(tag, dark) {
   const ink           = dark ? '#e6edf3' : '#1f2328';
-  const muted         = dark ? '#8b949e' : '#656d76';
-  const accent        = dark ? '#6e7681' : '#9aa3ad';
+  const muted         = dark ? '#a9b3bf' : '#57606a';
+  const borderMuted   = dark ? 'rgba(110,118,129,0.45)' : 'rgba(154,163,173,0.55)';
+  const bgMuted       = dark ? 'rgba(110,118,129,0.10)' : 'rgba(154,163,173,0.10)';
   const primaryAccent = dark ? '#58a6ff' : '#0969da';
+  const primaryBorder = dark ? 'rgba(88,166,255,0.65)' : 'rgba(9,105,218,0.60)';
+  const primaryBg     = dark ? 'rgba(88,166,255,0.14)' : 'rgba(9,105,218,0.10)';
 
-  const H = 24;
-  const PAD_X = 2;
-  const MARK_GAP = 8;
-  const font = tag.primary ? 14 : 13;
-  const weight = tag.primary ? 700 : 500;
+  const H = 26;
+  const PAD_X = 11;
+  const font = tag.primary ? 13 : 12.5;
+  const weight = tag.primary ? 700 : 600;
   const fill = tag.primary ? ink : muted;
-  const markColor = tag.primary ? primaryAccent : accent;
+  const bg = tag.primary ? primaryBg : bgMuted;
+  const border = tag.primary ? primaryBorder : borderMuted;
   const table = tag.primary ? CW_PRI : CW;
 
   const textW = measure(tag.label, table);
-  // Diamond mark: 6px square rotated 45 -> ~8.5px bbox.
-  const DIAMOND_R = tag.primary ? 3.4 : 2.8;
-  const MARK_BOX = Math.ceil(DIAMOND_R * 2 + 1);
-  const W = Math.ceil(PAD_X + MARK_BOX + MARK_GAP + textW + PAD_X);
+  const W = Math.ceil(PAD_X * 2 + textW);
 
   const yMid = H / 2;
   const yText = yMid + font * 0.36;
-  const cx = PAD_X + MARK_BOX / 2;
-  const cy = yMid;
-  const textX = PAD_X + MARK_BOX + MARK_GAP;
-  const diamond = `M ${cx} ${cy - DIAMOND_R} L ${cx + DIAMOND_R} ${cy} L ${cx} ${cy + DIAMOND_R} L ${cx - DIAMOND_R} ${cy} Z`;
-  const animate = tag.primary
-    ? `<animate attributeName="opacity" values="1;0.55;1" dur="3.6s" repeatCount="indefinite"/>`
+  const textX = W / 2;
+  const RX = H / 2;
+
+  // Primary gets a soft pulsing glow on the outline.
+  const pulse = tag.primary
+    ? `<rect x="0.5" y="0.5" width="${W - 1}" height="${H - 1}" rx="${RX - 0.5}" fill="none" stroke="${primaryAccent}" stroke-width="1" opacity="0.6"><animate attributeName="opacity" values="0.25;0.85;0.25" dur="3.4s" repeatCount="indefinite"/></rect>`
     : '';
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${xml(tag.label)}">
-  <g font-family="Segoe UI, Inter, -apple-system, BlinkMacSystemFont, sans-serif">
-    <path d="${diamond}" fill="${markColor}" opacity="${tag.primary ? 1 : 0.65}">${animate}</path>
-    <text x="${textX}" y="${yText}" font-size="${font}" font-weight="${weight}" fill="${fill}" letter-spacing="${tag.primary ? -0.1 : 0}">${xml(tag.label)}</text>
-  </g>
+  <rect x="0.5" y="0.5" width="${W - 1}" height="${H - 1}" rx="${RX - 0.5}" fill="${bg}" stroke="${border}" stroke-width="1"/>
+  ${pulse}
+  <text x="${textX}" y="${yText}" text-anchor="middle" font-family="Segoe UI, Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="${font}" font-weight="${weight}" fill="${fill}" letter-spacing="${tag.primary ? 0.1 : 0.3}">${xml(tag.label)}</text>
 </svg>
 `;
 }
 
-function buildSeparator(dark) {
-  const c = dark ? '#6e7681' : '#9aa3ad';
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="10" height="24" viewBox="0 0 10 24" role="img" aria-hidden="true">
-  <circle cx="5" cy="12" r="1.4" fill="${c}" opacity="0.5"/>
-</svg>
-`;
+function buildSeparator(_dark) {
+  // No separator emitted any more; kept as no-op.
+  return '';
 }
 
 const meta = [];
@@ -96,16 +92,12 @@ for (const tag of TAGS) {
 
 const sepDark  = buildSeparator(true);
 const sepLight = buildSeparator(false);
-writeFileSync(path.join(OUT, 'tag-sep-dark.svg'), sepDark);
-writeFileSync(path.join(OUT, 'tag-sep-light.svg'), sepLight);
-const sepDHash = createHash('sha1').update(sepDark).digest('hex').slice(0, 8);
-const sepLHash = createHash('sha1').update(sepLight).digest('hex').slice(0, 8);
+void sepDark; void sepLight;
 
 const ts = Date.now().toString(36);
-const sepPic = `<picture><source media="(prefers-color-scheme: dark)" srcset="${RAW}/tag-sep-dark.svg?v=${sepDHash}&t=${ts}"><img height="24" alt="" src="${RAW}/tag-sep-light.svg?v=${sepLHash}&t=${ts}" /></picture>`;
 const pics = meta.map(m =>
-  `<picture><source media="(prefers-color-scheme: dark)" srcset="${RAW}/tag-${m.slug}-dark.svg?v=${m.dHash}&t=${ts}"><img height="24" alt="${xml(m.label)}" src="${RAW}/tag-${m.slug}-light.svg?v=${m.lHash}&t=${ts}" /></picture>`
-).join(`\n  ${sepPic}\n  `);
+  `<picture><source media="(prefers-color-scheme: dark)" srcset="${RAW}/tag-${m.slug}-dark.svg?v=${m.dHash}&t=${ts}"><img height="26" alt="${xml(m.label)}" src="${RAW}/tag-${m.slug}-light.svg?v=${m.lHash}&t=${ts}" /></picture>`
+).join('\n  ');
 
 const replacement = `<p align="center">\n  ${pics}\n</p>`;
 

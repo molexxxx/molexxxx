@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="81" height="24" viewBox="0 0 81 24" role="img" aria-label="developer">
+  <g font-family="Segoe UI, Inter, -apple-system, BlinkMacSystemFont, sans-serif">
+    <rect x="2" y="6" width="2" height="12" rx="1" fill="#58a6ff" opacity="1"/>
+    <text x="11" y="17.04" font-size="14" font-weight="700" fill="#e6edf3" letter-spacing="-0.1">developer</text>
+  </g>
+</svg>

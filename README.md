@@ -1,4 +1,23 @@
-<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/tagline-dark.svg?v=42a12ea8&t=mpsfhcpw"><img height="36" alt="developer - web, desktop, games, robotics & drones, real-time, audio/DSP, graphics" src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/tagline-light.svg?v=c0fe625c&t=mpsfhcpw" /></picture></p>
+<<<<<<< HEAD
+<p align="center">
+  <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/tag-developer-dark.svg?v=2aedfec2&t=mpsflh5d"><img height="24" alt="developer" src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/tag-developer-light.svg?v=12178315&t=mpsflh5d" /></picture>
+  &nbsp;
+  <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/tag-web-dark.svg?v=ef4b6f43&t=mpsflh5d"><img height="24" alt="web" src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/tag-web-light.svg?v=6a20e365&t=mpsflh5d" /></picture>
+  &nbsp;
+  <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/tag-desktop-dark.svg?v=eb218709&t=mpsflh5d"><img height="24" alt="desktop" src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/tag-desktop-light.svg?v=9799498d&t=mpsflh5d" /></picture>
+  &nbsp;
+  <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/tag-games-dark.svg?v=95f9a0a6&t=mpsflh5d"><img height="24" alt="games" src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/tag-games-light.svg?v=6fd275d0&t=mpsflh5d" /></picture>
+  &nbsp;
+  <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/tag-robotics-drones-dark.svg?v=654bb7f6&t=mpsflh5d"><img height="24" alt="robotics &amp; drones" src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/tag-robotics-drones-light.svg?v=4276dc9c&t=mpsflh5d" /></picture>
+  &nbsp;
+  <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/tag-real-time-dark.svg?v=e33c745d&t=mpsflh5d"><img height="24" alt="real-time" src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/tag-real-time-light.svg?v=b05687a4&t=mpsflh5d" /></picture>
+  &nbsp;
+  <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/tag-audio-dsp-dark.svg?v=811d893a&t=mpsflh5d"><img height="24" alt="audio/DSP" src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/tag-audio-dsp-light.svg?v=9a5f58ef&t=mpsflh5d" /></picture>
+  &nbsp;
+  <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/tag-graphics-dark.svg?v=368d9b76&t=mpsflh5d"><img height="24" alt="graphics" src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/tag-graphics-light.svg?v=ba84b78d&t=mpsflh5d" /></picture>
+</p>
+=======
+>>>>>>> 2b54f7a (readme(tagline): split into per-tag monochrome badges (wraps cleanly on mobile))
 <p align="center">
   <a href="https://tonywied17.github.io/tonywied17/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/header-resume-dark.svg?v=ac0bcedb&t=1780142740"><img height="44" src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/header-resume-light.svg?v=ac0bcedb&t=1780142740" alt="Resume" /></picture></a>
   &nbsp;

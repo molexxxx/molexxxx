@@ -62,7 +62,7 @@
           Download PDF
         </a>
         <a class="btn btn-ghost" href="resume.docx" download>Download DOCX</a>
-        {{#github.user.html_url}}<a class="btn btn-ghost" href="{{github.user.html_url}}" target="_blank" rel="noopener">GitHub →</a>{{/github.user.html_url}}
+        {{#github.user.html_url}}<a class="btn btn-ghost" href="{{github.user.html_url}}" target="_blank" rel="noopener">GitHub<svg class="btn-arrow" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>{{/github.user.html_url}}
         <a class="btn btn-ghost" href="mailto:{{email}}">Email</a>
       </div>
       <div class="hero-meta">
@@ -80,7 +80,7 @@
         <div class="stat"><span class="num">{{github.user.followers}}</span><span class="lbl">Followers</span></div>
       </div>
       <div class="card-links">
-        {{#github.user.html_url}}<a href="{{github.user.html_url}}" target="_blank" rel="noopener">github.com/{{ghUser}} →</a>{{/github.user.html_url}}
+        {{#github.user.html_url}}<a class="link-arrow" href="{{github.user.html_url}}" target="_blank" rel="noopener">github.com/{{ghUser}}<svg class="btn-arrow" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>{{/github.user.html_url}}
       </div>
     </aside>
   </div>
@@ -122,7 +122,7 @@
         {{#icon}}<img class="card-icon" src="{{icon}}" alt="" loading="lazy" data-initial="{{initial}}" onerror="const s=document.createElement('span');s.className='card-icon letter';s.textContent=this.dataset.initial;this.replaceWith(s);" />{{/icon}}
         {{^icon}}<span class="card-icon letter">{{initial}}</span>{{/icon}}
         <div class="card-body">
-          <h3>{{name}} <span class="arrow">↗</span></h3>
+          <h3>{{name}} <span class="arrow" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M9 7h8v8"/></svg></span></h3>
           <p>{{blurb}}</p>
         </div>
       </div>
@@ -146,7 +146,7 @@
         <div class="card-body">
           <div class="repo-head">
             <h3>{{name}}</h3>
-            <span class="arrow">↗</span>
+            <span class="arrow" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M9 7h8v8"/></svg></span>
           </div>
           <p class="repo-desc">{{description}}</p>
           <div class="repo-meta">

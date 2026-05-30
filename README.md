@@ -91,30 +91,30 @@
 
 <!-- stack:start -->
 <p align="center">
-  <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/stack-languages-dark.svg?v=6b51e70d"><img alt="Languages" src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/stack-languages-light.svg?v=09a7f8c5" /></picture>
+  <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/stack-languages-dark.svg?v=284d7f9e"><img alt="Languages" src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/stack-languages-light.svg?v=9b8ebea7" /></picture>
   <br/>
-  <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/stack-frontend-dark.svg?v=6e2496d0"><img alt="Frontend" src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/stack-frontend-light.svg?v=6d22c90a" /></picture>
+  <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/stack-frontend-dark.svg?v=edbf92c2"><img alt="Frontend" src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/stack-frontend-light.svg?v=288a7f29" /></picture>
   <br/>
-  <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/stack-backend-dark.svg?v=9821f003"><img alt="Backend" src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/stack-backend-light.svg?v=65a96762" /></picture>
+  <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/stack-backend-dark.svg?v=c9f69002"><img alt="Backend" src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/stack-backend-light.svg?v=6190fa6a" /></picture>
   <br/>
-  <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/stack-real-time-dark.svg?v=2243e5af"><img alt="Real-time" src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/stack-real-time-light.svg?v=ee4defa3" /></picture>
+  <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/stack-real-time-dark.svg?v=d877966e"><img alt="Real-time" src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/stack-real-time-light.svg?v=532334f1" /></picture>
   <br/>
-  <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/stack-data-dark.svg?v=193dca3e"><img alt="Data" src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/stack-data-light.svg?v=6ecc5180" /></picture>
+  <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/stack-data-dark.svg?v=197be0fa"><img alt="Data" src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/stack-data-light.svg?v=9da844a2" /></picture>
   <br/>
-  <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/stack-desktop-dark.svg?v=8ce0ff43"><img alt="Desktop" src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/stack-desktop-light.svg?v=b0e9c9e2" /></picture>
+  <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/stack-desktop-dark.svg?v=44ee81d3"><img alt="Desktop" src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/stack-desktop-light.svg?v=c88297e5" /></picture>
   <br/>
-  <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/stack-game-engines-dark.svg?v=c2c5b274"><img alt="Game Engines" src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/stack-game-engines-light.svg?v=5a081ac5" /></picture>
+  <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/stack-game-engines-dark.svg?v=e8ec08a5"><img alt="Game Engines" src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/stack-game-engines-light.svg?v=f1e3aa18" /></picture>
   <br/>
-  <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/stack-robotics-drones-dark.svg?v=a8481ff8"><img alt="Robotics &amp; Drones" src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/stack-robotics-drones-light.svg?v=ab77600b" /></picture>
+  <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/stack-robotics-drones-dark.svg?v=dbbca6f3"><img alt="Robotics &amp; Drones" src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/stack-robotics-drones-light.svg?v=828e1601" /></picture>
   <br/>
-  <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/stack-audio-graphics-dark.svg?v=84050b70"><img alt="Audio &amp; Graphics" src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/stack-audio-graphics-light.svg?v=abe45a24" /></picture>
+  <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/stack-audio-graphics-dark.svg?v=52d6583e"><img alt="Audio &amp; Graphics" src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/stack-audio-graphics-light.svg?v=2f975b09" /></picture>
   <br/>
-  <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/stack-auth-sec-dark.svg?v=da8ae272"><img alt="Auth &amp; Sec" src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/stack-auth-sec-light.svg?v=71739cfd" /></picture>
+  <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/stack-auth-sec-dark.svg?v=06ac5f97"><img alt="Auth &amp; Sec" src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/stack-auth-sec-light.svg?v=d2757252" /></picture>
   <br/>
-  <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/stack-infra-dark.svg?v=37373bff"><img alt="Infra" src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/stack-infra-light.svg?v=56f4c583" /></picture>
+  <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/stack-infra-dark.svg?v=887f2a9b"><img alt="Infra" src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/stack-infra-light.svg?v=7d1ca6b4" /></picture>
   <br/>
-  <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/stack-devops-dark.svg?v=4e45be1f"><img alt="DevOps" src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/stack-devops-light.svg?v=d945b8b2" /></picture>
+  <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/stack-devops-dark.svg?v=ffd8fe25"><img alt="DevOps" src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/stack-devops-light.svg?v=d5ccfa09" /></picture>
   <br/>
-  <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/stack-cloud-dark.svg?v=de7bc894"><img alt="Cloud" src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/stack-cloud-light.svg?v=e23f3c8c" /></picture>
+  <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/stack-cloud-dark.svg?v=e87c2c56"><img alt="Cloud" src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/stack-cloud-light.svg?v=c6e9fbfd" /></picture>
 </p>
 <!-- stack:end -->

@@ -206,9 +206,9 @@ function renderChip(chip, x, y, dark) {
   const fallbackColor = dark ? '#94a3b8' : '#5b6472';
   const color = chip.color || (getIconKey(chip.slug)?.hex ? '#' + getIconKey(chip.slug).hex : fallbackColor);
   const icon  = getIconKey(chip.slug);
-  const chipBg     = dark ? '#161b25' : '#f4f6fb';
-  const chipBorder = dark ? '#242b3a' : '#dee2ea';
-  const textFill   = dark ? '#dde2ec' : '#1f2330';
+  const chipBg     = 'none';
+  const chipBorder = dark ? '#30363d' : '#d0d7de';
+  const textFill   = dark ? '#e6edf3' : '#1f2328';
   const w = chip._w;
   const iconX = x + CHIP_PAD_X;
   const iconY = y + (CHIP_H - ICON_SIZE) / 2;
@@ -233,8 +233,10 @@ function renderCard(section, dark) {
   const rows = layoutChips(section.chips, maxRowW);
   const cardH = PAD_TOP + rows.length * CHIP_H + (rows.length - 1) * CHIP_GAP_Y + PAD_BOTTOM;
 
-  const surface  = dark ? '#0d1117' : '#ffffff';
-  const border   = dark ? '#21262d' : '#d0d7de';
+  // Transparent surface so the card blends with whatever GitHub theme the
+  // reader is using (default dark #0d1117, dark dimmed #22272e, dark high
+  // contrast #0a0c10, light #ffffff). Only the border + content are drawn.
+  const border   = dark ? '#30363d' : '#d0d7de';
   const ink      = dark ? '#e6e9f1' : '#0b1220';
   const muted    = dark ? '#7d8590' : '#656d76';
   const sheen    = dark ? '#3b82f6' : '#2563eb';
@@ -268,7 +270,7 @@ function renderCard(section, dark) {
     <clipPath id="clip-${id}"><rect x="0" y="0" width="${CARD_W}" height="${cardH}" rx="${RX}" ry="${RX}"/></clipPath>
   </defs>
 
-  <rect x="0.5" y="0.5" width="${CARD_W - 1}" height="${cardH - 1}" rx="${RX}" ry="${RX}" fill="${surface}" stroke="${border}"/>
+  <rect x="0.5" y="0.5" width="${CARD_W - 1}" height="${cardH - 1}" rx="${RX}" ry="${RX}" fill="none" stroke="${border}"/>
 
   <g clip-path="url(#clip-${id})">
     <rect x="-${sheenW}" y="0" width="${sheenW}" height="1.5" fill="url(#sheen-${id})">

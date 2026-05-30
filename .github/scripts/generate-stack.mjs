@@ -23,9 +23,9 @@ const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const OUT  = resolve(ROOT, '.github', 'badges');
 mkdirSync(OUT, { recursive: true });
 
-const CARD_W       = 880;
-const PAD_X        = 14;
-const PAD_TOP      = 30;     // header band
+const CARD_W       = 560;
+const PAD_X        = 12;
+const PAD_TOP      = 28;     // header band
 const PAD_BOTTOM   = 12;
 const CHIP_H       = 22;
 const CHIP_GAP_X   = 6;

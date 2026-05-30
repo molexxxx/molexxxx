@@ -31,8 +31,8 @@ const BADGES = [
   { id: 'molex-media-site',   kind: 'static-pair', label: 'website', message: 'visit', icon: 'globe' },
 
   // docs
-  { id: 'zero-query-docs',    kind: 'static-pair', label: 'docs', message: 'API', icon: 'book' },
-  { id: 'zero-server-docs',   kind: 'static-pair', label: 'docs', message: 'API', icon: 'book', theme: ZSERVER_THEME('#7c3aed', '#ffffff') },
+  { id: 'zero-query-docs',    kind: 'static-pair', label: 'docs', message: 'API.md', icon: 'book' },
+  { id: 'zero-server-docs',   kind: 'static-pair', label: 'docs', message: 'API.md', icon: 'book', theme: ZSERVER_THEME('#7c3aed', '#ffffff') },
   { id: 'zero-transfer-docs', kind: 'static-pair', label: 'docs', message: 'typedoc', icon: 'book', theme: ZTRANSFER_THEME('#00b4d8', '#0d1117') },
 
   // npm version

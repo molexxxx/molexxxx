@@ -1,50 +1,50 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="360" height="107" viewBox="0 0 360 107" role="img" aria-label="Real-time: WebSocket, WebRTC, SSE, gRPC, HTTP/2, STUN/TURN">
+<svg xmlns="http://www.w3.org/2000/svg" width="470" height="107" viewBox="0 0 470 107" role="img" aria-label="Real-time: WebSocket, WebRTC, SSE, gRPC, HTTP/2, STUN/TURN">
   <defs>
     <linearGradient id="sheen-real-time-d" x1="0" y1="0" x2="1" y2="0">
       <stop offset="0%"   stop-color="#3b82f6" stop-opacity="0"/>
       <stop offset="50%"  stop-color="#3b82f6" stop-opacity="0.55"/>
       <stop offset="100%" stop-color="#3b82f6" stop-opacity="0"/>
     </linearGradient>
-    <clipPath id="clip-real-time-d"><rect x="0" y="0" width="360" height="107" rx="10" ry="10"/></clipPath>
+    <clipPath id="clip-real-time-d"><rect x="0" y="0" width="470" height="107" rx="10" ry="10"/></clipPath>
   </defs>
 
-  <rect x="0.5" y="0.5" width="359" height="106" rx="10" ry="10" fill="none" stroke="#30363d"/>
+  <rect x="0.5" y="0.5" width="469" height="106" rx="10" ry="10" fill="none" stroke="#30363d"/>
 
   <g clip-path="url(#clip-real-time-d)">
     <rect x="-180" y="0" width="180" height="1.5" fill="url(#sheen-real-time-d)">
-      <animate attributeName="x" from="-180" to="360" dur="9s" begin="0s" repeatCount="indefinite"/>
+      <animate attributeName="x" from="-180" to="470" dur="9s" begin="0s" repeatCount="indefinite"/>
     </rect>
   </g>
 
-  <line x1="14" y1="26" x2="346" y2="26" stroke="#1c222c" stroke-width="1"/>
+  <line x1="16" y1="26" x2="454" y2="26" stroke="#1c222c" stroke-width="1"/>
 
   <g font-family="Segoe UI, Inter, -apple-system, BlinkMacSystemFont, sans-serif">
-    <text x="14" y="20" font-size="13" font-weight="700" fill="#e6e9f1" letter-spacing="-0.1">Real-time</text>
-    <text x="346" y="20" text-anchor="end" font-size="11" font-weight="600" fill="#7d8590" letter-spacing="1.2">6</text>
+    <text x="16" y="20" font-size="13" font-weight="700" fill="#e6e9f1" letter-spacing="-0.1">Real-time</text>
+    <text x="454" y="20" text-anchor="end" font-size="11" font-weight="600" fill="#7d8590" letter-spacing="1.2">6</text>
     <g>
-    <rect x="14" y="32" width="104.74999999999999" height="26" rx="6" fill="none" stroke="#30363d"/>
-    <svg x="24" y="38.5" width="13" height="13" viewBox="0 0 24 24" fill="#010101"><path d="M11.9362.0137a12.1694 12.1694 0 00-2.9748.378C4.2816 1.5547.5678 5.7944.0918 10.6012c-.59 4.5488 1.7079 9.2856 5.6437 11.6345 3.8608 2.4179 9.0926 2.3199 12.8734-.223 3.3969-2.206 5.5118-6.2277 5.3858-10.2845-.058-4.0159-2.31-7.9167-5.7588-9.9796C16.354.5876 14.1431.0047 11.9362.0137zm-.063 1.696c4.9448-.007 9.7886 3.8137 10.2815 8.9245.945 5.6597-3.7528 11.4125-9.4875 11.5795-5.4538.544-10.7245-4.0798-10.8795-9.5566-.407-4.4338 2.5159-8.8346 6.6977-10.2995a9.1126 9.1126 0 013.3878-.647zm5.0908 3.2248c-2.6869 2.0849-5.2598 4.3078-7.8886 6.4567 1.2029.017 2.4118.016 3.6208.01 1.41-2.165 2.8589-4.3008 4.2678-6.4667zm-5.6647 7.6536c-1.41 2.166-2.86 4.3088-4.2699 6.4737 2.693-2.0799 5.2548-4.3198 7.9017-6.4557a255.4132 255.4132 0 00-3.6318-.018z"/></svg>
-    <text x="44" y="49.5" font-size="12.5" font-weight="600" fill="#e6edf3">WebSocket</text>
+    <rect x="16" y="32" width="104.74999999999999" height="26" rx="6" fill="none" stroke="#30363d"/>
+    <svg x="26" y="38.5" width="13" height="13" viewBox="0 0 24 24" fill="#010101"><path d="M11.9362.0137a12.1694 12.1694 0 00-2.9748.378C4.2816 1.5547.5678 5.7944.0918 10.6012c-.59 4.5488 1.7079 9.2856 5.6437 11.6345 3.8608 2.4179 9.0926 2.3199 12.8734-.223 3.3969-2.206 5.5118-6.2277 5.3858-10.2845-.058-4.0159-2.31-7.9167-5.7588-9.9796C16.354.5876 14.1431.0047 11.9362.0137zm-.063 1.696c4.9448-.007 9.7886 3.8137 10.2815 8.9245.945 5.6597-3.7528 11.4125-9.4875 11.5795-5.4538.544-10.7245-4.0798-10.8795-9.5566-.407-4.4338 2.5159-8.8346 6.6977-10.2995a9.1126 9.1126 0 013.3878-.647zm5.0908 3.2248c-2.6869 2.0849-5.2598 4.3078-7.8886 6.4567 1.2029.017 2.4118.016 3.6208.01 1.41-2.165 2.8589-4.3008 4.2678-6.4667zm-5.6647 7.6536c-1.41 2.166-2.86 4.3088-4.2699 6.4737 2.693-2.0799 5.2548-4.3198 7.9017-6.4557a255.4132 255.4132 0 00-3.6318-.018z"/></svg>
+    <text x="46" y="49.5" font-size="12.5" font-weight="600" fill="#e6edf3">WebSocket</text>
   </g><g>
-    <rect x="125.74999999999999" y="32" width="86.44999999999999" height="26" rx="6" fill="none" stroke="#30363d"/>
-    <svg x="135.75" y="38.5" width="13" height="13" viewBox="0 0 24 24" fill="#333333"><path d="M11.9998.3598c-2.8272 0-5.1456 2.1733-5.3793 4.94a5.4117 5.4117 0 00-1.2207-.1401C2.418 5.1597 0 7.5779 0 10.5603c0 2.2203 1.341 4.1274 3.2568 4.957a5.3734 5.3734 0 00-.7372 2.7227c0 2.9823 2.4175 5.4002 5.4002 5.4002 1.6627 0 3.1492-.7522 4.1397-1.934.9906 1.1818 2.4773 1.934 4.1398 1.934 2.983 0 5.4004-2.418 5.4004-5.4002 0-.9719-.258-1.883-.7073-2.6708C22.7283 14.7068 24 12.8418 24 10.6795c0-2.9823-2.4175-5.4006-5.3998-5.4006-.417 0-.8223.049-1.2121.1384C17.2112 2.5949 14.867.3598 11.9998.3598zm-5.717 6.8683h10.5924c.7458 0 1.352.605 1.352 1.3487v7.6463c0 .7438-.6062 1.3482-1.352 1.3482h-3.6085l-7.24 3.5491 1.1008-3.5491h-.8447c-.7458 0-1.3522-.6044-1.3522-1.3482V8.5768c0-.7438.6064-1.3487 1.3522-1.3487Z"/></svg>
-    <text x="155.75" y="49.5" font-size="12.5" font-weight="600" fill="#e6edf3">WebRTC</text>
+    <rect x="127.74999999999999" y="32" width="86.44999999999999" height="26" rx="6" fill="none" stroke="#30363d"/>
+    <svg x="137.75" y="38.5" width="13" height="13" viewBox="0 0 24 24" fill="#333333"><path d="M11.9998.3598c-2.8272 0-5.1456 2.1733-5.3793 4.94a5.4117 5.4117 0 00-1.2207-.1401C2.418 5.1597 0 7.5779 0 10.5603c0 2.2203 1.341 4.1274 3.2568 4.957a5.3734 5.3734 0 00-.7372 2.7227c0 2.9823 2.4175 5.4002 5.4002 5.4002 1.6627 0 3.1492-.7522 4.1397-1.934.9906 1.1818 2.4773 1.934 4.1398 1.934 2.983 0 5.4004-2.418 5.4004-5.4002 0-.9719-.258-1.883-.7073-2.6708C22.7283 14.7068 24 12.8418 24 10.6795c0-2.9823-2.4175-5.4006-5.3998-5.4006-.417 0-.8223.049-1.2121.1384C17.2112 2.5949 14.867.3598 11.9998.3598zm-5.717 6.8683h10.5924c.7458 0 1.352.605 1.352 1.3487v7.6463c0 .7438-.6062 1.3482-1.352 1.3482h-3.6085l-7.24 3.5491 1.1008-3.5491h-.8447c-.7458 0-1.3522-.6044-1.3522-1.3482V8.5768c0-.7438.6064-1.3487 1.3522-1.3487Z"/></svg>
+    <text x="157.75" y="49.5" font-size="12.5" font-weight="600" fill="#e6edf3">WebRTC</text>
   </g><g>
-    <rect x="219.2" y="32" width="61.15" height="26" rx="6" fill="none" stroke="#30363d"/>
-    <g><rect x="229.2" y="38.5" width="13" height="13" rx="2.5" fill="#a78bfa" fill-opacity="0.22" stroke="#a78bfa" stroke-opacity="0.55"/><text x="235.7" y="49" text-anchor="middle" font-size="8" font-weight="800" fill="#a78bfa">S</text></g>
-    <text x="249.2" y="49.5" font-size="12.5" font-weight="600" fill="#e6edf3">SSE</text>
+    <rect x="221.2" y="32" width="61.15" height="26" rx="6" fill="none" stroke="#30363d"/>
+    <g><rect x="231.2" y="38.5" width="13" height="13" rx="2.5" fill="#a78bfa" fill-opacity="0.22" stroke="#a78bfa" stroke-opacity="0.55"/><text x="237.7" y="49" text-anchor="middle" font-size="8" font-weight="800" fill="#a78bfa">S</text></g>
+    <text x="251.2" y="49.5" font-size="12.5" font-weight="600" fill="#e6edf3">SSE</text>
   </g><g>
-    <rect x="14" y="65" width="68.2" height="26" rx="6" fill="none" stroke="#30363d"/>
-    <g><rect x="24" y="71.5" width="13" height="13" rx="2.5" fill="#9333ea" fill-opacity="0.22" stroke="#9333ea" stroke-opacity="0.55"/><text x="30.5" y="82" text-anchor="middle" font-size="8" font-weight="800" fill="#9333ea">G</text></g>
-    <text x="44" y="82.5" font-size="12.5" font-weight="600" fill="#e6edf3">gRPC</text>
+    <rect x="289.35" y="32" width="68.2" height="26" rx="6" fill="none" stroke="#30363d"/>
+    <g><rect x="299.35" y="38.5" width="13" height="13" rx="2.5" fill="#9333ea" fill-opacity="0.22" stroke="#9333ea" stroke-opacity="0.55"/><text x="305.85" y="49" text-anchor="middle" font-size="8" font-weight="800" fill="#9333ea">G</text></g>
+    <text x="319.35" y="49.5" font-size="12.5" font-weight="600" fill="#e6edf3">gRPC</text>
   </g><g>
-    <rect x="89.2" y="65" width="79.44999999999999" height="26" rx="6" fill="none" stroke="#30363d"/>
-    <g><rect x="99.2" y="71.5" width="13" height="13" rx="2.5" fill="#a78bfa" fill-opacity="0.22" stroke="#a78bfa" stroke-opacity="0.55"/><text x="105.7" y="82" text-anchor="middle" font-size="8" font-weight="800" fill="#a78bfa">H</text></g>
-    <text x="119.2" y="82.5" font-size="12.5" font-weight="600" fill="#e6edf3">HTTP/2</text>
+    <rect x="364.55" y="32" width="79.44999999999999" height="26" rx="6" fill="none" stroke="#30363d"/>
+    <g><rect x="374.55" y="38.5" width="13" height="13" rx="2.5" fill="#a78bfa" fill-opacity="0.22" stroke="#a78bfa" stroke-opacity="0.55"/><text x="381.05" y="49" text-anchor="middle" font-size="8" font-weight="800" fill="#a78bfa">H</text></g>
+    <text x="394.55" y="49.5" font-size="12.5" font-weight="600" fill="#e6edf3">HTTP/2</text>
   </g><g>
-    <rect x="175.64999999999998" y="65" width="100.6" height="26" rx="6" fill="none" stroke="#30363d"/>
-    <g><rect x="185.64999999999998" y="71.5" width="13" height="13" rx="2.5" fill="#a78bfa" fill-opacity="0.22" stroke="#a78bfa" stroke-opacity="0.55"/><text x="192.14999999999998" y="82" text-anchor="middle" font-size="8" font-weight="800" fill="#a78bfa">S</text></g>
-    <text x="205.64999999999998" y="82.5" font-size="12.5" font-weight="600" fill="#e6edf3">STUN/TURN</text>
+    <rect x="16" y="65" width="100.6" height="26" rx="6" fill="none" stroke="#30363d"/>
+    <g><rect x="26" y="71.5" width="13" height="13" rx="2.5" fill="#a78bfa" fill-opacity="0.22" stroke="#a78bfa" stroke-opacity="0.55"/><text x="32.5" y="82" text-anchor="middle" font-size="8" font-weight="800" fill="#a78bfa">S</text></g>
+    <text x="46" y="82.5" font-size="12.5" font-weight="600" fill="#e6edf3">STUN/TURN</text>
   </g>
   </g>
 </svg>

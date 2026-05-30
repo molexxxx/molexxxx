@@ -17,5 +17,8 @@
     "docx": "^8.5.0",
     "mustache": "^4.2.0",
     "puppeteer": "^23.0.0"
+  },
+  "devDependencies": {
+    "simple-icons": "^16.21.0"
   }
 }

@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="90" viewBox="0 0 880 90" role="img" aria-label="Audio &amp; Graphics: Web Audio API, SuperCollider, FAUST, SVG, Canvas, GLSL, Three.js, Inkscape">
+  <defs>
+    <linearGradient id="bg-audio-graphics-d" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#11151f"/>
+      <stop offset="100%" stop-color="#0a0d14"/>
+    </linearGradient>
+    <linearGradient id="ac-audio-graphics-d" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#fcd34d"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+    <linearGradient id="tint-audio-graphics-d" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#fcd34d" stop-opacity="0.16"/>
+      <stop offset="60%" stop-color="#fcd34d" stop-opacity="0"/>
+    </linearGradient>
+    <path id="bd-audio-graphics-d" d="M 14.5 1 H 865.5 A 13.5 13.5 0 0 1 879 14.5 V 75.5 A 13.5 13.5 0 0 1 865.5 89 H 14.5 A 13.5 13.5 0 0 1 1 75.5 V 14.5 A 13.5 13.5 0 0 1 14.5 1 Z" fill="none"/>
+    <clipPath id="clip-audio-graphics-d"><rect x="0" y="0" width="880" height="90" rx="14" ry="14"/></clipPath>
+  </defs>
+
+  <rect x="0" y="0" width="880" height="90" rx="14" ry="14" fill="url(#bg-audio-graphics-d)"/>
+  <rect x="0" y="0" width="880" height="90" rx="14" ry="14" fill="url(#tint-audio-graphics-d)"/>
+
+  <use href="#bd-audio-graphics-d" stroke="#1f2533" stroke-width="1"/>
+  <use href="#bd-audio-graphics-d" stroke="url(#ac-audio-graphics-d)" stroke-width="1.2" stroke-opacity="0.5"/>
+  <use href="#bd-audio-graphics-d" stroke="url(#ac-audio-graphics-d)" stroke-width="2" stroke-dasharray="90 1552" stroke-linecap="round">
+    <animate attributeName="stroke-dashoffset" from="0" to="-1940" dur="14s" repeatCount="indefinite"/>
+  </use>
+
+  <g clip-path="url(#clip-audio-graphics-d)">
+    <circle r="2" fill="#fcd34d"><animateMotion dur="12s" repeatCount="indefinite" rotate="auto"><mpath href="#bd-audio-graphics-d"/></animateMotion></circle>
+    <circle r="1.6" fill="#f59e0b"><animateMotion dur="12s" begin="-3s" repeatCount="indefinite" rotate="auto"><mpath href="#bd-audio-graphics-d"/></animateMotion></circle>
+    <circle r="1.4" fill="#fcd34d" opacity="0.75"><animateMotion dur="12s" begin="-6s" repeatCount="indefinite" rotate="auto"><mpath href="#bd-audio-graphics-d"/></animateMotion></circle>
+    <circle r="1" fill="#f59e0b" opacity="0.7"><animateMotion dur="12s" begin="-9s" repeatCount="indefinite" rotate="auto"><mpath href="#bd-audio-graphics-d"/></animateMotion></circle>
+  </g>
+
+  <g font-family="Segoe UI, Inter, -apple-system, BlinkMacSystemFont, sans-serif">
+    <g transform="translate(18 16)">
+      <rect x="0" y="0" width="4" height="18" rx="2" fill="url(#ac-audio-graphics-d)"/>
+      <text x="12" y="14" font-size="14.5" font-weight="800" fill="#e6e9f1" letter-spacing="-0.2">Audio &amp; Graphics</text>
+    </g>
+    <g transform="translate(862 16)">
+      <text x="0" y="14" text-anchor="end" font-size="10.5" font-weight="700" fill="#94a3b8" letter-spacing="1.5">8 ITEMS</text>
+    </g>
+    <g>
+    <rect x="18" y="42" width="124.79999999999998" height="30" rx="8" fill="#161b25" stroke="#242b3a"/>
+    <g><rect x="29" y="50" width="14" height="14" rx="3.5" fill="#fcd34d" fill-opacity="0.22" stroke="#fcd34d" stroke-opacity="0.55"/><text x="36" y="61" text-anchor="middle" font-size="9.5" font-weight="800" fill="#fcd34d">W</text></g>
+    <text x="50" y="61.5" font-size="12.5" font-weight="600" fill="#dde2ec">Web Audio API</text>
+  </g><g>
+    <rect x="150.79999999999998" y="42" width="118.39999999999999" height="30" rx="8" fill="#161b25" stroke="#242b3a"/>
+    <g><rect x="161.79999999999998" y="50" width="14" height="14" rx="3.5" fill="#fcd34d" fill-opacity="0.22" stroke="#fcd34d" stroke-opacity="0.55"/><text x="168.79999999999998" y="61" text-anchor="middle" font-size="9.5" font-weight="800" fill="#fcd34d">S</text></g>
+    <text x="182.79999999999998" y="61.5" font-size="12.5" font-weight="600" fill="#dde2ec">SuperCollider</text>
+  </g><g>
+    <rect x="277.2" y="42" width="78.25" height="30" rx="8" fill="#161b25" stroke="#242b3a"/>
+    <g><rect x="288.2" y="50" width="14" height="14" rx="3.5" fill="#fcd34d" fill-opacity="0.22" stroke="#fcd34d" stroke-opacity="0.55"/><text x="295.2" y="61" text-anchor="middle" font-size="9.5" font-weight="800" fill="#fcd34d">F</text></g>
+    <text x="309.2" y="61.5" font-size="12.5" font-weight="600" fill="#dde2ec">FAUST</text>
+  </g><g>
+    <rect x="363.45" y="42" width="64.15" height="30" rx="8" fill="#161b25" stroke="#242b3a"/>
+    <svg x="374.45" y="50" width="14" height="14" viewBox="0 0 24 24" fill="#FFB13B"><path d="M12 0c-1.497 0-2.749.965-3.248 2.17a3.45 3.45 0 00-.238 1.416 3.459 3.459 0 00-1.168-.834 3.508 3.508 0 00-1.463-.256 3.513 3.513 0 00-2.367 1.02c-1.06 1.058-1.263 2.625-.764 3.83.179.432.47.82.82 1.154a3.49 3.49 0 00-1.402.252C.965 9.251 0 10.502 0 12c0 1.497.965 2.749 2.17 3.248.437.181.924.25 1.414.236-.357.338-.65.732-.832 1.17-.499 1.205-.295 2.772.764 3.83 1.058 1.06 2.625 1.263 3.83.764.437-.181.83-.476 1.168-.832-.014.49.057.977.238 1.414C9.251 23.035 10.502 24 12 24c1.497 0 2.749-.965 3.248-2.17a3.45 3.45 0 00.238-1.416c.338.356.73.653 1.168.834 1.205.499 2.772.295 3.83-.764 1.06-1.058 1.263-2.625.764-3.83a3.459 3.459 0 00-.834-1.168 3.45 3.45 0 001.416-.238C23.035 14.749 24 13.498 24 12c0-1.497-.965-2.749-2.17-3.248a3.455 3.455 0 00-1.414-.236c.357-.338.65-.732.832-1.17.499-1.205.295-2.772-.764-3.83a3.513 3.513 0 00-2.367-1.02 3.508 3.508 0 00-1.463.256c-.437.181-.83.475-1.168.832a3.45 3.45 0 00-.238-1.414C14.749.965 13.498 0 12 0zm-.041 1.613a1.902 1.902 0 011.387 3.246v3.893L16.098 6A1.902 1.902 0 1118 7.902l-2.752 2.752h3.893a1.902 1.902 0 110 2.692h-3.893L18 16.098A1.902 1.902 0 1116.098 18l-2.752-2.752v3.893a1.902 1.902 0 11-2.692 0v-3.893L7.902 18A1.902 1.902 0 116 16.098l2.752-2.752H4.859a1.902 1.902 0 110-2.692h3.893L6 7.902A1.902 1.902 0 117.902 6l2.752 2.752V4.859a1.902 1.902 0 011.305-3.246z"/></svg>
+    <text x="395.45" y="61.5" font-size="12.5" font-weight="600" fill="#dde2ec">SVG</text>
+  </g><g>
+    <rect x="435.6" y="42" width="85.3" height="30" rx="8" fill="#161b25" stroke="#242b3a"/>
+    <g><rect x="446.6" y="50" width="14" height="14" rx="3.5" fill="#fcd34d" fill-opacity="0.22" stroke="#fcd34d" stroke-opacity="0.55"/><text x="453.6" y="61" text-anchor="middle" font-size="9.5" font-weight="800" fill="#fcd34d">C</text></g>
+    <text x="467.6" y="61.5" font-size="12.5" font-weight="600" fill="#dde2ec">Canvas</text>
+  </g><g>
+    <rect x="528.9" y="42" width="71.2" height="30" rx="8" fill="#161b25" stroke="#242b3a"/>
+    <g><rect x="539.9" y="50" width="14" height="14" rx="3.5" fill="#fcd34d" fill-opacity="0.22" stroke="#fcd34d" stroke-opacity="0.55"/><text x="546.9" y="61" text-anchor="middle" font-size="9.5" font-weight="800" fill="#fcd34d">G</text></g>
+    <text x="560.9" y="61.5" font-size="12.5" font-weight="600" fill="#dde2ec">GLSL</text>
+  </g><g>
+    <rect x="608.1" y="42" width="89.44999999999999" height="30" rx="8" fill="#161b25" stroke="#242b3a"/>
+    <svg x="619.1" y="50" width="14" height="14" viewBox="0 0 24 24" fill="#000000"><path d="M.38 0a.268.268 0 0 0-.256.332l2.894 11.716a.268.268 0 0 0 .01.04l2.89 11.708a.268.268 0 0 0 .447.128L23.802 7.15a.268.268 0 0 0-.112-.45l-5.784-1.667a.268.268 0 0 0-.123-.035L6.38 1.715a.268.268 0 0 0-.144-.04L.456.01A.268.268 0 0 0 .38 0zm.374.654L5.71 2.08 1.99 5.664zM6.61 2.34l4.864 1.4-3.65 3.515zm-.522.12l1.217 4.926-4.877-1.4zm6.28 1.538l4.878 1.404-3.662 3.53zm-.52.13l1.208 4.9-4.853-1.392zm6.3 1.534l4.947 1.424-3.715 3.574zm-.524.12l1.215 4.926-4.876-1.398zm-15.432.696l4.964 1.424-3.726 3.586zM8.047 8.15l4.877 1.4-3.66 3.527zm-.518.137l1.236 5.017-4.963-1.432zm6.274 1.535l4.965 1.425-3.73 3.586zm-.52.127l1.235 5.012-4.958-1.43zm-9.63 2.438l4.873 1.406-3.656 3.523zm5.854 1.687l4.863 1.403-3.648 3.51zm-.54.04l1.214 4.927-4.875-1.4zm-3.896 4.02l5.037 1.442-3.782 3.638z"/></svg>
+    <text x="640.1" y="61.5" font-size="12.5" font-weight="600" fill="#dde2ec">Three.js</text>
+  </g><g>
+    <rect x="705.55" y="42" width="95.94999999999999" height="30" rx="8" fill="#161b25" stroke="#242b3a"/>
+    <svg x="716.55" y="50" width="14" height="14" viewBox="0 0 24 24" fill="#000000"><path d="M7.666 14.871c.237.147 3.818.875 4.693 1.02.303.064.088.376-.33.587-.943.251-5.517-1.607-4.363-1.607zm5.647-13.264l3.505 3.56c.333.34.328.998.142 1.187l-1.74-1.392-.342 2.061-1.455-.767-2.328 1.47-.771-3.1L9.073 6.79H7.16c-.78 0-.871-.99-.163-1.698 1.237-1.335 2.657-2.696 3.429-3.485.776-.793 2.127-.77 2.887 0zM9.786.97l-8.86 9.066c-2.993 3.707 2.038 3.276 4.194 4.343.774.791-2.965 1.375-2.191 2.166.773.791 4.678 1.524 5.453 2.314.773.791-1.584 1.63-.81 2.42.773.792 2.563.042 2.898 1.868.238 1.304 3.224.56 4.684-.508.774-.791-1.48-.717-.706-1.508 1.923-1.967 3.715-.714 4.373-2.686.325-.974-2.832-1.501-2.057-2.292 2.226-1.3 9.919-2.146 6.268-5.796L13.85.97c-1.123-1.078-2.998-1.09-4.063 0zm10.177 17.475c0 .45 3.314.745 3.314-.106-.472-1.366-2.922-1.274-3.314.106zm-14.928 2.39c.784.679 1.997-.169 2.36-1.116-.76-1.01-3.607.037-2.36 1.116zm14.512-1.466c-1.011.908.114 1.828 1.111 1.242.222-.225-.006-1.016-1.11-1.242Z"/></svg>
+    <text x="737.55" y="61.5" font-size="12.5" font-weight="600" fill="#dde2ec">Inkscape</text>
+  </g>
+  </g>
+</svg>

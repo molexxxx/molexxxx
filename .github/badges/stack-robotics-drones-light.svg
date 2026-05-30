@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="90" viewBox="0 0 880 90" role="img" aria-label="Robotics &amp; Drones: MATLAB, Simulink, ROS 2, PX4, MAVLink, OpenCV, NumPy">
+  <defs>
+    <linearGradient id="bg-robotics-drones-l" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#f7f8fb"/>
+    </linearGradient>
+    <linearGradient id="ac-robotics-drones-l" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#fb7185"/>
+      <stop offset="100%" stop-color="#e11d48"/>
+    </linearGradient>
+    <linearGradient id="tint-robotics-drones-l" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#fb7185" stop-opacity="0.09"/>
+      <stop offset="60%" stop-color="#fb7185" stop-opacity="0"/>
+    </linearGradient>
+    <path id="bd-robotics-drones-l" d="M 14.5 1 H 865.5 A 13.5 13.5 0 0 1 879 14.5 V 75.5 A 13.5 13.5 0 0 1 865.5 89 H 14.5 A 13.5 13.5 0 0 1 1 75.5 V 14.5 A 13.5 13.5 0 0 1 14.5 1 Z" fill="none"/>
+    <clipPath id="clip-robotics-drones-l"><rect x="0" y="0" width="880" height="90" rx="14" ry="14"/></clipPath>
+  </defs>
+
+  <rect x="0" y="0" width="880" height="90" rx="14" ry="14" fill="url(#bg-robotics-drones-l)"/>
+  <rect x="0" y="0" width="880" height="90" rx="14" ry="14" fill="url(#tint-robotics-drones-l)"/>
+
+  <use href="#bd-robotics-drones-l" stroke="#e4e7ee" stroke-width="1"/>
+  <use href="#bd-robotics-drones-l" stroke="url(#ac-robotics-drones-l)" stroke-width="1.2" stroke-opacity="0.5"/>
+  <use href="#bd-robotics-drones-l" stroke="url(#ac-robotics-drones-l)" stroke-width="2" stroke-dasharray="90 1552" stroke-linecap="round">
+    <animate attributeName="stroke-dashoffset" from="0" to="-1940" dur="14s" repeatCount="indefinite"/>
+  </use>
+
+  <g clip-path="url(#clip-robotics-drones-l)">
+    <circle r="2" fill="#fb7185"><animateMotion dur="12s" repeatCount="indefinite" rotate="auto"><mpath href="#bd-robotics-drones-l"/></animateMotion></circle>
+    <circle r="1.6" fill="#e11d48"><animateMotion dur="12s" begin="-3s" repeatCount="indefinite" rotate="auto"><mpath href="#bd-robotics-drones-l"/></animateMotion></circle>
+    <circle r="1.4" fill="#fb7185" opacity="0.75"><animateMotion dur="12s" begin="-6s" repeatCount="indefinite" rotate="auto"><mpath href="#bd-robotics-drones-l"/></animateMotion></circle>
+    <circle r="1" fill="#e11d48" opacity="0.7"><animateMotion dur="12s" begin="-9s" repeatCount="indefinite" rotate="auto"><mpath href="#bd-robotics-drones-l"/></animateMotion></circle>
+  </g>
+
+  <g font-family="Segoe UI, Inter, -apple-system, BlinkMacSystemFont, sans-serif">
+    <g transform="translate(18 16)">
+      <rect x="0" y="0" width="4" height="18" rx="2" fill="url(#ac-robotics-drones-l)"/>
+      <text x="12" y="14" font-size="14.5" font-weight="800" fill="#0b1220" letter-spacing="-0.2">Robotics &amp; Drones</text>
+    </g>
+    <g transform="translate(862 16)">
+      <text x="0" y="14" text-anchor="end" font-size="10.5" font-weight="700" fill="#5b6472" letter-spacing="1.5">7 ITEMS</text>
+    </g>
+    <g>
+    <rect x="18" y="42" width="88.65" height="30" rx="8" fill="#f4f6fb" stroke="#dee2ea"/>
+    <g><rect x="29" y="50" width="14" height="14" rx="3.5" fill="#e16a3d" fill-opacity="0.22" stroke="#e16a3d" stroke-opacity="0.55"/><text x="36" y="61" text-anchor="middle" font-size="9.5" font-weight="800" fill="#e16a3d">M</text></g>
+    <text x="50" y="61.5" font-size="12.5" font-weight="600" fill="#1f2330">MATLAB</text>
+  </g><g>
+    <rect x="114.65" y="42" width="92.39999999999999" height="30" rx="8" fill="#f4f6fb" stroke="#dee2ea"/>
+    <g><rect x="125.65" y="50" width="14" height="14" rx="3.5" fill="#fb7185" fill-opacity="0.22" stroke="#fb7185" stroke-opacity="0.55"/><text x="132.65" y="61" text-anchor="middle" font-size="9.5" font-weight="800" fill="#fb7185">S</text></g>
+    <text x="146.65" y="61.5" font-size="12.5" font-weight="600" fill="#1f2330">Simulink</text>
+  </g><g>
+    <rect x="215.05" y="42" width="74.8" height="30" rx="8" fill="#f4f6fb" stroke="#dee2ea"/>
+    <g><rect x="226.05" y="50" width="14" height="14" rx="3.5" fill="#fb7185" fill-opacity="0.22" stroke="#fb7185" stroke-opacity="0.55"/><text x="233.05" y="61" text-anchor="middle" font-size="9.5" font-weight="800" fill="#fb7185">R</text></g>
+    <text x="247.05" y="61.5" font-size="12.5" font-weight="600" fill="#1f2330">ROS 2</text>
+  </g><g>
+    <rect x="297.85" y="42" width="64.15" height="30" rx="8" fill="#f4f6fb" stroke="#dee2ea"/>
+    <g><rect x="308.85" y="50" width="14" height="14" rx="3.5" fill="#fb7185" fill-opacity="0.22" stroke="#fb7185" stroke-opacity="0.55"/><text x="315.85" y="61" text-anchor="middle" font-size="9.5" font-weight="800" fill="#fb7185">P</text></g>
+    <text x="329.85" y="61.5" font-size="12.5" font-weight="600" fill="#1f2330">PX4</text>
+  </g><g>
+    <rect x="370" y="42" width="92.05" height="30" rx="8" fill="#f4f6fb" stroke="#dee2ea"/>
+    <g><rect x="381" y="50" width="14" height="14" rx="3.5" fill="#fb7185" fill-opacity="0.22" stroke="#fb7185" stroke-opacity="0.55"/><text x="388" y="61" text-anchor="middle" font-size="9.5" font-weight="800" fill="#fb7185">M</text></g>
+    <text x="402" y="61.5" font-size="12.5" font-weight="600" fill="#1f2330">MAVLink</text>
+  </g><g>
+    <rect x="470.05" y="42" width="85.3" height="30" rx="8" fill="#f4f6fb" stroke="#dee2ea"/>
+    <svg x="481.05" y="50" width="14" height="14" viewBox="0 0 24 24" fill="#5C3EE8"><path d="M11.8992.8525C8.735.8525 6.17 3.4175 6.17 6.5817c0 2.102 1.1321 3.9398 2.8198 4.9366l1.6412-2.7849c.0411-.0699.0176-.1593-.0495-.2048-.6233-.4227-1.0328-1.137-1.0328-1.947 0-1.298 1.0524-2.3504 2.3505-2.3504 1.2981 0 2.3505 1.0524 2.3505 2.3505 0 .8098-.4095 1.5242-1.0328 1.947-.0671.0454-.0907.1348-.0495.2047l1.6414 2.785c1.6878-.9969 2.8199-2.8346 2.8199-4.9367 0-3.1642-2.5653-5.7292-5.7295-5.7292zm-6.17 10.8366C2.565 11.6891 0 14.2541 0 17.4183c0 3.1642 2.565 5.7292 5.7292 5.7292 3.1798 0 5.8074-2.6995 5.7275-5.8762H8.2313c-.0847 0-.1513.0717-.1519.1564-.0082 1.266-1.0644 2.3411-2.3502 2.3411-1.2981 0-2.3505-1.0524-2.3505-2.3505 0-1.2982 1.0524-2.3505 2.3505-2.3505.34 0 .663.0724.9547.2022.0713.0318.1566.0077.1962-.0595l1.6464-2.7935c-.8273-.4636-1.7815-.7279-2.7973-.7279zm15.4424.7614l-1.6366 2.7878c-.041.07-.0172.1594.05.2048.624.4217 1.0348 1.1354 1.0363 1.9452.0022 1.298-1.0483 2.352-2.3465 2.3542-1.298.0023-2.3523-1.0482-2.3545-2.3462-.0015-.8098.4068-1.5248 1.0294-1.9486.067-.0457.0905-.1353.0492-.2051l-1.6464-2.7818c-1.6859.9998-2.8146 2.8394-2.811 4.9415.0056 3.1641 2.575 5.7248 5.7393 5.7192 3.1641-.0054 5.7246-2.575 5.7192-5.7392-.0037-2.1022-1.139-3.938-2.8284-4.9318z"/></svg>
+    <text x="502.05" y="61.5" font-size="12.5" font-weight="600" fill="#1f2330">OpenCV</text>
+  </g><g>
+    <rect x="563.35" y="42" width="82.19999999999999" height="30" rx="8" fill="#f4f6fb" stroke="#dee2ea"/>
+    <svg x="574.35" y="50" width="14" height="14" viewBox="0 0 24 24" fill="#013243"><path d="M10.315 4.876L6.3048 2.8517l-4.401 2.1965 4.1186 2.0683zm1.8381.9277l4.2045 2.1223-4.3622 2.1906-4.125-2.0718zm5.6153-2.9213l4.3193 2.1658-3.863 1.9402-4.2131-2.1252zm-1.859-.9329L12.021 0 8.1742 1.9193l4.0068 2.0208zm-3.0401 16.7443V24l4.7107-2.3507-.0053-5.3085zm4.7037-4.2057l-.0052-5.2528-4.6985 2.3356v5.2546zm5.6553-.9845v5.327l-4.0178 2.0052-.0029-5.3028zm0-1.8626V6.4214l-4.0253 2.001.0034 5.2633zM11.2062 11.571L8.0333 9.9756v6.895s-3.8804-8.2564-4.2399-8.998c-.0463-.0957-.2371-.2007-.2858-.2262C2.8118 7.2812.773 6.2485.773 6.2485V18.43l2.8204 1.5076v-6.3674s3.8392 7.3775 3.878 7.458c.0389.0807.4245.8582.8362 1.1314.5485.363 2.8992 1.7766 2.8992 1.7766z"/></svg>
+    <text x="595.35" y="61.5" font-size="12.5" font-weight="600" fill="#1f2330">NumPy</text>
+  </g>
+  </g>
+</svg>

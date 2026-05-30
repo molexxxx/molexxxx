@@ -10,8 +10,8 @@ const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const OUT = resolve(ROOT, '.github', 'badges');
 mkdirSync(OUT, { recursive: true });
 
-const CARD_W = 470;
-const PAD_X = 16;
+const CARD_W = 400;
+const PAD_X = 14;
 const PAD_TOP = 34;
 const PAD_BOTTOM = 14;
 const CHIP_H = 26;
@@ -330,7 +330,7 @@ let md = readFileSync(README, 'utf8');
 
 const RAW = 'https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges';
 const ts = Date.now().toString(36);
-const IMG_W = 470;
+const IMG_W = 400;
 const cards = STACK.map(s =>
 {
   const slug = slugify(s.label);

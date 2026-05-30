@@ -10,7 +10,7 @@ const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const OUT = resolve(ROOT, '.github', 'badges');
 mkdirSync(OUT, { recursive: true });
 
-const CARD_W = 440;
+const CARD_W = 415;
 const PAD_X = 14;
 const PAD_TOP = 34;
 const PAD_BOTTOM = 14;
@@ -330,7 +330,7 @@ let md = readFileSync(README, 'utf8');
 
 const RAW = 'https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges';
 const ts = Date.now().toString(36);
-const IMG_W = 440;
+const IMG_W = 415;
 
 // Pair adjacent cards by chip count with a small lookahead so each row
 // stays roughly balanced in height. Keeps overall topical order.

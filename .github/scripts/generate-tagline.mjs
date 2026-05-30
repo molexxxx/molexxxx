@@ -81,7 +81,7 @@ function buildSvg(dark) {
      <text x="${textX}" y="${yText}" font-size="${TAG_FONT}" font-weight="500" fill="${muted}">${tag.replace(/&/g, '&amp;')}</text>`
   ).join('\n    ');
 
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="developer - ${TAGS.join(', ')}">
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="developer - ${TAGS.join(', ').replace(/&/g, '&amp;')}">
   <defs>
     <linearGradient id="acc" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="${accent}" stop-opacity="0.0"/>

@@ -95,6 +95,7 @@ const ICON_MAP = {
   'zero-transfer': 'https://tonywied17.github.io/zero-transfer/assets/zero-transfer-logo.svg',
   'molex-media-electron': 'https://raw.githubusercontent.com/tonywied17/molex-media-electron/main/.github/assets/logo.svg',
   'bladewake-demo': 'https://raw.githubusercontent.com/tonywied17/bladewake-demo/main/assets/bladewake_icon.svg',
+  'MagnifyShit-cpp': 'https://raw.githubusercontent.com/tonywied17/MagnifyShit-cpp/main/.github/assets/icon.svg',
 };
 
 const EXCLUDE = new Set(['ng-juwanji']);

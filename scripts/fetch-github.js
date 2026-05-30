@@ -6,6 +6,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = resolve(__dirname, '..');
 
 const USER = process.env.GH_USER || 'tonywied17';
+const NPM_USER = process.env.NPM_USER || 'molex222';
 const TOKEN = process.env.GITHUB_TOKEN;
 
 // Curated repo icons (matches the GitHub profile README). Unknown repos render
@@ -16,6 +17,7 @@ const ICON_MAP = {
   'zero-transfer': 'https://tonywied17.github.io/zero-transfer/assets/zero-transfer-logo.svg',
   'molex-media-electron': 'https://raw.githubusercontent.com/tonywied17/molex-media-electron/main/.github/assets/logo.svg',
   'bladewake-demo': 'https://raw.githubusercontent.com/tonywied17/bladewake-demo/main/assets/bladewake_icon.svg',
+  'MagnifyShit-cpp': 'https://raw.githubusercontent.com/tonywied17/MagnifyShit-cpp/main/.github/assets/icon.svg',
 };
 const iconFor = (name) => ICON_MAP[name] ?? null;
 
@@ -46,6 +48,29 @@ async function safe(promise, fallback) {
 const user = await safe(gh(`/users/${USER}`), null);
 
 const allRepos = await safe(gh(`/users/${USER}/repos?per_page=100&sort=pushed&type=owner`), []);
+
+// Public gists count.
+async function fetchGistsCount() {
+  const list = await safe(gh(`/users/${USER}/gists?per_page=100`), []);
+  return Array.isArray(list) ? list.length : 0;
+}
+
+// Published npm packages for the registered npm user.
+async function fetchNpmCount() {
+  try {
+    const res = await fetch(`https://registry.npmjs.org/-/v1/search?text=maintainer:${NPM_USER}&size=250`, {
+      headers: { 'User-Agent': `${USER}-resume-build`, Accept: 'application/json' },
+    });
+    if (!res.ok) throw new Error(`npm ${res.status}`);
+    const json = await res.json();
+    return json.total ?? (Array.isArray(json.objects) ? json.objects.length : 0);
+  } catch (e) {
+    console.warn('  ! npm fetch failed:', e.message);
+    return 0;
+  }
+}
+
+const [gistsCount, npmCount] = await Promise.all([fetchGistsCount(), fetchNpmCount()]);
 
 // Resolve upstream stats for any pinned forks so we can present them honestly.
 async function resolveFork(name) {
@@ -103,7 +128,7 @@ const out = {
         public_repos: user.public_repos,
       }
     : null,
-  totals: { stars: totalStars, repos: allRepos.length },
+  totals: { stars: totalStars, repos: allRepos.length, gists: gistsCount, npm: npmCount },
   repos,
   fetched_at: new Date().toISOString(),
 };
@@ -111,4 +136,4 @@ const out = {
 mkdirSync(resolve(root, 'dist'), { recursive: true });
 writeFileSync(resolve(root, 'dist/github.json'), JSON.stringify(out, null, 2));
 writeFileSync(resolve(root, 'data.github.json'), JSON.stringify(out, null, 2));
-console.log(`  ✓ github data (${repos.length} repos, ${totalStars}★)`);
+console.log(`  ✓ github data (${repos.length} repos, ${totalStars}★, ${gistsCount} gists, ${npmCount} npm)`);

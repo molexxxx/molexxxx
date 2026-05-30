@@ -72,8 +72,8 @@
     </div>
 
     <aside class="hero-card reveal" id="about">
-      {{#photo}}<img class="avatar" src="{{photo}}" alt="{{name}}" />{{/photo}}
-      {{^photo}}{{#github.user.avatar_url}}<img class="avatar" src="{{github.user.avatar_url}}" alt="{{name}}" />{{/github.user.avatar_url}}{{/photo}}
+      {{#photo}}<div class="avatar-wrap"><img class="avatar" src="{{photo}}" alt="{{name}}" /></div>{{/photo}}
+      {{^photo}}{{#github.user.avatar_url}}<div class="avatar-wrap"><img class="avatar" src="{{github.user.avatar_url}}" alt="{{name}}" width="320" height="320" /></div>{{/github.user.avatar_url}}{{/photo}}
       <div class="stats">
         <div class="stat"><span class="num">{{github.totals.repos}}</span><span class="lbl">Repos</span></div>
         <div class="stat"><span class="num">{{github.totals.stars}}</span><span class="lbl">Stars</span></div>

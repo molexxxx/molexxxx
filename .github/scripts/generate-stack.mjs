@@ -24,22 +24,22 @@ const OUT  = resolve(ROOT, '.github', 'badges');
 mkdirSync(OUT, { recursive: true });
 
 const CARD_W       = 880;
-const PAD_X        = 18;
-const PAD_TOP      = 44;     // header band
-const PAD_BOTTOM   = 16;
-const CHIP_H       = 30;
-const CHIP_GAP_X   = 8;
-const CHIP_GAP_Y   = 8;
-const CHIP_PAD_X   = 11;
-const ICON_SIZE    = 14;
-const ICON_TEXT_GAP = 7;
-const CHIP_FONT    = 12.5;
+const PAD_X        = 14;
+const PAD_TOP      = 30;     // header band
+const PAD_BOTTOM   = 12;
+const CHIP_H       = 22;
+const CHIP_GAP_X   = 6;
+const CHIP_GAP_Y   = 6;
+const CHIP_PAD_X   = 8;
+const ICON_SIZE    = 11;
+const ICON_TEXT_GAP = 6;
+const CHIP_FONT    = 11;
 const CHIP_FONT_W  = 600;
 
-// Approximate character widths for the chip font (Segoe UI / Inter @ 12.5/600).
+// Approximate character widths for the chip font (Segoe UI / Inter @ 11/600).
 // Rough but consistent — used only for chip-row wrap math; the SVG itself
 // lays out text by absolute x coordinates we compute here.
-const CHAR_W = { default: 7.05, ' ': 3.6, '.': 3.4, ',': 3.4, ':': 3.6, ';': 3.6, '/': 4.2, '-': 4.4, '+': 6.4, '#': 8.6, '%': 10.4, '&': 8.2, 'i': 3.4, 'l': 3.4, 'I': 3.6, 't': 4.2, 'r': 4.4, 'f': 4.4, 'j': 3.4, 'm': 11.0, 'w': 9.8, 'M': 10.4, 'W': 11.2 };
+const CHAR_W = { default: 6.2, ' ': 3.1, '.': 3.0, ',': 3.0, ':': 3.2, ';': 3.2, '/': 3.7, '-': 3.9, '+': 5.6, '#': 7.6, '%': 9.2, '&': 7.2, 'i': 3.0, 'l': 3.0, 'I': 3.2, 't': 3.7, 'r': 3.9, 'f': 3.9, 'j': 3.0, 'm': 9.7, 'w': 8.6, 'M': 9.2, 'W': 9.9 };
 const measureText = (s) => {
   let w = 0;
   for (const c of s) w += CHAR_W[c] ?? CHAR_W.default;
@@ -202,8 +202,9 @@ function layoutChips(chips, maxW) {
   return rows;
 }
 
-function renderChip(chip, x, y, accentA, dark) {
-  const color = chip.color || (getIconKey(chip.slug)?.hex ? '#' + getIconKey(chip.slug).hex : accentA);
+function renderChip(chip, x, y, dark) {
+  const fallbackColor = dark ? '#94a3b8' : '#5b6472';
+  const color = chip.color || (getIconKey(chip.slug)?.hex ? '#' + getIconKey(chip.slug).hex : fallbackColor);
   const icon  = getIconKey(chip.slug);
   const chipBg     = dark ? '#161b25' : '#f4f6fb';
   const chipBorder = dark ? '#242b3a' : '#dee2ea';
@@ -216,10 +217,10 @@ function renderChip(chip, x, y, accentA, dark) {
 
   const iconNode = icon
     ? `<svg x="${iconX}" y="${iconY}" width="${ICON_SIZE}" height="${ICON_SIZE}" viewBox="0 0 24 24" fill="${color}"><path d="${icon.path}"/></svg>`
-    : `<g><rect x="${iconX}" y="${iconY}" width="${ICON_SIZE}" height="${ICON_SIZE}" rx="3.5" fill="${color}" fill-opacity="0.22" stroke="${color}" stroke-opacity="0.55"/><text x="${iconX + ICON_SIZE/2}" y="${iconY + ICON_SIZE - 3}" text-anchor="middle" font-size="9.5" font-weight="800" fill="${color}">${escapeXml(chip.name[0].toUpperCase())}</text></g>`;
+    : `<g><rect x="${iconX}" y="${iconY}" width="${ICON_SIZE}" height="${ICON_SIZE}" rx="2.5" fill="${color}" fill-opacity="0.22" stroke="${color}" stroke-opacity="0.55"/><text x="${iconX + ICON_SIZE/2}" y="${iconY + ICON_SIZE - 2.5}" text-anchor="middle" font-size="8" font-weight="800" fill="${color}">${escapeXml(chip.name[0].toUpperCase())}</text></g>`;
 
   return `<g>
-    <rect x="${x}" y="${y}" width="${w}" height="${CHIP_H}" rx="8" fill="${chipBg}" stroke="${chipBorder}"/>
+    <rect x="${x}" y="${y}" width="${w}" height="${CHIP_H}" rx="6" fill="${chipBg}" stroke="${chipBorder}"/>
     ${iconNode}
     <text x="${textX}" y="${textY}" font-size="${CHIP_FONT}" font-weight="${CHIP_FONT_W}" fill="${textFill}">${escapeXml(chip.name)}</text>
   </g>`;
@@ -227,80 +228,59 @@ function renderChip(chip, x, y, accentA, dark) {
 
 function renderCard(section, dark) {
   const id = slugify(section.label) + (dark ? '-d' : '-l');
-  const accentA = section.accentA, accentB = section.accentB;
 
   const maxRowW = CARD_W - PAD_X * 2;
   const rows = layoutChips(section.chips, maxRowW);
   const cardH = PAD_TOP + rows.length * CHIP_H + (rows.length - 1) * CHIP_GAP_Y + PAD_BOTTOM;
 
-  const surfaceA = dark ? '#11151f' : '#ffffff';
-  const surfaceB = dark ? '#0a0d14' : '#f7f8fb';
-  const border   = dark ? '#1f2533' : '#e4e7ee';
+  const surface  = dark ? '#0d1117' : '#ffffff';
+  const border   = dark ? '#21262d' : '#d0d7de';
   const ink      = dark ? '#e6e9f1' : '#0b1220';
-  const muted    = dark ? '#94a3b8' : '#5b6472';
-  const tintOp   = dark ? 0.16 : 0.09;
+  const muted    = dark ? '#7d8590' : '#656d76';
+  const sheen    = dark ? '#3b82f6' : '#2563eb';
+  const sep      = dark ? '#1c222c' : '#eaecef';
+  const RX       = 10;
 
-  // Border path inset 1px so 2px stroke fits inside the viewBox without clipping.
-  const RX = 14;
-  const bx = 1, by = 1, bw = CARD_W - 2, bh = cardH - 2, br = RX - 0.5;
-  const borderD = `M ${bx + br} ${by} H ${bx + bw - br} A ${br} ${br} 0 0 1 ${bx + bw} ${by + br} V ${by + bh - br} A ${br} ${br} 0 0 1 ${bx + bw - br} ${by + bh} H ${bx + br} A ${br} ${br} 0 0 1 ${bx} ${by + bh - br} V ${by + br} A ${br} ${br} 0 0 1 ${bx + br} ${by} Z`;
-
-  // Chip rows
   let chipsSvg = '';
   let cursorY = PAD_TOP - 2;
   for (const row of rows) {
     let cursorX = PAD_X;
     for (const chip of row) {
-      chipsSvg += renderChip(chip, cursorX, cursorY, accentA, dark);
+      chipsSvg += renderChip(chip, cursorX, cursorY, dark);
       cursorX += chip._w + CHIP_GAP_X;
     }
     cursorY += CHIP_H + CHIP_GAP_Y;
   }
 
   const count = section.chips.length;
+  // Very subtle moving sheen across the top edge — slow, low-opacity, no
+  // orbiting particles or per-section color. Skips entirely in print/static.
+  const sheenW = 180;
+  const sheenDur = 9;
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${CARD_W}" height="${cardH}" viewBox="0 0 ${CARD_W} ${cardH}" role="img" aria-label="${escapeXml(section.label)}: ${section.chips.map(c => c.name).join(', ')}">
   <defs>
-    <linearGradient id="bg-${id}" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="${surfaceA}"/>
-      <stop offset="100%" stop-color="${surfaceB}"/>
+    <linearGradient id="sheen-${id}" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"   stop-color="${sheen}" stop-opacity="0"/>
+      <stop offset="50%"  stop-color="${sheen}" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="${sheen}" stop-opacity="0"/>
     </linearGradient>
-    <linearGradient id="ac-${id}" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="${accentA}"/>
-      <stop offset="100%" stop-color="${accentB}"/>
-    </linearGradient>
-    <linearGradient id="tint-${id}" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="${accentA}" stop-opacity="${tintOp}"/>
-      <stop offset="60%" stop-color="${accentA}" stop-opacity="0"/>
-    </linearGradient>
-    <path id="bd-${id}" d="${borderD}" fill="none"/>
     <clipPath id="clip-${id}"><rect x="0" y="0" width="${CARD_W}" height="${cardH}" rx="${RX}" ry="${RX}"/></clipPath>
   </defs>
 
-  <rect x="0" y="0" width="${CARD_W}" height="${cardH}" rx="${RX}" ry="${RX}" fill="url(#bg-${id})"/>
-  <rect x="0" y="0" width="${CARD_W}" height="${cardH}" rx="${RX}" ry="${RX}" fill="url(#tint-${id})"/>
-
-  <use href="#bd-${id}" stroke="${border}" stroke-width="1"/>
-  <use href="#bd-${id}" stroke="url(#ac-${id})" stroke-width="1.2" stroke-opacity="0.5"/>
-  <use href="#bd-${id}" stroke="url(#ac-${id})" stroke-width="2" stroke-dasharray="90 ${Math.round((CARD_W + cardH) * 1.6)}" stroke-linecap="round">
-    <animate attributeName="stroke-dashoffset" from="0" to="-${(CARD_W + cardH) * 2}" dur="14s" repeatCount="indefinite"/>
-  </use>
+  <rect x="0.5" y="0.5" width="${CARD_W - 1}" height="${cardH - 1}" rx="${RX}" ry="${RX}" fill="${surface}" stroke="${border}"/>
 
   <g clip-path="url(#clip-${id})">
-    <circle r="2" fill="${accentA}"><animateMotion dur="12s" repeatCount="indefinite" rotate="auto"><mpath href="#bd-${id}"/></animateMotion></circle>
-    <circle r="1.6" fill="${accentB}"><animateMotion dur="12s" begin="-3s" repeatCount="indefinite" rotate="auto"><mpath href="#bd-${id}"/></animateMotion></circle>
-    <circle r="1.4" fill="${accentA}" opacity="0.75"><animateMotion dur="12s" begin="-6s" repeatCount="indefinite" rotate="auto"><mpath href="#bd-${id}"/></animateMotion></circle>
-    <circle r="1" fill="${accentB}" opacity="0.7"><animateMotion dur="12s" begin="-9s" repeatCount="indefinite" rotate="auto"><mpath href="#bd-${id}"/></animateMotion></circle>
+    <rect x="-${sheenW}" y="0" width="${sheenW}" height="1.5" fill="url(#sheen-${id})">
+      <animate attributeName="x" from="-${sheenW}" to="${CARD_W}" dur="${sheenDur}s" begin="0s" repeatCount="indefinite"/>
+    </rect>
   </g>
 
+  <line x1="${PAD_X}" y1="${PAD_TOP - 8}" x2="${CARD_W - PAD_X}" y2="${PAD_TOP - 8}" stroke="${sep}" stroke-width="1"/>
+
   <g font-family="Segoe UI, Inter, -apple-system, BlinkMacSystemFont, sans-serif">
-    <g transform="translate(${PAD_X} 16)">
-      <rect x="0" y="0" width="4" height="18" rx="2" fill="url(#ac-${id})"/>
-      <text x="12" y="14" font-size="14.5" font-weight="800" fill="${ink}" letter-spacing="-0.2">${escapeXml(section.label)}</text>
-    </g>
-    <g transform="translate(${CARD_W - PAD_X} 16)">
-      <text x="0" y="14" text-anchor="end" font-size="10.5" font-weight="700" fill="${muted}" letter-spacing="1.5">${count} ITEMS</text>
-    </g>
+    <text x="${PAD_X}" y="18" font-size="12" font-weight="700" fill="${ink}" letter-spacing="-0.1">${escapeXml(section.label)}</text>
+    <text x="${CARD_W - PAD_X}" y="18" text-anchor="end" font-size="10" font-weight="600" fill="${muted}" letter-spacing="1.2">${count}</text>
     ${chipsSvg}
   </g>
 </svg>

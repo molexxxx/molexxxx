@@ -10,8 +10,8 @@ const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const OUT = resolve(ROOT, '.github', 'badges');
 mkdirSync(OUT, { recursive: true });
 
-const CARD_W = 470;
-const PAD_X = 16;
+const CARD_W = 360;
+const PAD_X = 14;
 const PAD_TOP = 34;
 const PAD_BOTTOM = 14;
 const CHIP_H = 26;

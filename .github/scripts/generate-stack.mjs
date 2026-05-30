@@ -339,8 +339,8 @@ const PAIRINGS = [
   ['Languages', 'Backend'],
   ['Frontend', 'Real-time'],
   ['Data', 'Cloud'],
-  ['Audio & Graphics', 'Auth & Sec'],
   ['DevOps', 'Infra'],
+  ['Auth & Sec', 'Audio & Graphics'],
   ['Desktop', 'Game Engines'],
   ['Robotics & Drones'],
 ];

@@ -1,7 +1,7 @@
 <p align="center"><b>developer</b> · web · desktop · games · robotics & drones · real-time · audio/DSP · graphics</p>
 
 <p align="center">
-  <a href="https://tonywied17.github.io/tonywied17/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/header-resume-dark.svg?v=ac0bcedb"><img height="44" src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/header-resume-light.svg?v=ac0bcedb" alt="Resume" /></picture></a>
+  <a href="https://tonywied17.github.io/tonywied17/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/header-resume-dark.svg?v=ac0bcedb&t=1780142740"><img height="44" src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/header-resume-light.svg?v=ac0bcedb&t=1780142740" alt="Resume" /></picture></a>
   &nbsp;
   <a href="https://github.com/tonywied17?tab=repositories"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/header-repos-dark.svg?v=b5798b42"><img height="44" src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/header-repos-light.svg?v=b5798b42" alt="Repos" /></picture></a>
   &nbsp;

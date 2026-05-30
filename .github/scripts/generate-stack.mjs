@@ -10,7 +10,7 @@ const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const OUT = resolve(ROOT, '.github', 'badges');
 mkdirSync(OUT, { recursive: true });
 
-const CARD_W = 400;
+const CARD_W = 440;
 const PAD_X = 14;
 const PAD_TOP = 34;
 const PAD_BOTTOM = 14;
@@ -330,15 +330,35 @@ let md = readFileSync(README, 'utf8');
 
 const RAW = 'https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges';
 const ts = Date.now().toString(36);
-const IMG_W = 400;
-const cards = STACK.map(s =>
+const IMG_W = 440;
+
+// Pair adjacent cards by chip count with a small lookahead so each row
+// stays roughly balanced in height. Keeps overall topical order.
+const queue = STACK.map(s => s);
+const pairs = [];
+while (queue.length)
+{
+  const a = queue.shift();
+  if (!queue.length) { pairs.push([a]); break; }
+  let bestIdx = 0;
+  let bestDiff = Math.abs(a.chips.length - queue[0].chips.length);
+  for (let i = 1; i < Math.min(2, queue.length); i++)
+  {
+    const d = Math.abs(a.chips.length - queue[i].chips.length);
+    if (d < bestDiff) { bestDiff = d; bestIdx = i; }
+  }
+  const b = queue.splice(bestIdx, 1)[0];
+  pairs.push([a, b]);
+}
+
+const cardHtml = (s) =>
 {
   const slug = slugify(s.label);
   const { darkHash, lightHash } = generated[slug];
   return `<picture><source media="(prefers-color-scheme: dark)" srcset="${RAW}/stack-${slug}-dark.svg?v=${darkHash}&t=${ts}"><img alt="${escapeXml(s.label)}" width="${IMG_W}" src="${RAW}/stack-${slug}-light.svg?v=${lightHash}&t=${ts}" /></picture>`;
-});
+};
 
-const block = cards.join(' ');
+const block = pairs.map(p => p.map(cardHtml).join(' ')).join('\n  ');
 
 const wrapped = `<!-- stack:start -->\n${block}\n<!-- stack:end -->`;
 

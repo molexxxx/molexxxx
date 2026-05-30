@@ -1,26 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="400" height="140" viewBox="0 0 400 140" role="img" aria-label="Backend: zero-server, Node.js, Express, REST, GraphQL, OpenAPI, ASP.NET Core, EF Core, Spring Boot">
+<svg xmlns="http://www.w3.org/2000/svg" width="440" height="140" viewBox="0 0 440 140" role="img" aria-label="Backend: zero-server, Node.js, Express, REST, GraphQL, OpenAPI, ASP.NET Core, EF Core, Spring Boot">
   <defs>
     <linearGradient id="sheen-backend-d" x1="0" y1="0" x2="1" y2="0">
       <stop offset="0%"   stop-color="#3b82f6" stop-opacity="0"/>
       <stop offset="50%"  stop-color="#3b82f6" stop-opacity="0.55"/>
       <stop offset="100%" stop-color="#3b82f6" stop-opacity="0"/>
     </linearGradient>
-    <clipPath id="clip-backend-d"><rect x="0" y="0" width="400" height="140" rx="10" ry="10"/></clipPath>
+    <clipPath id="clip-backend-d"><rect x="0" y="0" width="440" height="140" rx="10" ry="10"/></clipPath>
   </defs>
 
-  <rect x="0.5" y="0.5" width="399" height="139" rx="10" ry="10" fill="none" stroke="#30363d"/>
+  <rect x="0.5" y="0.5" width="439" height="139" rx="10" ry="10" fill="none" stroke="#30363d"/>
 
   <g clip-path="url(#clip-backend-d)">
     <rect x="-180" y="0" width="180" height="1.5" fill="url(#sheen-backend-d)">
-      <animate attributeName="x" from="-180" to="400" dur="9s" begin="0s" repeatCount="indefinite"/>
+      <animate attributeName="x" from="-180" to="440" dur="9s" begin="0s" repeatCount="indefinite"/>
     </rect>
   </g>
 
-  <line x1="14" y1="26" x2="386" y2="26" stroke="#1c222c" stroke-width="1"/>
+  <line x1="14" y1="26" x2="426" y2="26" stroke="#1c222c" stroke-width="1"/>
 
   <g font-family="Segoe UI, Inter, -apple-system, BlinkMacSystemFont, sans-serif">
     <text x="14" y="20" font-size="13" font-weight="700" fill="#e6e9f1" letter-spacing="-0.1">Backend</text>
-    <text x="386" y="20" text-anchor="end" font-size="11" font-weight="600" fill="#7d8590" letter-spacing="1.2">9</text>
+    <text x="426" y="20" text-anchor="end" font-size="11" font-weight="600" fill="#7d8590" letter-spacing="1.2">9</text>
     <g>
     <rect x="14" y="32" width="106.94999999999999" height="26" rx="6" fill="none" stroke="#30363d"/>
     <g><rect x="24" y="38.5" width="13" height="13" rx="2.5" fill="#60a5fa" fill-opacity="0.22" stroke="#60a5fa" stroke-opacity="0.55"/><text x="30.5" y="49" text-anchor="middle" font-size="8" font-weight="800" fill="#60a5fa">Z</text></g>
@@ -50,13 +50,13 @@
     <svg x="210.6" y="71.5" width="13" height="13" viewBox="0 0 24 24" fill="#512BD4"><path d="M24 8.77h-2.468v7.565h-1.425V8.77h-2.462V7.53H24zm-6.852 7.565h-4.821V7.53h4.63v1.24h-3.205v2.494h2.953v1.234h-2.953v2.604h3.396zm-6.708 0H8.882L4.78 9.863a2.896 2.896 0 0 1-.258-.51h-.036c.032.189.048.592.048 1.21v5.772H3.157V7.53h1.659l3.965 6.32c.167.261.275.442.323.54h.024c-.04-.233-.06-.629-.06-1.185V7.529h1.372zm-8.703-.693a.868.829 0 0 1-.869.829.868.829 0 0 1-.868-.83.868.829 0 0 1 .868-.828.868.829 0 0 1 .869.829Z"/></svg>
     <text x="230.6" y="82.5" font-size="12.5" font-weight="600" fill="#e6edf3">ASP.NET Core</text>
   </g><g>
-    <rect x="14" y="98" width="83.25" height="26" rx="6" fill="none" stroke="#30363d"/>
-    <svg x="24" y="104.5" width="13" height="13" viewBox="0 0 24 24" fill="#512BD4"><path d="M24 8.77h-2.468v7.565h-1.425V8.77h-2.462V7.53H24zm-6.852 7.565h-4.821V7.53h4.63v1.24h-3.205v2.494h2.953v1.234h-2.953v2.604h3.396zm-6.708 0H8.882L4.78 9.863a2.896 2.896 0 0 1-.258-.51h-.036c.032.189.048.592.048 1.21v5.772H3.157V7.53h1.659l3.965 6.32c.167.261.275.442.323.54h.024c-.04-.233-.06-.629-.06-1.185V7.529h1.372zm-8.703-.693a.868.829 0 0 1-.869.829.868.829 0 0 1-.868-.83.868.829 0 0 1 .868-.828.868.829 0 0 1 .869.829Z"/></svg>
-    <text x="44" y="115.5" font-size="12.5" font-weight="600" fill="#e6edf3">EF Core</text>
+    <rect x="322.45" y="65" width="83.25" height="26" rx="6" fill="none" stroke="#30363d"/>
+    <svg x="332.45" y="71.5" width="13" height="13" viewBox="0 0 24 24" fill="#512BD4"><path d="M24 8.77h-2.468v7.565h-1.425V8.77h-2.462V7.53H24zm-6.852 7.565h-4.821V7.53h4.63v1.24h-3.205v2.494h2.953v1.234h-2.953v2.604h3.396zm-6.708 0H8.882L4.78 9.863a2.896 2.896 0 0 1-.258-.51h-.036c.032.189.048.592.048 1.21v5.772H3.157V7.53h1.659l3.965 6.32c.167.261.275.442.323.54h.024c-.04-.233-.06-.629-.06-1.185V7.529h1.372zm-8.703-.693a.868.829 0 0 1-.869.829.868.829 0 0 1-.868-.83.868.829 0 0 1 .868-.828.868.829 0 0 1 .869.829Z"/></svg>
+    <text x="352.45" y="82.5" font-size="12.5" font-weight="600" fill="#e6edf3">EF Core</text>
   </g><g>
-    <rect x="104.25" y="98" width="104.94999999999999" height="26" rx="6" fill="none" stroke="#30363d"/>
-    <svg x="114.25" y="104.5" width="13" height="13" viewBox="0 0 24 24" fill="#6DB33F"><path d="M21.8537 1.4158a10.4504 10.4504 0 0 1-1.284 2.2471A11.9666 11.9666 0 1 0 3.8518 20.7757l.4445.3951a11.9543 11.9543 0 0 0 19.6316-8.2971c.3457-3.0126-.568-6.8649-2.0743-11.458zM5.5805 20.8745a1.0174 1.0174 0 1 1-.1482-1.4323 1.0396 1.0396 0 0 1 .1482 1.4323zm16.1991-3.5806c-2.9385 3.9263-9.2601 2.5928-13.2852 2.7904 0 0-.7161.0494-1.4323.1481 0 0 .2717-.1234.6174-.2469 2.8398-.9877 4.1732-1.1853 5.9018-2.0743 3.2349-1.6545 6.4698-5.2844 7.1118-9.0379-1.2347 3.6053-4.9881 6.7167-8.3959 7.9761-2.3459.8643-6.5685 1.7039-6.5685 1.7039l-.1729-.0988c-2.8645-1.4076-2.9632-7.6304 2.2718-9.6306 2.2966-.889 4.4696-.395 6.9637-.9877 2.6422-.6174 5.7043-2.5929 6.939-5.1857 1.3828 4.1732 3.062 10.643.0493 14.6434z"/></svg>
-    <text x="134.25" y="115.5" font-size="12.5" font-weight="600" fill="#e6edf3">Spring Boot</text>
+    <rect x="14" y="98" width="104.94999999999999" height="26" rx="6" fill="none" stroke="#30363d"/>
+    <svg x="24" y="104.5" width="13" height="13" viewBox="0 0 24 24" fill="#6DB33F"><path d="M21.8537 1.4158a10.4504 10.4504 0 0 1-1.284 2.2471A11.9666 11.9666 0 1 0 3.8518 20.7757l.4445.3951a11.9543 11.9543 0 0 0 19.6316-8.2971c.3457-3.0126-.568-6.8649-2.0743-11.458zM5.5805 20.8745a1.0174 1.0174 0 1 1-.1482-1.4323 1.0396 1.0396 0 0 1 .1482 1.4323zm16.1991-3.5806c-2.9385 3.9263-9.2601 2.5928-13.2852 2.7904 0 0-.7161.0494-1.4323.1481 0 0 .2717-.1234.6174-.2469 2.8398-.9877 4.1732-1.1853 5.9018-2.0743 3.2349-1.6545 6.4698-5.2844 7.1118-9.0379-1.2347 3.6053-4.9881 6.7167-8.3959 7.9761-2.3459.8643-6.5685 1.7039-6.5685 1.7039l-.1729-.0988c-2.8645-1.4076-2.9632-7.6304 2.2718-9.6306 2.2966-.889 4.4696-.395 6.9637-.9877 2.6422-.6174 5.7043-2.5929 6.939-5.1857 1.3828 4.1732 3.062 10.643.0493 14.6434z"/></svg>
+    <text x="44" y="115.5" font-size="12.5" font-weight="600" fill="#e6edf3">Spring Boot</text>
   </g>
   </g>
 </svg>

@@ -343,6 +343,14 @@ function svgHeader({ label, value, icon, dark, id })
        stroke-dasharray="${segLen} ${perim - segLen}" stroke-opacity="0.85">
     <animate attributeName="stroke-dashoffset" from="0" to="-${perim}" dur="6s" repeatCount="indefinite"/>
   </use>
+  <use href="#bd-${id}" stroke="${accent}" stroke-width="1.4" stroke-linecap="round" fill="none"
+       stroke-dasharray="${segLen} ${perim - segLen}" stroke-dashoffset="${-Math.round(perim / 2)}" stroke-opacity="0.85">
+    <animate attributeName="stroke-dashoffset" from="${-Math.round(perim / 2)}" to="${-Math.round(perim / 2) - perim}" dur="6s" repeatCount="indefinite"/>
+  </use>
+  <use href="#bd-${id}" stroke="${accent}" stroke-width="3" stroke-linecap="round" fill="none"
+       stroke-dasharray="${Math.round(segLen * 0.55)} ${perim - Math.round(segLen * 0.55)}" stroke-opacity="0.18">
+    <animate attributeName="stroke-dashoffset" from="0" to="-${perim}" dur="6s" repeatCount="indefinite"/>
+  </use>
 
   <g transform="translate(16 18)">
     <svg viewBox="0 0 24 24" width="22" height="22">${iconSvg}</svg>

@@ -328,55 +328,26 @@ function svgHeader({ label, value, icon, dark, id })
   const perim = Math.round(2 * (bw + bh) - (8 - 2 * Math.PI) * br);
   const iconSvg = HEADER_ICONS[icon] ? HEADER_ICONS[icon](accent) : '';
 
-  const dur = 12;
+  const dur = 14;
 
-  const segCount = 44;
-  const pieceLen = 7;
-  const stride = 1.6;
-  const sigma = (segCount - 1) / 2 / 1.8;
+  const segCount = 9;
+  const pieceLen = 6;
+  const stride = 3;
+  const sigma = (segCount - 1) / 2 / 1.6;
   const center = (segCount - 1) / 2;
 
-  const comet = (baseOffset) =>
+  let highlight = '';
+  for (let i = 0; i < segCount; i++)
   {
-    let out = '';
-    for (let i = 0; i < segCount; i++)
-    {
-      const d = i - center;
-      const op = Math.exp(-(d * d) / (2 * sigma * sigma));
-      const off = baseOffset - i * stride;
-      out += `  <use href="#bd-${id}" stroke="${accent}" stroke-width="1.3" stroke-linecap="round" fill="none"
+    const d = i - center;
+    const op = 0.40 * Math.exp(-(d * d) / (2 * sigma * sigma));
+    const off = -i * stride;
+    highlight += `  <use href="#bd-${id}" stroke="${accent}" stroke-width="1.2" stroke-linecap="round" fill="none"
        stroke-dasharray="${pieceLen} ${perim - pieceLen}" stroke-opacity="${op.toFixed(3)}">
     <animate attributeName="stroke-dashoffset" from="${off.toFixed(2)}" to="${(off - perim).toFixed(2)}" dur="${dur}s" repeatCount="indefinite"/>
   </use>
 `;
-    }
-    return out;
-  };
-
-  // Wider soft bloom underneath, same overlap technique.
-  const glow = (baseOffset) =>
-  {
-    let out = '';
-    const gCount = 30;
-    const gStride = 2;
-    const gPiece = 8;
-    const gSigma = (gCount - 1) / 2 / 1.8;
-    const gCenter = (gCount - 1) / 2;
-    for (let i = 0; i < gCount; i++)
-    {
-      const d = i - gCenter;
-      const op = 0.10 * Math.exp(-(d * d) / (2 * gSigma * gSigma));
-      const off = baseOffset - i * gStride;
-      out += `  <use href="#bd-${id}" stroke="${accent}" stroke-width="3.5" stroke-linecap="round" fill="none"
-       stroke-dasharray="${gPiece} ${perim - gPiece}" stroke-opacity="${op.toFixed(3)}">
-    <animate attributeName="stroke-dashoffset" from="${off.toFixed(2)}" to="${(off - perim).toFixed(2)}" dur="${dur}s" repeatCount="indefinite"/>
-  </use>
-`;
-    }
-    return out;
-  };
-
-  const halfP = -Math.round(perim / 2);
+  }
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${escapeXml(label)}: ${escapeXml(value)}">
   <defs>
@@ -384,7 +355,7 @@ function svgHeader({ label, value, icon, dark, id })
   </defs>
 
   <use href="#bd-${id}" stroke="${border}" stroke-width="1"/>
-${glow(0)}${comet(0)}${glow(halfP)}${comet(halfP)}
+${highlight}
 
   <g transform="translate(16 18)">
     <svg viewBox="0 0 24 24" width="22" height="22">${iconSvg}</svg>

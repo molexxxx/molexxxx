@@ -98,7 +98,6 @@ async function fetchAllTimeTotals(createdAt)
 
 const allTime = await fetchAllTimeTotals(data.createdAt);
 
-// External repos where I'm a primary contributor but not the owner — count their stars too.
 const EXTERNAL_STAR_REPOS = [
   { owner: 'bbrown430', name: 'plex-poster-set-helper' },
 ];

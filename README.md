@@ -15,6 +15,12 @@
   <a href="https://www.npmjs.com/~molex222"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/header-npm-dark.svg?v=ee1c10a7"><img height="40" src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/header-npm-light.svg?v=ee1c10a7" alt="npm" /></picture></a>
 </p>
 
+<p align="center">
+<!-- activity:start -->
+  <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/activity-contributions-dark.svg?v=d776db05&t=mpuc5i3x"><img alt="Contributions" width="415" src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/activity-contributions-light.svg?v=c3fc5237&t=mpuc5i3x" /></picture> <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/activity-stats-dark.svg?v=bdf73ce1&t=mpuc5i3x"><img alt="Stats" width="415" src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/activity-stats-light.svg?v=461b1573&t=mpuc5i3x" /></picture>
+<!-- activity:end -->
+</p>
+
 ### Projects
 
 <table width="100%">

@@ -311,64 +311,47 @@ const HEADER_ICONS = {
 };
 
 /**
- * Render an animated pill-style header badge SVG with the stat value baked in.
+ * Render a sleek primary-CTA pill matched to the activity card chrome:
+ * transparent fill, thin border, subtle accent sweep along the top divider,
+ * small per-button accent icon chip, large value + muted uppercase label.
  */
-function svgHeader({ label, value, icon, accentA, accentB, dark, id })
+function svgHeader({ label, value, icon, accentA, dark, id })
 {
-  const W = 180, H = 44;
-  const RX = 12;
+  const W = 205, H = 56, RX = 10;
   const ink = dark ? '#e6e9f1' : '#0b1220';
-  const muted = dark ? '#94a3b8' : '#5b6472';
-  const surfaceA = dark ? '#11151f' : '#ffffff';
-  const surfaceB = dark ? '#0a0d14' : '#f7f8fb';
-  const border = dark ? '#1f2533' : '#e4e7ee';
-  const bx = 1, by = 1, bw = W - 2, bh = H - 2, br = RX - 0.5;
-  const borderD = `M ${bx + br} ${by} H ${bx + bw - br} A ${br} ${br} 0 0 1 ${bx + bw} ${by + br} V ${by + bh - br} A ${br} ${br} 0 0 1 ${bx + bw - br} ${by + bh} H ${bx + br} A ${br} ${br} 0 0 1 ${bx} ${by + bh - br} V ${by + br} A ${br} ${br} 0 0 1 ${bx + br} ${by} Z`;
-  const iconSvg = HEADER_ICONS[icon] ? HEADER_ICONS[icon](accentA) : '';
+  const muted = dark ? '#7d8590' : '#656d76';
+  const border = dark ? '#30363d' : '#d0d7de';
+  const accent = accentA;
+  const DIV_Y = 22;
+  const iconSvg = HEADER_ICONS[icon] ? HEADER_ICONS[icon](accent) : '';
+  const sweepW = Math.round(W * 0.45);
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${escapeXml(label)}: ${escapeXml(value)}">
   <defs>
-    <linearGradient id="bg-${id}" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="${surfaceA}"/>
-      <stop offset="100%" stop-color="${surfaceB}"/>
+    <linearGradient id="sw-${id}" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"   stop-color="${accent}" stop-opacity="0"/>
+      <stop offset="50%"  stop-color="${accent}" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="${accent}" stop-opacity="0"/>
     </linearGradient>
-    <linearGradient id="ac-${id}" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="${accentA}"/>
-      <stop offset="100%" stop-color="${accentB}"/>
-    </linearGradient>
-    <linearGradient id="tint-${id}" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="${accentA}" stop-opacity="${dark ? 0.18 : 0.10}"/>
-      <stop offset="100%" stop-color="${accentA}" stop-opacity="0"/>
-    </linearGradient>
-    <path id="bd-${id}" d="${borderD}" fill="none"/>
-    <clipPath id="clip-${id}"><rect x="0" y="0" width="${W}" height="${H}" rx="${RX}" ry="${RX}"/></clipPath>
+    <clipPath id="cl-${id}"><rect x="0" y="0" width="${W}" height="${H}" rx="${RX}" ry="${RX}"/></clipPath>
   </defs>
 
-  <rect x="0" y="0" width="${W}" height="${H}" rx="${RX}" ry="${RX}" fill="url(#bg-${id})"/>
-  <rect x="0" y="0" width="${W}" height="${H}" rx="${RX}" ry="${RX}" fill="url(#tint-${id})"/>
+  <rect x="0.5" y="0.5" width="${W - 1}" height="${H - 1}" rx="${RX}" ry="${RX}" fill="none" stroke="${border}" stroke-width="1"/>
 
-  <use href="#bd-${id}" stroke="${border}" stroke-width="1"/>
-  <use href="#bd-${id}" stroke="url(#ac-${id})" stroke-width="1.2" stroke-opacity="0.55"/>
-  <use href="#bd-${id}" stroke="url(#ac-${id})" stroke-width="2" stroke-dasharray="55 380" stroke-linecap="round">
-    <animate attributeName="stroke-dashoffset" from="0" to="-435" dur="5.5s" repeatCount="indefinite"/>
-  </use>
-
-  <g clip-path="url(#clip-${id})">
-    <circle r="1.9" fill="${accentA}"><animateMotion dur="5s" repeatCount="indefinite" rotate="auto"><mpath href="#bd-${id}"/></animateMotion></circle>
-    <circle r="1.5" fill="${accentB}"><animateMotion dur="5s" begin="-1.25s" repeatCount="indefinite" rotate="auto"><mpath href="#bd-${id}"/></animateMotion></circle>
-    <circle r="1.3" fill="${accentA}" opacity="0.75"><animateMotion dur="5s" begin="-2.5s" repeatCount="indefinite" rotate="auto"><mpath href="#bd-${id}"/></animateMotion></circle>
-    <circle r="1" fill="${accentB}" opacity="0.7"><animateMotion dur="5s" begin="-3.75s" repeatCount="indefinite" rotate="auto"><mpath href="#bd-${id}"/></animateMotion></circle>
+  <g clip-path="url(#cl-${id})">
+    <line x1="0" y1="${DIV_Y}" x2="${W}" y2="${DIV_Y}" stroke="${border}" stroke-width="1" opacity="0.55"/>
+    <rect x="-${sweepW}" y="${DIV_Y - 0.5}" width="${sweepW}" height="1" fill="url(#sw-${id})">
+      <animate attributeName="x" from="-${sweepW}" to="${W}" dur="6s" repeatCount="indefinite"/>
+    </rect>
   </g>
 
-  <g transform="translate(14 11)">
-    <rect x="-2" y="-2" width="28" height="26" rx="7" fill="${accentA}" fill-opacity="${dark ? 0.14 : 0.10}" stroke="${accentA}" stroke-opacity="0.35"/>
-    <g transform="translate(0 0) scale(${24 / 24})" >
-      <svg viewBox="0 0 24 24" width="24" height="24">${iconSvg}</svg>
-    </g>
+  <g transform="translate(14 30)">
+    <rect x="-4" y="-4" width="28" height="28" rx="7" fill="${accent}" fill-opacity="${dark ? 0.12 : 0.08}" stroke="${accent}" stroke-opacity="0.28"/>
+    <svg viewBox="0 0 24 24" width="20" height="20" x="-2" y="-2">${iconSvg}</svg>
   </g>
 
   <g font-family="Segoe UI, Inter, -apple-system, BlinkMacSystemFont, sans-serif">
-    <text x="54" y="24" font-size="18" font-weight="800" fill="${ink}" letter-spacing="-0.3">${escapeXml(value)}</text>
-    <text x="54" y="36" font-size="9.5" font-weight="700" fill="${muted}" letter-spacing="1.6">${escapeXml(label.toUpperCase())}</text>
+    <text x="${W - 14}" y="16" text-anchor="end" font-size="10" font-weight="700" fill="${muted}" letter-spacing="1.6">${escapeXml(label.toUpperCase())}</text>
+    <text x="46" y="46" font-size="19" font-weight="800" fill="${ink}" letter-spacing="-0.3">${escapeXml(value)}</text>
   </g>
 </svg>
 `;
@@ -422,8 +405,8 @@ for (const b of BADGES)
     let dark, light, themed;
     if (b.kind === 'header-link')
     {
-      dark = svgHeader({ label: b.label, value: message, icon: b.icon, accentA: b.accentA, accentB: b.accentB, dark: true, id: b.id + '-d' });
-      light = svgHeader({ label: b.label, value: message, icon: b.icon, accentA: b.accentA, accentB: b.accentB, dark: false, id: b.id + '-l' });
+      dark = svgHeader({ label: b.label, value: message, icon: b.icon, accentA: b.accentA, dark: true, id: b.id + '-d' });
+      light = svgHeader({ label: b.label, value: message, icon: b.icon, accentA: b.accentA, dark: false, id: b.id + '-l' });
     } else if (b.kind === 'static-single')
     {
       dark = svgSingle({ message, color: '#21262d', textColor: '#ffffff', icon: b.icon, iconColor: '#ffffff' });

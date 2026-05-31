@@ -1,72 +1,273 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="205" height="56" viewBox="0 0 205 56" role="img" aria-label="npm packages: 32">
+<svg xmlns="http://www.w3.org/2000/svg" width="205" height="56" viewBox="0 0 205 56" role="img" aria-label="npm packages: 34">
   <defs>
     <path id="bd-header-npm-l" d="M 10.5 0.75 H 194.5 A 9.75 9.75 0 0 1 204.25 10.5 V 45.5 A 9.75 9.75 0 0 1 194.5 55.25 H 10.5 A 9.75 9.75 0 0 1 0.75 45.5 V 10.5 A 9.75 9.75 0 0 1 10.5 0.75 Z" fill="none"/>
   </defs>
 
   <use href="#bd-header-npm-l" stroke="#d0d7de" stroke-width="1"/>
-  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="3.5" stroke-linecap="round" fill="none"
-       stroke-dasharray="20 479" stroke-opacity="0.12">
-    <animate attributeName="stroke-dashoffset" from="2" to="-497" dur="11s" repeatCount="indefinite"/>
+  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="3.2" stroke-linecap="round" fill="none"
+       stroke-dasharray="4 495" stroke-opacity="0.020">
+    <animate attributeName="stroke-dashoffset" from="0" to="-499" dur="12s" repeatCount="indefinite"/>
   </use>
-  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="1.4" stroke-linecap="round" fill="none"
-       stroke-dasharray="14 485" stroke-opacity="0.95">
-    <animate attributeName="stroke-dashoffset" from="0" to="-499" dur="11s" repeatCount="indefinite"/>
+  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="3.2" stroke-linecap="round" fill="none"
+       stroke-dasharray="4 495" stroke-opacity="0.045">
+    <animate attributeName="stroke-dashoffset" from="-6" to="-505" dur="12s" repeatCount="indefinite"/>
   </use>
-  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="1.3" stroke-linecap="round" fill="none"
-       stroke-dasharray="12 487" stroke-opacity="0.55">
-    <animate attributeName="stroke-dashoffset" from="-6" to="-505" dur="11s" repeatCount="indefinite"/>
+  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="3.2" stroke-linecap="round" fill="none"
+       stroke-dasharray="4 495" stroke-opacity="0.084">
+    <animate attributeName="stroke-dashoffset" from="-12" to="-511" dur="12s" repeatCount="indefinite"/>
   </use>
-  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="1.2" stroke-linecap="round" fill="none"
-       stroke-dasharray="10 489" stroke-opacity="0.32">
-    <animate attributeName="stroke-dashoffset" from="-14" to="-513" dur="11s" repeatCount="indefinite"/>
+  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="3.2" stroke-linecap="round" fill="none"
+       stroke-dasharray="4 495" stroke-opacity="0.127">
+    <animate attributeName="stroke-dashoffset" from="-18" to="-517" dur="12s" repeatCount="indefinite"/>
   </use>
-  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="1.1" stroke-linecap="round" fill="none"
-       stroke-dasharray="9 490" stroke-opacity="0.18">
-    <animate attributeName="stroke-dashoffset" from="-22" to="-521" dur="11s" repeatCount="indefinite"/>
+  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="3.2" stroke-linecap="round" fill="none"
+       stroke-dasharray="4 495" stroke-opacity="0.156">
+    <animate attributeName="stroke-dashoffset" from="-24" to="-523" dur="12s" repeatCount="indefinite"/>
   </use>
-  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="1" stroke-linecap="round" fill="none"
-       stroke-dasharray="8 491" stroke-opacity="0.1">
-    <animate attributeName="stroke-dashoffset" from="-30" to="-529" dur="11s" repeatCount="indefinite"/>
+  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="3.2" stroke-linecap="round" fill="none"
+       stroke-dasharray="4 495" stroke-opacity="0.156">
+    <animate attributeName="stroke-dashoffset" from="-30" to="-529" dur="12s" repeatCount="indefinite"/>
   </use>
-  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="0.9" stroke-linecap="round" fill="none"
-       stroke-dasharray="7 492" stroke-opacity="0.05">
-    <animate attributeName="stroke-dashoffset" from="-38" to="-537" dur="11s" repeatCount="indefinite"/>
+  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="3.2" stroke-linecap="round" fill="none"
+       stroke-dasharray="4 495" stroke-opacity="0.127">
+    <animate attributeName="stroke-dashoffset" from="-36" to="-535" dur="12s" repeatCount="indefinite"/>
   </use>
-  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="3.5" stroke-linecap="round" fill="none"
-       stroke-dasharray="20 479" stroke-opacity="0.12">
-    <animate attributeName="stroke-dashoffset" from="-248" to="-747" dur="11s" repeatCount="indefinite"/>
+  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="3.2" stroke-linecap="round" fill="none"
+       stroke-dasharray="4 495" stroke-opacity="0.084">
+    <animate attributeName="stroke-dashoffset" from="-42" to="-541" dur="12s" repeatCount="indefinite"/>
   </use>
-  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="1.4" stroke-linecap="round" fill="none"
-       stroke-dasharray="14 485" stroke-opacity="0.95">
-    <animate attributeName="stroke-dashoffset" from="-250" to="-749" dur="11s" repeatCount="indefinite"/>
+  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="3.2" stroke-linecap="round" fill="none"
+       stroke-dasharray="4 495" stroke-opacity="0.045">
+    <animate attributeName="stroke-dashoffset" from="-48" to="-547" dur="12s" repeatCount="indefinite"/>
   </use>
-  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="1.3" stroke-linecap="round" fill="none"
-       stroke-dasharray="12 487" stroke-opacity="0.55">
-    <animate attributeName="stroke-dashoffset" from="-256" to="-755" dur="11s" repeatCount="indefinite"/>
+  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="3.2" stroke-linecap="round" fill="none"
+       stroke-dasharray="4 495" stroke-opacity="0.020">
+    <animate attributeName="stroke-dashoffset" from="-54" to="-553" dur="12s" repeatCount="indefinite"/>
   </use>
-  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="1.2" stroke-linecap="round" fill="none"
-       stroke-dasharray="10 489" stroke-opacity="0.32">
-    <animate attributeName="stroke-dashoffset" from="-264" to="-763" dur="11s" repeatCount="indefinite"/>
+  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="1.19" stroke-linecap="round" fill="none"
+       stroke-dasharray="3.2 495.8" stroke-opacity="0.325">
+    <animate attributeName="stroke-dashoffset" from="0" to="-499" dur="12s" repeatCount="indefinite"/>
   </use>
-  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="1.1" stroke-linecap="round" fill="none"
-       stroke-dasharray="9 490" stroke-opacity="0.18">
-    <animate attributeName="stroke-dashoffset" from="-272" to="-771" dur="11s" repeatCount="indefinite"/>
+  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="1.24" stroke-linecap="round" fill="none"
+       stroke-dasharray="3.2 495.8" stroke-opacity="0.398">
+    <animate attributeName="stroke-dashoffset" from="-5.4" to="-504.4" dur="12s" repeatCount="indefinite"/>
   </use>
-  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="1" stroke-linecap="round" fill="none"
-       stroke-dasharray="8 491" stroke-opacity="0.1">
-    <animate attributeName="stroke-dashoffset" from="-280" to="-779" dur="11s" repeatCount="indefinite"/>
+  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="1.29" stroke-linecap="round" fill="none"
+       stroke-dasharray="3.2 495.8" stroke-opacity="0.478">
+    <animate attributeName="stroke-dashoffset" from="-10.8" to="-509.8" dur="12s" repeatCount="indefinite"/>
   </use>
-  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="0.9" stroke-linecap="round" fill="none"
-       stroke-dasharray="7 492" stroke-opacity="0.05">
-    <animate attributeName="stroke-dashoffset" from="-288" to="-787" dur="11s" repeatCount="indefinite"/>
+  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="1.34" stroke-linecap="round" fill="none"
+       stroke-dasharray="3.2 495.8" stroke-opacity="0.563">
+    <animate attributeName="stroke-dashoffset" from="-16.200000000000003" to="-515.2" dur="12s" repeatCount="indefinite"/>
   </use>
+  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="1.39" stroke-linecap="round" fill="none"
+       stroke-dasharray="3.2 495.8" stroke-opacity="0.650">
+    <animate attributeName="stroke-dashoffset" from="-21.6" to="-520.6" dur="12s" repeatCount="indefinite"/>
+  </use>
+  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="1.44" stroke-linecap="round" fill="none"
+       stroke-dasharray="3.2 495.8" stroke-opacity="0.734">
+    <animate attributeName="stroke-dashoffset" from="-27" to="-526" dur="12s" repeatCount="indefinite"/>
+  </use>
+  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="1.49" stroke-linecap="round" fill="none"
+       stroke-dasharray="3.2 495.8" stroke-opacity="0.813">
+    <animate attributeName="stroke-dashoffset" from="-32.400000000000006" to="-531.4" dur="12s" repeatCount="indefinite"/>
+  </use>
+  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="1.53" stroke-linecap="round" fill="none"
+       stroke-dasharray="3.2 495.8" stroke-opacity="0.882">
+    <animate attributeName="stroke-dashoffset" from="-37.800000000000004" to="-536.8" dur="12s" repeatCount="indefinite"/>
+  </use>
+  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="1.56" stroke-linecap="round" fill="none"
+       stroke-dasharray="3.2 495.8" stroke-opacity="0.938">
+    <animate attributeName="stroke-dashoffset" from="-43.2" to="-542.2" dur="12s" repeatCount="indefinite"/>
+  </use>
+  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="1.59" stroke-linecap="round" fill="none"
+       stroke-dasharray="3.2 495.8" stroke-opacity="0.977">
+    <animate attributeName="stroke-dashoffset" from="-48.6" to="-547.6" dur="12s" repeatCount="indefinite"/>
+  </use>
+  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="1.60" stroke-linecap="round" fill="none"
+       stroke-dasharray="3.2 495.8" stroke-opacity="0.997">
+    <animate attributeName="stroke-dashoffset" from="-54" to="-553" dur="12s" repeatCount="indefinite"/>
+  </use>
+  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="1.60" stroke-linecap="round" fill="none"
+       stroke-dasharray="3.2 495.8" stroke-opacity="0.997">
+    <animate attributeName="stroke-dashoffset" from="-59.400000000000006" to="-558.4" dur="12s" repeatCount="indefinite"/>
+  </use>
+  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="1.59" stroke-linecap="round" fill="none"
+       stroke-dasharray="3.2 495.8" stroke-opacity="0.977">
+    <animate attributeName="stroke-dashoffset" from="-64.80000000000001" to="-563.8" dur="12s" repeatCount="indefinite"/>
+  </use>
+  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="1.56" stroke-linecap="round" fill="none"
+       stroke-dasharray="3.2 495.8" stroke-opacity="0.938">
+    <animate attributeName="stroke-dashoffset" from="-70.2" to="-569.2" dur="12s" repeatCount="indefinite"/>
+  </use>
+  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="1.53" stroke-linecap="round" fill="none"
+       stroke-dasharray="3.2 495.8" stroke-opacity="0.882">
+    <animate attributeName="stroke-dashoffset" from="-75.60000000000001" to="-574.6" dur="12s" repeatCount="indefinite"/>
+  </use>
+  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="1.49" stroke-linecap="round" fill="none"
+       stroke-dasharray="3.2 495.8" stroke-opacity="0.813">
+    <animate attributeName="stroke-dashoffset" from="-81" to="-580" dur="12s" repeatCount="indefinite"/>
+  </use>
+  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="1.44" stroke-linecap="round" fill="none"
+       stroke-dasharray="3.2 495.8" stroke-opacity="0.734">
+    <animate attributeName="stroke-dashoffset" from="-86.4" to="-585.4" dur="12s" repeatCount="indefinite"/>
+  </use>
+  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="1.39" stroke-linecap="round" fill="none"
+       stroke-dasharray="3.2 495.8" stroke-opacity="0.650">
+    <animate attributeName="stroke-dashoffset" from="-91.80000000000001" to="-590.8" dur="12s" repeatCount="indefinite"/>
+  </use>
+  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="1.34" stroke-linecap="round" fill="none"
+       stroke-dasharray="3.2 495.8" stroke-opacity="0.563">
+    <animate attributeName="stroke-dashoffset" from="-97.2" to="-596.2" dur="12s" repeatCount="indefinite"/>
+  </use>
+  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="1.29" stroke-linecap="round" fill="none"
+       stroke-dasharray="3.2 495.8" stroke-opacity="0.478">
+    <animate attributeName="stroke-dashoffset" from="-102.60000000000001" to="-601.6" dur="12s" repeatCount="indefinite"/>
+  </use>
+  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="1.24" stroke-linecap="round" fill="none"
+       stroke-dasharray="3.2 495.8" stroke-opacity="0.398">
+    <animate attributeName="stroke-dashoffset" from="-108" to="-607" dur="12s" repeatCount="indefinite"/>
+  </use>
+  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="1.19" stroke-linecap="round" fill="none"
+       stroke-dasharray="3.2 495.8" stroke-opacity="0.325">
+    <animate attributeName="stroke-dashoffset" from="-113.4" to="-612.4" dur="12s" repeatCount="indefinite"/>
+  </use>
+  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="3.2" stroke-linecap="round" fill="none"
+       stroke-dasharray="4 495" stroke-opacity="0.020">
+    <animate attributeName="stroke-dashoffset" from="-250" to="-749" dur="12s" repeatCount="indefinite"/>
+  </use>
+  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="3.2" stroke-linecap="round" fill="none"
+       stroke-dasharray="4 495" stroke-opacity="0.045">
+    <animate attributeName="stroke-dashoffset" from="-256" to="-755" dur="12s" repeatCount="indefinite"/>
+  </use>
+  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="3.2" stroke-linecap="round" fill="none"
+       stroke-dasharray="4 495" stroke-opacity="0.084">
+    <animate attributeName="stroke-dashoffset" from="-262" to="-761" dur="12s" repeatCount="indefinite"/>
+  </use>
+  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="3.2" stroke-linecap="round" fill="none"
+       stroke-dasharray="4 495" stroke-opacity="0.127">
+    <animate attributeName="stroke-dashoffset" from="-268" to="-767" dur="12s" repeatCount="indefinite"/>
+  </use>
+  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="3.2" stroke-linecap="round" fill="none"
+       stroke-dasharray="4 495" stroke-opacity="0.156">
+    <animate attributeName="stroke-dashoffset" from="-274" to="-773" dur="12s" repeatCount="indefinite"/>
+  </use>
+  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="3.2" stroke-linecap="round" fill="none"
+       stroke-dasharray="4 495" stroke-opacity="0.156">
+    <animate attributeName="stroke-dashoffset" from="-280" to="-779" dur="12s" repeatCount="indefinite"/>
+  </use>
+  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="3.2" stroke-linecap="round" fill="none"
+       stroke-dasharray="4 495" stroke-opacity="0.127">
+    <animate attributeName="stroke-dashoffset" from="-286" to="-785" dur="12s" repeatCount="indefinite"/>
+  </use>
+  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="3.2" stroke-linecap="round" fill="none"
+       stroke-dasharray="4 495" stroke-opacity="0.084">
+    <animate attributeName="stroke-dashoffset" from="-292" to="-791" dur="12s" repeatCount="indefinite"/>
+  </use>
+  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="3.2" stroke-linecap="round" fill="none"
+       stroke-dasharray="4 495" stroke-opacity="0.045">
+    <animate attributeName="stroke-dashoffset" from="-298" to="-797" dur="12s" repeatCount="indefinite"/>
+  </use>
+  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="3.2" stroke-linecap="round" fill="none"
+       stroke-dasharray="4 495" stroke-opacity="0.020">
+    <animate attributeName="stroke-dashoffset" from="-304" to="-803" dur="12s" repeatCount="indefinite"/>
+  </use>
+  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="1.19" stroke-linecap="round" fill="none"
+       stroke-dasharray="3.2 495.8" stroke-opacity="0.325">
+    <animate attributeName="stroke-dashoffset" from="-250" to="-749" dur="12s" repeatCount="indefinite"/>
+  </use>
+  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="1.24" stroke-linecap="round" fill="none"
+       stroke-dasharray="3.2 495.8" stroke-opacity="0.398">
+    <animate attributeName="stroke-dashoffset" from="-255.4" to="-754.4" dur="12s" repeatCount="indefinite"/>
+  </use>
+  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="1.29" stroke-linecap="round" fill="none"
+       stroke-dasharray="3.2 495.8" stroke-opacity="0.478">
+    <animate attributeName="stroke-dashoffset" from="-260.8" to="-759.8" dur="12s" repeatCount="indefinite"/>
+  </use>
+  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="1.34" stroke-linecap="round" fill="none"
+       stroke-dasharray="3.2 495.8" stroke-opacity="0.563">
+    <animate attributeName="stroke-dashoffset" from="-266.2" to="-765.2" dur="12s" repeatCount="indefinite"/>
+  </use>
+  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="1.39" stroke-linecap="round" fill="none"
+       stroke-dasharray="3.2 495.8" stroke-opacity="0.650">
+    <animate attributeName="stroke-dashoffset" from="-271.6" to="-770.6" dur="12s" repeatCount="indefinite"/>
+  </use>
+  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="1.44" stroke-linecap="round" fill="none"
+       stroke-dasharray="3.2 495.8" stroke-opacity="0.734">
+    <animate attributeName="stroke-dashoffset" from="-277" to="-776" dur="12s" repeatCount="indefinite"/>
+  </use>
+  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="1.49" stroke-linecap="round" fill="none"
+       stroke-dasharray="3.2 495.8" stroke-opacity="0.813">
+    <animate attributeName="stroke-dashoffset" from="-282.4" to="-781.4" dur="12s" repeatCount="indefinite"/>
+  </use>
+  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="1.53" stroke-linecap="round" fill="none"
+       stroke-dasharray="3.2 495.8" stroke-opacity="0.882">
+    <animate attributeName="stroke-dashoffset" from="-287.8" to="-786.8" dur="12s" repeatCount="indefinite"/>
+  </use>
+  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="1.56" stroke-linecap="round" fill="none"
+       stroke-dasharray="3.2 495.8" stroke-opacity="0.938">
+    <animate attributeName="stroke-dashoffset" from="-293.2" to="-792.2" dur="12s" repeatCount="indefinite"/>
+  </use>
+  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="1.59" stroke-linecap="round" fill="none"
+       stroke-dasharray="3.2 495.8" stroke-opacity="0.977">
+    <animate attributeName="stroke-dashoffset" from="-298.6" to="-797.6" dur="12s" repeatCount="indefinite"/>
+  </use>
+  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="1.60" stroke-linecap="round" fill="none"
+       stroke-dasharray="3.2 495.8" stroke-opacity="0.997">
+    <animate attributeName="stroke-dashoffset" from="-304" to="-803" dur="12s" repeatCount="indefinite"/>
+  </use>
+  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="1.60" stroke-linecap="round" fill="none"
+       stroke-dasharray="3.2 495.8" stroke-opacity="0.997">
+    <animate attributeName="stroke-dashoffset" from="-309.4" to="-808.4" dur="12s" repeatCount="indefinite"/>
+  </use>
+  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="1.59" stroke-linecap="round" fill="none"
+       stroke-dasharray="3.2 495.8" stroke-opacity="0.977">
+    <animate attributeName="stroke-dashoffset" from="-314.8" to="-813.8" dur="12s" repeatCount="indefinite"/>
+  </use>
+  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="1.56" stroke-linecap="round" fill="none"
+       stroke-dasharray="3.2 495.8" stroke-opacity="0.938">
+    <animate attributeName="stroke-dashoffset" from="-320.2" to="-819.2" dur="12s" repeatCount="indefinite"/>
+  </use>
+  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="1.53" stroke-linecap="round" fill="none"
+       stroke-dasharray="3.2 495.8" stroke-opacity="0.882">
+    <animate attributeName="stroke-dashoffset" from="-325.6" to="-824.6" dur="12s" repeatCount="indefinite"/>
+  </use>
+  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="1.49" stroke-linecap="round" fill="none"
+       stroke-dasharray="3.2 495.8" stroke-opacity="0.813">
+    <animate attributeName="stroke-dashoffset" from="-331" to="-830" dur="12s" repeatCount="indefinite"/>
+  </use>
+  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="1.44" stroke-linecap="round" fill="none"
+       stroke-dasharray="3.2 495.8" stroke-opacity="0.734">
+    <animate attributeName="stroke-dashoffset" from="-336.4" to="-835.4" dur="12s" repeatCount="indefinite"/>
+  </use>
+  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="1.39" stroke-linecap="round" fill="none"
+       stroke-dasharray="3.2 495.8" stroke-opacity="0.650">
+    <animate attributeName="stroke-dashoffset" from="-341.8" to="-840.8" dur="12s" repeatCount="indefinite"/>
+  </use>
+  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="1.34" stroke-linecap="round" fill="none"
+       stroke-dasharray="3.2 495.8" stroke-opacity="0.563">
+    <animate attributeName="stroke-dashoffset" from="-347.2" to="-846.2" dur="12s" repeatCount="indefinite"/>
+  </use>
+  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="1.29" stroke-linecap="round" fill="none"
+       stroke-dasharray="3.2 495.8" stroke-opacity="0.478">
+    <animate attributeName="stroke-dashoffset" from="-352.6" to="-851.6" dur="12s" repeatCount="indefinite"/>
+  </use>
+  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="1.24" stroke-linecap="round" fill="none"
+       stroke-dasharray="3.2 495.8" stroke-opacity="0.398">
+    <animate attributeName="stroke-dashoffset" from="-358" to="-857" dur="12s" repeatCount="indefinite"/>
+  </use>
+  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="1.19" stroke-linecap="round" fill="none"
+       stroke-dasharray="3.2 495.8" stroke-opacity="0.325">
+    <animate attributeName="stroke-dashoffset" from="-363.4" to="-862.4" dur="12s" repeatCount="indefinite"/>
+  </use>
+
 
   <g transform="translate(16 18)">
     <svg viewBox="0 0 24 24" width="22" height="22"><path fill="#2563eb" d="M2 7v10h6v-7h3v7h11V7H2zm5 8H5V9h2v6zm8 0h-2V9h-2v6h-2V9h6v6z"/></svg>
   </g>
 
   <g font-family="Segoe UI, Inter, -apple-system, BlinkMacSystemFont, sans-serif">
-    <text x="48" y="28" font-size="18" font-weight="800" fill="#0b1220" letter-spacing="-0.3">32</text>
+    <text x="48" y="28" font-size="18" font-weight="800" fill="#0b1220" letter-spacing="-0.3">34</text>
     <text x="48" y="42" font-size="9.5" font-weight="700" fill="#656d76" letter-spacing="1.6">NPM PACKAGES</text>
   </g>
 </svg>

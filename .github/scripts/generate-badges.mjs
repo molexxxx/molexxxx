@@ -332,33 +332,56 @@ function svgHeader({ label, value, icon, dark, id })
   const perim = Math.round(2 * (bw + bh) - (8 - 2 * Math.PI) * br);
   const iconSvg = HEADER_ICONS[icon] ? HEADER_ICONS[icon](accent) : '';
 
-  // Comet trail: a head segment plus several smaller segments trailing
-  // behind it at decreasing opacity to fake a gradient fade along the
-  // stroke. Two comets travel 180° apart at a relaxed pace.
-  const dur = 11; // slower, more chill
-  const headLen = 14;
-  const tail = [
-    { len: 14, gap: 0,  op: 0.95, w: 1.4 },
-    { len: 12, gap: 6,  op: 0.55, w: 1.3 },
-    { len: 10, gap: 14, op: 0.32, w: 1.2 },
-    { len: 9,  gap: 22, op: 0.18, w: 1.1 },
-    { len: 8,  gap: 30, op: 0.10, w: 1.0 },
-    { len: 7,  gap: 38, op: 0.05, w: 0.9 },
-  ];
+  // Smooth traveling glow: many tiny stroke segments laid head-to-tail
+  // with a symmetric bell-curve opacity (fades on BOTH leading and
+  // trailing sides) so it reads like a soft light moving along the
+  // border rather than a rigid dash.
+  const dur = 12;
+  const segCount = 22;
+  const pieceLen = 3.2;
+  const stride = 5.4; // spacing between piece starts
+  const sigma = (segCount - 1) / 2 / 1.5; // controls fade softness
+  const center = (segCount - 1) / 2;
 
-  const comet = (baseOffset) => tail.map(s =>
+  const comet = (baseOffset) =>
   {
-    const off = baseOffset - s.gap;
-    return `  <use href="#bd-${id}" stroke="${accent}" stroke-width="${s.w}" stroke-linecap="round" fill="none"
-       stroke-dasharray="${s.len} ${perim - s.len}" stroke-opacity="${s.op}">
+    let out = '';
+    for (let i = 0; i < segCount; i++)
+    {
+      const d = i - center;
+      const op = Math.exp(-(d * d) / (2 * sigma * sigma));
+      // piece i sits `i * stride` behind the head
+      const off = baseOffset - i * stride;
+      const w = 1.0 + 0.6 * op; // head slightly thicker
+      out += `  <use href="#bd-${id}" stroke="${accent}" stroke-width="${w.toFixed(2)}" stroke-linecap="round" fill="none"
+       stroke-dasharray="${pieceLen} ${perim - pieceLen}" stroke-opacity="${op.toFixed(3)}">
     <animate attributeName="stroke-dashoffset" from="${off}" to="${off - perim}" dur="${dur}s" repeatCount="indefinite"/>
-  </use>`;
-  }).join('\n');
+  </use>
+`;
+    }
+    return out;
+  };
 
-  const glow = (baseOffset) => `  <use href="#bd-${id}" stroke="${accent}" stroke-width="3.5" stroke-linecap="round" fill="none"
-       stroke-dasharray="${headLen + 6} ${perim - headLen - 6}" stroke-opacity="0.12">
-    <animate attributeName="stroke-dashoffset" from="${baseOffset + 2}" to="${baseOffset + 2 - perim}" dur="${dur}s" repeatCount="indefinite"/>
-  </use>`;
+  // Wide soft glow trailing the head for extra bloom.
+  const glow = (baseOffset) =>
+  {
+    let out = '';
+    const gCount = 10;
+    const gStride = 6;
+    const gPiece = 4;
+    for (let i = 0; i < gCount; i++)
+    {
+      const d = i - (gCount - 1) / 2;
+      const op = 0.16 * Math.exp(-(d * d) / (2 * 2.2 * 2.2));
+      const off = baseOffset - i * gStride;
+      out += `  <use href="#bd-${id}" stroke="${accent}" stroke-width="3.2" stroke-linecap="round" fill="none"
+       stroke-dasharray="${gPiece} ${perim - gPiece}" stroke-opacity="${op.toFixed(3)}">
+    <animate attributeName="stroke-dashoffset" from="${off}" to="${off - perim}" dur="${dur}s" repeatCount="indefinite"/>
+  </use>
+`;
+    }
+    return out;
+  };
 
   const halfP = -Math.round(perim / 2);
 
@@ -368,10 +391,7 @@ function svgHeader({ label, value, icon, dark, id })
   </defs>
 
   <use href="#bd-${id}" stroke="${border}" stroke-width="1"/>
-${glow(0)}
-${comet(0)}
-${glow(halfP)}
-${comet(halfP)}
+${glow(0)}${comet(0)}${glow(halfP)}${comet(halfP)}
 
   <g transform="translate(16 18)">
     <svg viewBox="0 0 24 24" width="22" height="22">${iconSvg}</svg>

@@ -323,24 +323,17 @@ function svgHeader({ label, value, icon, dark, id })
   const border = dark ? '#30363d' : '#d0d7de';
   const accent = dark ? '#60a5fa' : '#2563eb';
 
-  // Inset rounded-rect path used for both the static border and the
-  // animated dashed highlight that traces it.
   const bx = 0.75, by = 0.75, bw = W - 1.5, bh = H - 1.5, br = RX - 0.25;
   const borderD = `M ${bx + br} ${by} H ${bx + bw - br} A ${br} ${br} 0 0 1 ${bx + bw} ${by + br} V ${by + bh - br} A ${br} ${br} 0 0 1 ${bx + bw - br} ${by + bh} H ${bx + br} A ${br} ${br} 0 0 1 ${bx} ${by + bh - br} V ${by + br} A ${br} ${br} 0 0 1 ${bx + br} ${by} Z`;
-  // Approximate perimeter (px) — used as the dash cycle length so the
-  // moving segment loops cleanly around without a visible seam.
   const perim = Math.round(2 * (bw + bh) - (8 - 2 * Math.PI) * br);
   const iconSvg = HEADER_ICONS[icon] ? HEADER_ICONS[icon](accent) : '';
 
-  // Smooth traveling glow: many tiny stroke segments laid head-to-tail
-  // with a symmetric bell-curve opacity (fades on BOTH leading and
-  // trailing sides) so it reads like a soft light moving along the
-  // border rather than a rigid dash.
   const dur = 12;
-  const segCount = 22;
-  const pieceLen = 3.2;
-  const stride = 5.4; // spacing between piece starts
-  const sigma = (segCount - 1) / 2 / 1.5; // controls fade softness
+
+  const segCount = 44;
+  const pieceLen = 7;
+  const stride = 1.6;
+  const sigma = (segCount - 1) / 2 / 1.8;
   const center = (segCount - 1) / 2;
 
   const comet = (baseOffset) =>
@@ -350,33 +343,33 @@ function svgHeader({ label, value, icon, dark, id })
     {
       const d = i - center;
       const op = Math.exp(-(d * d) / (2 * sigma * sigma));
-      // piece i sits `i * stride` behind the head
       const off = baseOffset - i * stride;
-      const w = 1.0 + 0.6 * op; // head slightly thicker
-      out += `  <use href="#bd-${id}" stroke="${accent}" stroke-width="${w.toFixed(2)}" stroke-linecap="round" fill="none"
+      out += `  <use href="#bd-${id}" stroke="${accent}" stroke-width="1.3" stroke-linecap="round" fill="none"
        stroke-dasharray="${pieceLen} ${perim - pieceLen}" stroke-opacity="${op.toFixed(3)}">
-    <animate attributeName="stroke-dashoffset" from="${off}" to="${off - perim}" dur="${dur}s" repeatCount="indefinite"/>
+    <animate attributeName="stroke-dashoffset" from="${off.toFixed(2)}" to="${(off - perim).toFixed(2)}" dur="${dur}s" repeatCount="indefinite"/>
   </use>
 `;
     }
     return out;
   };
 
-  // Wide soft glow trailing the head for extra bloom.
+  // Wider soft bloom underneath, same overlap technique.
   const glow = (baseOffset) =>
   {
     let out = '';
-    const gCount = 10;
-    const gStride = 6;
-    const gPiece = 4;
+    const gCount = 30;
+    const gStride = 2;
+    const gPiece = 8;
+    const gSigma = (gCount - 1) / 2 / 1.8;
+    const gCenter = (gCount - 1) / 2;
     for (let i = 0; i < gCount; i++)
     {
-      const d = i - (gCount - 1) / 2;
-      const op = 0.16 * Math.exp(-(d * d) / (2 * 2.2 * 2.2));
+      const d = i - gCenter;
+      const op = 0.10 * Math.exp(-(d * d) / (2 * gSigma * gSigma));
       const off = baseOffset - i * gStride;
-      out += `  <use href="#bd-${id}" stroke="${accent}" stroke-width="3.2" stroke-linecap="round" fill="none"
+      out += `  <use href="#bd-${id}" stroke="${accent}" stroke-width="3.5" stroke-linecap="round" fill="none"
        stroke-dasharray="${gPiece} ${perim - gPiece}" stroke-opacity="${op.toFixed(3)}">
-    <animate attributeName="stroke-dashoffset" from="${off}" to="${off - perim}" dur="${dur}s" repeatCount="indefinite"/>
+    <animate attributeName="stroke-dashoffset" from="${off.toFixed(2)}" to="${(off - perim).toFixed(2)}" dur="${dur}s" repeatCount="indefinite"/>
   </use>
 `;
     }

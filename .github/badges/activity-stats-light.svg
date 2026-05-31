@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="120" viewBox="0 0 880 120" role="img" aria-label="Activity stats">
+  <defs>
+    <linearGradient id="bg-st-l" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#f7f8fb"/>
+    </linearGradient>
+    <linearGradient id="ac-st-l" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#22d3ee"/>
+      <stop offset="100%" stop-color="#2563eb"/>
+    </linearGradient>
+    <linearGradient id="tint-st-l" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#22d3ee" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#22d3ee" stop-opacity="0"/>
+    </linearGradient>
+    <clipPath id="clip-st-l"><rect x="0" y="0" width="880" height="120" rx="12" ry="12"/></clipPath>
+  </defs>
+  
+  <rect x="0" y="0" width="880" height="120" rx="12" ry="12" fill="url(#bg-st-l)"/>
+  <rect x="0" y="0" width="880" height="120" rx="12" ry="12" fill="url(#tint-st-l)"/>
+  
+  <path id="bd-st-l" d="M 12.5 1 H 867.5 A 11.5 11.5 0 0 1 879 12.5 V 107.5 A 11.5 11.5 0 0 1 867.5 119 H 12.5 A 11.5 11.5 0 0 1 1 107.5 V 12.5 A 11.5 11.5 0 0 1 12.5 1 Z" fill="none"/>
+  <use href="#bd-st-l" stroke="#e4e7ee" stroke-width="1"/>
+  <use href="#bd-st-l" stroke="url(#ac-st-l)" stroke-width="1.2" stroke-opacity="0.55"/>
+  <use href="#bd-st-l" stroke="url(#ac-st-l)" stroke-width="2" stroke-dasharray="237 1735.2566310325653" stroke-linecap="round">
+    <animate attributeName="stroke-dashoffset" from="0" to="-1972.2566310325653" dur="6s" repeatCount="indefinite"/>
+  </use>
+  
+  <g clip-path="url(#clip-st-l)">
+    <circle r="2.1" fill="#22d3ee"><animateMotion dur="7s" repeatCount="indefinite" rotate="auto"><mpath href="#bd-st-l"/></animateMotion></circle>
+    <circle r="1.6" fill="#2563eb"><animateMotion dur="7s" begin="-1.75s" repeatCount="indefinite" rotate="auto"><mpath href="#bd-st-l"/></animateMotion></circle>
+    <circle r="1.3" fill="#22d3ee" opacity="0.75"><animateMotion dur="7s" begin="-3.5s" repeatCount="indefinite" rotate="auto"><mpath href="#bd-st-l"/></animateMotion></circle>
+    <circle r="1" fill="#2563eb" opacity="0.7"><animateMotion dur="7s" begin="-5.25s" repeatCount="indefinite" rotate="auto"><mpath href="#bd-st-l"/></animateMotion></circle>
+  </g>
+  <g><line x1="145.7" y1="32" x2="145.7" y2="88" stroke="#eef0f5" stroke-width="1"/><line x1="263.4" y1="32" x2="263.4" y2="88" stroke="#eef0f5" stroke-width="1"/><line x1="381.1" y1="32" x2="381.1" y2="88" stroke="#eef0f5" stroke-width="1"/><line x1="498.9" y1="32" x2="498.9" y2="88" stroke="#eef0f5" stroke-width="1"/><line x1="616.6" y1="32" x2="616.6" y2="88" stroke="#eef0f5" stroke-width="1"/><line x1="734.3" y1="32" x2="734.3" y2="88" stroke="#eef0f5" stroke-width="1"/></g>
+  <g font-family="Segoe UI, Inter, -apple-system, BlinkMacSystemFont, sans-serif">
+    <g text-anchor="middle">
+      <text x="86.9" y="56" font-size="28" font-weight="800" fill="#0b1220" letter-spacing="-0.6" opacity="0">
+        1,160
+        <animate attributeName="opacity" from="0" to="1" dur="0.6s" begin="0.15s" fill="freeze"/>
+      </text>
+      <text x="86.9" y="78" font-size="10" font-weight="700" fill="#5b6472" letter-spacing="2">COMMITS</text>
+    </g>
+    <g text-anchor="middle">
+      <text x="204.6" y="56" font-size="28" font-weight="800" fill="#0b1220" letter-spacing="-0.6" opacity="0">
+        92
+        <animate attributeName="opacity" from="0" to="1" dur="0.6s" begin="0.22999999999999998s" fill="freeze"/>
+      </text>
+      <text x="204.6" y="78" font-size="10" font-weight="700" fill="#5b6472" letter-spacing="2">PULL REQS</text>
+    </g>
+    <g text-anchor="middle">
+      <text x="322.3" y="56" font-size="28" font-weight="800" fill="#0b1220" letter-spacing="-0.6" opacity="0">
+        1
+        <animate attributeName="opacity" from="0" to="1" dur="0.6s" begin="0.31s" fill="freeze"/>
+      </text>
+      <text x="322.3" y="78" font-size="10" font-weight="700" fill="#5b6472" letter-spacing="2">REVIEWS</text>
+    </g>
+    <g text-anchor="middle">
+      <text x="440.0" y="56" font-size="28" font-weight="800" fill="#0b1220" letter-spacing="-0.6" opacity="0">
+        0
+        <animate attributeName="opacity" from="0" to="1" dur="0.6s" begin="0.39s" fill="freeze"/>
+      </text>
+      <text x="440.0" y="78" font-size="10" font-weight="700" fill="#5b6472" letter-spacing="2">ISSUES</text>
+    </g>
+    <g text-anchor="middle">
+      <text x="557.7" y="56" font-size="28" font-weight="800" fill="#0b1220" letter-spacing="-0.6" opacity="0">
+        40
+        <animate attributeName="opacity" from="0" to="1" dur="0.6s" begin="0.47s" fill="freeze"/>
+      </text>
+      <text x="557.7" y="78" font-size="10" font-weight="700" fill="#5b6472" letter-spacing="2">STARS</text>
+    </g>
+    <g text-anchor="middle">
+      <text x="675.4" y="56" font-size="28" font-weight="800" fill="#0b1220" letter-spacing="-0.6" opacity="0">
+        46
+        <animate attributeName="opacity" from="0" to="1" dur="0.6s" begin="0.55s" fill="freeze"/>
+      </text>
+      <text x="675.4" y="78" font-size="10" font-weight="700" fill="#5b6472" letter-spacing="2">REPOS</text>
+    </g>
+    <g text-anchor="middle">
+      <text x="793.1" y="56" font-size="28" font-weight="800" fill="#0b1220" letter-spacing="-0.6" opacity="0">
+        6
+        <animate attributeName="opacity" from="0" to="1" dur="0.6s" begin="0.63s" fill="freeze"/>
+      </text>
+      <text x="793.1" y="78" font-size="10" font-weight="700" fill="#5b6472" letter-spacing="2">FOLLOWERS</text>
+    </g></g>
+</svg>

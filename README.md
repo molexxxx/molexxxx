@@ -92,6 +92,16 @@
   </tr>
 </table>
 
+### Activity
+
+<p align="center">
+<!-- activity:start -->
+  <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/activity-year-dark.svg?v=bafd5ab4&t=mpubs9ct"><img alt="Contributions in the last year" src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/activity-year-light.svg?v=914a9f34&t=mpubs9ct" /></picture><br/>
+  <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/activity-stats-dark.svg?v=91a91d66&t=mpubs9ct"><img alt="GitHub stats" src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/activity-stats-light.svg?v=4cab7609&t=mpubs9ct" /></picture><br/>
+  <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/activity-streak-dark.svg?v=36b80cdd&t=mpubs9ct"><img alt="Streak" src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/activity-streak-light.svg?v=da172e61&t=mpubs9ct" /></picture>
+<!-- activity:end -->
+</p>
+
 ### Stack
 
 <!-- stack:start -->

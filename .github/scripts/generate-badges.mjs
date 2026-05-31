@@ -311,47 +311,46 @@ const HEADER_ICONS = {
 };
 
 /**
- * Render a sleek primary-CTA pill matched to the activity card chrome:
- * transparent fill, thin border, subtle accent sweep along the top divider,
- * small per-button accent icon chip, large value + muted uppercase label.
+ * Sleek CTA matched to the activity cards: transparent fill, single muted
+ * accent (same blue as the activity sweep), and an animated traveling
+ * highlight that traces the border.
  */
-function svgHeader({ label, value, icon, accentA, dark, id })
+function svgHeader({ label, value, icon, dark, id })
 {
   const W = 205, H = 56, RX = 10;
   const ink = dark ? '#e6e9f1' : '#0b1220';
   const muted = dark ? '#7d8590' : '#656d76';
   const border = dark ? '#30363d' : '#d0d7de';
-  const accent = accentA;
-  const DIV_Y = 22;
+  const accent = dark ? '#60a5fa' : '#2563eb';
+
+  // Inset rounded-rect path used for both the static border and the
+  // animated dashed highlight that traces it.
+  const bx = 0.75, by = 0.75, bw = W - 1.5, bh = H - 1.5, br = RX - 0.25;
+  const borderD = `M ${bx + br} ${by} H ${bx + bw - br} A ${br} ${br} 0 0 1 ${bx + bw} ${by + br} V ${by + bh - br} A ${br} ${br} 0 0 1 ${bx + bw - br} ${by + bh} H ${bx + br} A ${br} ${br} 0 0 1 ${bx} ${by + bh - br} V ${by + br} A ${br} ${br} 0 0 1 ${bx + br} ${by} Z`;
+  // Approximate perimeter (px) — used as the dash cycle length so the
+  // moving segment loops cleanly around without a visible seam.
+  const perim = Math.round(2 * (bw + bh) - (8 - 2 * Math.PI) * br);
+  const segLen = Math.round(perim * 0.22);
   const iconSvg = HEADER_ICONS[icon] ? HEADER_ICONS[icon](accent) : '';
-  const sweepW = Math.round(W * 0.45);
+
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${escapeXml(label)}: ${escapeXml(value)}">
   <defs>
-    <linearGradient id="sw-${id}" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%"   stop-color="${accent}" stop-opacity="0"/>
-      <stop offset="50%"  stop-color="${accent}" stop-opacity="0.6"/>
-      <stop offset="100%" stop-color="${accent}" stop-opacity="0"/>
-    </linearGradient>
-    <clipPath id="cl-${id}"><rect x="0" y="0" width="${W}" height="${H}" rx="${RX}" ry="${RX}"/></clipPath>
+    <path id="bd-${id}" d="${borderD}" fill="none"/>
   </defs>
 
-  <rect x="0.5" y="0.5" width="${W - 1}" height="${H - 1}" rx="${RX}" ry="${RX}" fill="none" stroke="${border}" stroke-width="1"/>
+  <use href="#bd-${id}" stroke="${border}" stroke-width="1"/>
+  <use href="#bd-${id}" stroke="${accent}" stroke-width="1.4" stroke-linecap="round" fill="none"
+       stroke-dasharray="${segLen} ${perim - segLen}" stroke-opacity="0.85">
+    <animate attributeName="stroke-dashoffset" from="0" to="-${perim}" dur="6s" repeatCount="indefinite"/>
+  </use>
 
-  <g clip-path="url(#cl-${id})">
-    <line x1="0" y1="${DIV_Y}" x2="${W}" y2="${DIV_Y}" stroke="${border}" stroke-width="1" opacity="0.55"/>
-    <rect x="-${sweepW}" y="${DIV_Y - 0.5}" width="${sweepW}" height="1" fill="url(#sw-${id})">
-      <animate attributeName="x" from="-${sweepW}" to="${W}" dur="6s" repeatCount="indefinite"/>
-    </rect>
-  </g>
-
-  <g transform="translate(14 30)">
-    <rect x="-4" y="-4" width="28" height="28" rx="7" fill="${accent}" fill-opacity="${dark ? 0.12 : 0.08}" stroke="${accent}" stroke-opacity="0.28"/>
-    <svg viewBox="0 0 24 24" width="20" height="20" x="-2" y="-2">${iconSvg}</svg>
+  <g transform="translate(16 18)">
+    <svg viewBox="0 0 24 24" width="22" height="22">${iconSvg}</svg>
   </g>
 
   <g font-family="Segoe UI, Inter, -apple-system, BlinkMacSystemFont, sans-serif">
-    <text x="${W - 14}" y="16" text-anchor="end" font-size="10" font-weight="700" fill="${muted}" letter-spacing="1.6">${escapeXml(label.toUpperCase())}</text>
-    <text x="46" y="46" font-size="19" font-weight="800" fill="${ink}" letter-spacing="-0.3">${escapeXml(value)}</text>
+    <text x="48" y="28" font-size="18" font-weight="800" fill="${ink}" letter-spacing="-0.3">${escapeXml(value)}</text>
+    <text x="48" y="42" font-size="9.5" font-weight="700" fill="${muted}" letter-spacing="1.6">${escapeXml(label.toUpperCase())}</text>
   </g>
 </svg>
 `;
@@ -405,8 +404,8 @@ for (const b of BADGES)
     let dark, light, themed;
     if (b.kind === 'header-link')
     {
-      dark = svgHeader({ label: b.label, value: message, icon: b.icon, accentA: b.accentA, dark: true, id: b.id + '-d' });
-      light = svgHeader({ label: b.label, value: message, icon: b.icon, accentA: b.accentA, dark: false, id: b.id + '-l' });
+      dark = svgHeader({ label: b.label, value: message, icon: b.icon, dark: true, id: b.id + '-d' });
+      light = svgHeader({ label: b.label, value: message, icon: b.icon, dark: false, id: b.id + '-l' });
     } else if (b.kind === 'static-single')
     {
       dark = svgSingle({ message, color: '#21262d', textColor: '#ffffff', icon: b.icon, iconColor: '#ffffff' });

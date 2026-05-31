@@ -1,29 +1,20 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="205" height="56" viewBox="0 0 205 56" role="img" aria-label="npm packages: 32">
+<svg xmlns="http://www.w3.org/2000/svg" width="205" height="56" viewBox="0 0 205 56" role="img" aria-label="npm packages: 34">
   <defs>
-    <linearGradient id="sw-header-npm-l" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%"   stop-color="#f87171" stop-opacity="0"/>
-      <stop offset="50%"  stop-color="#f87171" stop-opacity="0.6"/>
-      <stop offset="100%" stop-color="#f87171" stop-opacity="0"/>
-    </linearGradient>
-    <clipPath id="cl-header-npm-l"><rect x="0" y="0" width="205" height="56" rx="10" ry="10"/></clipPath>
+    <path id="bd-header-npm-l" d="M 10.5 0.75 H 194.5 A 9.75 9.75 0 0 1 204.25 10.5 V 45.5 A 9.75 9.75 0 0 1 194.5 55.25 H 10.5 A 9.75 9.75 0 0 1 0.75 45.5 V 10.5 A 9.75 9.75 0 0 1 10.5 0.75 Z" fill="none"/>
   </defs>
 
-  <rect x="0.5" y="0.5" width="204" height="55" rx="10" ry="10" fill="none" stroke="#d0d7de" stroke-width="1"/>
+  <use href="#bd-header-npm-l" stroke="#d0d7de" stroke-width="1"/>
+  <use href="#bd-header-npm-l" stroke="#2563eb" stroke-width="1.4" stroke-linecap="round" fill="none"
+       stroke-dasharray="110 389" stroke-opacity="0.85">
+    <animate attributeName="stroke-dashoffset" from="0" to="-499" dur="6s" repeatCount="indefinite"/>
+  </use>
 
-  <g clip-path="url(#cl-header-npm-l)">
-    <line x1="0" y1="22" x2="205" y2="22" stroke="#d0d7de" stroke-width="1" opacity="0.55"/>
-    <rect x="-92" y="21.5" width="92" height="1" fill="url(#sw-header-npm-l)">
-      <animate attributeName="x" from="-92" to="205" dur="6s" repeatCount="indefinite"/>
-    </rect>
-  </g>
-
-  <g transform="translate(14 30)">
-    <rect x="-4" y="-4" width="28" height="28" rx="7" fill="#f87171" fill-opacity="0.08" stroke="#f87171" stroke-opacity="0.28"/>
-    <svg viewBox="0 0 24 24" width="20" height="20" x="-2" y="-2"><path fill="#f87171" d="M2 7v10h6v-7h3v7h11V7H2zm5 8H5V9h2v6zm8 0h-2V9h-2v6h-2V9h6v6z"/></svg>
+  <g transform="translate(16 18)">
+    <svg viewBox="0 0 24 24" width="22" height="22"><path fill="#2563eb" d="M2 7v10h6v-7h3v7h11V7H2zm5 8H5V9h2v6zm8 0h-2V9h-2v6h-2V9h6v6z"/></svg>
   </g>
 
   <g font-family="Segoe UI, Inter, -apple-system, BlinkMacSystemFont, sans-serif">
-    <text x="191" y="16" text-anchor="end" font-size="10" font-weight="700" fill="#656d76" letter-spacing="1.6">NPM PACKAGES</text>
-    <text x="46" y="46" font-size="19" font-weight="800" fill="#0b1220" letter-spacing="-0.3">32</text>
+    <text x="48" y="28" font-size="18" font-weight="800" fill="#0b1220" letter-spacing="-0.3">34</text>
+    <text x="48" y="42" font-size="9.5" font-weight="700" fill="#656d76" letter-spacing="1.6">NPM PACKAGES</text>
   </g>
 </svg>

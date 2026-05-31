@@ -1,29 +1,20 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="205" height="56" viewBox="0 0 205 56" role="img" aria-label="Resume: visit">
   <defs>
-    <linearGradient id="sw-header-resume-d" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%"   stop-color="#f59e0b" stop-opacity="0"/>
-      <stop offset="50%"  stop-color="#f59e0b" stop-opacity="0.6"/>
-      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
-    </linearGradient>
-    <clipPath id="cl-header-resume-d"><rect x="0" y="0" width="205" height="56" rx="10" ry="10"/></clipPath>
+    <path id="bd-header-resume-d" d="M 10.5 0.75 H 194.5 A 9.75 9.75 0 0 1 204.25 10.5 V 45.5 A 9.75 9.75 0 0 1 194.5 55.25 H 10.5 A 9.75 9.75 0 0 1 0.75 45.5 V 10.5 A 9.75 9.75 0 0 1 10.5 0.75 Z" fill="none"/>
   </defs>
 
-  <rect x="0.5" y="0.5" width="204" height="55" rx="10" ry="10" fill="none" stroke="#30363d" stroke-width="1"/>
+  <use href="#bd-header-resume-d" stroke="#30363d" stroke-width="1"/>
+  <use href="#bd-header-resume-d" stroke="#60a5fa" stroke-width="1.4" stroke-linecap="round" fill="none"
+       stroke-dasharray="110 389" stroke-opacity="0.85">
+    <animate attributeName="stroke-dashoffset" from="0" to="-499" dur="6s" repeatCount="indefinite"/>
+  </use>
 
-  <g clip-path="url(#cl-header-resume-d)">
-    <line x1="0" y1="22" x2="205" y2="22" stroke="#30363d" stroke-width="1" opacity="0.55"/>
-    <rect x="-92" y="21.5" width="92" height="1" fill="url(#sw-header-resume-d)">
-      <animate attributeName="x" from="-92" to="205" dur="6s" repeatCount="indefinite"/>
-    </rect>
-  </g>
-
-  <g transform="translate(14 30)">
-    <rect x="-4" y="-4" width="28" height="28" rx="7" fill="#f59e0b" fill-opacity="0.12" stroke="#f59e0b" stroke-opacity="0.28"/>
-    <svg viewBox="0 0 24 24" width="20" height="20" x="-2" y="-2"><g fill="none" stroke="#f59e0b" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M8 13h8M8 17h8M8 9h2"/></g></svg>
+  <g transform="translate(16 18)">
+    <svg viewBox="0 0 24 24" width="22" height="22"><g fill="none" stroke="#60a5fa" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M8 13h8M8 17h8M8 9h2"/></g></svg>
   </g>
 
   <g font-family="Segoe UI, Inter, -apple-system, BlinkMacSystemFont, sans-serif">
-    <text x="191" y="16" text-anchor="end" font-size="10" font-weight="700" fill="#7d8590" letter-spacing="1.6">RESUME</text>
-    <text x="46" y="46" font-size="19" font-weight="800" fill="#e6e9f1" letter-spacing="-0.3">visit</text>
+    <text x="48" y="28" font-size="18" font-weight="800" fill="#e6e9f1" letter-spacing="-0.3">visit</text>
+    <text x="48" y="42" font-size="9.5" font-weight="700" fill="#7d8590" letter-spacing="1.6">RESUME</text>
   </g>
 </svg>

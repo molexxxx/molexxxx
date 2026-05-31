@@ -98,6 +98,23 @@ async function fetchAllTimeTotals(createdAt)
 
 const allTime = await fetchAllTimeTotals(data.createdAt);
 
+// External repos where I'm a primary contributor but not the owner — count their stars too.
+const EXTERNAL_STAR_REPOS = [
+  { owner: 'bbrown430', name: 'plex-poster-set-helper' },
+];
+async function fetchExternalStars()
+{
+  let stars = 0;
+  for (const r of EXTERNAL_STAR_REPOS)
+  {
+    const q = `query($o:String!,$n:String!){ repository(owner:$o,name:$n){ stargazerCount } }`;
+    const d = await gql(q, { o: r.owner, n: r.name });
+    stars += d.repository?.stargazerCount ?? 0;
+  }
+  return stars;
+}
+const externalStars = await fetchExternalStars();
+
 const cal = data.contributionsCollection.contributionCalendar;
 const days = cal.weeks.flatMap(w => w.contributionDays);
 const totalContrib = cal.totalContributions;
@@ -105,7 +122,7 @@ const totalCommits = allTime.commits;
 const totalPRs = allTime.prs;
 const totalReviews = allTime.reviews;
 const totalIssues = allTime.issues;
-const totalStars = data.repositories.nodes.reduce((s, n) => s + n.stargazerCount, 0);
+const totalStars = data.repositories.nodes.reduce((s, n) => s + n.stargazerCount, 0) + externalStars;
 const totalRepos = data.repositories.totalCount;
 const followers = data.followers.totalCount;
 const activeDays = days.filter(d => d.contributionCount > 0).length;

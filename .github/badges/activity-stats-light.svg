@@ -56,7 +56,7 @@
       </g>
       <g text-anchor="middle">
         <text x="62.4" y="125.0" font-size="18" font-weight="800" fill="#0b1220" letter-spacing="-0.4" opacity="0">
-          40
+          166
           <animate attributeName="opacity" from="0" to="1" dur="0.5s" begin="0.43000000000000005s" fill="freeze"/>
         </text>
         <text x="62.4" y="141.0" font-size="9" font-weight="700" fill="#656d76" letter-spacing="1.8">STARS</text>

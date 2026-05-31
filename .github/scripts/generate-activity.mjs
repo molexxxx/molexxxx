@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { writeFileSync, readFileSync, mkdirSync } from 'node:fs';
+import { writeFileSync, readFileSync, mkdirSync, rmSync, existsSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -17,6 +17,13 @@ const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const OUT = resolve(ROOT, '.github', 'badges');
 const RAW = `https://raw.githubusercontent.com/${OWNER}/${OWNER}/main/.github/badges`;
 mkdirSync(OUT, { recursive: true });
+
+// drop deprecated artifacts from the previous design
+for (const stale of ['activity-year-dark.svg', 'activity-year-light.svg', 'activity-streak-dark.svg', 'activity-streak-light.svg'])
+{
+  const p = resolve(OUT, stale);
+  if (existsSync(p)) rmSync(p);
+}
 
 async function gql(query, variables = {})
 {
@@ -38,7 +45,6 @@ async function gql(query, variables = {})
 const QUERY = `query($login: String!) {
   user(login: $login) {
     followers { totalCount }
-    following { totalCount }
     contributionsCollection {
       contributionCalendar {
         totalContributions
@@ -48,11 +54,10 @@ const QUERY = `query($login: String!) {
       totalIssueContributions
       totalPullRequestContributions
       totalPullRequestReviewContributions
-      restrictedContributionsCount
     }
     repositories(first: 100, ownerAffiliations: OWNER, isFork: false) {
       totalCount
-      nodes { stargazerCount forkCount }
+      nodes { stargazerCount }
     }
   }
 }`;
@@ -67,16 +72,15 @@ const totalPRs = data.contributionsCollection.totalPullRequestContributions;
 const totalReviews = data.contributionsCollection.totalPullRequestReviewContributions;
 const totalIssues = data.contributionsCollection.totalIssueContributions;
 const totalStars = data.repositories.nodes.reduce((s, n) => s + n.stargazerCount, 0);
-const totalForks = data.repositories.nodes.reduce((s, n) => s + n.forkCount, 0);
 const totalRepos = data.repositories.totalCount;
 const followers = data.followers.totalCount;
+const activeDays = days.filter(d => d.contributionCount > 0).length;
 
-// streaks: contiguous days ending today (or yesterday) with > 0
 let currentStreak = 0;
 for (let i = days.length - 1; i >= 0; i--)
 {
   if (days[i].contributionCount > 0) currentStreak++;
-  else if (i === days.length - 1) continue; // allow today 0 without breaking
+  else if (i === days.length - 1) continue;
   else break;
 }
 let longestStreak = 0, run = 0;
@@ -87,7 +91,6 @@ for (const d of days)
 }
 
 const maxDay = Math.max(...days.map(d => d.contributionCount), 1);
-const busiest = days.reduce((a, b) => b.contributionCount > a.contributionCount ? b : a, days[0]);
 
 function fmtNum(n)
 {
@@ -103,91 +106,62 @@ function escapeXml(s)
   }[c]));
 }
 
-const PALETTE = {
-  dark: { surfaceA: '#11151f', surfaceB: '#0a0d14', border: '#1f2533', ink: '#e6e9f1', muted: '#94a3b8', grid: '#1c2230' },
-  light: { surfaceA: '#ffffff', surfaceB: '#f7f8fb', border: '#e4e7ee', ink: '#0b1220', muted: '#5b6472', grid: '#eef0f5' },
+// Match stack-card chrome so cards feel like siblings of the Stack section.
+const CARD_W = 415;
+const RX = 10;
+const COLORS = {
+  dark:  { border: '#30363d', ink: '#e6e9f1', muted: '#7d8590', sep: '#1c222c', grid: '#1c222c', accent: '#60a5fa' },
+  light: { border: '#d0d7de', ink: '#0b1220', muted: '#656d76', sep: '#eaecef', grid: '#eaecef', accent: '#2563eb' },
 };
 
-const ACCENTS = {
-  year: { a: '#a78bfa', b: '#60a5fa' },
-  stats: { a: '#22d3ee', b: '#2563eb' },
-  streak: { a: '#f59e0b', b: '#ef4444' },
-};
-
-function chromeDefs(id, dark, accentA, accentB)
+// Subtle animation: soft accent glow that glides along the inside of the top divider.
+// Different from the stack card's hairline sheen (which rides the very top edge).
+function headerAnim(id, accent)
 {
-  const p = dark ? PALETTE.dark : PALETTE.light;
   return `
-    <linearGradient id="bg-${id}" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="${p.surfaceA}"/>
-      <stop offset="100%" stop-color="${p.surfaceB}"/>
-    </linearGradient>
-    <linearGradient id="ac-${id}" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="${accentA}"/>
-      <stop offset="100%" stop-color="${accentB}"/>
-    </linearGradient>
-    <linearGradient id="tint-${id}" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="${accentA}" stop-opacity="${dark ? 0.18 : 0.10}"/>
-      <stop offset="100%" stop-color="${accentA}" stop-opacity="0"/>
+    <linearGradient id="pulse-${id}" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"   stop-color="${accent}" stop-opacity="0"/>
+      <stop offset="50%"  stop-color="${accent}" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="${accent}" stop-opacity="0"/>
     </linearGradient>`;
 }
 
-function chromeFrame(id, W, H, RX, dark, accentA, accentB, perimeter)
+function headerSweep(id, w, y, dur)
 {
-  const p = dark ? PALETTE.dark : PALETTE.light;
-  const bx = 1, by = 1, bw = W - 2, bh = H - 2, br = RX - 0.5;
-  const borderD = `M ${bx + br} ${by} H ${bx + bw - br} A ${br} ${br} 0 0 1 ${bx + bw} ${by + br} V ${by + bh - br} A ${br} ${br} 0 0 1 ${bx + bw - br} ${by + bh} H ${bx + br} A ${br} ${br} 0 0 1 ${bx} ${by + bh - br} V ${by + br} A ${br} ${br} 0 0 1 ${bx + br} ${by} Z`;
-  const dash = Math.max(40, Math.round(perimeter * 0.12));
-  const gap = perimeter - dash;
-  return {
-    bg: `
-  <rect x="0" y="0" width="${W}" height="${H}" rx="${RX}" ry="${RX}" fill="url(#bg-${id})"/>
-  <rect x="0" y="0" width="${W}" height="${H}" rx="${RX}" ry="${RX}" fill="url(#tint-${id})"/>`,
-    border: `
-  <path id="bd-${id}" d="${borderD}" fill="none"/>
-  <use href="#bd-${id}" stroke="${p.border}" stroke-width="1"/>
-  <use href="#bd-${id}" stroke="url(#ac-${id})" stroke-width="1.2" stroke-opacity="0.55"/>
-  <use href="#bd-${id}" stroke="url(#ac-${id})" stroke-width="2" stroke-dasharray="${dash} ${gap}" stroke-linecap="round">
-    <animate attributeName="stroke-dashoffset" from="0" to="-${perimeter}" dur="6s" repeatCount="indefinite"/>
-  </use>`,
-    motes: `
-  <g clip-path="url(#clip-${id})">
-    <circle r="2.1" fill="${accentA}"><animateMotion dur="7s" repeatCount="indefinite" rotate="auto"><mpath href="#bd-${id}"/></animateMotion></circle>
-    <circle r="1.6" fill="${accentB}"><animateMotion dur="7s" begin="-1.75s" repeatCount="indefinite" rotate="auto"><mpath href="#bd-${id}"/></animateMotion></circle>
-    <circle r="1.3" fill="${accentA}" opacity="0.75"><animateMotion dur="7s" begin="-3.5s" repeatCount="indefinite" rotate="auto"><mpath href="#bd-${id}"/></animateMotion></circle>
-    <circle r="1" fill="${accentB}" opacity="0.7"><animateMotion dur="7s" begin="-5.25s" repeatCount="indefinite" rotate="auto"><mpath href="#bd-${id}"/></animateMotion></circle>
-  </g>`,
-  };
+  const sweepW = Math.round(w * 0.42);
+  return `<rect x="-${sweepW}" y="${y}" width="${sweepW}" height="1" fill="url(#pulse-${id})">
+    <animate attributeName="x" from="-${sweepW}" to="${w}" dur="${dur}s" repeatCount="indefinite"/>
+  </rect>`;
 }
 
-// ----- year contribution sparkline card -----
-function svgYear(dark)
+function svgContributions(dark)
 {
-  const W = 880, H = 230, RX = 12;
-  const id = `yr-${dark ? 'd' : 'l'}`;
-  const p = dark ? PALETTE.dark : PALETTE.light;
-  const accentA = ACCENTS.year.a, accentB = ACCENTS.year.b;
-  const perimeter = 2 * (W - 2 + H - 2) - 8 * (RX - 0.5) + 2 * Math.PI * (RX - 0.5);
-  const f = chromeFrame(id, W, H, RX, dark, accentA, accentB, perimeter);
+  const c = dark ? COLORS.dark : COLORS.light;
+  const id = `co-${dark ? 'd' : 'l'}`;
+  const W = CARD_W;
+  const H = 168;
 
-  // plot area
-  const PL = 28, PR = 28, PT = 100, PB = 36;
-  const plotW = W - PL - PR;
-  const plotH = H - PT - PB;
+  const PAD_X = 14;
+  const HEADER_Y = 20;
+  const DIVIDER_Y = 28;
 
-  // path points
+  const plotTop = 42;
+  const plotH = 70;
+  const plotLeft = PAD_X;
+  const plotRight = W - PAD_X;
+  const plotW = plotRight - plotLeft;
+
   const n = days.length;
-  const xAt = i => PL + (i / (n - 1)) * plotW;
-  const yAt = v => PT + plotH - (v / maxDay) * plotH;
+  const xAt = i => plotLeft + (i / (n - 1)) * plotW;
+  const yAt = v => plotTop + plotH - (v / maxDay) * plotH;
 
   let line = '';
   for (let i = 0; i < n; i++)
   {
     line += (i === 0 ? 'M ' : ' L ') + xAt(i).toFixed(1) + ' ' + yAt(days[i].contributionCount).toFixed(1);
   }
-  const area = `${line} L ${xAt(n - 1).toFixed(1)} ${PT + plotH} L ${xAt(0).toFixed(1)} ${PT + plotH} Z`;
+  const area = `${line} L ${xAt(n - 1).toFixed(1)} ${plotTop + plotH} L ${xAt(0).toFixed(1)} ${plotTop + plotH} Z`;
 
-  // approximate path length for stroke-dasharray reveal
   let approxLen = 0;
   for (let i = 1; i < n; i++)
   {
@@ -197,195 +171,153 @@ function svgYear(dark)
   }
   approxLen = Math.ceil(approxLen);
 
-  // month tick labels (first day of each month within range)
-  const ticks = [];
-  let lastMonth = -1;
-  for (let i = 0; i < n; i++)
-  {
-    const d = new Date(days[i].date + 'T00:00:00Z');
-    if (d.getUTCMonth() !== lastMonth)
-    {
-      lastMonth = d.getUTCMonth();
-      const label = d.toLocaleString('en-US', { month: 'short', timeZone: 'UTC' });
-      ticks.push({ x: xAt(i), label });
-    }
-  }
-
-  // gridlines (4 horizontal)
-  let grid = '';
-  for (let k = 1; k <= 3; k++)
-  {
-    const y = PT + (plotH * k) / 4;
-    grid += `<line x1="${PL}" y1="${y}" x2="${PL + plotW}" y2="${y}" stroke="${p.grid}" stroke-width="1"/>`;
-  }
-
-  // tick labels
-  let tickLabels = '';
-  for (const t of ticks)
-  {
-    tickLabels += `<text x="${t.x.toFixed(1)}" y="${PT + plotH + 16}" font-size="10" fill="${p.muted}" text-anchor="middle">${t.label}</text>`;
-  }
-
-  // last-point pulse + animated traveling dot
+  const midY = plotTop + plotH / 2;
+  const baseY = plotTop + plotH;
   const lastX = xAt(n - 1), lastY = yAt(days[n - 1].contributionCount);
 
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Contributions in the last year">
-  <defs>${chromeDefs(id, dark, accentA, accentB)}
+  const stripY = 138;
+  const stripCols = [
+    { label: 'STREAK',  value: `${currentStreak}d` },
+    { label: 'LONGEST', value: `${longestStreak}d` },
+    { label: 'ACTIVE',  value: `${activeDays}/365` },
+  ];
+  const colW = (W - PAD_X * 2) / stripCols.length;
+  let strip = '';
+  stripCols.forEach((s, i) =>
+  {
+    const cx = PAD_X + colW * i + colW / 2;
+    strip += `
+      <text x="${cx.toFixed(1)}" y="${stripY}" text-anchor="middle" font-size="13" font-weight="700" fill="${c.ink}" letter-spacing="-0.2">${escapeXml(s.value)}</text>
+      <text x="${cx.toFixed(1)}" y="${stripY + 13}" text-anchor="middle" font-size="9" font-weight="700" fill="${c.muted}" letter-spacing="1.8">${s.label}</text>`;
+    if (i > 0)
+    {
+      const dx = PAD_X + colW * i;
+      strip += `<line x1="${dx.toFixed(1)}" y1="${stripY - 13}" x2="${dx.toFixed(1)}" y2="${stripY + 17}" stroke="${c.sep}" stroke-width="1"/>`;
+    }
+  });
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Contributions in the last year: ${totalContrib}">
+  <defs>
+    ${headerAnim(id, c.accent)}
     <linearGradient id="area-${id}" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="${accentA}" stop-opacity="${dark ? 0.55 : 0.35}"/>
-      <stop offset="100%" stop-color="${accentA}" stop-opacity="0"/>
-    </linearGradient>
-    <linearGradient id="line-${id}" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="${accentA}"/>
-      <stop offset="100%" stop-color="${accentB}"/>
+      <stop offset="0%" stop-color="${c.accent}" stop-opacity="${dark ? 0.32 : 0.22}"/>
+      <stop offset="100%" stop-color="${c.accent}" stop-opacity="0"/>
     </linearGradient>
     <clipPath id="clip-${id}"><rect x="0" y="0" width="${W}" height="${H}" rx="${RX}" ry="${RX}"/></clipPath>
   </defs>
-  ${f.bg}
-  ${f.border}
-  ${f.motes}
 
-  <g font-family="Segoe UI, Inter, -apple-system, BlinkMacSystemFont, sans-serif">
-    <text x="28" y="42" font-size="11" font-weight="700" fill="${p.muted}" letter-spacing="2.2">CONTRIBUTIONS · LAST 365 DAYS</text>
-    <text x="28" y="78" font-size="36" font-weight="800" fill="${p.ink}" letter-spacing="-0.8">${fmtNum(totalContrib)}</text>
-    <text x="${28 + 10 + (String(fmtNum(totalContrib)).length * 22)}" y="78" font-size="13" font-weight="600" fill="${p.muted}">contributions</text>
+  <rect x="0.5" y="0.5" width="${W - 1}" height="${H - 1}" rx="${RX}" ry="${RX}" fill="none" stroke="${c.border}"/>
 
-    <g text-anchor="end">
-      <text x="${W - 28}" y="42" font-size="11" font-weight="700" fill="${p.muted}" letter-spacing="2.2">PEAK DAY</text>
-      <text x="${W - 28}" y="64" font-size="16" font-weight="800" fill="${p.ink}">${busiest.contributionCount}</text>
-      <text x="${W - 28}" y="80" font-size="11" font-weight="600" fill="${p.muted}">${busiest.date}</text>
-    </g>
+  <g clip-path="url(#clip-${id})">
+    ${headerSweep(id, W, DIVIDER_Y - 1, 7)}
   </g>
 
-  <g>${grid}</g>
+  <line x1="${PAD_X}" y1="${DIVIDER_Y}" x2="${W - PAD_X}" y2="${DIVIDER_Y}" stroke="${c.sep}" stroke-width="1"/>
+
+  <g font-family="Segoe UI, Inter, -apple-system, BlinkMacSystemFont, sans-serif">
+    <text x="${PAD_X}" y="${HEADER_Y}" font-size="13" font-weight="700" fill="${c.ink}" letter-spacing="-0.1">Contributions</text>
+    <text x="${W - PAD_X}" y="${HEADER_Y}" text-anchor="end" font-size="11" font-weight="600" fill="${c.muted}" letter-spacing="1.2">${fmtNum(totalContrib)} · 365d</text>
+  </g>
+
+  <line x1="${plotLeft}" y1="${midY}" x2="${plotRight}" y2="${midY}" stroke="${c.grid}" stroke-width="1" stroke-opacity="0.6"/>
+  <line x1="${plotLeft}" y1="${baseY}" x2="${plotRight}" y2="${baseY}" stroke="${c.grid}" stroke-width="1"/>
 
   <path d="${area}" fill="url(#area-${id})" opacity="0">
-    <animate attributeName="opacity" from="0" to="1" dur="1.4s" begin="0.4s" fill="freeze"/>
+    <animate attributeName="opacity" from="0" to="1" dur="1.2s" begin="0.4s" fill="freeze"/>
   </path>
 
-  <path d="${line}" fill="none" stroke="url(#line-${id})" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"
-    stroke-dasharray="${approxLen}" stroke-dashoffset="${approxLen}">
-    <animate attributeName="stroke-dashoffset" from="${approxLen}" to="0" dur="2s" begin="0.2s" fill="freeze"/>
+  <path d="${line}" fill="none" stroke="${c.accent}" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"
+    stroke-dasharray="${approxLen}" stroke-dashoffset="${approxLen}" opacity="0.95">
+    <animate attributeName="stroke-dashoffset" from="${approxLen}" to="0" dur="1.8s" begin="0.2s" fill="freeze"/>
   </path>
 
   <g opacity="0">
-    <circle cx="${lastX.toFixed(1)}" cy="${lastY.toFixed(1)}" r="3.5" fill="${accentB}"/>
-    <circle cx="${lastX.toFixed(1)}" cy="${lastY.toFixed(1)}" r="6" fill="${accentB}" fill-opacity="0.3">
-      <animate attributeName="r" values="6;12;6" dur="2s" repeatCount="indefinite"/>
-      <animate attributeName="fill-opacity" values="0.4;0;0.4" dur="2s" repeatCount="indefinite"/>
+    <circle cx="${lastX.toFixed(1)}" cy="${lastY.toFixed(1)}" r="2.5" fill="${c.accent}"/>
+    <circle cx="${lastX.toFixed(1)}" cy="${lastY.toFixed(1)}" r="5" fill="${c.accent}" fill-opacity="0.25">
+      <animate attributeName="r" values="5;10;5" dur="2.4s" repeatCount="indefinite"/>
+      <animate attributeName="fill-opacity" values="0.35;0;0.35" dur="2.4s" repeatCount="indefinite"/>
     </circle>
-    <animate attributeName="opacity" from="0" to="1" dur="0.6s" begin="2.1s" fill="freeze"/>
+    <animate attributeName="opacity" from="0" to="1" dur="0.6s" begin="2s" fill="freeze"/>
   </g>
 
-  <g font-family="Segoe UI, Inter, -apple-system, BlinkMacSystemFont, sans-serif">${tickLabels}</g>
+  <g font-family="Segoe UI, Inter, -apple-system, BlinkMacSystemFont, sans-serif">${strip}</g>
 </svg>
 `;
 }
 
-// ----- stats strip -----
 function svgStats(dark)
 {
+  const c = dark ? COLORS.dark : COLORS.light;
+  const id = `st-${dark ? 'd' : 'l'}`;
+  const W = CARD_W;
+  const H = 168;
+  const PAD_X = 14;
+  const HEADER_Y = 20;
+  const DIVIDER_Y = 28;
+
   const stats = [
-    { label: 'COMMITS', value: fmtNum(totalCommits) },
+    { label: 'COMMITS',   value: fmtNum(totalCommits) },
     { label: 'PULL REQS', value: fmtNum(totalPRs) },
-    { label: 'REVIEWS', value: fmtNum(totalReviews) },
-    { label: 'ISSUES', value: fmtNum(totalIssues) },
-    { label: 'STARS', value: fmtNum(totalStars) },
-    { label: 'REPOS', value: fmtNum(totalRepos) },
+    { label: 'REVIEWS',   value: fmtNum(totalReviews) },
+    { label: 'ISSUES',    value: fmtNum(totalIssues) },
+    { label: 'STARS',     value: fmtNum(totalStars) },
+    { label: 'REPOS',     value: fmtNum(totalRepos) },
     { label: 'FOLLOWERS', value: fmtNum(followers) },
   ];
-  const W = 880, H = 120, RX = 12;
-  const id = `st-${dark ? 'd' : 'l'}`;
-  const p = dark ? PALETTE.dark : PALETTE.light;
-  const accentA = ACCENTS.stats.a, accentB = ACCENTS.stats.b;
-  const perimeter = 2 * (W - 2 + H - 2) - 8 * (RX - 0.5) + 2 * Math.PI * (RX - 0.5);
-  const f = chromeFrame(id, W, H, RX, dark, accentA, accentB, perimeter);
 
-  const PAD = 28;
-  const innerW = W - PAD * 2;
-  const colW = innerW / stats.length;
+  const cols = 4;
+  const rows = 2;
+  const gridTop = 46;
+  const gridBottom = H - 14;
+  const innerW = W - PAD_X * 2;
+  const cellW = innerW / cols;
+  const cellH = (gridBottom - gridTop) / rows;
 
   let cells = '';
   let dividers = '';
   for (let i = 0; i < stats.length; i++)
   {
-    const cx = PAD + colW * i + colW / 2;
+    const r = Math.floor(i / cols);
+    const cc = i % cols;
+    const cx = PAD_X + cellW * cc + cellW / 2;
+    const cy = gridTop + cellH * r + cellH / 2;
     const s = stats[i];
     cells += `
-    <g text-anchor="middle">
-      <text x="${cx.toFixed(1)}" y="56" font-size="28" font-weight="800" fill="${p.ink}" letter-spacing="-0.6" opacity="0">
-        ${escapeXml(s.value)}
-        <animate attributeName="opacity" from="0" to="1" dur="0.6s" begin="${0.15 + i * 0.08}s" fill="freeze"/>
-      </text>
-      <text x="${cx.toFixed(1)}" y="78" font-size="10" font-weight="700" fill="${p.muted}" letter-spacing="2">${escapeXml(s.label)}</text>
-    </g>`;
-    if (i > 0)
-    {
-      const dx = PAD + colW * i;
-      dividers += `<line x1="${dx.toFixed(1)}" y1="32" x2="${dx.toFixed(1)}" y2="88" stroke="${p.grid}" stroke-width="1"/>`;
-    }
+      <g text-anchor="middle">
+        <text x="${cx.toFixed(1)}" y="${(cy - 2).toFixed(1)}" font-size="18" font-weight="800" fill="${c.ink}" letter-spacing="-0.4" opacity="0">
+          ${escapeXml(s.value)}
+          <animate attributeName="opacity" from="0" to="1" dur="0.5s" begin="${0.15 + i * 0.07}s" fill="freeze"/>
+        </text>
+        <text x="${cx.toFixed(1)}" y="${(cy + 14).toFixed(1)}" font-size="9" font-weight="700" fill="${c.muted}" letter-spacing="1.8">${s.label}</text>
+      </g>`;
   }
-
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Activity stats">
-  <defs>${chromeDefs(id, dark, accentA, accentB)}
-    <clipPath id="clip-${id}"><rect x="0" y="0" width="${W}" height="${H}" rx="${RX}" ry="${RX}"/></clipPath>
-  </defs>
-  ${f.bg}
-  ${f.border}
-  ${f.motes}
-  <g>${dividers}</g>
-  <g font-family="Segoe UI, Inter, -apple-system, BlinkMacSystemFont, sans-serif">${cells}</g>
-</svg>
-`;
-}
-
-// ----- streak card -----
-function svgStreak(dark)
-{
-  const tiles = [
-    { label: 'CURRENT STREAK', value: `${currentStreak} ${currentStreak === 1 ? 'day' : 'days'}` },
-    { label: 'LONGEST STREAK', value: `${longestStreak} ${longestStreak === 1 ? 'day' : 'days'}` },
-    { label: 'ACTIVE DAYS', value: fmtNum(days.filter(d => d.contributionCount > 0).length) + ' / 365' },
-  ];
-  const W = 880, H = 110, RX = 12;
-  const id = `sk-${dark ? 'd' : 'l'}`;
-  const p = dark ? PALETTE.dark : PALETTE.light;
-  const accentA = ACCENTS.streak.a, accentB = ACCENTS.streak.b;
-  const perimeter = 2 * (W - 2 + H - 2) - 8 * (RX - 0.5) + 2 * Math.PI * (RX - 0.5);
-  const f = chromeFrame(id, W, H, RX, dark, accentA, accentB, perimeter);
-
-  const PAD = 28;
-  const innerW = W - PAD * 2;
-  const colW = innerW / tiles.length;
-
-  let cells = '';
-  let dividers = '';
-  for (let i = 0; i < tiles.length; i++)
+  for (let cc = 1; cc < cols; cc++)
   {
-    const cx = PAD + colW * i + colW / 2;
-    const t = tiles[i];
-    cells += `
-    <g text-anchor="middle">
-      <text x="${cx.toFixed(1)}" y="52" font-size="24" font-weight="800" fill="${p.ink}" letter-spacing="-0.4" opacity="0">
-        ${escapeXml(t.value)}
-        <animate attributeName="opacity" from="0" to="1" dur="0.6s" begin="${0.2 + i * 0.12}s" fill="freeze"/>
-      </text>
-      <text x="${cx.toFixed(1)}" y="74" font-size="10" font-weight="700" fill="${p.muted}" letter-spacing="2.2">${escapeXml(t.label)}</text>
-    </g>`;
-    if (i > 0)
-    {
-      const dx = PAD + colW * i;
-      dividers += `<line x1="${dx.toFixed(1)}" y1="28" x2="${dx.toFixed(1)}" y2="82" stroke="${p.grid}" stroke-width="1"/>`;
-    }
+    const dx = PAD_X + cellW * cc;
+    dividers += `<line x1="${dx.toFixed(1)}" y1="${gridTop}" x2="${dx.toFixed(1)}" y2="${gridBottom}" stroke="${c.sep}" stroke-width="1"/>`;
   }
+  const midRowY = gridTop + cellH;
+  dividers += `<line x1="${PAD_X}" y1="${midRowY.toFixed(1)}" x2="${W - PAD_X}" y2="${midRowY.toFixed(1)}" stroke="${c.sep}" stroke-width="1"/>`;
 
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Activity streak">
-  <defs>${chromeDefs(id, dark, accentA, accentB)}
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="GitHub stats">
+  <defs>
+    ${headerAnim(id, c.accent)}
     <clipPath id="clip-${id}"><rect x="0" y="0" width="${W}" height="${H}" rx="${RX}" ry="${RX}"/></clipPath>
   </defs>
-  ${f.bg}
-  ${f.border}
-  ${f.motes}
+
+  <rect x="0.5" y="0.5" width="${W - 1}" height="${H - 1}" rx="${RX}" ry="${RX}" fill="none" stroke="${c.border}"/>
+
+  <g clip-path="url(#clip-${id})">
+    ${headerSweep(id, W, DIVIDER_Y - 1, 7)}
+  </g>
+
+  <line x1="${PAD_X}" y1="${DIVIDER_Y}" x2="${W - PAD_X}" y2="${DIVIDER_Y}" stroke="${c.sep}" stroke-width="1"/>
+
+  <g font-family="Segoe UI, Inter, -apple-system, BlinkMacSystemFont, sans-serif">
+    <text x="${PAD_X}" y="${HEADER_Y}" font-size="13" font-weight="700" fill="${c.ink}" letter-spacing="-0.1">Stats</text>
+    <text x="${W - PAD_X}" y="${HEADER_Y}" text-anchor="end" font-size="11" font-weight="600" fill="${c.muted}" letter-spacing="1.2">last 365d</text>
+  </g>
+
   <g>${dividers}</g>
   <g font-family="Segoe UI, Inter, -apple-system, BlinkMacSystemFont, sans-serif">${cells}</g>
 </svg>
@@ -393,9 +325,8 @@ function svgStreak(dark)
 }
 
 const ARTIFACTS = [
-  { id: 'activity-year', render: svgYear, alt: 'Contributions in the last year' },
-  { id: 'activity-stats', render: svgStats, alt: 'GitHub stats' },
-  { id: 'activity-streak', render: svgStreak, alt: 'Streak' },
+  { id: 'activity-contributions', render: svgContributions, alt: 'Contributions' },
+  { id: 'activity-stats',         render: svgStats,         alt: 'Stats' },
 ];
 
 const manifest = {};
@@ -412,14 +343,14 @@ for (const a of ARTIFACTS)
   console.log(`ok  ${a.id}`);
 }
 
-// ----- inject into README between markers -----
 const ts = Date.now().toString(36);
-const block = ARTIFACTS.map(a =>
+const cardImg = (a) =>
 {
   const { darkHash, lightHash } = manifest[a.id];
-  return `<picture><source media="(prefers-color-scheme: dark)" srcset="${RAW}/${a.id}-dark.svg?v=${darkHash}&t=${ts}"><img alt="${escapeXml(a.alt)}" src="${RAW}/${a.id}-light.svg?v=${lightHash}&t=${ts}" /></picture>`;
-}).join('<br/>\n  ');
+  return `<picture><source media="(prefers-color-scheme: dark)" srcset="${RAW}/${a.id}-dark.svg?v=${darkHash}&t=${ts}"><img alt="${escapeXml(a.alt)}" width="${CARD_W}" src="${RAW}/${a.id}-light.svg?v=${lightHash}&t=${ts}" /></picture>`;
+};
 
+const block = ARTIFACTS.map(cardImg).join(' ');
 const wrapped = `<!-- activity:start -->\n  ${block}\n<!-- activity:end -->`;
 
 const README = resolve(ROOT, 'README.md');
@@ -430,16 +361,7 @@ if (md.includes('<!-- activity:start -->') && md.includes('<!-- activity:end -->
   md = md.replace(/<!-- activity:start -->[\s\S]*?<!-- activity:end -->/, wrapped);
 } else
 {
-  // insert a fresh Activity section right before Stack
-  const stackIdx = md.indexOf('### Stack');
-  const section = `### Activity\n\n<p align="center">\n  ${block}\n</p>\n\n`;
-  if (stackIdx >= 0)
-  {
-    md = md.slice(0, stackIdx) + section.replace(`  ${block}`, `<!-- activity:start -->\n  ${block}\n<!-- activity:end -->`) + md.slice(stackIdx);
-  } else
-  {
-    md += `\n\n### Activity\n\n<p align="center">\n${wrapped}\n</p>\n`;
-  }
+  console.warn('  ! activity markers not found in README.md');
 }
 
 writeFileSync(README, md);

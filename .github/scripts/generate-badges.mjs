@@ -330,8 +330,37 @@ function svgHeader({ label, value, icon, dark, id })
   // Approximate perimeter (px) — used as the dash cycle length so the
   // moving segment loops cleanly around without a visible seam.
   const perim = Math.round(2 * (bw + bh) - (8 - 2 * Math.PI) * br);
-  const segLen = Math.round(perim * 0.22);
   const iconSvg = HEADER_ICONS[icon] ? HEADER_ICONS[icon](accent) : '';
+
+  // Comet trail: a head segment plus several smaller segments trailing
+  // behind it at decreasing opacity to fake a gradient fade along the
+  // stroke. Two comets travel 180° apart at a relaxed pace.
+  const dur = 11; // slower, more chill
+  const headLen = 14;
+  const tail = [
+    { len: 14, gap: 0,  op: 0.95, w: 1.4 },
+    { len: 12, gap: 6,  op: 0.55, w: 1.3 },
+    { len: 10, gap: 14, op: 0.32, w: 1.2 },
+    { len: 9,  gap: 22, op: 0.18, w: 1.1 },
+    { len: 8,  gap: 30, op: 0.10, w: 1.0 },
+    { len: 7,  gap: 38, op: 0.05, w: 0.9 },
+  ];
+
+  const comet = (baseOffset) => tail.map(s =>
+  {
+    const off = baseOffset - s.gap;
+    return `  <use href="#bd-${id}" stroke="${accent}" stroke-width="${s.w}" stroke-linecap="round" fill="none"
+       stroke-dasharray="${s.len} ${perim - s.len}" stroke-opacity="${s.op}">
+    <animate attributeName="stroke-dashoffset" from="${off}" to="${off - perim}" dur="${dur}s" repeatCount="indefinite"/>
+  </use>`;
+  }).join('\n');
+
+  const glow = (baseOffset) => `  <use href="#bd-${id}" stroke="${accent}" stroke-width="3.5" stroke-linecap="round" fill="none"
+       stroke-dasharray="${headLen + 6} ${perim - headLen - 6}" stroke-opacity="0.12">
+    <animate attributeName="stroke-dashoffset" from="${baseOffset + 2}" to="${baseOffset + 2 - perim}" dur="${dur}s" repeatCount="indefinite"/>
+  </use>`;
+
+  const halfP = -Math.round(perim / 2);
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${escapeXml(label)}: ${escapeXml(value)}">
   <defs>
@@ -339,18 +368,10 @@ function svgHeader({ label, value, icon, dark, id })
   </defs>
 
   <use href="#bd-${id}" stroke="${border}" stroke-width="1"/>
-  <use href="#bd-${id}" stroke="${accent}" stroke-width="1.4" stroke-linecap="round" fill="none"
-       stroke-dasharray="${segLen} ${perim - segLen}" stroke-opacity="0.85">
-    <animate attributeName="stroke-dashoffset" from="0" to="-${perim}" dur="6s" repeatCount="indefinite"/>
-  </use>
-  <use href="#bd-${id}" stroke="${accent}" stroke-width="1.4" stroke-linecap="round" fill="none"
-       stroke-dasharray="${segLen} ${perim - segLen}" stroke-dashoffset="${-Math.round(perim / 2)}" stroke-opacity="0.85">
-    <animate attributeName="stroke-dashoffset" from="${-Math.round(perim / 2)}" to="${-Math.round(perim / 2) - perim}" dur="6s" repeatCount="indefinite"/>
-  </use>
-  <use href="#bd-${id}" stroke="${accent}" stroke-width="3" stroke-linecap="round" fill="none"
-       stroke-dasharray="${Math.round(segLen * 0.55)} ${perim - Math.round(segLen * 0.55)}" stroke-opacity="0.18">
-    <animate attributeName="stroke-dashoffset" from="0" to="-${perim}" dur="6s" repeatCount="indefinite"/>
-  </use>
+${glow(0)}
+${comet(0)}
+${glow(halfP)}
+${comet(halfP)}
 
   <g transform="translate(16 18)">
     <svg viewBox="0 0 24 24" width="22" height="22">${iconSvg}</svg>

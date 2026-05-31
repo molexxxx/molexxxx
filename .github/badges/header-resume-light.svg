@@ -1,44 +1,44 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="205" height="56" viewBox="0 0 205 56" role="img" aria-label="Resume: visit">
+<svg xmlns="http://www.w3.org/2000/svg" width="172" height="52" viewBox="0 0 172 52" role="img" aria-label="Resume: visit">
   <defs>
-    <path id="bd-header-resume-l" d="M 10.5 0.75 H 194.5 A 9.75 9.75 0 0 1 204.25 10.5 V 45.5 A 9.75 9.75 0 0 1 194.5 55.25 H 10.5 A 9.75 9.75 0 0 1 0.75 45.5 V 10.5 A 9.75 9.75 0 0 1 10.5 0.75 Z" fill="none"/>
+    <path id="bd-header-resume-l" d="M 10.5 0.75 H 161.5 A 9.75 9.75 0 0 1 171.25 10.5 V 41.5 A 9.75 9.75 0 0 1 161.5 51.25 H 10.5 A 9.75 9.75 0 0 1 0.75 41.5 V 10.5 A 9.75 9.75 0 0 1 10.5 0.75 Z" fill="none"/>
   </defs>
 
   <use href="#bd-header-resume-l" stroke="#d0d7de" stroke-width="1"/>
   <use href="#bd-header-resume-l" stroke="#2563eb" stroke-width="1.2" stroke-linecap="round" fill="none"
-       stroke-dasharray="6 493" stroke-opacity="0.111">
-    <animate attributeName="stroke-dashoffset" from="0.00" to="-499.00" dur="14s" repeatCount="indefinite"/>
+       stroke-dasharray="6 419" stroke-opacity="0.111">
+    <animate attributeName="stroke-dashoffset" from="0.00" to="-425.00" dur="14s" repeatCount="indefinite"/>
   </use>
   <use href="#bd-header-resume-l" stroke="#2563eb" stroke-width="1.2" stroke-linecap="round" fill="none"
-       stroke-dasharray="6 493" stroke-opacity="0.195">
-    <animate attributeName="stroke-dashoffset" from="-3.00" to="-502.00" dur="14s" repeatCount="indefinite"/>
+       stroke-dasharray="6 419" stroke-opacity="0.195">
+    <animate attributeName="stroke-dashoffset" from="-3.00" to="-428.00" dur="14s" repeatCount="indefinite"/>
   </use>
   <use href="#bd-header-resume-l" stroke="#2563eb" stroke-width="1.2" stroke-linecap="round" fill="none"
-       stroke-dasharray="6 493" stroke-opacity="0.290">
-    <animate attributeName="stroke-dashoffset" from="-6.00" to="-505.00" dur="14s" repeatCount="indefinite"/>
+       stroke-dasharray="6 419" stroke-opacity="0.290">
+    <animate attributeName="stroke-dashoffset" from="-6.00" to="-431.00" dur="14s" repeatCount="indefinite"/>
   </use>
   <use href="#bd-header-resume-l" stroke="#2563eb" stroke-width="1.2" stroke-linecap="round" fill="none"
-       stroke-dasharray="6 493" stroke-opacity="0.369">
-    <animate attributeName="stroke-dashoffset" from="-9.00" to="-508.00" dur="14s" repeatCount="indefinite"/>
+       stroke-dasharray="6 419" stroke-opacity="0.369">
+    <animate attributeName="stroke-dashoffset" from="-9.00" to="-434.00" dur="14s" repeatCount="indefinite"/>
   </use>
   <use href="#bd-header-resume-l" stroke="#2563eb" stroke-width="1.2" stroke-linecap="round" fill="none"
-       stroke-dasharray="6 493" stroke-opacity="0.400">
-    <animate attributeName="stroke-dashoffset" from="-12.00" to="-511.00" dur="14s" repeatCount="indefinite"/>
+       stroke-dasharray="6 419" stroke-opacity="0.400">
+    <animate attributeName="stroke-dashoffset" from="-12.00" to="-437.00" dur="14s" repeatCount="indefinite"/>
   </use>
   <use href="#bd-header-resume-l" stroke="#2563eb" stroke-width="1.2" stroke-linecap="round" fill="none"
-       stroke-dasharray="6 493" stroke-opacity="0.369">
-    <animate attributeName="stroke-dashoffset" from="-15.00" to="-514.00" dur="14s" repeatCount="indefinite"/>
+       stroke-dasharray="6 419" stroke-opacity="0.369">
+    <animate attributeName="stroke-dashoffset" from="-15.00" to="-440.00" dur="14s" repeatCount="indefinite"/>
   </use>
   <use href="#bd-header-resume-l" stroke="#2563eb" stroke-width="1.2" stroke-linecap="round" fill="none"
-       stroke-dasharray="6 493" stroke-opacity="0.290">
-    <animate attributeName="stroke-dashoffset" from="-18.00" to="-517.00" dur="14s" repeatCount="indefinite"/>
+       stroke-dasharray="6 419" stroke-opacity="0.290">
+    <animate attributeName="stroke-dashoffset" from="-18.00" to="-443.00" dur="14s" repeatCount="indefinite"/>
   </use>
   <use href="#bd-header-resume-l" stroke="#2563eb" stroke-width="1.2" stroke-linecap="round" fill="none"
-       stroke-dasharray="6 493" stroke-opacity="0.195">
-    <animate attributeName="stroke-dashoffset" from="-21.00" to="-520.00" dur="14s" repeatCount="indefinite"/>
+       stroke-dasharray="6 419" stroke-opacity="0.195">
+    <animate attributeName="stroke-dashoffset" from="-21.00" to="-446.00" dur="14s" repeatCount="indefinite"/>
   </use>
   <use href="#bd-header-resume-l" stroke="#2563eb" stroke-width="1.2" stroke-linecap="round" fill="none"
-       stroke-dasharray="6 493" stroke-opacity="0.111">
-    <animate attributeName="stroke-dashoffset" from="-24.00" to="-523.00" dur="14s" repeatCount="indefinite"/>
+       stroke-dasharray="6 419" stroke-opacity="0.111">
+    <animate attributeName="stroke-dashoffset" from="-24.00" to="-449.00" dur="14s" repeatCount="indefinite"/>
   </use>
 
 

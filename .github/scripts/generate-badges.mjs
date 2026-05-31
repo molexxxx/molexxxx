@@ -317,7 +317,7 @@ const HEADER_ICONS = {
  */
 function svgHeader({ label, value, icon, dark, id })
 {
-  const W = 172, H = 52, RX = 10;
+  const W = 177, H = 53, RX = 10;
   const ink = dark ? '#e6e9f1' : '#0b1220';
   const muted = dark ? '#7d8590' : '#656d76';
   const border = dark ? '#30363d' : '#d0d7de';

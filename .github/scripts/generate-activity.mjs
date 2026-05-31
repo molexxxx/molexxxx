@@ -140,7 +140,6 @@ function escapeXml(s)
   }[c]));
 }
 
-// Match stack-card chrome so cards feel like siblings of the Stack section.
 const CARD_W = 415;
 const RX = 10;
 const COLORS = {
@@ -148,8 +147,6 @@ const COLORS = {
   light: { border: '#d0d7de', ink: '#0b1220', muted: '#656d76', sep: '#eaecef', grid: '#eaecef', accent: '#2563eb' },
 };
 
-// Subtle animation: soft accent glow that glides along the inside of the top divider.
-// Different from the stack card's hairline sheen (which rides the very top edge).
 function headerAnim(id, accent)
 {
   return `

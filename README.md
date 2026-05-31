@@ -8,12 +8,6 @@
   <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/tag-audio-dsp-dark.svg?v=7225aea4&t=mpuc8dvc"><img height="26" alt="audio/DSP" src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/tag-audio-dsp-light.svg?v=e54f61c1&t=mpuc8dvc" /></picture>
   <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/tag-graphics-dark.svg?v=409c9c8c&t=mpuc8dvc"><img height="26" alt="graphics" src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/tag-graphics-light.svg?v=22739a38&t=mpuc8dvc" /></picture>
 </p>
-<p align="center">
-  <a href="https://tonywied17.github.io/tonywied17/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/header-resume-dark.svg?v=ac0bcedb&t=1780142740"><img height="40" src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/header-resume-light.svg?v=ac0bcedb&t=1780142740" alt="Resume" /></picture></a>
-  <a href="https://github.com/tonywied17?tab=repositories"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/header-repos-dark.svg?v=b5798b42"><img height="40" src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/header-repos-light.svg?v=b5798b42" alt="Repos" /></picture></a>
-  <a href="https://gist.github.com/tonywied17"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/header-gists-dark.svg?v=043b738b"><img height="40" src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/header-gists-light.svg?v=043b738b" alt="Gists" /></picture></a>
-  <a href="https://www.npmjs.com/~molex222"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/header-npm-dark.svg?v=ee1c10a7"><img height="40" src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/header-npm-light.svg?v=ee1c10a7" alt="npm" /></picture></a>
-</p>
 
 <p align="center">
 <!-- activity:start -->

@@ -44,16 +44,13 @@ async function gql(query, variables = {})
 
 const QUERY = `query($login: String!) {
   user(login: $login) {
+    createdAt
     followers { totalCount }
     contributionsCollection {
       contributionCalendar {
         totalContributions
         weeks { contributionDays { date contributionCount } }
       }
-      totalCommitContributions
-      totalIssueContributions
-      totalPullRequestContributions
-      totalPullRequestReviewContributions
     }
     repositories(first: 100, ownerAffiliations: OWNER, isFork: false) {
       totalCount
@@ -64,13 +61,50 @@ const QUERY = `query($login: String!) {
 
 const data = (await gql(QUERY, { login: OWNER })).user;
 
+// All-time contribution totals: iterate yearly windows from account creation to now.
+// contributionsCollection accepts a max 1-year window, so we chunk.
+async function fetchAllTimeTotals(createdAt)
+{
+  const start = new Date(createdAt);
+  const now = new Date();
+  const totals = { commits: 0, prs: 0, issues: 0, reviews: 0 };
+  let cursor = new Date(start);
+  while (cursor < now)
+  {
+    const from = new Date(cursor);
+    const to = new Date(cursor);
+    to.setUTCFullYear(to.getUTCFullYear() + 1);
+    if (to > now) to.setTime(now.getTime());
+    const q = `query($login: String!, $from: DateTime!, $to: DateTime!) {
+      user(login: $login) {
+        contributionsCollection(from: $from, to: $to) {
+          totalCommitContributions
+          totalPullRequestContributions
+          totalIssueContributions
+          totalPullRequestReviewContributions
+        }
+      }
+    }`;
+    const d = await gql(q, { login: OWNER, from: from.toISOString(), to: to.toISOString() });
+    const c = d.user.contributionsCollection;
+    totals.commits += c.totalCommitContributions;
+    totals.prs += c.totalPullRequestContributions;
+    totals.issues += c.totalIssueContributions;
+    totals.reviews += c.totalPullRequestReviewContributions;
+    cursor = to;
+  }
+  return totals;
+}
+
+const allTime = await fetchAllTimeTotals(data.createdAt);
+
 const cal = data.contributionsCollection.contributionCalendar;
 const days = cal.weeks.flatMap(w => w.contributionDays);
 const totalContrib = cal.totalContributions;
-const totalCommits = data.contributionsCollection.totalCommitContributions;
-const totalPRs = data.contributionsCollection.totalPullRequestContributions;
-const totalReviews = data.contributionsCollection.totalPullRequestReviewContributions;
-const totalIssues = data.contributionsCollection.totalIssueContributions;
+const totalCommits = allTime.commits;
+const totalPRs = allTime.prs;
+const totalReviews = allTime.reviews;
+const totalIssues = allTime.issues;
 const totalStars = data.repositories.nodes.reduce((s, n) => s + n.stargazerCount, 0);
 const totalRepos = data.repositories.totalCount;
 const followers = data.followers.totalCount;
@@ -315,7 +349,7 @@ function svgStats(dark)
 
   <g font-family="Segoe UI, Inter, -apple-system, BlinkMacSystemFont, sans-serif">
     <text x="${PAD_X}" y="${HEADER_Y}" font-size="13" font-weight="700" fill="${c.ink}" letter-spacing="-0.1">Stats</text>
-    <text x="${W - PAD_X}" y="${HEADER_Y}" text-anchor="end" font-size="11" font-weight="600" fill="${c.muted}" letter-spacing="1.2">last 365d</text>
+    <text x="${W - PAD_X}" y="${HEADER_Y}" text-anchor="end" font-size="11" font-weight="600" fill="${c.muted}" letter-spacing="1.2">all time</text>
   </g>
 
   <g>${dividers}</g>

@@ -42,12 +42,12 @@
   </use>
 
 
-  <g transform="translate(16 18)">
+  <g transform="translate(16 15)">
     <svg viewBox="0 0 24 24" width="22" height="22"><g fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></g></svg>
   </g>
 
   <g font-family="Segoe UI, Inter, -apple-system, BlinkMacSystemFont, sans-serif">
-    <text x="48" y="28" font-size="18" font-weight="800" fill="#0b1220" letter-spacing="-0.3">26</text>
-    <text x="48" y="42" font-size="9.5" font-weight="700" fill="#656d76" letter-spacing="1.6">GISTS</text>
+    <text x="48" y="26" font-size="18" font-weight="800" fill="#0b1220" letter-spacing="-0.3">26</text>
+    <text x="48" y="40" font-size="9.5" font-weight="700" fill="#656d76" letter-spacing="1.6">GISTS</text>
   </g>
 </svg>

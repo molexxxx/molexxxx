@@ -357,13 +357,13 @@ function svgHeader({ label, value, icon, dark, id })
   <use href="#bd-${id}" stroke="${border}" stroke-width="1"/>
 ${highlight}
 
-  <g transform="translate(16 18)">
+  <g transform="translate(16 15)">
     <svg viewBox="0 0 24 24" width="22" height="22">${iconSvg}</svg>
   </g>
 
   <g font-family="Segoe UI, Inter, -apple-system, BlinkMacSystemFont, sans-serif">
-    <text x="48" y="28" font-size="18" font-weight="800" fill="${ink}" letter-spacing="-0.3">${escapeXml(value)}</text>
-    <text x="48" y="42" font-size="9.5" font-weight="700" fill="${muted}" letter-spacing="1.6">${escapeXml(label.toUpperCase())}</text>
+    <text x="48" y="26" font-size="18" font-weight="800" fill="${ink}" letter-spacing="-0.3">${escapeXml(value)}</text>
+    <text x="48" y="40" font-size="9.5" font-weight="700" fill="${muted}" letter-spacing="1.6">${escapeXml(label.toUpperCase())}</text>
   </g>
 </svg>
 `;

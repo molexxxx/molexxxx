@@ -256,10 +256,9 @@ function svgContributions(dark)
   <rect x="0.5" y="0.5" width="${W - 1}" height="${H - 1}" rx="${RX}" ry="${RX}" fill="none" stroke="${c.border}"/>
 
   <g clip-path="url(#clip-${id})">
+    <line x1="0" y1="${DIVIDER_Y}" x2="${W}" y2="${DIVIDER_Y}" stroke="${c.sep}" stroke-width="1"/>
     ${headerSweep(id, W, DIVIDER_Y - 1, 7)}
   </g>
-
-  <line x1="${PAD_X}" y1="${DIVIDER_Y}" x2="${W - PAD_X}" y2="${DIVIDER_Y}" stroke="${c.sep}" stroke-width="1"/>
 
   <g font-family="Segoe UI, Inter, -apple-system, BlinkMacSystemFont, sans-serif">
     <text x="${PAD_X}" y="${HEADER_Y}" font-size="13" font-weight="700" fill="${c.ink}" letter-spacing="-0.1">Contributions</text>
@@ -355,10 +354,9 @@ function svgStats(dark)
   <rect x="0.5" y="0.5" width="${W - 1}" height="${H - 1}" rx="${RX}" ry="${RX}" fill="none" stroke="${c.border}"/>
 
   <g clip-path="url(#clip-${id})">
+    <line x1="0" y1="${DIVIDER_Y}" x2="${W}" y2="${DIVIDER_Y}" stroke="${c.sep}" stroke-width="1"/>
     ${headerSweep(id, W, DIVIDER_Y - 1, 7)}
   </g>
-
-  <line x1="${PAD_X}" y1="${DIVIDER_Y}" x2="${W - PAD_X}" y2="${DIVIDER_Y}" stroke="${c.sep}" stroke-width="1"/>
 
   <g font-family="Segoe UI, Inter, -apple-system, BlinkMacSystemFont, sans-serif">
     <text x="${PAD_X}" y="${HEADER_Y}" font-size="13" font-weight="700" fill="${c.ink}" letter-spacing="-0.1">Stats</text>

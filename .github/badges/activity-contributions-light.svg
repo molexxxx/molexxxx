@@ -16,12 +16,11 @@
   <rect x="0.5" y="0.5" width="414" height="167" rx="10" ry="10" fill="none" stroke="#d0d7de"/>
 
   <g clip-path="url(#clip-co-l)">
+    <line x1="0" y1="28" x2="415" y2="28" stroke="#eaecef" stroke-width="1"/>
     <rect x="-174" y="27" width="174" height="1" fill="url(#pulse-co-l)">
     <animate attributeName="x" from="-174" to="415" dur="7s" repeatCount="indefinite"/>
   </rect>
   </g>
-
-  <line x1="14" y1="28" x2="401" y2="28" stroke="#eaecef" stroke-width="1"/>
 
   <g font-family="Segoe UI, Inter, -apple-system, BlinkMacSystemFont, sans-serif">
     <text x="14" y="20" font-size="13" font-weight="700" fill="#0b1220" letter-spacing="-0.1">Contributions</text>

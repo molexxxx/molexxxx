@@ -34,7 +34,7 @@ const BADGES = [
   // docs
   { id: 'zero-query-docs', kind: 'static-pair', label: 'docs', message: 'API.md', icon: 'book' },
   { id: 'zero-server-docs', kind: 'static-pair', label: 'docs', message: 'API.md', icon: 'book', theme: ZSERVER_THEME('#7c3aed', '#ffffff') },
-  { id: 'zero-transfer-docs', kind: 'static-pair', label: 'docs', message: 'typedoc', icon: 'book', theme: ZTRANSFER_THEME('#00b4d8', '#0d1117') },
+  { id: 'zero-transfer-docs', kind: 'static-pair', label: 'docs', message: 'README.md', icon: 'book', theme: ZTRANSFER_THEME('#00b4d8', '#0d1117') },
 
   // npm version
   { id: 'zero-query-npm', kind: 'npm-version', label: 'npm', pkg: 'zero-query', icon: 'npm', theme: ZQUERY_THEME('#007acc', '#ffffff') },
@@ -90,11 +90,11 @@ const BADGES = [
   { id: 'bladewake-last-commit', repo: 'bladewake-demo', kind: 'last-commit', label: 'last commit', icon: 'git', theme: { name: 'game', labelBg: '#0a0510', labelFg: '#22d4f0', messageColor: '#8b11a8', textColor: '#ffffff' } },
 
   // MagnifyShit
-  { id: 'magnifyshit-ci', repo: 'MagnifyShit-cpp', kind: 'workflow', label: 'build', workflow: 'build.yml', branch: 'main', icon: 'github', theme: MAGNIFY_THEME('#6b3410', '#f5deb3') },
+  { id: 'magnifyshit-docs', kind: 'static-pair', label: 'docs', message: 'README.md', icon: 'book', theme: MAGNIFY_THEME('#8b4513', '#f5deb3') },
+  { id: 'magnifyshit-download', kind: 'static-pair', label: 'download', message: 'latest', icon: 'github', theme: MAGNIFY_THEME('#6b3410', '#f5deb3') },
   { id: 'magnifyshit-release', repo: 'MagnifyShit-cpp', kind: 'release', label: 'release', icon: 'github', theme: MAGNIFY_THEME('#8b4513', '#f5deb3') },
   { id: 'magnifyshit-downloads', repo: 'MagnifyShit-cpp', kind: 'downloads', label: 'downloads', icon: 'github', theme: MAGNIFY_THEME('#a0522d', '#fff8dc') },
   { id: 'magnifyshit-last-commit', repo: 'MagnifyShit-cpp', kind: 'last-commit', label: 'last commit', icon: 'git', theme: MAGNIFY_THEME('#5a3a22', '#d4a574') },
-  { id: 'magnifyshit-license', repo: 'MagnifyShit-cpp', kind: 'license', label: 'license', icon: 'github', theme: MAGNIFY_THEME('#7b4a1f', '#f5deb3') },
 ];
 
 // Molex Media app palette
@@ -366,40 +366,95 @@ function svgHeader({ label, value, icon, dark, id })
 }
 
 
-const ICON_EXTRA = 18; // 14px icon + 4px gap before label text
+const PILL_H = 22;
+const PILL_RX = 5;
+const PILL_PAD_X = 10;
+const PILL_ICON_W = 14;
+const PILL_ICON_GAP = 6;
+const PILL_SEP_GAP = 6;
 
-function svg({ label, message, labelColor, messageColor, textColor, labelTextColor, icon, iconColor })
+function placeIcon(name, color, x, y)
 {
-  const PAD = 10;
-  const lw = textWidth(label) + PAD + (icon ? ICON_EXTRA : 0);
-  const mw = textWidth(message) + PAD;
-  const w = lw + mw;
-  const lx = icon ? (PAD / 2 + ICON_EXTRA + textWidth(label) / 2) : lw / 2;
-  const mx = lw + mw / 2;
-  const labelFill = labelTextColor ?? textColor;
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="20" role="img" aria-label="${escapeXml(label)}: ${escapeXml(message)}">
-  <rect width="${lw}" height="20" fill="${labelColor}"/>
-  <rect x="${lw}" width="${mw}" height="20" fill="${messageColor}"/>${icon ? '\n  ' + ICONS[icon](iconColor) : ''}
-  <g font-family="Verdana,Geneva,DejaVu Sans,sans-serif" font-size="11" text-anchor="middle">
-    <text x="${lx}" y="14" fill="${labelFill}">${escapeXml(label)}</text>
-    <text x="${mx}" y="14" fill="${textColor}">${escapeXml(message)}</text>
+  return ICONS[name](color).replace(/x="\d+(?:\.\d+)?" y="\d+(?:\.\d+)?"/, `x="${x}" y="${y}"`);
+}
+
+function svgPill({ label, message, icon, bg, border, borderOpacity = 1, labelColor, valueColor, iconColor })
+{
+  const iconW = icon ? PILL_ICON_W + PILL_ICON_GAP : 0;
+  const lw = label ? textWidth(label) + PILL_SEP_GAP : 0;
+  const mw = textWidth(message);
+  const W = PILL_PAD_X + iconW + lw + mw + PILL_PAD_X;
+  const iconX = PILL_PAD_X;
+  const iconY = (PILL_H - 14) / 2;
+  const labelX = PILL_PAD_X + iconW;
+  const valueX = labelX + lw;
+  const ty = 15;
+  const iconSvg = icon ? '\n  ' + placeIcon(icon, iconColor, iconX, iconY) : '';
+  const labelText = label
+    ? `\n    <text x="${labelX}" y="${ty}" fill="${labelColor}" font-weight="500">${escapeXml(label)}</text>`
+    : '';
+  const aria = label ? `${escapeXml(label)}: ${escapeXml(message)}` : escapeXml(message);
+  const strokeOpAttr = borderOpacity < 1 ? ` stroke-opacity="${borderOpacity}"` : '';
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${PILL_H}" role="img" aria-label="${aria}">
+  <rect x="0.5" y="0.5" width="${W - 1}" height="${PILL_H - 1}" rx="${PILL_RX}" fill="${bg}" stroke="${border}"${strokeOpAttr}/>${iconSvg}
+  <g font-family="'Segoe UI',-apple-system,BlinkMacSystemFont,Inter,sans-serif" font-size="11">${labelText}
+    <text x="${valueX}" y="${ty}" fill="${valueColor}" font-weight="600">${escapeXml(message)}</text>
   </g>
 </svg>
 `;
 }
 
-function svgSingle({ message, color, textColor, icon, iconColor })
+const PILL_DARK  = { bg: '#0d1117', border: '#30363d', label: '#7d8590', ink: '#e6e9f1', accent: '#58a6ff' };
+const PILL_LIGHT = { bg: '#ffffff', border: '#d0d7de', label: '#656d76', ink: '#1f2328', accent: '#0969da' };
+
+// Neutral muted label color that reads cleanly on any dark themed background.
+const THEMED_LABEL = '#8b95a7';
+
+function svg({ label, message, dark, theme, icon })
 {
-  const PAD = 10;
-  const mw = textWidth(message) + PAD + (icon ? ICON_EXTRA : 0);
-  const tx = icon ? (PAD / 2 + ICON_EXTRA + textWidth(message) / 2) : mw / 2;
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${mw}" height="20" role="img" aria-label="${escapeXml(message)}">
-  <rect width="${mw}" height="20" fill="${color}"/>${icon ? '\n  ' + ICONS[icon](iconColor) : ''}
-  <g fill="${textColor}" text-anchor="middle" font-family="Verdana,Geneva,DejaVu Sans,sans-serif" font-size="11">
-    <text x="${tx}" y="14">${escapeXml(message)}</text>
-  </g>
-</svg>
-`;
+  if (theme)
+  {
+    const accent = theme.labelFg;
+    return svgPill({
+      label, message, icon,
+      bg: theme.labelBg,
+      border: accent,
+      borderOpacity: 0.28,
+      labelColor: THEMED_LABEL,
+      valueColor: accent,
+      iconColor: accent,
+    });
+  }
+  const p = dark ? PILL_DARK : PILL_LIGHT;
+  return svgPill({
+    label, message, icon,
+    bg: p.bg, border: p.border,
+    labelColor: p.label, valueColor: p.ink,
+    iconColor: p.accent,
+  });
+}
+
+function svgSingle({ message, dark, theme, icon })
+{
+  if (theme)
+  {
+    const accent = theme.labelFg;
+    return svgPill({
+      message, icon,
+      bg: theme.labelBg,
+      border: accent,
+      borderOpacity: 0.28,
+      labelColor: THEMED_LABEL, valueColor: accent,
+      iconColor: accent,
+    });
+  }
+  const p = dark ? PILL_DARK : PILL_LIGHT;
+  return svgPill({
+    message, icon,
+    bg: p.bg, border: p.border,
+    labelColor: p.label, valueColor: p.ink,
+    iconColor: p.accent,
+  });
 }
 
 mkdirSync(OUT, { recursive: true });
@@ -417,34 +472,19 @@ for (const b of BADGES)
       light = svgHeader({ label: b.label, value: message, icon: b.icon, dark: false, id: b.id + '-l' });
     } else if (b.kind === 'static-single')
     {
-      dark = svgSingle({ message, color: '#21262d', textColor: '#ffffff', icon: b.icon, iconColor: '#ffffff' });
-      light = svgSingle({ message, color: '#d0d7de', textColor: '#1f2328', icon: b.icon, iconColor: '#1f2328' });
+      dark = svgSingle({ message, dark: true, icon: b.icon });
+      light = svgSingle({ message, dark: false, icon: b.icon });
       if (b.theme)
       {
-        themed = svgSingle({
-          message,
-          color: b.theme.messageColor,
-          textColor: b.theme.textColor,
-          icon: b.icon,
-          iconColor: b.theme.textColor,
-        });
+        themed = svgSingle({ message, theme: b.theme, icon: b.icon });
       }
     } else
     {
-      dark = svg({ label: b.label, message, labelColor: '#21262d', messageColor: '#0d1117', textColor: '#ffffff', icon: b.icon, iconColor: '#ffffff' });
-      light = svg({ label: b.label, message, labelColor: '#d0d7de', messageColor: '#ffffff', textColor: '#1f2328', icon: b.icon, iconColor: '#1f2328' });
+      dark = svg({ label: b.label, message, dark: true, icon: b.icon });
+      light = svg({ label: b.label, message, dark: false, icon: b.icon });
       if (b.theme)
       {
-        themed = svg({
-          label: b.label,
-          message,
-          labelColor: b.theme.labelBg,
-          messageColor: b.theme.messageColor,
-          textColor: b.theme.textColor,
-          labelTextColor: b.theme.labelFg,
-          icon: b.icon,
-          iconColor: b.theme.labelFg,
-        });
+        themed = svg({ label: b.label, message, theme: b.theme, icon: b.icon });
       }
     }
     writeFileSync(path.join(OUT, `${b.id}-dark.svg`), dark);

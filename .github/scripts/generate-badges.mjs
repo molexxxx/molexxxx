@@ -328,34 +328,33 @@ function svgHeader({ label, value, icon, dark, id })
   const perim = Math.round(2 * (bw + bh) - (8 - 2 * Math.PI) * br);
   const iconSvg = HEADER_ICONS[icon] ? HEADER_ICONS[icon](accent) : '';
 
-  const dur = 14;
+  const dur = 6;
 
-  const segCount = 9;
-  const pieceLen = 6;
-  const stride = 3;
-  const sigma = (segCount - 1) / 2 / 1.6;
-  const center = (segCount - 1) / 2;
+  // A horizontal gradient bar (transparent -> accent -> transparent) sweeps
+  // across the badge, masked by the border stroke so it appears to flow
+  // smoothly along the entire frame. One element, one animation.
+  const sweepW = Math.round(W * 0.6);
 
-  let highlight = '';
-  for (let i = 0; i < segCount; i++)
-  {
-    const d = i - center;
-    const op = 0.40 * Math.exp(-(d * d) / (2 * sigma * sigma));
-    const off = -i * stride;
-    highlight += `  <use href="#bd-${id}" stroke="${accent}" stroke-width="1.2" stroke-linecap="round" fill="none"
-       stroke-dasharray="${pieceLen} ${perim - pieceLen}" stroke-opacity="${op.toFixed(3)}">
-    <animate attributeName="stroke-dashoffset" from="${off.toFixed(2)}" to="${(off - perim).toFixed(2)}" dur="${dur}s" repeatCount="indefinite"/>
-  </use>
-`;
-  }
-
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${escapeXml(label)}: ${escapeXml(value)}">
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" shape-rendering="geometricPrecision" role="img" aria-label="${escapeXml(label)}: ${escapeXml(value)}">
   <defs>
     <path id="bd-${id}" d="${borderD}" fill="none"/>
+    <linearGradient id="gr-${id}" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"   stop-color="${accent}" stop-opacity="0"/>
+      <stop offset="50%"  stop-color="${accent}" stop-opacity="1"/>
+      <stop offset="100%" stop-color="${accent}" stop-opacity="0"/>
+    </linearGradient>
+    <mask id="mk-${id}" maskUnits="userSpaceOnUse">
+      <use href="#bd-${id}" stroke="#fff" stroke-width="1.4"/>
+    </mask>
   </defs>
 
   <use href="#bd-${id}" stroke="${border}" stroke-width="1"/>
-${highlight}
+
+  <g mask="url(#mk-${id})">
+    <rect x="0" y="0" width="${sweepW}" height="${H}" fill="url(#gr-${id})">
+      <animate attributeName="x" from="${-sweepW}" to="${W}" dur="${dur}s" repeatCount="indefinite"/>
+    </rect>
+  </g>
 
   <g transform="translate(16 15)">
     <svg viewBox="0 0 24 24" width="22" height="22">${iconSvg}</svg>

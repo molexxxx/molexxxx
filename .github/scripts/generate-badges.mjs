@@ -330,9 +330,6 @@ function svgHeader({ label, value, icon, dark, id })
 
   const dur = 6;
 
-  // A horizontal gradient bar (transparent -> accent -> transparent) sweeps
-  // across the badge, masked by the border stroke so it appears to flow
-  // smoothly along the entire frame. One element, one animation.
   const sweepW = Math.round(W * 0.6);
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" shape-rendering="geometricPrecision" role="img" aria-label="${escapeXml(label)}: ${escapeXml(value)}">
@@ -466,7 +463,7 @@ const README = 'README.md';
 let readme = readFileSync(README, 'utf8');
 for (const [id, hash] of Object.entries(manifest))
 {
-  const re = new RegExp(`(${OUT.replace(/[/.]/g, '\\$&')}/${id}-(?:dark|light)\\.svg)(\\?v=[a-f0-9]+)?`, 'g');
+  const re = new RegExp(`(${OUT.replace(/[/.]/g, '\\$&')}/${id}-(?:dark|light)\\.svg)(\\?[^"'\\s)]*)?`, 'g');
   readme = readme.replace(re, `$1?v=${hash}`);
 }
 writeFileSync(README, readme);

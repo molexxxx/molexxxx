@@ -271,18 +271,31 @@ async function getValue(b)
   throw new Error(`unknown kind: ${b.kind}`);
 }
 
-// Verdana 11px width approximation
+// Per-character advance widths calibrated for Segoe UI at 11px (the font the
+// pills actually render in). Using real glyph metrics instead of coarse
+// buckets keeps every badge sized tightly and evenly, with no trailing dead
+// space that varies from string to string.
+const SEGOE_11_WIDTHS = {
+  ' ': 3.1, '!': 3.7, '"': 4.7, '#': 7.0, '$': 6.2, '%': 9.6, '&': 7.6, "'": 2.6,
+  '(': 3.7, ')': 3.7, '*': 5.5, '+': 6.5, ',': 3.1, '-': 3.7, '.': 3.1, '/': 4.2,
+  '0': 6.2, '1': 6.2, '2': 6.2, '3': 6.2, '4': 6.2, '5': 6.2, '6': 6.2, '7': 6.2,
+  '8': 6.2, '9': 6.2, ':': 3.1, ';': 3.1, '<': 6.5, '=': 6.5, '>': 6.5, '?': 5.2,
+  '@': 10.5,
+  A: 7.0, B: 6.9, C: 7.2, D: 7.8, E: 6.3, F: 6.0, G: 7.9, H: 7.9, I: 2.9, J: 3.2,
+  K: 6.7, L: 5.7, M: 9.3, N: 7.9, O: 8.2, P: 6.7, Q: 8.2, R: 7.1, S: 6.4, T: 6.2,
+  U: 7.7, V: 6.8, W: 10.2, X: 6.6, Y: 6.2, Z: 6.7,
+  '[': 3.7, '\\': 4.2, ']': 3.7, '^': 6.5, _: 5.5, '`': 5.5,
+  a: 5.7, b: 6.2, c: 5.2, d: 6.2, e: 5.9, f: 3.6, g: 6.2, h: 6.2, i: 2.6, j: 2.6,
+  k: 5.6, l: 2.6, m: 9.5, n: 6.2, o: 6.2, p: 6.2, q: 6.2, r: 4.1, s: 5.0, t: 3.8,
+  u: 6.2, v: 5.6, w: 8.2, x: 5.6, y: 5.6, z: 5.0,
+  '{': 6.5, '|': 2.9, '}': 6.5, '~': 6.5,
+};
+
 function textWidth(s)
 {
   let w = 0;
-  for (const c of s)
-  {
-    if (/[ijl.,:;'!|]/.test(c)) w += 3;
-    else if (c === ' ') w += 4;
-    else if (/[A-Z0-9#@%&]/.test(c)) w += 8;
-    else w += 7;
-  }
-  return w;
+  for (const c of s) w += SEGOE_11_WIDTHS[c] ?? 6.2;
+  return Math.ceil(w);
 }
 
 function escapeXml(s)

@@ -337,11 +337,11 @@ function svgHeader({ label, value, icon, dark, id })
     <path id="bd-${id}" d="${borderD}" fill="none"/>
     <linearGradient id="gr-${id}" x1="0" y1="0" x2="1" y2="0">
       <stop offset="0%"   stop-color="${accent}" stop-opacity="0"/>
-      <stop offset="50%"  stop-color="${accent}" stop-opacity="1"/>
+      <stop offset="50%"  stop-color="${accent}" stop-opacity="0.65"/>
       <stop offset="100%" stop-color="${accent}" stop-opacity="0"/>
     </linearGradient>
     <mask id="mk-${id}" maskUnits="userSpaceOnUse">
-      <use href="#bd-${id}" stroke="#fff" stroke-width="1.4"/>
+      <use href="#bd-${id}" stroke="#fff" stroke-width="1"/>
     </mask>
   </defs>
 

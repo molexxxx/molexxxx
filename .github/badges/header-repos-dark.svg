@@ -3,11 +3,11 @@
     <path id="bd-header-repos-d" d="M 10.5 0.75 H 166.5 A 9.75 9.75 0 0 1 176.25 10.5 V 42.5 A 9.75 9.75 0 0 1 166.5 52.25 H 10.5 A 9.75 9.75 0 0 1 0.75 42.5 V 10.5 A 9.75 9.75 0 0 1 10.5 0.75 Z" fill="none"/>
     <linearGradient id="gr-header-repos-d" x1="0" y1="0" x2="1" y2="0">
       <stop offset="0%"   stop-color="#60a5fa" stop-opacity="0"/>
-      <stop offset="50%"  stop-color="#60a5fa" stop-opacity="1"/>
+      <stop offset="50%"  stop-color="#60a5fa" stop-opacity="0.65"/>
       <stop offset="100%" stop-color="#60a5fa" stop-opacity="0"/>
     </linearGradient>
     <mask id="mk-header-repos-d" maskUnits="userSpaceOnUse">
-      <use href="#bd-header-repos-d" stroke="#fff" stroke-width="1.4"/>
+      <use href="#bd-header-repos-d" stroke="#fff" stroke-width="1"/>
     </mask>
   </defs>
 

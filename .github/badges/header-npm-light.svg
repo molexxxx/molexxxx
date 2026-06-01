@@ -1,13 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="177" height="53" viewBox="0 0 177 53" shape-rendering="geometricPrecision" role="img" aria-label="npm packages: 32">
+<svg xmlns="http://www.w3.org/2000/svg" width="177" height="53" viewBox="0 0 177 53" shape-rendering="geometricPrecision" role="img" aria-label="npm packages: 34">
   <defs>
     <path id="bd-header-npm-l" d="M 10.5 0.75 H 166.5 A 9.75 9.75 0 0 1 176.25 10.5 V 42.5 A 9.75 9.75 0 0 1 166.5 52.25 H 10.5 A 9.75 9.75 0 0 1 0.75 42.5 V 10.5 A 9.75 9.75 0 0 1 10.5 0.75 Z" fill="none"/>
     <linearGradient id="gr-header-npm-l" x1="0" y1="0" x2="1" y2="0">
       <stop offset="0%"   stop-color="#2563eb" stop-opacity="0"/>
-      <stop offset="50%"  stop-color="#2563eb" stop-opacity="1"/>
+      <stop offset="50%"  stop-color="#2563eb" stop-opacity="0.65"/>
       <stop offset="100%" stop-color="#2563eb" stop-opacity="0"/>
     </linearGradient>
     <mask id="mk-header-npm-l" maskUnits="userSpaceOnUse">
-      <use href="#bd-header-npm-l" stroke="#fff" stroke-width="1.4"/>
+      <use href="#bd-header-npm-l" stroke="#fff" stroke-width="1"/>
     </mask>
   </defs>
 
@@ -24,7 +24,7 @@
   </g>
 
   <g font-family="Segoe UI, Inter, -apple-system, BlinkMacSystemFont, sans-serif">
-    <text x="48" y="26" font-size="18" font-weight="800" fill="#0b1220" letter-spacing="-0.3">32</text>
+    <text x="48" y="26" font-size="18" font-weight="800" fill="#0b1220" letter-spacing="-0.3">34</text>
     <text x="48" y="40" font-size="9.5" font-weight="700" fill="#656d76" letter-spacing="1.6">NPM PACKAGES</text>
   </g>
 </svg>

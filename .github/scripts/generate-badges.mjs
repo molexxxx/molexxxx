@@ -93,7 +93,7 @@ const BADGES = [
   { id: 'youtube-downloader-build', repo: 'youtube-downloader', kind: 'workflow', label: 'build', workflow: 'build.yml', branch: 'main', icon: 'github', theme: YTDL_THEME('#ef4444', '#ffffff') },
   { id: 'youtube-downloader-release', repo: 'youtube-downloader', kind: 'release', label: 'release', icon: 'github', theme: YTDL_THEME('#dc2626', '#ffffff') },
   { id: 'youtube-downloader-license', repo: 'youtube-downloader', kind: 'license', label: 'license', icon: 'github', theme: YTDL_THEME('#f87171', '#1a0508') },
-  { id: 'youtube-downloader-downloads', repo: 'youtube-downloader', kind: 'downloads', label: 'downloads', icon: 'github', theme: YTDL_THEME('#b91c1c', '#ffffff') },
+  { id: 'youtube-downloader-downloads', repo: 'youtube-downloader', kind: 'downloads', label: 'downloads', baseline: 320, icon: 'github', theme: YTDL_THEME('#b91c1c', '#ffffff') },
   { id: 'youtube-downloader-last-commit', repo: 'youtube-downloader', kind: 'last-commit', label: 'last commit', icon: 'git', theme: YTDL_THEME('#fca5a5', '#1a0508') },
   { id: 'bladewake-build', repo: 'bladewake-demo', kind: 'release', label: 'build', prerelease: true, icon: 'github', theme: { name: 'game', labelBg: '#0a0510', labelFg: '#22d4f0', messageColor: '#22d4f0', textColor: '#0a0510' } },
   { id: 'bladewake-downloads', repo: 'bladewake-demo', kind: 'downloads', label: 'downloads', icon: 'github', theme: { name: 'game', labelBg: '#0a0510', labelFg: '#22d4f0', messageColor: '#d020e8', textColor: '#ffffff' } },
@@ -259,7 +259,11 @@ async function getValue(b)
   }
   if (b.kind === 'downloads')
   {
-    let total = 0, page = 1;
+    // `baseline` seeds the count with downloads from releases that no longer
+    // exist on GitHub (e.g. a deleted tag whose download_count is gone for
+    // good). It keeps the lifetime total honest across re-tagging.
+    let total = b.baseline ?? 0;
+    let page = 1;
     while (true)
     {
       const list = await gh(`/repos/${OWNER}/${b.repo}/releases?per_page=100&page=${page}`);

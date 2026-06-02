@@ -86,7 +86,9 @@ const BADGES = [
   { id: 'molex-media-ci', repo: 'molex-media-electron', kind: 'workflow', label: 'CI', workflow: 'ci.yml', branch: 'main', icon: 'github', theme: MOLEX_THEME('#7c3aed', '#ffffff') },
   { id: 'molex-media-build', repo: 'molex-media-electron', kind: 'workflow', label: 'build', workflow: 'build.yml', branch: 'main', icon: 'github', theme: MOLEX_THEME('#7c3aed', '#ffffff') },
 
-  // YouTube Downloader (red app theme) — order: CI, build, release, license, downloads
+  // YouTube Downloader (red app theme) — profile order: repo, release, downloads, download, last-commit
+  { id: 'youtube-downloader-repo', kind: 'static-pair', label: 'repo', message: 'visit', icon: 'github', theme: YTDL_THEME('#ef4444', '#ffffff') },
+  { id: 'youtube-downloader-download', kind: 'static-pair', label: 'download', message: 'latest', icon: 'github', theme: YTDL_THEME('#dc2626', '#ffffff') },
   { id: 'youtube-downloader-ci', repo: 'youtube-downloader', kind: 'workflow', label: 'CI', workflow: 'ci.yml', branch: 'main', icon: 'github', theme: YTDL_THEME('#ef4444', '#ffffff') },
   { id: 'youtube-downloader-build', repo: 'youtube-downloader', kind: 'workflow', label: 'build', workflow: 'build.yml', branch: 'main', icon: 'github', theme: YTDL_THEME('#ef4444', '#ffffff') },
   { id: 'youtube-downloader-release', repo: 'youtube-downloader', kind: 'release', label: 'release', icon: 'github', theme: YTDL_THEME('#dc2626', '#ffffff') },

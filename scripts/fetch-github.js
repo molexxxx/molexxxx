@@ -126,7 +126,7 @@ const out = {
       public_repos: user.public_repos,
     }
     : null,
-  totals: { stars: totalStars, repos: allRepos.length, gists: gistsCount, npm: npmCount },
+  totals: { stars: totalStars, repos: user?.public_repos ?? allRepos.length, gists: gistsCount, npm: npmCount },
   repos,
   fetched_at: new Date().toISOString(),
 };

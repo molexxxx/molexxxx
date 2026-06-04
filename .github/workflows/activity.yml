@@ -1,0 +1,44 @@
+name: activity
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 */6 * * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: activity
+  cancel-in-progress: false
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Generate activity graphs
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: node .github/scripts/generate-activity.mjs
+
+      - name: Commit changes
+        run: |
+          git config user.name  "tonywied17"
+          git config user.email "tonywied17@gmail.com"
+          git add .github/badges/activity-contributions-dark.svg \
+                  .github/badges/activity-contributions-light.svg \
+                  .github/badges/activity-stats-dark.svg \
+                  .github/badges/activity-stats-light.svg \
+                  README.md
+          if git diff --staged --quiet; then
+            echo "No activity changes"
+          else
+            git commit -m "chore(activity): refresh"
+            git push
+          fi

@@ -90,7 +90,7 @@ const BADGES = [
   { id: 'youtube-downloader-repo', kind: 'static-pair', label: 'repo', message: 'visit', icon: 'github', theme: YTDL_THEME('#ef4444', '#ffffff') },
   { id: 'youtube-downloader-download', kind: 'static-pair', label: 'download', message: 'latest', icon: 'github', theme: YTDL_THEME('#dc2626', '#ffffff') },
   { id: 'youtube-downloader-ci', repo: 'youtube-downloader', kind: 'workflow', label: 'CI', workflow: 'ci.yml', branch: 'main', icon: 'github', theme: YTDL_THEME('#ef4444', '#ffffff') },
-  { id: 'youtube-downloader-build', repo: 'youtube-downloader', kind: 'workflow', label: 'build', workflow: 'release.yml', branch: 'main', icon: 'github', theme: YTDL_THEME('#ef4444', '#ffffff') },
+  { id: 'youtube-downloader-build', repo: 'youtube-downloader', kind: 'workflow', label: 'build', workflow: 'release.yml', branch: false, icon: 'github', theme: YTDL_THEME('#ef4444', '#ffffff') },
   { id: 'youtube-downloader-release', repo: 'youtube-downloader', kind: 'release', label: 'release', icon: 'github', theme: YTDL_THEME('#dc2626', '#ffffff') },
   { id: 'youtube-downloader-license', repo: 'youtube-downloader', kind: 'license', label: 'license', icon: 'github', theme: YTDL_THEME('#f87171', '#1a0508') },
   { id: 'youtube-downloader-downloads', repo: 'youtube-downloader', kind: 'downloads', label: 'downloads', baseline: 329, icon: 'github', theme: YTDL_THEME('#b91c1c', '#ffffff') },
@@ -282,7 +282,8 @@ async function getValue(b)
   if (b.kind === 'workflow')
   {
     const branch = b.branch ?? 'main';
-    const runs = await gh(`/repos/${OWNER}/${b.repo}/actions/workflows/${b.workflow}/runs?branch=${branch}&per_page=1`);
+    const branchParam = branch ? `&branch=${encodeURIComponent(branch)}` : '';
+    const runs = await gh(`/repos/${OWNER}/${b.repo}/actions/workflows/${b.workflow}/runs?per_page=1${branchParam}`);
     const run = runs.workflow_runs?.[0];
     if (!run) return 'no runs';
     if (run.status !== 'completed') return run.status.replace('_', ' ');

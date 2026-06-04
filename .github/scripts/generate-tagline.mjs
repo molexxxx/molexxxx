@@ -93,9 +93,8 @@ const sepDark = buildSeparator(true);
 const sepLight = buildSeparator(false);
 void sepDark; void sepLight;
 
-const ts = Date.now().toString(36);
 const pics = meta.map(m =>
-  `<picture><source media="(prefers-color-scheme: dark)" srcset="${RAW}/tag-${m.slug}-dark.svg?v=${m.dHash}&t=${ts}"><img height="26" alt="${xml(m.label)}" src="${RAW}/tag-${m.slug}-light.svg?v=${m.lHash}&t=${ts}" /></picture>`
+  `<picture><source media="(prefers-color-scheme: dark)" srcset="${RAW}/tag-${m.slug}-dark.svg?v=${m.dHash}"><img height="26" alt="${xml(m.label)}" src="${RAW}/tag-${m.slug}-light.svg?v=${m.lHash}" /></picture>`
 ).join('\n  ');
 
 const replacement = `<p align="center">\n  ${pics}\n</p>`;

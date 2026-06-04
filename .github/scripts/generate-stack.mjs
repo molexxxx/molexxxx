@@ -327,7 +327,6 @@ const README = resolve(ROOT, 'README.md');
 let md = readFileSync(README, 'utf8');
 
 const RAW = 'https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges';
-const ts = Date.now().toString(36);
 const IMG_W = 415;
 
 const queue = STACK.map(s => s);
@@ -349,7 +348,7 @@ const cardHtml = (s) =>
 {
   const slug = slugify(s.label);
   const { darkHash, lightHash } = generated[slug];
-  return `<picture><source media="(prefers-color-scheme: dark)" srcset="${RAW}/stack-${slug}-dark.svg?v=${darkHash}&t=${ts}"><img alt="${escapeXml(s.label)}" width="${IMG_W}" src="${RAW}/stack-${slug}-light.svg?v=${lightHash}&t=${ts}" /></picture>`;
+  return `<picture><source media="(prefers-color-scheme: dark)" srcset="${RAW}/stack-${slug}-dark.svg?v=${darkHash}"><img alt="${escapeXml(s.label)}" width="${IMG_W}" src="${RAW}/stack-${slug}-light.svg?v=${lightHash}" /></picture>`;
 };
 
 const block = pairs.map(p => p.map(cardHtml).join(' ')).join('<br/>\n  ');

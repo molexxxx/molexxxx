@@ -412,11 +412,10 @@ for (const a of ARTIFACTS)
   console.log(`ok  ${a.id}`);
 }
 
-const ts = Date.now().toString(36);
 const cardImg = (a) =>
 {
   const { darkHash, lightHash } = manifest[a.id];
-  return `<picture><source media="(prefers-color-scheme: dark)" srcset="${RAW}/${a.id}-dark.svg?v=${darkHash}&t=${ts}"><img alt="${escapeXml(a.alt)}" width="${CARD_W}" src="${RAW}/${a.id}-light.svg?v=${lightHash}&t=${ts}" /></picture>`;
+  return `<picture><source media="(prefers-color-scheme: dark)" srcset="${RAW}/${a.id}-dark.svg?v=${darkHash}"><img alt="${escapeXml(a.alt)}" width="${CARD_W}" src="${RAW}/${a.id}-light.svg?v=${lightHash}" /></picture>`;
 };
 
 const block = ARTIFACTS.map(cardImg).join(' ');

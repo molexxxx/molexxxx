@@ -40,5 +40,6 @@ jobs:
             echo "No activity changes"
           else
             git commit -m "chore(activity): refresh"
+            git pull --rebase origin main
             git push
           fi

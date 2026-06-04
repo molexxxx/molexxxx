@@ -56,8 +56,8 @@ jobs:
 
       - name: Commit changes
         run: |
-          git config user.name  "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.name  "tonywied17"
+          git config user.email "tonywied17@gmail.com"
           git add .github/badges README.md
           if git diff --staged --quiet; then
             echo "No badge changes"

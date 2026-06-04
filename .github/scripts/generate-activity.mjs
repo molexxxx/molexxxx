@@ -42,6 +42,19 @@ async function gql(query, variables = {})
   return j.data;
 }
 
+async function rest(p)
+{
+  const r = await fetch(`https://api.github.com${p}`, {
+    headers: {
+      Authorization: `Bearer ${TOKEN}`,
+      'User-Agent': 'tonywied17-activity-gen',
+      Accept: 'application/vnd.github+json',
+    },
+  });
+  if (!r.ok) throw new Error(`${p}: HTTP ${r.status} ${r.statusText}`);
+  return r.json();
+}
+
 const QUERY = `query($login: String!) {
   user(login: $login) {
     createdAt
@@ -54,7 +67,10 @@ const QUERY = `query($login: String!) {
     }
     repositories(first: 100, ownerAffiliations: OWNER, isFork: false) {
       totalCount
-      nodes { stargazerCount }
+      nodes {
+        stargazerCount
+        languages(first: 30) { nodes { name } }
+      }
     }
   }
 }`;
@@ -113,6 +129,12 @@ async function fetchExternalStars()
   return stars;
 }
 const externalStars = await fetchExternalStars();
+const userRest = await rest(`/users/${OWNER}`);
+
+const languageSet = new Set();
+for (const repo of data.repositories.nodes)
+  for (const lang of (repo.languages?.nodes ?? []))
+    languageSet.add(lang.name);
 
 const cal = data.contributionsCollection.contributionCalendar;
 const days = cal.weeks.flatMap(w => w.contributionDays);
@@ -122,7 +144,8 @@ const totalPRs = allTime.prs;
 const totalReviews = allTime.reviews;
 const totalIssues = allTime.issues;
 const totalStars = data.repositories.nodes.reduce((s, n) => s + n.stargazerCount, 0) + externalStars;
-const totalRepos = data.repositories.totalCount;
+const totalRepos = userRest.public_repos;
+const totalLanguages = languageSet.size;
 const followers = data.followers.totalCount;
 const activeDays = days.filter(d => d.contributionCount > 0).length;
 
@@ -308,6 +331,7 @@ function svgStats(dark)
     { label: 'ISSUES',    value: fmtNum(totalIssues) },
     { label: 'STARS',     value: fmtNum(totalStars) },
     { label: 'REPOS',     value: fmtNum(totalRepos) },
+    { label: 'LANGUAGES', value: fmtNum(totalLanguages) },
     { label: 'FOLLOWERS', value: fmtNum(followers) },
   ];
 

@@ -135,29 +135,28 @@
 <section class="block no-print" id="open-source">
   <div class="block-head reveal">
     <span class="eyebrow">03</span>
-    <h2>From GitHub <span class="head-sub">live</span></h2>
+    <h2>Open Source</h2>
   </div>
-  <div class="grid grid-3" id="repos">
-    {{#github.repos}}
-    <a class="card repo reveal" href="{{url}}" target="_blank" rel="noopener">
-      <div class="card-row">
-        {{#icon}}<img class="card-icon" src="{{icon}}" alt="" loading="lazy" data-initial="{{initial}}" onerror="const s=document.createElement('span');s.className='card-icon letter';s.textContent=this.dataset.initial;this.replaceWith(s);" />{{/icon}}
-        {{^icon}}<span class="card-icon letter">{{initial}}</span>{{/icon}}
-        <div class="card-body">
-          <div class="repo-head">
-            <h3>{{name}}</h3>
-            <span class="arrow" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6"/><path d="M10 14L20 4"/><path d="M19 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span>
-          </div>
-          <p class="repo-desc">{{description}}</p>
-          <div class="repo-meta">
-            {{#language}}<span class="tag lang" data-lang="{{language}}"><span class="dot"></span>{{language}}</span>{{/language}}
-            <span class="tag">★ {{stars}}</span>
-            {{#forks}}<span class="tag">⑂ {{forks}}</span>{{/forks}}
-          </div>
-        </div>
+  <div class="os-impact reveal">
+    <div class="os-grid">
+      <div class="os-stat">
+        <span class="os-num">{{github.totals.stars}}</span>
+        <span class="os-lbl">GitHub Stars</span>
       </div>
-    </a>
-    {{/github.repos}}
+      <div class="os-stat">
+        <span class="os-num">{{github.totals.npm}}</span>
+        <span class="os-lbl">npm Packages</span>
+      </div>
+      <div class="os-stat">
+        <span class="os-num">{{github.totals.repos}}</span>
+        <span class="os-lbl">Public Repos</span>
+      </div>
+      <div class="os-stat">
+        <span class="os-num">{{github.totals.gists}}</span>
+        <span class="os-lbl">Gists</span>
+      </div>
+    </div>
+    {{#github.user.html_url}}<a class="os-cta link-arrow" href="{{github.user.html_url}}" target="_blank" rel="noopener">Browse all on GitHub<span class="btn-arrow sm" aria-hidden="true"><span class="btn-arrow-line"></span><svg class="btn-arrow-tip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 5 16 12 9 19"/></svg></span></a>{{/github.user.html_url}}
   </div>
 </section>
 {{/github.repos.length}}
@@ -210,6 +209,10 @@
 </footer>
 
 </main>
+
+<button class="to-top no-print" id="to-top" aria-label="Back to top">
+  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
 
 <script src="resume.js" defer></script>
 </body>

@@ -5,8 +5,7 @@ on:
     branches: [main]
   workflow_dispatch:
   schedule:
-    # Refresh GitHub data weekly so stats / pinned repos stay current.
-    - cron: '0 6 * * 1'
+    - cron: '0 */2 * * *'
 
 permissions:
   contents: read

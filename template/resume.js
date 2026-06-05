@@ -1,7 +1,3 @@
-/* -------------------------------------------------------------------------- */
-/*                                Theme toggle                                */
-/* -------------------------------------------------------------------------- */
-
 const root = document.documentElement;
 const THEME_STORAGE_KEY = 'resume-theme';
 const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
@@ -15,10 +11,6 @@ document.getElementById('theme-toggle')?.addEventListener('click', () =>
   localStorage.setItem(THEME_STORAGE_KEY, next);
 });
 
-/* -------------------------------------------------------------------------- */
-/*                              Mobile nav drawer                             */
-/* -------------------------------------------------------------------------- */
-
 (() =>
 {
   const nav = document.querySelector('.nav');
@@ -27,13 +19,6 @@ document.getElementById('theme-toggle')?.addEventListener('click', () =>
   const links = document.getElementById('nav-links');
   if (!nav || !toggle || !links) return;
 
-  /**
-   * Toggle the mobile navigation drawer open/closed and sync the related
-   * accessibility attributes and body scroll lock.
-   *
-   * @param {boolean} open True to open the drawer, false to close it.
-   * @returns {void}
-   */
   const setOpen = (open) =>
   {
     nav.classList.toggle('is-open', open);
@@ -43,10 +28,7 @@ document.getElementById('theme-toggle')?.addEventListener('click', () =>
   };
   toggle.addEventListener('click', () => setOpen(!nav.classList.contains('is-open')));
   scrim?.addEventListener('click', () => setOpen(false));
-  links.addEventListener('click', (e) =>
-  {
-    if (e.target.closest('a')) setOpen(false);
-  });
+  links.addEventListener('click', (e) => { if (e.target.closest('a')) setOpen(false); });
   document.addEventListener('keydown', (e) =>
   {
     if (e.key === 'Escape' && nav.classList.contains('is-open')) setOpen(false);
@@ -55,16 +37,19 @@ document.getElementById('theme-toggle')?.addEventListener('click', () =>
   mq.addEventListener?.('change', (e) => { if (e.matches) setOpen(false); });
 })();
 
-/* -------------------------------------------------------------------------- */
-/*                              Footer year stamp                             */
-/* -------------------------------------------------------------------------- */
-
 const yearEl = document.getElementById('year');
 if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-/* -------------------------------------------------------------------------- */
-/*                          Reveal-on-scroll observer                         */
-/* -------------------------------------------------------------------------- */
+(() =>
+{
+  const btn = document.getElementById('to-top');
+  if (!btn) return;
+  window.addEventListener('scroll', () =>
+  {
+    btn.classList.toggle('is-visible', window.scrollY > 320);
+  }, { passive: true });
+  btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+})();
 
 const revealObserver = new IntersectionObserver(
   (entries) =>
@@ -82,186 +67,70 @@ const revealObserver = new IntersectionObserver(
 );
 document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el));
 
-/* -------------------------------------------------------------------------- */
-/*                          GitHub repo grid (client)                         */
-/* -------------------------------------------------------------------------- */
+const GH_STATS_KEY = 'resume-gh-stats-v1';
+const GH_STATS_TTL = 2 * 60 * 60 * 1000;
 
-const GH_CACHE_KEY = 'resume-gh-cache-v2';
-const GH_CACHE_TTL_MS = 30 * 60 * 1000;
-
-const ICON_MAP = {
-  'zero-query': 'https://raw.githubusercontent.com/tonywied17/zero-query/main/.github/images/logo-animated.svg',
-  'zero-server': 'https://raw.githubusercontent.com/tonywied17/zero-server/main/website-docs/public/icons/logo-animated.svg',
-  'zero-transfer': 'https://tonywied17.github.io/zero-transfer/assets/zero-transfer-logo.svg',
-  'molex-media-electron': 'https://raw.githubusercontent.com/tonywied17/molex-media-electron/main/.github/assets/logo.svg',
-  'bladewake-demo': 'https://raw.githubusercontent.com/tonywied17/bladewake-demo/main/assets/bladewake_icon.svg',
-  'MagnifyShit-cpp': 'https://raw.githubusercontent.com/tonywied17/MagnifyShit-cpp/main/.github/assets/icon.svg',
-};
-
-const EXCLUDE = new Set(['ng-juwanji']);
-const INCLUDE_FORKS = ['plex-poster-set-helper'];
-
-/**
- * Read the cached GitHub repo payload from `localStorage` if it is still
- * within the configured TTL window.
- *
- * @returns {Array<object>|null} Cached repo list, or `null` when missing,
- *   malformed, or expired.
- */
-function readCache()
-{
-  try
-  {
-    const raw = localStorage.getItem(GH_CACHE_KEY);
-    if (!raw) return null;
-    const entry = JSON.parse(raw);
-    if (!entry || typeof entry.t !== 'number' || !Array.isArray(entry.data)) return null;
-    if (Date.now() - entry.t > GH_CACHE_TTL_MS) return null;
-    return entry.data;
-  } catch { return null; }
-}
-
-/**
- * Persist a fetched GitHub repo payload to `localStorage` with the current
- * timestamp. Silently no-ops if storage is unavailable.
- *
- * @param {Array<object>} data Repo objects as returned by the GitHub API.
- * @returns {void}
- */
-function writeCache(data)
-{
-  try { localStorage.setItem(GH_CACHE_KEY, JSON.stringify({ t: Date.now(), data })); } catch { }
-}
-
-/**
- * Fetch the user's public repos from the GitHub API, merging in any forks
- * configured in {@link INCLUDE_FORKS} with upstream star/fork counts. Returns
- * the cached payload when available to avoid hitting the unauthenticated
- * 60-req/hr rate limit.
- *
- * @returns {Promise<{repos: Array<object>, fromCache: boolean}>} The repo
- *   list and a flag indicating whether it came from the local cache.
- * @throws {Error} If the live GitHub request fails and no cache is available.
- */
-async function fetchRepos()
-{
-  const cached = readCache();
-  if (cached) return { repos: cached, fromCache: true };
-  const headers = { Accept: 'application/vnd.github+json' };
-  const [listRes, ...forkRes] = await Promise.all([
-    fetch('https://api.github.com/users/tonywied17/repos?per_page=100&sort=pushed&type=owner', { headers }),
-    ...INCLUDE_FORKS.map((n) => fetch(`https://api.github.com/repos/tonywied17/${n}`, { headers })),
-  ]);
-  if (!listRes.ok) throw new Error(`gh ${listRes.status}`);
-  const all = await listRes.json();
-  const forks = (await Promise.all(forkRes.map(async (r) =>
-  {
-    if (!r.ok) return null;
-    const d = await r.json();
-    const src = d.source ?? d.parent;
-    return {
-      ...d,
-      stargazers_count: src?.stargazers_count ?? d.stargazers_count,
-      forks_count: src?.forks_count ?? d.forks_count,
-      fork: false,
-    };
-  }))).filter(Boolean);
-  const merged = [...all.filter((r) => !EXCLUDE.has(r.name)), ...forks];
-  writeCache(merged);
-  return { repos: merged, fromCache: false };
-}
-
-/**
- * Populate the `#repos` grid with the current top repos by stars (then most
- * recently pushed) and refresh the `Repos` / `Stars` stat counters. Fails
- * silently when offline or rate-limited so the build-time markup remains.
- *
- * @returns {Promise<void>}
- */
-async function refreshRepos()
-{
-  const grid = document.getElementById('repos');
-  if (!grid) return;
-  try
-  {
-    const { repos: all } = await fetchRepos();
-    const repos = all
-      .filter((r) => !r.fork && !r.archived && !EXCLUDE.has(r.name))
-      .sort((a, b) => (b.stargazers_count - a.stargazers_count) || (Date.parse(b.pushed_at) - Date.parse(a.pushed_at)))
-      .slice(0, 9);
-    grid.innerHTML = repos.map(repoCard).join('');
-    grid.querySelectorAll('.reveal').forEach((el) => el.classList.add('in'));
-
-    const stars = all.reduce((s, r) => s + (r.fork ? 0 : r.stargazers_count), 0);
-    setStat('Stars', stars);
-    setStat('Repos', all.length);
-  } catch { /* offline / rate-limited - keep build-time content */ }
-}
-
-/**
- * Render a single repo as an anchor card matching the build-time markup.
- * All interpolated values are HTML-escaped.
- *
- * @param {object} r GitHub repo object.
- * @returns {string} HTML string for one repo card.
- */
-function repoCard(r)
-{
-  const esc = (s) => (s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-  const initial = (r.name || '?').charAt(0).toUpperCase();
-  const icon = ICON_MAP[r.name];
-  const iconEl = icon
-    ? `<img class="card-icon" src="${esc(icon)}" alt="" loading="lazy" data-initial="${esc(initial)}" onerror="const s=document.createElement('span');s.className='card-icon letter';s.textContent=this.dataset.initial;this.replaceWith(s);" />`
-    : `<span class="card-icon letter">${esc(initial)}</span>`;
-  return `<a class="card repo reveal in" href="${esc(r.html_url)}" target="_blank" rel="noopener">
-    <div class="card-row">
-      ${iconEl}
-      <div class="card-body">
-        <div class="repo-head"><h3>${esc(r.name)}</h3><span class="arrow" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6"/><path d="M10 14L20 4"/><path d="M19 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></span></div>
-        <p class="repo-desc">${esc(r.description ?? '')}</p>
-        <div class="repo-meta">
-          ${r.language ? `<span class="tag lang" data-lang="${esc(r.language)}"><span class="dot"></span>${esc(r.language)}</span>` : ''}
-          <span class="tag">★ ${r.stargazers_count}</span>
-          ${r.forks_count ? `<span class="tag">⑂ ${r.forks_count}</span>` : ''}
-        </div>
-      </div>
-    </div>
-  </a>`;
-}
-
-/**
- * Update the numeric value on the hero stat whose label matches `label`
- * (case-insensitive). No-ops if no matching stat is present.
- *
- * @param {string} label Stat label text, e.g. `'Stars'` or `'Repos'`.
- * @param {number|string} value Value to display.
- * @returns {void}
- */
 function setStat(label, value)
 {
-  for (const stat of document.querySelectorAll('.stat'))
+  for (const el of document.querySelectorAll('.stat'))
   {
-    const labelEl = stat.querySelector('.lbl');
-    if (labelEl?.textContent?.trim().toLowerCase() === label.toLowerCase())
+    const lbl = el.querySelector('.lbl');
+    if (lbl?.textContent?.trim().toLowerCase() === label.toLowerCase())
     {
-      const numEl = stat.querySelector('.num');
-      if (numEl) numEl.textContent = String(value);
+      const num = el.querySelector('.num');
+      if (num) num.textContent = String(value);
     }
   }
 }
 
-refreshRepos();
+function setOsStat(label, value)
+{
+  for (const el of document.querySelectorAll('.os-stat'))
+  {
+    const lbl = el.querySelector('.os-lbl');
+    if (lbl?.textContent?.trim() === label)
+    {
+      const num = el.querySelector('.os-num');
+      if (num) num.textContent = String(value);
+    }
+  }
+}
 
-/* -------------------------------------------------------------------------- */
-/*                Background canvas FX + custom DOM cursor                    */
-/* -------------------------------------------------------------------------- */
+async function refreshStats()
+{
+  try
+  {
+    let data = null;
+    try
+    {
+      const cached = JSON.parse(localStorage.getItem(GH_STATS_KEY) ?? 'null');
+      if (cached?.t && Date.now() - cached.t < GH_STATS_TTL) data = cached;
+    } catch { }
 
-/**
- * Self-invoking module that owns the full-viewport background canvas:
- * parallax starfield, drifting nebula washes, occasional comets, hovered-card
- * embers, cursor spark trail, and the synthetic DOM cursor (with comet-hit
- * shatter/reform). Bails out entirely when the user prefers reduced motion.
- */
+    if (!data)
+    {
+      const res = await fetch('./github.json');
+      if (!res.ok) return;
+      const json = await res.json();
+      data = { t: Date.now(), ...json };
+      try { localStorage.setItem(GH_STATS_KEY, JSON.stringify(data)); } catch { }
+    }
+
+    if (data.totals)
+    {
+      setStat('Stars', data.totals.stars);
+      setStat('Repos', data.totals.repos);
+      setOsStat('GitHub Stars', data.totals.stars);
+      setOsStat('npm Packages', data.totals.npm);
+      setOsStat('Public Repos', data.totals.repos);
+      setOsStat('Gists', data.totals.gists);
+    }
+    if (data.user?.followers != null) setStat('Followers', data.user.followers);
+  } catch { }
+}
+
+refreshStats();
+
 (function bgFx()
 {
   const canvas = document.getElementById('bg-fx');
@@ -310,16 +179,7 @@ refreshRepos();
     window.addEventListener('blur', () => cur.classList.remove('is-down'));
     document.addEventListener('mouseleave', () => cur.classList.remove('is-visible'));
   }
-  /**
-   * Trigger the cursor shatter animation: emit a radial ember burst from the
-   * cursor's current position and toggle the `is-exploding` class on the
-   * cursor element. A timer auto-clears the class so the cursor reforms even
-   * if the pointer never moves.
-   *
-   * @param {[number, number, number]} accent  Primary accent color as RGB.
-   * @param {[number, number, number]} accent2 Secondary accent color as RGB.
-   * @returns {void}
-   */
+
   function explodeCursor(accent, accent2)
   {
     if (!cur || cursorExploding) return;
@@ -348,26 +208,12 @@ refreshRepos();
     }, 420);
   }
 
-  /**
-   * Read a CSS custom property from the document root, falling back to a
-   * default when it is unset.
-   *
-   * @param {string} name     CSS variable name, including the leading `--`.
-   * @param {string} fallback Value to return when the property is empty.
-   * @returns {string} The computed value or the fallback.
-   */
   function readVar(name, fallback)
   {
     const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
     return v || fallback;
   }
 
-  /**
-   * Parse a 6-digit hex color into an `[r, g, b]` tuple.
-   *
-   * @param {string} hex Hex color string, with or without a leading `#`.
-   * @returns {[number, number, number]} RGB channels in 0–255.
-   */
   function hexToRgb(hex)
   {
     const m = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
@@ -375,26 +221,9 @@ refreshRepos();
     return [parseInt(m[1], 16), parseInt(m[2], 16), parseInt(m[3], 16)];
   }
 
-  /**
-   * Uniformly distributed random float in `[a, b)`.
-   *
-   * @param {number} a Inclusive lower bound.
-   * @param {number} b Exclusive upper bound.
-   * @returns {number}
-   */
   const rand = (a, b) => a + Math.random() * (b - a);
-
-  /**
-   * @returns {boolean} `true` when the document is currently in light theme.
-   */
   const isLight = () => document.documentElement.getAttribute('data-theme') === 'light';
 
-  /**
-   * Re-measure the viewport, resize the canvas for the current DPR, and
-   * re-seed the starfield and nebulae to fit the new dimensions.
-   *
-   * @returns {void}
-   */
   function resize()
   {
     DPR = Math.min(window.devicePixelRatio || 1, 2);
@@ -408,12 +237,6 @@ refreshRepos();
     seed();
   }
 
-  /**
-   * Populate the star and nebula arrays based on the current viewport size.
-   * Star count scales gently with viewport area within a sensible floor/ceiling.
-   *
-   * @returns {void}
-   */
   function seed()
   {
     const area = w * h;
@@ -442,8 +265,7 @@ refreshRepos();
     }
 
     nebulae = [];
-    const blobCount = 2;
-    for (let i = 0; i < blobCount; i++)
+    for (let i = 0; i < 2; i++)
     {
       nebulae.push({
         x: Math.random() * w,
@@ -457,22 +279,36 @@ refreshRepos();
   }
 
   window.addEventListener('resize', resize);
-  window.addEventListener('mousemove', (e) =>
-  {
-    mouse.x = e.clientX; mouse.y = e.clientY; mouse.active = true;
-  });
+  window.addEventListener('mousemove', (e) => { mouse.x = e.clientX; mouse.y = e.clientY; mouse.active = true; });
   window.addEventListener('mouseleave', () => { mouse.active = false; });
 
-  const HOVER_SEL = '.card, .hero-card';
+  const HOVER_TYPES = [
+    { type: 'heroCard', sel: '.hero-card' },
+    { type: 'card',     sel: '.card:not(.hero-card)' },
+    { type: 'stat',     sel: '.os-stat' },
+  ];
+
+  function classifyTarget(target)
+  {
+    for (const { type, sel } of HOVER_TYPES)
+    {
+      const el = target?.closest?.(sel);
+      if (el) return { type, el };
+    }
+    return null;
+  }
+
+  let hoverStartTime = 0;
   document.addEventListener('pointerover', (e) =>
   {
-    const el = e.target.closest?.(HOVER_SEL);
-    if (el) hoveredCard = el;
+    const next = classifyTarget(e.target);
+    if (next?.el !== hoveredCard?.el) hoverStartTime = performance.now() * 0.001;
+    hoveredCard = next;
   });
   document.addEventListener('pointerout', (e) =>
   {
-    const el = e.target.closest?.(HOVER_SEL);
-    if (el && el === hoveredCard) hoveredCard = null;
+    const c = classifyTarget(e.target);
+    if (c && c.el === hoveredCard?.el) hoveredCard = null;
   });
 
   const rings = [];
@@ -484,15 +320,6 @@ refreshRepos();
     rings.push({ x: e.clientX, y: e.clientY, life: 0, ttl: 55 });
   });
 
-  /**
-   * Emit a short cursor-trail of upward-drifting sparks plus an occasional
-   * ambient pulse ring. Throttled to skip emission when the pointer has been
-   * idle so the field stays calm while reading.
-   *
-   * @param {[number, number, number]} accent  Primary accent RGB.
-   * @param {[number, number, number]} accent2 Secondary accent RGB.
-   * @returns {void}
-   */
   function emitCursorSparks(accent, accent2)
   {
     if (!mouse.active) return;
@@ -521,15 +348,7 @@ refreshRepos();
       });
     }
   }
-  /**
-   * Advance and render all active expanding rings, removing any that have
-   * exceeded their TTL.
-   *
-   * @param {[number, number, number]} accent Stroke color as RGB.
-   * @param {boolean} light Whether the page is in light theme; controls
-   *   compositing and alpha levels.
-   * @returns {void}
-   */
+
   function drawRings(accent, light)
   {
     if (!rings.length) return;
@@ -552,65 +371,35 @@ refreshRepos();
     ctx.restore();
   }
 
-  /**
-   * Spawn 0–1 ember particles from a random side of the given rectangle.
-   * Small rectangles emit less often than large ones.
-   *
-   * @param {DOMRect} rect Bounding rect of the hovered element.
-   * @param {[number, number, number]} accent Ember color as RGB.
-   * @returns {void}
-   */
   function emitEmbers(rect, accent)
   {
     const small = rect.width < 180 || rect.height < 60;
-    const n = small
-      ? (Math.random() < 0.25 ? 1 : 0)
-      : (Math.random() < 0.55 ? 1 : 0);
+    const n = small ? (Math.random() < 0.25 ? 1 : 0) : (Math.random() < 0.55 ? 1 : 0);
     for (let i = 0; i < n; i++)
     {
       const side = Math.floor(Math.random() * 4);
       let x, y, vx, vy;
-      if (side === 0) { x = rect.left + Math.random() * rect.width; y = rect.top; vy = -rand(0.3, 0.9); vx = rand(-0.3, 0.3); }
-      else if (side === 1) { x = rect.right; y = rect.top + Math.random() * rect.height; vx = rand(0.3, 0.9); vy = rand(-0.3, 0.3); }
-      else if (side === 2) { x = rect.left + Math.random() * rect.width; y = rect.bottom; vy = rand(0.3, 0.9); vx = rand(-0.3, 0.3); }
-      else { x = rect.left; y = rect.top + Math.random() * rect.height; vx = -rand(0.3, 0.9); vy = rand(-0.3, 0.3); }
-      embers.push({
-        x, y, vx, vy,
-        life: 0,
-        ttl: rand(60, 110),
-        r: rand(1.0, 2.2),
-        rgb: accent,
-      });
+      if (side === 0)      { x = rect.left + Math.random() * rect.width;  y = rect.top;    vy = -rand(0.3, 0.9); vx = rand(-0.3, 0.3); }
+      else if (side === 1) { x = rect.right;  y = rect.top + Math.random() * rect.height;  vx = rand(0.3, 0.9);  vy = rand(-0.3, 0.3); }
+      else if (side === 2) { x = rect.left + Math.random() * rect.width;  y = rect.bottom; vy = rand(0.3, 0.9);  vx = rand(-0.3, 0.3); }
+      else                 { x = rect.left;   y = rect.top + Math.random() * rect.height;  vx = -rand(0.3, 0.9); vy = rand(-0.3, 0.3); }
+      embers.push({ x, y, vx, vy, life: 0, ttl: rand(60, 110), r: rand(1.0, 2.2), rgb: accent });
     }
   }
 
-  /**
-   * Draw the hero card's hover treatment: a soft halo ellipse plus two
-   * satellites orbiting in opposition.
-   *
-   * @param {DOMRect} rect The hero card's bounding rect.
-   * @param {[number, number, number]} accent  Primary accent RGB.
-   * @param {[number, number, number]} accent2 Secondary accent RGB.
-   * @param {boolean} light Whether the page is in light theme.
-   * @param {number} now Animation clock in seconds.
-   * @returns {void}
-   */
   function drawHeroOrbit(rect, accent, accent2, light, now)
   {
     const cx = rect.left + rect.width / 2;
     const cy = rect.top + rect.height / 2;
     const rx = rect.width / 2 + 14;
     const ry = rect.height / 2 + 14;
-
     ctx.save();
     ctx.globalCompositeOperation = light ? 'source-over' : 'lighter';
-    const ringAlpha = light ? 0.10 : 0.18;
-    ctx.strokeStyle = `rgba(${accent[0]},${accent[1]},${accent[2]},${ringAlpha})`;
+    ctx.strokeStyle = `rgba(${accent[0]},${accent[1]},${accent[2]},${light ? 0.10 : 0.18})`;
     ctx.lineWidth = 1;
     ctx.beginPath();
     ctx.ellipse(cx, cy, rx, ry, 0, 0, Math.PI * 2);
     ctx.stroke();
-
     for (let i = 0; i < 2; i++)
     {
       const theta = now * 0.35 + i * Math.PI;
@@ -628,11 +417,60 @@ refreshRepos();
     ctx.restore();
   }
 
-  /**
-   * With low probability per frame, spawn a comet that crosses the viewport.
-   *
-   * @returns {void}
-   */
+  function drawCardBorderTrace(rect, accent, accent2, light, now)
+  {
+    const W = rect.width, H = rect.height;
+    const perim = 2 * (W + H);
+    const speed = perim * 0.28;
+    ctx.save();
+    ctx.globalCompositeOperation = light ? 'source-over' : 'lighter';
+    for (let d = 0; d < 2; d++)
+    {
+      const pos = ((now * speed + d * perim * 0.5) % perim + perim) % perim;
+      let px, py;
+      if (pos < W)            { px = rect.left + pos;              py = rect.top; }
+      else if (pos < W + H)   { px = rect.right;                   py = rect.top + (pos - W); }
+      else if (pos < 2*W + H) { px = rect.right - (pos - W - H);  py = rect.bottom; }
+      else                    { px = rect.left;                    py = rect.bottom - (pos - 2*W - H); }
+      const rgb = d === 0 ? accent : accent2;
+      const halo = ctx.createRadialGradient(px, py, 0, px, py, 14);
+      halo.addColorStop(0, `rgba(${rgb[0]},${rgb[1]},${rgb[2]},${light ? 0.5 : 0.7})`);
+      halo.addColorStop(1, `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0)`);
+      ctx.fillStyle = halo;
+      ctx.beginPath(); ctx.arc(px, py, 14, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = `rgba(255,255,255,${light ? 0.85 : 1.0})`;
+      ctx.beginPath(); ctx.arc(px, py, 1.8, 0, Math.PI * 2); ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  function drawStatOrbit(rect, accent, accent2, light, now)
+  {
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    const r = Math.min(rect.width, rect.height) * 0.40;
+    ctx.save();
+    ctx.globalCompositeOperation = light ? 'source-over' : 'lighter';
+    ctx.strokeStyle = `rgba(${accent[0]},${accent[1]},${accent[2]},${light ? 0.10 : 0.18})`;
+    ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.stroke();
+    for (let i = 0; i < 2; i++)
+    {
+      const theta = now * 1.8 + i * Math.PI;
+      const sx = cx + Math.cos(theta) * r;
+      const sy = cy + Math.sin(theta) * r;
+      const rgb = i === 0 ? accent : accent2;
+      const halo = ctx.createRadialGradient(sx, sy, 0, sx, sy, 11);
+      halo.addColorStop(0, `rgba(${rgb[0]},${rgb[1]},${rgb[2]},${light ? 0.45 : 0.65})`);
+      halo.addColorStop(1, `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0)`);
+      ctx.fillStyle = halo;
+      ctx.beginPath(); ctx.arc(sx, sy, 11, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = `rgba(255,255,255,${light ? 0.75 : 0.95})`;
+      ctx.beginPath(); ctx.arc(sx, sy, 1.5, 0, Math.PI * 2); ctx.fill();
+    }
+    ctx.restore();
+  }
+
   function maybeSpawnComet()
   {
     if (Math.random() > 0.004) return;
@@ -649,14 +487,6 @@ refreshRepos();
 
   resize();
 
-  /**
-   * Main render loop. Composites the background layers in z-order:
-   * nebulae, parallax stars (with cursor-lens bend), comets, hovered-card
-   * embers/orbit, cursor sparks, rings, and finally the ember particles
-   * themselves. Schedules itself via `requestAnimationFrame`.
-   *
-   * @returns {void}
-   */
   function tick()
   {
     const accentHex = readVar('--accent', '#3b82f6');
@@ -745,17 +575,16 @@ refreshRepos();
       if (c.life > c.ttl || headX < -60 || headX > w + 60) comets.splice(i, 1);
     }
 
-    if (hoveredCard && document.contains(hoveredCard))
+    if (hoveredCard && document.contains(hoveredCard.el))
     {
-      const r = hoveredCard.getBoundingClientRect();
+      const r = hoveredCard.el.getBoundingClientRect();
       if (r.bottom > 0 && r.top < h)
       {
-        if (hoveredCard.classList.contains('hero-card'))
+        switch (hoveredCard.type)
         {
-          drawHeroOrbit(r, accent, accent2, light, now);
-        } else
-        {
-          emitEmbers(r, accent);
+          case 'heroCard': drawHeroOrbit(r, accent, accent2, light, now); break;
+          case 'card':     drawCardBorderTrace(r, accent, accent2, light, now); emitEmbers(r, accent); break;
+          case 'stat':     drawStatOrbit(r, accent, accent2, light, now); break;
         }
       }
     }
@@ -773,13 +602,11 @@ refreshRepos();
       if (t >= 1) { embers.splice(i, 1); continue; }
       const a = (1 - t) * 0.9;
       const rgb = e.rgb;
-      // Glow halo
       const halo = ctx.createRadialGradient(e.x, e.y, 0, e.x, e.y, e.r * 6);
       halo.addColorStop(0, `rgba(${rgb[0]},${rgb[1]},${rgb[2]},${(a * 0.45).toFixed(3)})`);
       halo.addColorStop(1, `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0)`);
       ctx.fillStyle = halo;
       ctx.beginPath(); ctx.arc(e.x, e.y, e.r * 6, 0, Math.PI * 2); ctx.fill();
-      // Core
       ctx.fillStyle = `rgba(255,255,255,${a.toFixed(3)})`;
       ctx.beginPath(); ctx.arc(e.x, e.y, e.r, 0, Math.PI * 2); ctx.fill();
     }

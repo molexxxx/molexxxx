@@ -90,6 +90,12 @@
       "blurb": "Cross-platform Electron media toolkit powered by FFmpeg - batch normalize/convert/compress, NLE timeline editor, and a player with real-time audio visualizations."
     },
     {
+      "name": "youtube-downloader",
+      "url": "https://github.com/tonywied17/youtube-downloader",
+      "icon": "https://raw.githubusercontent.com/tonywied17/youtube-downloader/main/.github/assets/icon.svg",
+      "blurb": "Fast, modern desktop downloader for YouTube - powered by yt-dlp & FFmpeg."
+    },
+    {
       "name": "Bladewake",
       "url": "https://github.com/tonywied17/bladewake-demo",
       "icon": "https://raw.githubusercontent.com/tonywied17/bladewake-demo/main/assets/bladewake_icon.svg",

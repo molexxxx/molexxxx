@@ -103,6 +103,13 @@ const BADGES = [
   { id: 'magnifyshit-release', repo: 'MagnifyShit-cpp', kind: 'release', label: 'release', icon: 'github', theme: MAGNIFY_THEME('#8b4513', '#f5deb3') },
   { id: 'magnifyshit-downloads', repo: 'MagnifyShit-cpp', kind: 'downloads', label: 'downloads', icon: 'github', theme: MAGNIFY_THEME('#a0522d', '#fff8dc') },
   { id: 'magnifyshit-last-commit', repo: 'MagnifyShit-cpp', kind: 'last-commit', label: 'last commit', icon: 'git', theme: MAGNIFY_THEME('#5a3a22', '#d4a574') },
+
+  // Plex Poster Set Helper (Plex amber/orange theme) - Electron app
+  { id: 'plex-poster-helper-repo', kind: 'static-pair', label: 'repo', message: 'visit', icon: 'github', theme: PLEX_THEME('#e5a00d', '#1a1205') },
+  { id: 'plex-poster-helper-docker', kind: 'static-pair', label: 'docker', message: 'guide', icon: 'book', theme: PLEX_THEME('#cc7b19', '#ffffff') },
+  { id: 'plex-poster-helper-ci', repo: 'plex-poster-set-helper', kind: 'workflow', label: 'CI', workflow: 'ci.yml', branch: 'main', icon: 'github', theme: PLEX_THEME('#e5a00d', '#1a1205') },
+  { id: 'plex-poster-helper-license', repo: 'plex-poster-set-helper', kind: 'license', label: 'license', icon: 'github', theme: PLEX_THEME('#f0b429', '#1a1205') },
+  { id: 'plex-poster-helper-last-commit', repo: 'plex-poster-set-helper', kind: 'last-commit', label: 'last commit', icon: 'git', theme: PLEX_THEME('#c4880a', '#ffffff') },
 ];
 
 // Molex Media app palette
@@ -139,6 +146,12 @@ function ZTRANSFER_THEME(messageColor, textColor)
 function MAGNIFY_THEME(messageColor, textColor)
 {
   return { name: 'magnify', labelBg: '#3a2418', labelFg: '#d4a574', messageColor, textColor };
+}
+
+// Plex Poster Set Helper palette (Plex amber/orange)
+function PLEX_THEME(messageColor, textColor)
+{
+  return { name: 'plex', labelBg: '#1a1205', labelFg: '#e5a00d', messageColor, textColor };
 }
 
 async function gh(p)

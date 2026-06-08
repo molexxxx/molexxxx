@@ -96,6 +96,12 @@
       "blurb": "Fast, modern desktop downloader for YouTube - powered by yt-dlp & FFmpeg."
     },
     {
+      "name": "plex-poster-set-helper",
+      "url": "https://github.com/tonywied17/plex-poster-set-helper",
+      "icon": "https://raw.githubusercontent.com/tonywied17/plex-poster-set-helper/refs/heads/main/.github/assets/logo.svg",
+      "blurb": "A tool to help upload sets of posters from ThePosterDB and MediUX to your Plex server in seconds!"
+    },
+    {
       "name": "Bladewake",
       "url": "https://github.com/tonywied17/bladewake-demo",
       "icon": "https://raw.githubusercontent.com/tonywied17/bladewake-demo/main/assets/bladewake_icon.svg",
@@ -109,13 +115,6 @@
     }
   ],
   "education": [
-    {
-      "school": "Wilmington University",
-      "location": "New Castle, DE",
-      "degree": "Bachelor of Science, Computer Science",
-      "start": "2023",
-      "end": "Present"
-    },
     {
       "school": "Pennsylvania Institute of Technology",
       "location": "Media, PA",

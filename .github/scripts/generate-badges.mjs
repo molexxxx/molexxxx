@@ -108,6 +108,7 @@ const BADGES = [
   { id: 'plex-poster-helper-repo', kind: 'static-pair', label: 'repo', message: 'visit', icon: 'github', theme: PLEX_THEME('#e5a00d', '#1a1205') },
   { id: 'plex-poster-helper-docker', kind: 'static-pair', label: 'docker', message: 'guide', icon: 'book', theme: PLEX_THEME('#cc7b19', '#ffffff') },
   { id: 'plex-poster-helper-ci', repo: 'plex-poster-set-helper', kind: 'workflow', label: 'CI', workflow: 'ci.yml', branch: 'main', icon: 'github', theme: PLEX_THEME('#e5a00d', '#1a1205') },
+  { id: 'plex-poster-helper-build', repo: 'plex-poster-set-helper', kind: 'workflow', label: 'build', workflow: 'build.yml', branch: false, icon: 'github', theme: PLEX_THEME('#c4880a', '#1a1205') },
   { id: 'plex-poster-helper-license', repo: 'plex-poster-set-helper', kind: 'license', label: 'license', icon: 'github', theme: PLEX_THEME('#f0b429', '#1a1205') },
   { id: 'plex-poster-helper-last-commit', repo: 'plex-poster-set-helper', kind: 'last-commit', label: 'last commit', icon: 'git', theme: PLEX_THEME('#c4880a', '#ffffff') },
   { id: 'plex-poster-helper-release', repo: 'plex-poster-set-helper', kind: 'release', label: 'release', icon: 'github', theme: PLEX_THEME('#e5a00d', '#1a1205') },

@@ -49,7 +49,7 @@
   </tr>
   <tr>
     <td width="160" align="center" valign="middle">
-      <a href="https://github.com/tonywied17/zero-transfer"><img src="https://tonywied17.github.io/zero-transfer/assets/zero-transfer-logo.svg" width="120" alt="zero-transfer" /></a>
+      <a href="https://github.com/tonywied17/zero-transfer"><img src="https://raw.githubusercontent.com/tonywied17/zero-transfer/main/assets/zero-transfer-icon.svg" width="120" alt="zero-transfer" /></a>
     </td>
     <td valign="middle">
       <h4><a href="https://github.com/tonywied17/zero-transfer">zero-transfer</a></h4>

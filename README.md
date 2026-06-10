@@ -61,7 +61,7 @@
   </tr>
   <tr>
     <td width="160" align="center" valign="middle">
-      <a href="https://github.com/tonywied17/molex-media-electron"><img src="https://raw.githubusercontent.com/tonywied17/molex-media-electron/main/.github/assets/logo.svg" width="120" alt="molex-media" /></a>
+      <a href="https://github.com/tonywied17/molex-media-electron"><img src="https://raw.githubusercontent.com/tonywied17/molex-media-electron/main/.github/assets/icon.svg" width="120" alt="molex-media" /></a>
     </td>
     <td valign="middle">
       <h4><a href="https://github.com/tonywied17/molex-media-electron">molex-media</a></h4>

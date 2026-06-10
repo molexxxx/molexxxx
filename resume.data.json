@@ -80,13 +80,13 @@
     {
       "name": "zero-transfer",
       "url": "https://tonywied17.github.io/zero-transfer/",
-      "icon": "https://tonywied17.github.io/zero-transfer/assets/zero-transfer-logo.svg",
+      "icon": "https://tonywied17.github.io/zero-transfer/assets/zero-transfer-icon.svg",
       "blurb": "TypeScript file-transfer SDK with unified adapters for SFTP, FTPS, S3, Azure, GCS, Drive, Dropbox, and WebDAV."
     },
     {
       "name": "molex-media",
       "url": "https://media.molex.cloud",
-      "icon": "https://raw.githubusercontent.com/tonywied17/molex-media-electron/main/.github/assets/logo.svg",
+      "icon": "https://raw.githubusercontent.com/tonywied17/molex-media-electron/main/.github/assets/icon.svg",
       "blurb": "Cross-platform Electron media toolkit powered by FFmpeg - batch normalize/convert/compress, NLE timeline editor, and a player with real-time audio visualizations."
     },
     {

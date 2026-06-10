@@ -120,12 +120,12 @@ const EXTERNAL_STAR_REPOS = [
 async function fetchExternalStars()
 {
   let stars = 0;
-  for (const r of EXTERNAL_STAR_REPOS)
-  {
-    const q = `query($o:String!,$n:String!){ repository(owner:$o,name:$n){ stargazerCount } }`;
-    const d = await gql(q, { o: r.owner, n: r.name });
-    stars += d.repository?.stargazerCount ?? 0;
-  }
+  // for (const r of EXTERNAL_STAR_REPOS)
+  // {
+  //   const q = `query($o:String!,$n:String!){ repository(owner:$o,name:$n){ stargazerCount } }`;
+  //   const d = await gql(q, { o: r.owner, n: r.name });
+  //   stars += d.repository?.stargazerCount ?? 0;
+  // }
   return stars;
 }
 const externalStars = 0;

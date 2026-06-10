@@ -128,7 +128,7 @@ async function fetchExternalStars()
   }
   return stars;
 }
-const externalStars = await fetchExternalStars();
+const externalStars = 0;
 const userRest = await rest(`/users/${OWNER}`);
 
 const languageSet = new Set();

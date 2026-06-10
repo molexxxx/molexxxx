@@ -84,7 +84,7 @@
       "blurb": "TypeScript file-transfer SDK with unified adapters for SFTP, FTPS, S3, Azure, GCS, Drive, Dropbox, and WebDAV."
     },
     {
-      "name": "Molex Media",
+      "name": "molex Media",
       "url": "https://media.molex.cloud",
       "icon": "https://raw.githubusercontent.com/tonywied17/molex-media-electron/main/.github/assets/icon.svg",
       "blurb": "Cross-platform Electron media toolkit powered by FFmpeg - batch normalize/convert/compress, NLE timeline editor, and a player with real-time audio visualizations."

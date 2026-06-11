@@ -104,7 +104,7 @@ const BADGES = [
   { id: 'magnifyshit-downloads', repo: 'MagnifyShit-cpp', kind: 'downloads', label: 'downloads', icon: 'github', theme: MAGNIFY_THEME('#a0522d', '#fff8dc') },
   { id: 'magnifyshit-last-commit', repo: 'MagnifyShit-cpp', kind: 'last-commit', label: 'last commit', icon: 'git', theme: MAGNIFY_THEME('#5a3a22', '#d4a574') },
 
-  // Plex Poster Set Helper (Plex amber/orange theme) - Electron app
+  // Plex Poster Set Helper 2 (Plex amber/orange theme) - Electron app
   { id: 'plex-poster-helper-repo', kind: 'static-pair', label: 'repo', message: 'visit', icon: 'github', theme: PLEX_THEME('#e5a00d', '#1a1205') },
   { id: 'plex-poster-helper-docker', kind: 'static-pair', label: 'docker', message: 'guide', icon: 'book', theme: PLEX_THEME('#cc7b19', '#ffffff') },
   { id: 'plex-poster-helper-ci', repo: 'plex-poster-set-helper-2', kind: 'workflow', label: 'CI', workflow: 'ci.yml', branch: 'main', icon: 'github', theme: PLEX_THEME('#e5a00d', '#1a1205') },
@@ -152,7 +152,7 @@ function MAGNIFY_THEME(messageColor, textColor)
   return { name: 'magnify', labelBg: '#3a2418', labelFg: '#d4a574', messageColor, textColor };
 }
 
-// Plex Poster Set Helper palette (Plex amber/orange)
+// Plex Poster Set Helper 2 palette (Plex amber/orange)
 function PLEX_THEME(messageColor, textColor)
 {
   return { name: 'plex', labelBg: '#1a1205', labelFg: '#e5a00d', messageColor, textColor };

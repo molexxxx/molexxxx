@@ -20,7 +20,7 @@ const ICON_MAP = {
 const iconFor = (name) => ICON_MAP[name] ?? null;
 
 const EXCLUDE = new Set(['ng-juwanji']);
-const INCLUDE_FORKS = ['plex-poster-set-helper'];
+const INCLUDE_FORKS = ['plex-poster-set-helper-2'];
 
 const headers = {
   'User-Agent': `${USER}-resume-build`,

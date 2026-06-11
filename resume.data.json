@@ -91,8 +91,8 @@
     },
     {
       "name": "Plex Poster Set Helper",
-      "url": "https://github.com/tonywied17/plex-poster-set-helper",
-      "icon": "https://raw.githubusercontent.com/tonywied17/plex-poster-set-helper/refs/heads/main/.github/assets/logo.svg",
+      "url": "https://github.com/tonywied17/plex-poster-set-helper-2",
+      "icon": "https://raw.githubusercontent.com/tonywied17/plex-poster-set-helper-2/refs/heads/main/.github/assets/logo.svg",
       "blurb": "A tool to help upload sets of posters from ThePosterDB and MediUX to your Plex server in seconds!"
     },
     {

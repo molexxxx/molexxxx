@@ -115,7 +115,7 @@ async function fetchAllTimeTotals(createdAt)
 const allTime = await fetchAllTimeTotals(data.createdAt);
 
 const EXTERNAL_STAR_REPOS = [
-  { owner: 'bbrown430', name: 'plex-poster-set-helper' },
+  { owner: 'bbrown430', name: 'plex-poster-set-helper-2' },
 ];
 async function fetchExternalStars()
 {

@@ -20,7 +20,7 @@
 <!-- activity:end -->
 </p>
 
-### Current Upcoming Projects
+### Active & Development-Focused
 <table width="100%">
   <tr>
     <td width="160" align="center" valign="middle">

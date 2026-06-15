@@ -20,7 +20,7 @@
 <!-- activity:end -->
 </p>
 
-### Projects
+### Popular Projects
 
 <table width="100%">
   <tr>
@@ -97,18 +97,6 @@
   </tr>
   <tr>
     <td width="160" align="center" valign="middle">
-      <a href="https://github.com/tonywied17/bladewake-demo"><img src="https://raw.githubusercontent.com/tonywied17/bladewake-demo/main/assets/bladewake_icon.svg" width="120" alt="Bladewake" /></a>
-    </td>
-    <td valign="middle">
-      <h4><a href="https://github.com/tonywied17/bladewake-demo">Bladewake (Testing/Demo)</a></h4>
-      <p>Fast-paced, neon-soaked sword arena combat - Godot 4.6 game with Nakama-backed online play. Early access test builds.</p>
-      <p>
-        <a href="https://github.com/tonywied17/bladewake-demo/issues/new/choose"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/bladewake-feedback-dark.svg"><img src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/bladewake-feedback-light.svg" alt="feedback" /></picture></a>&nbsp; <a href="https://github.com/tonywied17/bladewake-demo/releases/latest"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/bladewake-build-dark.svg"><img src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/bladewake-build-light.svg" alt="build" /></picture></a>&nbsp; <a href="https://github.com/tonywied17/bladewake-demo/releases"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/bladewake-downloads-dark.svg"><img src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/bladewake-downloads-light.svg" alt="downloads" /></picture></a>&nbsp; <a href="https://github.com/tonywied17/bladewake-demo/releases/latest"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/bladewake-download-dark.svg"><img src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/bladewake-download-light.svg" alt="download latest" /></picture></a>&nbsp; <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/bladewake-last-commit-dark.svg"><img src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/bladewake-last-commit-light.svg" alt="last commit" /></picture>
-      </p>
-    </td>
-  </tr>
-  <tr>
-    <td width="160" align="center" valign="middle">
       <a href="https://github.com/tonywied17/MagnifyShit-cpp"><img src="https://raw.githubusercontent.com/tonywied17/MagnifyShit-cpp/main/.github/assets/icon.svg" width="120" alt="MagnifyShit" /></a>
     </td>
     <td valign="middle">
@@ -116,6 +104,36 @@
       <p>Customizable Windows magnifier in C++ - D3D11, DXGI desktop duplication, and ImGui. A snappier replacement for the built-in magnifier.</p>
       <p>
         <a href="https://github.com/tonywied17/MagnifyShit-cpp/blob/main/README.md"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/magnifyshit-docs-dark.svg"><img src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/magnifyshit-docs-light.svg" alt="docs" /></picture></a>&nbsp; <a href="https://github.com/tonywied17/MagnifyShit-cpp/releases/latest"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/magnifyshit-release-dark.svg"><img src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/magnifyshit-release-light.svg" alt="release" /></picture></a>&nbsp; <a href="https://github.com/tonywied17/MagnifyShit-cpp/releases"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/magnifyshit-downloads-dark.svg"><img src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/magnifyshit-downloads-light.svg" alt="downloads" /></picture></a>&nbsp; <a href="https://github.com/tonywied17/MagnifyShit-cpp/releases/latest"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/magnifyshit-download-dark.svg"><img src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/magnifyshit-download-light.svg" alt="download latest" /></picture></a>&nbsp; <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/magnifyshit-last-commit-dark.svg"><img src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/magnifyshit-last-commit-light.svg" alt="last commit" /></picture>
+      </p>
+    </td>
+  </tr>
+</table>
+
+### Upcoming Projects
+<table width="100%">
+  <tr>
+    <td width="160" align="center" valign="middle">
+      <a href="https://github.com/tonywied17/pamoja"><img src="https://raw.githubusercontent.com/tonywied17/pamoja/refs/heads/main/assets/pamoja-icon.svg" width="120" alt="Pamoja" /></a>
+    </td>
+    <td valign="middle">
+      <h4><a href="https://github.com/tonywied17/pamoja">Pamoja</a></h4>
+      <p>Modular, multi-language Rust SDK for offline-first IoT, robotics, and edge hardware.</p>
+      <p>
+        <a href="https://crates.io/crates/pamoja-core"><img height="26" alt="crates.io" src="https://raw.githubusercontent.com/tonywied17/pamoja/main/.github/badges/btn-crates.svg"></a>
+        &nbsp;<a href="https://www.npmjs.com/package/@pamoja/core"><img height="26" alt="npm" src="https://raw.githubusercontent.com/tonywied17/pamoja/main/.github/badges/btn-npm.svg"></a>
+        &nbsp;<a href="https://github.com/tonywied17/pamoja/blob/main/LICENSE-MIT"><img height="26" alt="MIT license" src="https://raw.githubusercontent.com/tonywied17/pamoja/main/.github/badges/btn-license.svg"></a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td width="160" align="center" valign="middle">
+      <a href="https://github.com/tonywied17/bladewake-demo"><img src="https://raw.githubusercontent.com/tonywied17/bladewake-demo/main/assets/bladewake_icon.svg" width="120" alt="Bladewake" /></a>
+    </td>
+    <td valign="middle">
+      <h4><a href="https://github.com/tonywied17/bladewake-demo">Bladewake (Testing/Demo)</a></h4>
+      <p>Fast-paced, neon-soaked sword arena combat - Godot 4.6 game with Nakama-backed online play. Early access test builds.</p>
+      <p>
+        <a href="https://github.com/tonywied17/bladewake-demo/issues/new/choose"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/bladewake-feedback-dark.svg"><img src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/bladewake-feedback-light.svg" alt="feedback" /></picture></a>&nbsp; <a href="https://github.com/tonywied17/bladewake-demo/releases/latest"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/bladewake-build-dark.svg"><img src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/bladewake-build-light.svg" alt="build" /></picture></a>&nbsp; <a href="https://github.com/tonywied17/bladewake-demo/releases"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/bladewake-downloads-dark.svg"><img src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/bladewake-downloads-light.svg" alt="downloads" /></picture></a>&nbsp; <a href="https://github.com/tonywied17/bladewake-demo/releases/latest"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/bladewake-download-dark.svg"><img src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/bladewake-download-light.svg" alt="download latest" /></picture></a>&nbsp; <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/bladewake-last-commit-dark.svg"><img src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/bladewake-last-commit-light.svg" alt="last commit" /></picture>
       </p>
     </td>
   </tr>

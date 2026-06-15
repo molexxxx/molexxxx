@@ -20,7 +20,7 @@
 <!-- activity:end -->
 </p>
 
-### Active & Development-Focused
+### Work-in-Progress Projects
 <table width="100%">
   <tr>
     <td width="160" align="center" valign="middle">

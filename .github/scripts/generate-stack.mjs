@@ -10,6 +10,11 @@ const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const OUT = resolve(ROOT, '.github', 'badges');
 mkdirSync(OUT, { recursive: true });
 
+// Single-path icons that simple-icons no longer ships (AWS family, Azure,
+// PowerShell). Sourced from simple-icons v12 before Amazon/Microsoft brand
+// removals; keyed by the same slug we reference in STACK.
+const CUSTOM_ICONS = JSON.parse(readFileSync(resolve(dirname(fileURLToPath(import.meta.url)), 'custom-icons.json'), 'utf8'));
+
 const CARD_W = 415;
 const PAD_X = 14;
 const PAD_TOP = 34;
@@ -40,6 +45,7 @@ const STACK = [
       { name: 'Python', slug: 'python' },
       { name: 'C#', slug: 'sharp' },
       { name: 'C++', slug: 'cplusplus' },
+      { name: 'Rust', slug: 'rust' },
       { name: 'Java', slug: 'openjdk' },
       { name: 'Go', slug: 'go' },
       { name: 'MATLAB', color: '#e16a3d' },
@@ -75,6 +81,8 @@ const STACK = [
     label: 'Real-time', accentA: '#a78bfa', accentB: '#7c3aed', chips: [
       { name: 'WebSocket', slug: 'socketdotio' },
       { name: 'WebRTC', slug: 'webrtc' },
+      { name: 'MQTT', slug: 'mqtt' },
+      { name: 'CoAP', color: '#a78bfa' },
       { name: 'SSE', color: '#a78bfa' },
       { name: 'gRPC', color: '#9333ea' },
       { name: 'HTTP/2', color: '#a78bfa' },
@@ -184,11 +192,67 @@ const STACK = [
 const slugify = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 const escapeXml = (s) => String(s).replace(/[<>&"']/g, (c) => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;', "'": '&apos;' }[c]));
 
-function getIconKey(slug)
+// Resolve a slug to { path, hex } from simple-icons first, then our custom set.
+function resolveIcon(slug)
 {
   if (!slug) return undefined;
-  const key = 'si' + slug.charAt(0).toUpperCase() + slug.slice(1);
-  return simpleIcons[key];
+  const si = simpleIcons['si' + slug.charAt(0).toUpperCase() + slug.slice(1)];
+  if (si) return { path: si.path, hex: '#' + si.hex };
+  const custom = CUSTOM_ICONS[slug];
+  if (custom) return { path: custom.path, hex: '#' + custom.hex };
+  return undefined;
+}
+
+// WCAG relative luminance of an #rrggbb color (0 = black, 1 = white).
+function relLuminance(hex)
+{
+  const [r, g, b] = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255);
+  const lin = (v) => (v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4));
+  return 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b);
+}
+
+function rgbToHsl(r, g, b)
+{
+  r /= 255; g /= 255; b /= 255;
+  const max = Math.max(r, g, b), min = Math.min(r, g, b), l = (max + min) / 2;
+  if (max === min) return [0, 0, l];
+  const d = max - min;
+  const s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+  let h;
+  if (max === r) h = (g - b) / d + (g < b ? 6 : 0);
+  else if (max === g) h = (b - r) / d + 2;
+  else h = (r - g) / d + 4;
+  return [h / 6, s, l];
+}
+
+function hslToHex(h, s, l)
+{
+  const hue = (p, q, t) =>
+  {
+    if (t < 0) t += 1; if (t > 1) t -= 1;
+    if (t < 1 / 6) return p + (q - p) * 6 * t;
+    if (t < 1 / 2) return q;
+    if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
+    return p;
+  };
+  let r, g, b;
+  if (s === 0) { r = g = b = l; }
+  else
+  {
+    const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+    const p = 2 * l - q;
+    r = hue(p, q, h + 1 / 3); g = hue(p, q, h); b = hue(p, q, h - 1 / 3);
+  }
+  return '#' + [r, g, b].map((v) => Math.round(v * 255).toString(16).padStart(2, '0')).join('');
+}
+
+// On the dark card, brand colors that are near-black (Express, JWT, Three.js,
+// WebSocket, Rust, AWS, ...) vanish. Lift only those, preserving hue.
+function darkSafe(hex)
+{
+  if (relLuminance(hex) >= 0.14) return hex;
+  const [h, s] = rgbToHsl(parseInt(hex.slice(1, 3), 16), parseInt(hex.slice(3, 5), 16), parseInt(hex.slice(5, 7), 16));
+  return hslToHex(h, Math.min(s, 0.7), 0.66);
 }
 
 function chipWidth(chip)
@@ -221,8 +285,9 @@ function layoutChips(chips, maxW)
 function renderChip(chip, x, y, dark)
 {
   const fallbackColor = dark ? '#94a3b8' : '#5b6472';
-  const color = chip.color || (getIconKey(chip.slug)?.hex ? '#' + getIconKey(chip.slug).hex : fallbackColor);
-  const icon = getIconKey(chip.slug);
+  const icon = resolveIcon(chip.slug);
+  let color = chip.color || (icon ? icon.hex : fallbackColor);
+  if (dark) color = darkSafe(color);
   const chipBg = 'none';
   const chipBorder = dark ? '#30363d' : '#d0d7de';
   const textFill = dark ? '#e6edf3' : '#1f2328';

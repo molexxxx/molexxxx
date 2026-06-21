@@ -16,7 +16,7 @@
 </p>
 <p align="center">
 <!-- activity:start -->
-  <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/activity-contributions-dark.svg?v=22379f29"><img alt="Contributions" width="415" src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/activity-contributions-light.svg?v=8fce54df" /></picture> <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/activity-stats-dark.svg?v=7ecb2815"><img alt="Stats" width="415" src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/activity-stats-light.svg?v=0a7e7f73" /></picture>
+  <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/activity-contributions-dark.svg?v=78f56041"><img alt="Contributions" width="415" src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/activity-contributions-light.svg?v=7ad5c432" /></picture> <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/activity-stats-dark.svg?v=874be2cc"><img alt="Stats" width="415" src="https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges/activity-stats-light.svg?v=730885e6" /></picture>
 <!-- activity:end -->
 </p>
 

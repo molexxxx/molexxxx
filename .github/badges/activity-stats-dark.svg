@@ -27,56 +27,56 @@
   <g font-family="Segoe UI, Inter, -apple-system, BlinkMacSystemFont, sans-serif">
       <g text-anchor="middle">
         <text x="62.4" y="71.0" font-size="18" font-weight="800" fill="#e6e9f1" letter-spacing="-0.4" opacity="0">
-          4,683
+          27
           <animate attributeName="opacity" from="0" to="1" dur="0.5s" begin="0.15s" fill="freeze"/>
         </text>
         <text x="62.4" y="87.0" font-size="9" font-weight="700" fill="#7d8590" letter-spacing="1.8">COMMITS</text>
       </g>
       <g text-anchor="middle">
         <text x="159.1" y="71.0" font-size="18" font-weight="800" fill="#e6e9f1" letter-spacing="-0.4" opacity="0">
-          463
+          0
           <animate attributeName="opacity" from="0" to="1" dur="0.5s" begin="0.22s" fill="freeze"/>
         </text>
         <text x="159.1" y="87.0" font-size="9" font-weight="700" fill="#7d8590" letter-spacing="1.8">PULL REQS</text>
       </g>
       <g text-anchor="middle">
         <text x="255.9" y="71.0" font-size="18" font-weight="800" fill="#e6e9f1" letter-spacing="-0.4" opacity="0">
-          8
+          0
           <animate attributeName="opacity" from="0" to="1" dur="0.5s" begin="0.29000000000000004s" fill="freeze"/>
         </text>
         <text x="255.9" y="87.0" font-size="9" font-weight="700" fill="#7d8590" letter-spacing="1.8">REVIEWS</text>
       </g>
       <g text-anchor="middle">
         <text x="352.6" y="71.0" font-size="18" font-weight="800" fill="#e6e9f1" letter-spacing="-0.4" opacity="0">
-          4
+          0
           <animate attributeName="opacity" from="0" to="1" dur="0.5s" begin="0.36s" fill="freeze"/>
         </text>
         <text x="352.6" y="87.0" font-size="9" font-weight="700" fill="#7d8590" letter-spacing="1.8">ISSUES</text>
       </g>
       <g text-anchor="middle">
         <text x="62.4" y="125.0" font-size="18" font-weight="800" fill="#e6e9f1" letter-spacing="-0.4" opacity="0">
-          61
+          29
           <animate attributeName="opacity" from="0" to="1" dur="0.5s" begin="0.43000000000000005s" fill="freeze"/>
         </text>
         <text x="62.4" y="141.0" font-size="9" font-weight="700" fill="#7d8590" letter-spacing="1.8">STARS</text>
       </g>
       <g text-anchor="middle">
         <text x="159.1" y="125.0" font-size="18" font-weight="800" fill="#e6e9f1" letter-spacing="-0.4" opacity="0">
-          52
+          11
           <animate attributeName="opacity" from="0" to="1" dur="0.5s" begin="0.5s" fill="freeze"/>
         </text>
         <text x="159.1" y="141.0" font-size="9" font-weight="700" fill="#7d8590" letter-spacing="1.8">REPOS</text>
       </g>
       <g text-anchor="middle">
         <text x="255.9" y="125.0" font-size="18" font-weight="800" fill="#e6e9f1" letter-spacing="-0.4" opacity="0">
-          25
+          20
           <animate attributeName="opacity" from="0" to="1" dur="0.5s" begin="0.5700000000000001s" fill="freeze"/>
         </text>
         <text x="255.9" y="141.0" font-size="9" font-weight="700" fill="#7d8590" letter-spacing="1.8">LANGUAGES</text>
       </g>
       <g text-anchor="middle">
         <text x="352.6" y="125.0" font-size="18" font-weight="800" fill="#e6e9f1" letter-spacing="-0.4" opacity="0">
-          6
+          0
           <animate attributeName="opacity" from="0" to="1" dur="0.5s" begin="0.64s" fill="freeze"/>
         </text>
         <text x="352.6" y="141.0" font-size="9" font-weight="700" fill="#7d8590" letter-spacing="1.8">FOLLOWERS</text>

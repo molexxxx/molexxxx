@@ -6,7 +6,7 @@ import path from 'node:path';
 
 const OUT = '.github/badges';
 const README = 'README.md';
-const RAW = 'https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges';
+const RAW = 'https://raw.githubusercontent.com/molexxxx/molexxxx/main/.github/badges';
 
 if (!existsSync(OUT)) mkdirSync(OUT, { recursive: true });
 

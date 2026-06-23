@@ -34,7 +34,7 @@ if (existsSync(ghPath))
   catch { /* ignore */ }
 }
 
-data.ghUser = data.github?.user?.login || 'tonywied17';
+data.ghUser = data.github?.user?.login || 'molexxxx';
 
 const tpl = readFileSync(resolve(root, 'template/resume.html.mustache'), 'utf8');
 

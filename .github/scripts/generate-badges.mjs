@@ -11,8 +11,8 @@ if (!TOKEN)
   process.exit(1);
 }
 
-const OWNER = 'tonywied17';
-const REPO = 'tonywied17';
+const OWNER = 'molexxxx';
+const REPO = 'molexxxx';
 const OUT = '.github/badges';
 const RAW = `https://raw.githubusercontent.com/${OWNER}/${REPO}/main/${OUT}`;
 
@@ -163,7 +163,7 @@ async function gh(p)
   const r = await fetch(`https://api.github.com${p}`, {
     headers: {
       Authorization: `Bearer ${TOKEN}`,
-      'User-Agent': 'tonywied17-badge-gen',
+      'User-Agent': 'molexxxx-badge-gen',
       Accept: 'application/vnd.github+json',
     },
   });
@@ -173,7 +173,7 @@ async function gh(p)
 
 async function fetchJson(url, opts = {})
 {
-  const headers = { 'User-Agent': 'tonywied17-badge-gen', ...(opts.headers || {}) };
+  const headers = { 'User-Agent': 'molexxxx-badge-gen', ...(opts.headers || {}) };
   const r = await fetch(url, { ...opts, headers });
   if (!r.ok) throw new Error(`${url}: HTTP ${r.status} ${r.statusText}`);
   return r.json();

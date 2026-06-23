@@ -29,8 +29,8 @@ jobs:
 
       - name: Commit changes
         run: |
-          git config user.name  "tonywied17"
-          git config user.email "tonywied17@gmail.com"
+          git config user.name  "molexxxx"
+          git config user.email "molexxxx@gmail.com"
           git add .github/badges/activity-contributions-dark.svg \
                   .github/badges/activity-contributions-light.svg \
                   .github/badges/activity-stats-dark.svg \

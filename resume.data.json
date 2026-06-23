@@ -6,7 +6,7 @@
   "location": "Philadelphia, PA Area",
   "email": "tone@sent.com",
   "links": [
-    { "label": "github.com/tonywied17", "url": "https://github.com/tonywied17" },
+    { "label": "github.com/molexxxx", "url": "https://github.com/molexxxx" },
     { "label": "npmjs.com/~molex222", "url": "https://www.npmjs.com/~molex222" }
   ],
   "summary": "Full-stack engineer designing and shipping production systems end-to-end: TypeScript/Node services, reactive web clients, and real-time transport layers over WebSocket, WebRTC, and SSE. Author of the zero-dependency open-source stack on npm (zQuery for frontend, zero-server for backend, zero-transfer for multi-cloud file transfer). Run horizontally scalable cloud deployments across containerized and serverless workloads with automated CI/CD pipelines, tuned for low-latency throughput and zero-downtime releases. Also love cats.",
@@ -68,49 +68,49 @@
     {
       "name": "zQuery",
       "url": "https://z-query.com",
-      "icon": "https://raw.githubusercontent.com/tonywied17/zero-query/main/.github/images/logo-animated.svg",
+      "icon": "https://raw.githubusercontent.com/molexxxx/zero-query/main/.github/images/logo-animated.svg",
       "blurb": "Zero-dependency reactive frontend library - components, SPA router, store, SSR, and WebRTC. ~130 KB minified, published on npm."
     },
     {
       "name": "zero-server",
       "url": "https://z-server.dev",
-      "icon": "https://raw.githubusercontent.com/tonywied17/zero-server/main/website-docs/public/icons/logo-animated.svg",
+      "icon": "https://raw.githubusercontent.com/molexxxx/zero-server/main/website-docs/public/icons/logo-animated.svg",
       "blurb": "Zero-dependency Node backend framework with routing, ORM, auth, WebSocket, SSE, WebRTC, gRPC, and observability built in."
     },
     {
       "name": "zero-transfer",
-      "url": "https://tonywied17.github.io/zero-transfer/",
-      "icon": "https://tonywied17.github.io/zero-transfer/assets/zero-transfer-icon.svg",
+      "url": "https://molexxxx.github.io/zero-transfer/",
+      "icon": "https://molexxxx.github.io/zero-transfer/assets/zero-transfer-icon.svg",
       "blurb": "TypeScript file-transfer SDK with unified adapters for SFTP, FTPS, S3, Azure, GCS, Drive, Dropbox, and WebDAV."
     },
     {
       "name": "molex Media",
       "url": "https://media.molex.cloud",
-      "icon": "https://raw.githubusercontent.com/tonywied17/molex-media-electron/main/.github/assets/icon.svg",
+      "icon": "https://raw.githubusercontent.com/molexxxx/molex-media-electron/main/.github/assets/icon.svg",
       "blurb": "Cross-platform Electron media toolkit powered by FFmpeg - batch normalize/convert/compress, NLE timeline editor, and a player with real-time audio visualizations."
     },
     {
       "name": "Plex Poster Set Helper 2",
-      "url": "https://github.com/tonywied17/plex-poster-set-helper-2",
-      "icon": "https://raw.githubusercontent.com/tonywied17/plex-poster-set-helper-2/refs/heads/main/.github/assets/logo.svg",
+      "url": "https://github.com/molexxxx/plex-poster-set-helper-2",
+      "icon": "https://raw.githubusercontent.com/molexxxx/plex-poster-set-helper-2/refs/heads/main/.github/assets/logo.svg",
       "blurb": "A tool to help upload sets of posters from ThePosterDB and MediUX to your Plex server in seconds!"
     },
     {
       "name": "YouTube Downloader",
-      "url": "https://github.com/tonywied17/youtube-downloader",
-      "icon": "https://raw.githubusercontent.com/tonywied17/youtube-downloader/main/.github/assets/icon.svg",
+      "url": "https://github.com/molexxxx/youtube-downloader",
+      "icon": "https://raw.githubusercontent.com/molexxxx/youtube-downloader/main/.github/assets/icon.svg",
       "blurb": "Fast, modern desktop downloader for YouTube - powered by yt-dlp & FFmpeg."
     },
     {
       "name": "Bladewake",
-      "url": "https://github.com/tonywied17/bladewake-demo",
-      "icon": "https://raw.githubusercontent.com/tonywied17/bladewake-demo/main/assets/bladewake_icon.svg",
+      "url": "https://github.com/molexxxx/bladewake-demo",
+      "icon": "https://raw.githubusercontent.com/molexxxx/bladewake-demo/main/assets/bladewake_icon.svg",
       "blurb": "Fast-paced neon sword-arena combat in Godot 4.6 with C++ GDExtension and Nakama-backed online multiplayer. Early access test builds on GitHub."
     },
     {
       "name": "MagnifyShit",
-      "url": "https://github.com/tonywied17/MagnifyShit-cpp",
-      "icon": "https://raw.githubusercontent.com/tonywied17/MagnifyShit-cpp/main/.github/assets/icon.svg",
+      "url": "https://github.com/molexxxx/MagnifyShit-cpp",
+      "icon": "https://raw.githubusercontent.com/molexxxx/MagnifyShit-cpp/main/.github/assets/icon.svg",
       "blurb": "Customizable Windows magnifier in C++ with D3D11, DXGI desktop duplication, and ImGui - a snappier replacement for the built-in magnifier."
     }
   ],

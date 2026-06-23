@@ -391,7 +391,7 @@ for (const section of STACK)
 const README = resolve(ROOT, 'README.md');
 let md = readFileSync(README, 'utf8');
 
-const RAW = 'https://raw.githubusercontent.com/tonywied17/tonywied17/main/.github/badges';
+const RAW = 'https://raw.githubusercontent.com/molexxxx/molexxxx/main/.github/badges';
 const IMG_W = 415;
 
 const queue = STACK.map(s => s);

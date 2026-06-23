@@ -12,7 +12,7 @@ if (!TOKEN)
   process.exit(1);
 }
 
-const OWNER = 'tonywied17';
+const OWNER = 'molexxxx';
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const OUT = resolve(ROOT, '.github', 'badges');
 const RAW = `https://raw.githubusercontent.com/${OWNER}/${OWNER}/main/.github/badges`;
@@ -31,7 +31,7 @@ async function gql(query, variables = {})
     method: 'POST',
     headers: {
       Authorization: `Bearer ${TOKEN}`,
-      'User-Agent': 'tonywied17-activity-gen',
+      'User-Agent': 'molexxxx-activity-gen',
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ query, variables }),
@@ -47,7 +47,7 @@ async function rest(p)
   const r = await fetch(`https://api.github.com${p}`, {
     headers: {
       Authorization: `Bearer ${TOKEN}`,
-      'User-Agent': 'tonywied17-activity-gen',
+      'User-Agent': 'molexxxx-activity-gen',
       Accept: 'application/vnd.github+json',
     },
   });

@@ -16,7 +16,7 @@
 </p>
 <p align="center">
 <!-- activity:start -->
-  <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/molexxxx/molexxxx/main/.github/badges/activity-contributions-dark.svg?v=e00a30e2"><img alt="Contributions" width="415" src="https://raw.githubusercontent.com/molexxxx/molexxxx/main/.github/badges/activity-contributions-light.svg?v=aed62352" /></picture> <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/molexxxx/molexxxx/main/.github/badges/activity-stats-dark.svg?v=43afe301"><img alt="Stats" width="415" src="https://raw.githubusercontent.com/molexxxx/molexxxx/main/.github/badges/activity-stats-light.svg?v=3f447e48" /></picture>
+  <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/molexxxx/molexxxx/main/.github/badges/activity-contributions-dark.svg?v=e6e014a5"><img alt="Contributions" width="415" src="https://raw.githubusercontent.com/molexxxx/molexxxx/main/.github/badges/activity-contributions-light.svg?v=ea7d94ef" /></picture> <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/molexxxx/molexxxx/main/.github/badges/activity-stats-dark.svg?v=ba4e0aa0"><img alt="Stats" width="415" src="https://raw.githubusercontent.com/molexxxx/molexxxx/main/.github/badges/activity-stats-light.svg?v=79eaab11" /></picture>
 <!-- activity:end -->
 </p>
 
@@ -30,11 +30,12 @@
       <h4><a href="https://github.com/molexxxx/pamoja">Pamoja</a></h4>
       <p>Modular, multi-language Rust SDK for offline-first IoT, robotics, and edge hardware.</p>
       <p>
-        <a href="https://crates.io/users/tonywied17"><img height="26" alt="crates.io" src="https://raw.githubusercontent.com/molexxxx/pamoja/main/.github/badges/btn-crates.svg"></a>
-        &nbsp;<a href="https://www.npmjs.com/org/pamoja"><img height="26" alt="npm" src="https://raw.githubusercontent.com/molexxxx/pamoja/main/.github/badges/btn-npm.svg"></a>
-        &nbsp;<a href="https://pypi.org/user/tonywied17/"><img height="26" alt="PyPI" src="https://raw.githubusercontent.com/molexxxx/pamoja/main/.github/badges/btn-pypi.svg"></a>
-        &nbsp;<a href="https://www.nuget.org/profiles/tonywied17"><img height="26" alt="NuGet" src="https://raw.githubusercontent.com/molexxxx/pamoja/main/.github/badges/btn-nuget.svg"></a>
-        &nbsp;<a href="https://github.com/molexxxx/pamoja/blob/main/LICENSE-MIT"><img height="26" alt="MIT license" src="https://raw.githubusercontent.com/molexxxx/pamoja/main/.github/badges/btn-license.svg"></a>
+        <a href="https://crates.io/users/tonywied17"><img height="26" alt="crates.io" src="https://raw.githubusercontent.com/molexxxx/pamoja/main/.github/badges/crates.svg"></a>
+        &nbsp;<a href="https://www.npmjs.com/org/pamoja"><img height="26" alt="npm" src="https://raw.githubusercontent.com/molexxxx/pamoja/main/.github/badges/npm.svg"></a>
+        &nbsp;<a href="https://pypi.org/user/tonywied17/"><img height="26" alt="PyPI" src="https://raw.githubusercontent.com/molexxxx/pamoja/main/.github/badges/pypi.svg"></a>
+        &nbsp;<a href="https://www.nuget.org/profiles/tonywied17"><img height="26" alt="NuGet" src="https://raw.githubusercontent.com/molexxxx/pamoja/main/.github/badges/nuget.svg"></a>
+        &nbsp;<a href="https://github.com/molexxxx/pamoja/actions/workflows/ci.yml"><img height="26" alt="CI" src="https://raw.githubusercontent.com/molexxxx/pamoja/main/.github/badges/ci.svg"></a>
+        &nbsp;<a href="https://github.com/molexxxx/pamoja/blob/main/LICENSE-MIT"><img height="26" alt="MIT license" src="https://raw.githubusercontent.com/molexxxx/pamoja/main/.github/badges/license.svg"></a>
       </p>
     </td>
   </tr>

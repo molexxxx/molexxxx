@@ -77,11 +77,16 @@ const QUERY = `query($login: String!) {
 
 const data = (await gql(QUERY, { login: OWNER })).user;
 
-// All-time contribution totals: iterate yearly windows from account creation to now.
-// contributionsCollection accepts a max 1-year window, so we chunk.
+// All-time contribution totals: iterate yearly windows to now. contributionsCollection
+// accepts a max 1-year window, so we chunk. We start from a fixed history floor rather than
+// the account's creation date: after transferring repos in and rewriting authorship, the
+// account is younger than its own commit history, but GitHub still attributes those
+// historical commits to the new owner - so anchoring to createdAt would drop every commit
+// dated before the account existed.
+const HISTORY_FLOOR = '2016-01-01T00:00:00Z';
 async function fetchAllTimeTotals(createdAt)
 {
-  const start = new Date(createdAt);
+  const start = new Date(Math.min(new Date(createdAt).getTime(), new Date(HISTORY_FLOOR).getTime()));
   const now = new Date();
   const totals = { commits: 0, prs: 0, issues: 0, reviews: 0 };
   let cursor = new Date(start);

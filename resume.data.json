@@ -9,7 +9,7 @@
     { "label": "github.com/molexxxx", "url": "https://github.com/molexxxx" },
     { "label": "npmjs.com/~molex222", "url": "https://www.npmjs.com/~molex222" }
   ],
-  "summary": "Full-stack engineer designing and shipping production systems end-to-end: TypeScript/Node services, reactive web clients, and real-time transport layers over WebSocket, WebRTC, and SSE. Author of the zero-dependency open-source stack on npm (zQuery for frontend, zero-server for backend, zero-transfer for multi-cloud file transfer). Run horizontally scalable cloud deployments across containerized and serverless workloads with automated CI/CD pipelines, tuned for low-latency throughput and zero-downtime releases. Also love cats.",
+  "summary": "Full-stack engineer shipping production systems end-to-end - from TypeScript/Node services and reactive web clients over WebSocket, WebRTC, and SSE to memory-safe Rust at the edge. Author of the zero-dependency npm stack (zQuery, zero-server, zero-transfer) and pamoja, a modular Rust SDK for offline-first IoT, robotics, and drones over LoRa/mesh radio down to no_std microcontrollers. Build real-time 3D and vector graphics with Three.js, Babylon.js, and Godot, and run horizontally scalable cloud deployments with automated CI/CD tuned for low-latency, zero-downtime releases. Also love cats.",
   "skills": [
     { "group": "Languages", "items": ["TypeScript", "JavaScript", "C#", "C++", "Rust", "Python", "Java", "Go", "GDScript", "SQL"] },
     { "group": "Frontend", "items": ["zQuery", "React", "Angular", "Tailwind", "SCSS", "HTML5", "Web Components"] },
@@ -18,7 +18,7 @@
     { "group": "Data", "items": ["PostgreSQL", "MySQL", "SQLite", "MongoDB", "Redis", "EF Core", "Sequelize", "Hibernate"] },
     { "group": "Desktop / Games", "items": ["Electron", "Qt", "WinForms", "Godot 4", "godot-cpp", "Unreal Engine"] },
     { "group": "Robotics / IoT", "items": ["ROS 2", "Zenoh", "MAVLink", "PX4 / ArduPilot", "LoRa / LoRaWAN", "MQTT", "CoAP", "Modbus", "CAN", "no_std / embedded"] },
-    { "group": "Audio & Graphics", "items": ["Web Audio API", "SuperCollider", "FFmpeg", "WebGL"] },
+    { "group": "Audio & Graphics", "items": ["Three.js", "Babylon.js", "WebGL", "GLSL", "SVG", "Web Audio API", "SuperCollider", "FFmpeg"] },
     { "group": "Auth & Security", "items": ["JWT", "OAuth 2.0", "WebAuthn", "TOTP", "Microsoft Entra ID", "CSRF"] },
     { "group": "Infra / DevOps", "items": ["Docker", "Kubernetes", "Nginx", "GitHub Actions", "Argo CD", "Jenkins", "Prometheus", "Grafana", "Linux"] },
     { "group": "Cloud", "items": ["AWS EC2", "RDS", "S3", "CodePipeline", "CodeBuild"] }

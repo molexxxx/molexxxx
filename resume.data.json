@@ -1,7 +1,7 @@
 {
   "name": "Anthony Wiedman",
   "title": "Full-Stack Software Engineer",
-  "tagline": "Web · Desktop · Games · Real-time · Audio/DSP · Graphics",
+  "tagline": "Web · Desktop · Games · Real-time · Robotics/Drones · Audio/DSP · Graphics",
   "photo": "ohm.png",
   "location": "Philadelphia, PA Area",
   "email": "tone@sent.com",
@@ -11,12 +11,13 @@
   ],
   "summary": "Full-stack engineer designing and shipping production systems end-to-end: TypeScript/Node services, reactive web clients, and real-time transport layers over WebSocket, WebRTC, and SSE. Author of the zero-dependency open-source stack on npm (zQuery for frontend, zero-server for backend, zero-transfer for multi-cloud file transfer). Run horizontally scalable cloud deployments across containerized and serverless workloads with automated CI/CD pipelines, tuned for low-latency throughput and zero-downtime releases. Also love cats.",
   "skills": [
-    { "group": "Languages", "items": ["TypeScript", "JavaScript", "C#", "C++", "Python", "Java", "Go", "GDScript", "SQL"] },
+    { "group": "Languages", "items": ["TypeScript", "JavaScript", "C#", "C++", "Rust", "Python", "Java", "Go", "GDScript", "SQL"] },
     { "group": "Frontend", "items": ["zQuery", "React", "Angular", "Tailwind", "SCSS", "HTML5", "Web Components"] },
     { "group": "Backend", "items": ["Node.js", "Express", "zero-server", "ASP.NET", "Spring", "Laravel", "REST", "GraphQL", "gRPC"] },
     { "group": "Real-time", "items": ["WebSocket", "WebRTC", "SSE", "Nakama"] },
     { "group": "Data", "items": ["PostgreSQL", "MySQL", "SQLite", "MongoDB", "Redis", "EF Core", "Sequelize", "Hibernate"] },
     { "group": "Desktop / Games", "items": ["Electron", "Qt", "WinForms", "Godot 4", "godot-cpp", "Unreal Engine"] },
+    { "group": "Robotics / IoT", "items": ["ROS 2", "Zenoh", "MAVLink", "PX4 / ArduPilot", "LoRa / LoRaWAN", "MQTT", "CoAP", "Modbus", "CAN", "no_std / embedded"] },
     { "group": "Audio & Graphics", "items": ["Web Audio API", "SuperCollider", "FFmpeg", "WebGL"] },
     { "group": "Auth & Security", "items": ["JWT", "OAuth 2.0", "WebAuthn", "TOTP", "Microsoft Entra ID", "CSRF"] },
     { "group": "Infra / DevOps", "items": ["Docker", "Kubernetes", "Nginx", "GitHub Actions", "Argo CD", "Jenkins", "Prometheus", "Grafana", "Linux"] },
@@ -65,6 +66,12 @@
     }
   ],
   "projects": [
+    {
+      "name": "pamoja",
+      "url": "https://pamoja.molex.cloud",
+      "icon": "https://raw.githubusercontent.com/molexxxx/pamoja/main/assets/pamoja-icon.svg",
+      "blurb": "Modular, memory-safe Rust SDK for offline-first IoT, robotics, and drones - one async engine core with idiomatic TypeScript, Python, and C# bindings, built to run on cheap solar-powered edge hardware."
+    },
     {
       "name": "zQuery",
       "url": "https://z-query.com",

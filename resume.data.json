@@ -9,7 +9,7 @@
     { "label": "github.com/molexxxx", "url": "https://github.com/molexxxx" },
     { "label": "npmjs.com/~molex222", "url": "https://www.npmjs.com/~molex222" }
   ],
-  "summary": "Full-stack engineer shipping production systems end-to-end - from TypeScript/Node services and reactive web clients over WebSocket, WebRTC, and SSE to memory-safe Rust at the edge. Author of the zero-dependency npm stack (zQuery, zero-server, zero-transfer) and pamoja, a modular Rust SDK for offline-first IoT, robotics, and drones over LoRa/mesh radio down to no_std microcontrollers. Build real-time 3D and vector graphics with Three.js, Babylon.js, and Godot, and run horizontally scalable cloud deployments with automated CI/CD tuned for low-latency, zero-downtime releases. Also love cats.",
+  "summary": "Full-stack engineer shipping production systems end-to-end - from TypeScript/Node services and reactive web clients over WebSocket, WebRTC, and SSE to memory-safe Rust at the edge. Author of the zero-dependency npm stack (zQuery, zero-server, zero-transfer) and pamoja, a modular Rust SDK for offline-first IoT, robotics, and drones over LoRa/mesh radio down to no_std microcontrollers. Build real-time 3D and vector graphics with Three.js and Babylon.js, and run horizontally scalable cloud deployments with automated CI/CD tuned for low-latency, zero-downtime releases. Also love cats.",
   "skills": [
     { "group": "Languages", "items": ["TypeScript", "JavaScript", "C#", "C++", "Rust", "Python", "Java", "Go", "GDScript", "SQL"] },
     { "group": "Frontend", "items": ["zQuery", "React", "Angular", "Tailwind", "SCSS", "HTML5", "Web Components"] },

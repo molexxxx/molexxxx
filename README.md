@@ -30,12 +30,12 @@
       <h4><a href="https://github.com/molexxxx/pamoja">Pamoja</a></h4>
       <p>Modular, multi-language Rust SDK for offline-first IoT, robotics, and edge hardware.</p>
       <p>
-        <a href="https://crates.io/users/tonywied17"><img height="26" alt="crates.io" src="https://raw.githubusercontent.com/molexxxx/pamoja/main/.github/badges/crates.svg"></a>
-        &nbsp;<a href="https://www.npmjs.com/org/pamoja"><img height="26" alt="npm" src="https://raw.githubusercontent.com/molexxxx/pamoja/main/.github/badges/npm.svg"></a>
-        &nbsp;<a href="https://pypi.org/user/tonywied17/"><img height="26" alt="PyPI" src="https://raw.githubusercontent.com/molexxxx/pamoja/main/.github/badges/pypi.svg"></a>
-        &nbsp;<a href="https://www.nuget.org/profiles/tonywied17"><img height="26" alt="NuGet" src="https://raw.githubusercontent.com/molexxxx/pamoja/main/.github/badges/nuget.svg"></a>
-        &nbsp;<a href="https://github.com/molexxxx/pamoja/actions/workflows/ci.yml"><img height="26" alt="CI" src="https://raw.githubusercontent.com/molexxxx/pamoja/main/.github/badges/ci.svg"></a>
-        &nbsp;<a href="https://github.com/molexxxx/pamoja/blob/main/LICENSE-MIT"><img height="26" alt="MIT license" src="https://raw.githubusercontent.com/molexxxx/pamoja/main/.github/badges/license.svg"></a>
+        <a href="https://crates.io/users/tonywied17"><img height="26" alt="crates.io" src="https://raw.githubusercontent.com/molexxxx/molexxxx/main/.github/badges/pamoja-crates-pamoja.svg"></a>
+        &nbsp;<a href="https://www.npmjs.com/org/pamoja"><img height="26" alt="npm" src="https://raw.githubusercontent.com/molexxxx/molexxxx/main/.github/badges/pamoja-npm-pamoja.svg"></a>
+        &nbsp;<a href="https://pypi.org/user/tonywied17/"><img height="26" alt="PyPI" src="https://raw.githubusercontent.com/molexxxx/molexxxx/main/.github/badges/pamoja-pypi-pamoja.svg"></a>
+        &nbsp;<a href="https://www.nuget.org/profiles/tonywied17"><img height="26" alt="NuGet" src="https://raw.githubusercontent.com/molexxxx/molexxxx/main/.github/badges/pamoja-nuget-pamoja.svg"></a>
+        &nbsp;<a href="https://github.com/molexxxx/pamoja/actions/workflows/ci.yml"><img height="26" alt="CI" src="https://raw.githubusercontent.com/molexxxx/molexxxx/main/.github/badges/pamoja-ci-pamoja.svg"></a>
+        &nbsp;<a href="https://github.com/molexxxx/pamoja/blob/main/LICENSE-MIT"><img height="26" alt="MIT license" src="https://raw.githubusercontent.com/molexxxx/molexxxx/main/.github/badges/pamoja-license-pamoja.svg"></a>
       </p>
     </td>
   </tr>

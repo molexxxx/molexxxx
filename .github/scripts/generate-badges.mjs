@@ -114,6 +114,14 @@ const BADGES = [
   { id: 'plex-poster-helper-2-release', repo: 'plex-poster-set-helper-2', kind: 'release', label: 'release', icon: 'github', theme: PLEX_THEME('#e5a00d', '#1a1205') },
   { id: 'plex-poster-helper-2-downloads', repo: 'plex-poster-set-helper-2', kind: 'downloads', label: 'downloads', icon: 'github', theme: PLEX_THEME('#f0b429', '#1a1205') },
   { id: 'plex-poster-helper-2-download', kind: 'static-pair', label: 'download', message: 'latest', icon: 'github', theme: PLEX_THEME('#cc7b19', '#ffffff') },
+
+  // pamoja registry versions + CI/license
+  { id: 'pamoja-crates', kind: 'crates', label: 'crates.io', pkg: 'pamoja-core', theme: PAMOJA_THEME('#1fd3b0', '#0b1124') },
+  { id: 'pamoja-npm', kind: 'npm-version', label: 'npm', pkg: '@pamoja/core', icon: 'npm', theme: PAMOJA_THEME('#1fd3b0', '#0b1124') },
+  { id: 'pamoja-pypi', kind: 'pypi', label: 'PyPI', pkg: 'pamoja-core', theme: PAMOJA_THEME('#1fd3b0', '#0b1124') },
+  { id: 'pamoja-nuget', kind: 'nuget', label: 'NuGet', pkg: 'Pamoja.Core', theme: PAMOJA_THEME('#1fd3b0', '#0b1124') },
+  { id: 'pamoja-ci', repo: 'pamoja', kind: 'workflow', workflow: 'ci.yml', branch: 'main', label: 'CI', icon: 'github', theme: PAMOJA_THEME('#1fd3b0', '#0b1124') },
+  { id: 'pamoja-license', repo: 'pamoja', kind: 'license', label: 'license', icon: 'github', theme: PAMOJA_THEME('#1fd3b0', '#0b1124') },
 ];
 
 // Molex Media app palette
@@ -156,6 +164,12 @@ function MAGNIFY_THEME(messageColor, textColor)
 function PLEX_THEME(messageColor, textColor)
 {
   return { name: 'plex', labelBg: '#1a1205', labelFg: '#e5a00d', messageColor, textColor };
+}
+
+// pamoja palette (the dashboard's deep navy glass + teal accent)
+function PAMOJA_THEME(messageColor, textColor)
+{
+  return { name: 'pamoja', labelBg: '#0b1124', labelFg: '#1fd3b0', messageColor, textColor };
 }
 
 async function gh(p)
@@ -250,6 +264,21 @@ async function getValue(b)
   {
     const r = await fetchJson(`https://api.npmjs.org/downloads/point/last-month/${b.pkg}`);
     return `${fmtNum(r.downloads)}/month`;
+  }
+  if (b.kind === 'crates')
+  {
+    const r = await fetchJson(`https://crates.io/api/v1/crates/${b.pkg}`);
+    return `v${r.crate.max_stable_version || r.crate.max_version}`;
+  }
+  if (b.kind === 'pypi')
+  {
+    const r = await fetchJson(`https://pypi.org/pypi/${b.pkg}/json`);
+    return `v${r.info.version}`;
+  }
+  if (b.kind === 'nuget')
+  {
+    const r = await fetchJson(`https://api.nuget.org/v3-flatcontainer/${b.pkg.toLowerCase()}/index.json`);
+    return `v${r.versions[r.versions.length - 1]}`;
   }
   if (b.kind === 'last-commit')
   {

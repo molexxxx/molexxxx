@@ -55,19 +55,32 @@ async function rest(p)
   return r.json();
 }
 
-const QUERY = `query($login: String!) {
+// Private data (private repo commits, private repo stars/languages) is only returned when the
+// token is a classic PAT owned by OWNER carrying the `repo` scope. Without it GitHub silently
+// degrades to public-only numbers, so we probe for that below and warn instead of quietly
+// publishing a smaller card.
+const PROFILE_QUERY = `query($login: String!) {
+  viewer { login }
   user(login: $login) {
     createdAt
     followers { totalCount }
     contributionsCollection {
+      restrictedContributionsCount
       contributionCalendar {
         totalContributions
         weeks { contributionDays { date contributionCount } }
       }
     }
-    repositories(first: 100, ownerAffiliations: OWNER, isFork: false) {
+  }
+}`;
+
+const REPOS_QUERY = `query($login: String!, $after: String) {
+  user(login: $login) {
+    repositories(first: 100, after: $after, ownerAffiliations: OWNER, isFork: false) {
       totalCount
+      pageInfo { hasNextPage endCursor }
       nodes {
+        isPrivate
         stargazerCount
         languages(first: 30) { nodes { name } }
       }
@@ -75,7 +88,26 @@ const QUERY = `query($login: String!) {
   }
 }`;
 
-const data = (await gql(QUERY, { login: OWNER })).user;
+const profile = await gql(PROFILE_QUERY, { login: OWNER });
+const viewerLogin = profile.viewer?.login ?? null;
+const data = profile.user;
+
+async function fetchRepos()
+{
+  const nodes = [];
+  let totalCount = 0;
+  let after = null;
+  do
+  {
+    const page = (await gql(REPOS_QUERY, { login: OWNER, after })).user.repositories;
+    totalCount = page.totalCount;
+    nodes.push(...page.nodes);
+    after = page.pageInfo.hasNextPage ? page.pageInfo.endCursor : null;
+  } while (after);
+  return { nodes, totalCount };
+}
+
+const repoData = await fetchRepos();
 
 // All-time contribution totals: iterate yearly windows to now. contributionsCollection
 // accepts a max 1-year window, so we chunk. We start from a fixed history floor rather than
@@ -88,7 +120,7 @@ async function fetchAllTimeTotals(createdAt)
 {
   const start = new Date(Math.min(new Date(createdAt).getTime(), new Date(HISTORY_FLOOR).getTime()));
   const now = new Date();
-  const totals = { commits: 0, prs: 0, issues: 0, reviews: 0 };
+  const totals = { commits: 0, prs: 0, issues: 0, reviews: 0, restricted: 0 };
   let cursor = new Date(start);
   while (cursor < now)
   {
@@ -103,6 +135,7 @@ async function fetchAllTimeTotals(createdAt)
           totalPullRequestContributions
           totalIssueContributions
           totalPullRequestReviewContributions
+          restrictedContributionsCount
         }
       }
     }`;
@@ -112,6 +145,9 @@ async function fetchAllTimeTotals(createdAt)
     totals.prs += c.totalPullRequestContributions;
     totals.issues += c.totalIssueContributions;
     totals.reviews += c.totalPullRequestReviewContributions;
+    // Contributions the token cannot resolve individually but that the profile shares as a count.
+    // Zero whenever the token can already see the private repos, so this never double counts.
+    totals.restricted += c.restrictedContributionsCount;
     cursor = to;
   }
   return totals;
@@ -136,23 +172,46 @@ async function fetchExternalStars()
 const externalStars = 0;
 const userRest = await rest(`/users/${OWNER}`);
 
+// total_private_repos is only present when the token authenticates as OWNER, and it reports every
+// private repo the account owns regardless of what the token may read. Comparing it against the
+// private repos the repo query actually returned catches a fine-grained PAT pinned to a subset of
+// repositories, which otherwise degrades silently: stars/languages quietly drop the repos it
+// cannot see, and only the restricted-contribution fallback keeps the commit count whole.
+const privateRepos = userRest.total_private_repos;
+const visiblePrivateRepos = repoData.nodes.filter(r => r.isPrivate).length;
+const includesPrivate = viewerLogin === OWNER && typeof privateRepos === 'number';
+if (!includesPrivate)
+{
+  console.warn(`  ! token does not authenticate as ${OWNER} (viewer: ${viewerLogin ?? 'unknown'});`);
+  console.warn('    cards fall back to public-only figures.');
+}
+else if (visiblePrivateRepos < privateRepos)
+{
+  console.warn(`  ! token reads only ${visiblePrivateRepos} of ${privateRepos} private repos.`);
+  console.warn('    Commit totals stay whole via restrictedContributionsCount, but stars and');
+  console.warn('    languages undercount. Grant the PAT access to all repositories.');
+}
+
 const languageSet = new Set();
-for (const repo of data.repositories.nodes)
+for (const repo of repoData.nodes)
   for (const lang of (repo.languages?.nodes ?? []))
     languageSet.add(lang.name);
 
 const cal = data.contributionsCollection.contributionCalendar;
 const days = cal.weeks.flatMap(w => w.contributionDays);
 const totalContrib = cal.totalContributions;
-const totalCommits = allTime.commits;
+const totalCommits = allTime.commits + allTime.restricted;
 const totalPRs = allTime.prs;
 const totalReviews = allTime.reviews;
 const totalIssues = allTime.issues;
-const totalStars = data.repositories.nodes.reduce((s, n) => s + n.stargazerCount, 0) + externalStars;
-const totalRepos = userRest.public_repos;
+const totalStars = repoData.nodes.reduce((s, n) => s + n.stargazerCount, 0) + externalStars;
+const totalRepos = userRest.public_repos + (privateRepos ?? 0);
 const totalLanguages = languageSet.size;
 const followers = data.followers.totalCount;
 const activeDays = days.filter(d => d.contributionCount > 0).length;
+
+console.log(`repos ${totalRepos} (${userRest.public_repos} public + ${privateRepos ?? 0} private), languages ${totalLanguages}, stars ${totalStars}`);
+console.log(`commits ${totalCommits}${allTime.restricted ? ` (incl. ${allTime.restricted} restricted)` : ''}, prs ${totalPRs}, reviews ${totalReviews}, issues ${totalIssues}`);
 
 let currentStreak = 0;
 for (let i = days.length - 1; i >= 0; i--)
@@ -169,6 +228,8 @@ for (const d of days)
 }
 
 const maxDay = Math.max(...days.map(d => d.contributionCount), 1);
+
+const STATS_SUBTITLE = includesPrivate ? 'all time · incl. private' : 'all time';
 
 function fmtNum(n)
 {
@@ -374,7 +435,7 @@ function svgStats(dark)
   const midRowY = gridTop + cellH;
   dividers += `<line x1="${PAD_X}" y1="${midRowY.toFixed(1)}" x2="${W - PAD_X}" y2="${midRowY.toFixed(1)}" stroke="${c.sep}" stroke-width="1"/>`;
 
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="GitHub stats">
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="GitHub stats, ${STATS_SUBTITLE}">
   <defs>
     ${headerAnim(id, c.accent)}
     <clipPath id="clip-${id}"><rect x="0" y="0" width="${W}" height="${H}" rx="${RX}" ry="${RX}"/></clipPath>
@@ -389,7 +450,7 @@ function svgStats(dark)
 
   <g font-family="Segoe UI, Inter, -apple-system, BlinkMacSystemFont, sans-serif">
     <text x="${PAD_X}" y="${HEADER_Y}" font-size="13" font-weight="700" fill="${c.ink}" letter-spacing="-0.1">Stats</text>
-    <text x="${W - PAD_X}" y="${HEADER_Y}" text-anchor="end" font-size="11" font-weight="600" fill="${c.muted}" letter-spacing="1.2">all time</text>
+    <text x="${W - PAD_X}" y="${HEADER_Y}" text-anchor="end" font-size="11" font-weight="600" fill="${c.muted}" letter-spacing="1.2">${STATS_SUBTITLE}</text>
   </g>
 
   <g>${dividers}</g>

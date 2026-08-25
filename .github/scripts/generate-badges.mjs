@@ -40,11 +40,10 @@ const BADGES = [
   { id: 'zero-server-npm', kind: 'npm-version', label: 'npm', pkg: '@zero-server/sdk', icon: 'npm', theme: ZSERVER_THEME('#7c3aed', '#ffffff') },
   { id: 'zero-transfer-npm', kind: 'npm-version', label: 'npm', pkg: '@zero-transfer/sdk', icon: 'npm', theme: ZTRANSFER_THEME('#00b4d8', '#0d1117') },
 
-  // npm lifetime downloads. The ids keep their historical -dm suffix because
-  // the sibling repo READMEs point at those filenames.
-  { id: 'zero-query-dm', kind: 'npm-total', label: 'downloads', pkg: 'zero-query', icon: 'npm', theme: ZQUERY_THEME('#0288d1', '#ffffff') },
-  { id: 'zero-server-dm', kind: 'npm-total', label: 'downloads', pkg: '@zero-server/sdk', icon: 'npm', theme: ZSERVER_THEME('#6366f1', '#ffffff') },
-  { id: 'zero-transfer-dm', kind: 'npm-total', label: 'downloads', pkg: '@zero-transfer/sdk', icon: 'npm', theme: ZTRANSFER_THEME('#0096c7', '#ffffff') },
+  // npm lifetime downloads
+  { id: 'zero-query-downloads', kind: 'npm-total', label: 'downloads', pkg: 'zero-query', icon: 'npm', theme: ZQUERY_THEME('#0288d1', '#ffffff') },
+  { id: 'zero-server-downloads', kind: 'npm-total', label: 'downloads', pkg: '@zero-server/sdk', icon: 'npm', theme: ZSERVER_THEME('#6366f1', '#ffffff') },
+  { id: 'zero-transfer-downloads', kind: 'npm-total', label: 'downloads', pkg: '@zero-transfer/sdk', icon: 'npm', theme: ZTRANSFER_THEME('#0096c7', '#ffffff') },
 
   // static call-to-action pairs
   { id: 'molex-media-download', kind: 'static-pair', label: 'download', message: 'latest', icon: 'github' },

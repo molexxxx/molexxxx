@@ -96,10 +96,10 @@ const STACK = [
       { name: 'SQLite', slug: 'sqlite' },
       { name: 'MongoDB', slug: 'mongodb' },
       { name: 'Redis', slug: 'redis' },
-      { name: 'Firebase', slug: 'firebase' },
-      { name: 'Supabase', slug: 'supabase' },
-      { name: 'Prisma', slug: 'prisma' },
       { name: 'Elasticsearch', slug: 'elasticsearch' },
+      { name: 'EF Core', slug: 'dotnet' },
+      { name: 'Sequelize', slug: 'sequelize' },
+      { name: 'Hibernate', slug: 'hibernate' },
     ]
   },
   {

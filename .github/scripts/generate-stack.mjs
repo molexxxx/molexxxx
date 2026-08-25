@@ -114,7 +114,8 @@ const STACK = [
     label: 'Game Engines', accentA: '#f472b6', accentB: '#db2777', chips: [
       { name: 'Godot', slug: 'godotengine' },
       { name: 'godot-cpp', slug: 'cplusplus' },
-      { name: 'Unreal Engine', slug: 'unrealengine' },
+      { name: 'Unity', slug: 'unity', color: '#1d1d1d' },
+      { name: 'sandcore', color: '#f472b6' },
     ]
   },
   {
@@ -136,6 +137,8 @@ const STACK = [
       { name: 'SVG', slug: 'svg' },
       { name: 'Canvas', color: '#fcd34d' },
       { name: 'GLSL', color: '#fcd34d' },
+      { name: 'Vulkan', slug: 'vulkan' },
+      { name: 'SDL3', color: '#fcd34d' },
       { name: 'Three.js', slug: 'threedotjs' },
       { name: 'Inkscape', slug: 'inkscape' },
     ]
@@ -161,6 +164,7 @@ const STACK = [
       { name: 'Linux', slug: 'linux' },
       { name: 'Git', slug: 'git' },
       { name: 'GitHub Actions', slug: 'githubactions' },
+      { name: 'CMake', slug: 'cmake' },
     ]
   },
   {

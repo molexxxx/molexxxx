@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import { writeFileSync, readFileSync, mkdirSync } from 'node:fs';
+import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import path from 'node:path';
 
@@ -18,7 +19,7 @@ const RAW = `https://raw.githubusercontent.com/${OWNER}/${REPO}/main/${OUT}`;
 
 const BADGES = [
   // Header pill badges
-  { id: 'header-resume', kind: 'header-link', label: 'Resume', value: 'visit', icon: 'resume', accentA: '#f59e0b', accentB: '#ef4444' },
+  { id: 'header-website', kind: 'header-link', label: 'Website', value: 'molex.cloud', icon: 'globe', accentA: '#f59e0b', accentB: '#ef4444' },
   { id: 'header-repos', kind: 'header-link', label: 'Repos', source: 'user-repos', icon: 'github', accentA: '#60a5fa', accentB: '#2563eb' },
   { id: 'header-gists', kind: 'header-link', label: 'Gists', source: 'user-gists', icon: 'gist', accentA: '#a78bfa', accentB: '#7c3aed' },
   { id: 'header-npm', kind: 'header-link', label: 'npm packages', source: 'npm-packages', npmUser: 'molex222', icon: 'npm-pkg', accentA: '#f87171', accentB: '#dc2626' },
@@ -39,10 +40,11 @@ const BADGES = [
   { id: 'zero-server-npm', kind: 'npm-version', label: 'npm', pkg: '@zero-server/sdk', icon: 'npm', theme: ZSERVER_THEME('#7c3aed', '#ffffff') },
   { id: 'zero-transfer-npm', kind: 'npm-version', label: 'npm', pkg: '@zero-transfer/sdk', icon: 'npm', theme: ZTRANSFER_THEME('#00b4d8', '#0d1117') },
 
-  // npm monthly downloads
-  { id: 'zero-query-dm', kind: 'npm-dm', label: 'downloads', pkg: 'zero-query', icon: 'npm', theme: ZQUERY_THEME('#0288d1', '#ffffff') },
-  { id: 'zero-server-dm', kind: 'npm-dm', label: 'downloads', pkg: '@zero-server/sdk', icon: 'npm', theme: ZSERVER_THEME('#6366f1', '#ffffff') },
-  { id: 'zero-transfer-dm', kind: 'npm-dm', label: 'downloads', pkg: '@zero-transfer/sdk', icon: 'npm', theme: ZTRANSFER_THEME('#0096c7', '#ffffff') },
+  // npm lifetime downloads. The ids keep their historical -dm suffix because
+  // the sibling repo READMEs point at those filenames.
+  { id: 'zero-query-dm', kind: 'npm-total', label: 'downloads', pkg: 'zero-query', icon: 'npm', theme: ZQUERY_THEME('#0288d1', '#ffffff') },
+  { id: 'zero-server-dm', kind: 'npm-total', label: 'downloads', pkg: '@zero-server/sdk', icon: 'npm', theme: ZSERVER_THEME('#6366f1', '#ffffff') },
+  { id: 'zero-transfer-dm', kind: 'npm-total', label: 'downloads', pkg: '@zero-transfer/sdk', icon: 'npm', theme: ZTRANSFER_THEME('#0096c7', '#ffffff') },
 
   // static call-to-action pairs
   { id: 'molex-media-download', kind: 'static-pair', label: 'download', message: 'latest', icon: 'github' },
@@ -260,10 +262,28 @@ async function getValue(b)
     const r = await fetchJson(`https://registry.npmjs.org/${b.pkg}/latest`);
     return `v${r.version}`;
   }
-  if (b.kind === 'npm-dm')
+  if (b.kind === 'npm-total')
   {
-    const r = await fetchJson(`https://api.npmjs.org/downloads/point/last-month/${b.pkg}`);
-    return `${fmtNum(r.downloads)}/month`;
+    // npm's range endpoint caps at 18 months per call, so walk forward from the
+    // first publish in chunks and sum. Keeps these comparable to the GitHub
+    // release counts the desktop apps advertise.
+    const meta = await fetchJson(`https://registry.npmjs.org/${b.pkg}`);
+    const today = new Date().toISOString().slice(0, 10);
+    const iso = d => d.toISOString().slice(0, 10);
+    let start = meta.time.created.slice(0, 10);
+    let total = 0;
+    while (start <= today)
+    {
+      const to = new Date(start);
+      to.setMonth(to.getMonth() + 17);
+      const end = iso(to) < today ? iso(to) : today;
+      const r = await fetchJson(`https://api.npmjs.org/downloads/range/${start}:${end}/${b.pkg}`);
+      for (const d of r.downloads ?? []) total += d.downloads;
+      const next = new Date(end);
+      next.setDate(next.getDate() + 1);
+      start = iso(next);
+    }
+    return fmtNum(total);
   }
   if (b.kind === 'crates')
   {
@@ -382,7 +402,7 @@ const ICONS = {
 
 // 22px header-pill icons (positioned by the header renderer).
 const HEADER_ICONS = {
-  resume: c => `<g fill="none" stroke="${c}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M8 13h8M8 17h8M8 9h2"/></g>`,
+  globe: c => `<g fill="none" stroke="${c}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19"/><path d="M12 2.5a15 15 0 0 1 4 9.5 15 15 0 0 1-4 9.5 15 15 0 0 1-4-9.5 15 15 0 0 1 4-9.5z"/></g>`,
   github: c => `<path fill="${c}" d="M12 .5a12 12 0 0 0-3.79 23.4c.6.11.82-.26.82-.58v-2.02c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.1-.75.08-.74.08-.74 1.21.09 1.85 1.24 1.85 1.24 1.08 1.85 2.83 1.32 3.52 1.01.11-.78.42-1.32.76-1.62-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.49 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58A12 12 0 0 0 12 .5Z"/>`,
   gist: c => `<g fill="none" stroke="${c}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></g>`,
   'npm-pkg': c => `<path fill="${c}" d="M1.763 0C.786 0 0 .786 0 1.763v20.474C0 23.214.786 24 1.763 24h20.474c.977 0 1.763-.786 1.763-1.763V1.763C24 .786 23.214 0 22.237 0H1.763zM5.13 5.323l13.837.019-.009 13.836h-3.464l.01-10.382h-3.456L12.04 19.17H5.113L5.13 5.323z"/>`,
@@ -537,7 +557,16 @@ function svgSingle({ message, dark, theme, icon })
 
 mkdirSync(OUT, { recursive: true });
 
-const manifest = {};
+// file name -> sha1 of the bytes just written, used to stamp README URLs.
+const hashes = {};
+let failed = 0;
+
+function emit(name, body)
+{
+  writeFileSync(path.join(OUT, name), body);
+  hashes[name] = createHash('sha1').update(body).digest('hex').slice(0, 8);
+}
+
 for (const b of BADGES)
 {
   try
@@ -565,15 +594,59 @@ for (const b of BADGES)
         themed = svg({ label: b.label, message, theme: b.theme, icon: b.icon });
       }
     }
-    writeFileSync(path.join(OUT, `${b.id}-dark.svg`), dark);
-    writeFileSync(path.join(OUT, `${b.id}-light.svg`), light);
-    if (themed) writeFileSync(path.join(OUT, `${b.id}-${b.theme.name}.svg`), themed);
-    const hashInput = dark + light + (themed ?? '');
-    manifest[b.id] = createHash('sha1').update(hashInput).digest('hex').slice(0, 8);
+    emit(`${b.id}-dark.svg`, dark);
+    emit(`${b.id}-light.svg`, light);
+    if (themed) emit(`${b.id}-${b.theme.name}.svg`, themed);
     console.log(`ok  ${b.id.padEnd(30)} ${message}`);
   } catch (e)
   {
+    failed++;
     console.error(`err ${b.id.padEnd(30)} ${e.message}`);
   }
+}
+
+// Stamp every badge URL this script owns with ?v=<hash>. GitHub proxies README
+// images through camo, which caches on the URL - without a changing query the
+// profile keeps serving the old SVG long after the file here has moved on.
+const README = 'README.md';
+let md = readFileSync(README, 'utf8');
+let stamped = 0, unreferenced = [];
+
+// raw.githubusercontent.com serves the same file under both a bare branch name
+// and the refs/heads/ form; stamp either one so a hand-written URL is not
+// silently skipped.
+const RAW_FORMS = [RAW, `https://raw.githubusercontent.com/${OWNER}/${REPO}/refs/heads/main/${OUT}`];
+
+for (const [name, hash] of Object.entries(hashes))
+{
+  let hit = false;
+  for (const base of RAW_FORMS)
+  {
+    const url = `${base}/${name}`;
+    // Split on the bare URL rather than building a regex, so nothing in the
+    // path or the surrounding HTML needs escaping.
+    const parts = md.split(url);
+    if (parts.length === 1) continue;
+    hit = true;
+    md = parts.map((part, i) =>
+    {
+      if (i === 0) return part;
+      stamped++;
+      // Drop an existing ?v=... so hashes never stack up.
+      return `?v=${hash}` + part.replace(/^\?v=[0-9a-f]+/, '');
+    }).join(url);
+  }
+  if (!hit) unreferenced.push(name);
+}
+
+writeFileSync(README, md);
+
+console.log(`\nstamped ${stamped} README badge URLs`);
+if (unreferenced.length) console.log(`note: ${unreferenced.length} generated badges are not referenced in README.md`);
+
+if (failed)
+{
+  console.error(`\n${failed} badge(s) failed to refresh - the committed files for those are stale`);
+  process.exitCode = 1;
 }
 

@@ -39,6 +39,8 @@ jobs:
         run: npm ci --ignore-scripts --no-audit --no-fund
 
       - name: Generate header + project badges
+        id: badges
+        continue-on-error: true
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: node .github/scripts/generate-badges.mjs
@@ -61,3 +63,9 @@ jobs:
             git pull --rebase origin main
             git push
           fi
+
+      - name: Fail if any badge went stale
+        if: steps.badges.outcome == 'failure'
+        run: |
+          echo "One or more badges could not be refreshed - see the generate step log." >&2
+          exit 1

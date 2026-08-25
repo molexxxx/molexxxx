@@ -16,9 +16,9 @@
     { "group": "Backend", "items": ["Node.js", "Express", "zero-server", "ASP.NET", "Spring", "Laravel", "REST", "GraphQL", "gRPC"] },
     { "group": "Real-time", "items": ["WebSocket", "WebRTC", "SSE", "Nakama"] },
     { "group": "Data", "items": ["PostgreSQL", "MySQL", "SQLite", "MongoDB", "Redis", "EF Core", "Sequelize", "Hibernate"] },
-    { "group": "Desktop / Games", "items": ["Electron", "Qt", "WinForms", "Godot 4", "godot-cpp", "Unreal Engine"] },
+    { "group": "Desktop / Games", "items": ["Electron", "Qt", "WinForms", "Godot 4", "godot-cpp", "Unity", "sandcore"] },
     { "group": "Robotics / IoT", "items": ["ROS 2", "Zenoh", "MAVLink", "PX4 / ArduPilot", "LoRa / LoRaWAN", "MQTT", "CoAP", "Modbus", "CAN", "no_std / embedded"] },
-    { "group": "Audio & Graphics", "items": ["Three.js", "Babylon.js", "WebGL", "GLSL", "SVG", "Web Audio API", "SuperCollider", "FFmpeg"] },
+    { "group": "Audio & Graphics", "items": ["Three.js", "Babylon.js", "WebGL", "Vulkan", "GLSL", "SDL3", "SVG", "Web Audio API", "SuperCollider", "FFmpeg"] },
     { "group": "Auth & Security", "items": ["JWT", "OAuth 2.0", "WebAuthn", "TOTP", "Microsoft Entra ID", "CSRF"] },
     { "group": "Infra / DevOps", "items": ["Docker", "Kubernetes", "Nginx", "GitHub Actions", "Argo CD", "Jenkins", "Prometheus", "Grafana", "Linux"] },
     { "group": "Cloud", "items": ["AWS EC2", "RDS", "S3", "CodePipeline", "CodeBuild"] }

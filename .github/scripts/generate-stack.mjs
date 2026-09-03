@@ -69,24 +69,26 @@ const STACK = [
       { name: 'zero-server', color: '#60a5fa' },
       { name: 'Node.js', slug: 'nodedotjs' },
       { name: 'Express', slug: 'express' },
+      { name: 'Drogon', slug: 'cplusplus' },
+      { name: 'Trantor', slug: 'cplusplus' },
+      { name: 'ASP.NET Core', slug: 'dotnet' },
+      { name: 'Spring Boot', slug: 'spring' },
       { name: 'REST', color: '#34d399' },
       { name: 'GraphQL', slug: 'graphql' },
+      { name: 'gRPC', color: '#34d399' },
       { name: 'OpenAPI', slug: 'openapiinitiative' },
-      { name: 'ASP.NET Core', slug: 'dotnet' },
-      { name: 'EF Core', slug: 'dotnet' },
-      { name: 'Spring Boot', slug: 'spring' },
     ]
   },
   {
     label: 'Real-time', accentA: '#a78bfa', accentB: '#7c3aed', chips: [
       { name: 'WebSocket', slug: 'socketdotio' },
       { name: 'WebRTC', slug: 'webrtc' },
+      { name: 'SSE', color: '#a78bfa' },
+      { name: 'STUN/TURN', color: '#a78bfa' },
       { name: 'MQTT', slug: 'mqtt' },
       { name: 'CoAP', color: '#a78bfa' },
-      { name: 'SSE', color: '#a78bfa' },
-      { name: 'gRPC', color: '#9333ea' },
-      { name: 'HTTP/2', color: '#a78bfa' },
-      { name: 'STUN/TURN', color: '#a78bfa' },
+      { name: 'LoRaWAN', color: '#a78bfa' },
+      { name: 'NB-IoT', color: '#a78bfa' },
     ]
   },
   {
@@ -114,8 +116,6 @@ const STACK = [
     label: 'Game Engines', accentA: '#f472b6', accentB: '#db2777', chips: [
       { name: 'Godot', slug: 'godotengine' },
       { name: 'godot-cpp', slug: 'cplusplus' },
-      { name: 'Unity', slug: 'unity', color: '#1d1d1d' },
-      { name: 'sandcore', color: '#f472b6' },
     ]
   },
   {

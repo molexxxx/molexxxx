@@ -12,7 +12,7 @@ on:
       - '.github/workflows/badges.yml'
       - '.github/scripts/generate-badges.mjs'
       - '.github/scripts/generate-stack.mjs'
-      - '.github/scripts/generate-tagline.mjs'
+      - '.github/scripts/datasheet.mjs'
       - 'package.json'
       - 'package-lock.json'
 
@@ -45,11 +45,8 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: node .github/scripts/generate-badges.mjs
 
-      - name: Generate stack cards
+      - name: Generate stack tables
         run: node .github/scripts/generate-stack.mjs
-
-      - name: Generate tagline
-        run: node .github/scripts/generate-tagline.mjs
 
       - name: Commit changes
         run: |

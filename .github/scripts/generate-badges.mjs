@@ -4,6 +4,8 @@ import { writeFileSync, readFileSync, mkdirSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import path from 'node:path';
+import * as simpleIcons from 'simple-icons';
+import { FONT, tokens, escapeXml, fmtNum as fmtCount, plural, textWidth as measure } from './datasheet.mjs';
 
 const TOKEN = process.env.GH_TOKEN;
 if (!TOKEN)
@@ -17,12 +19,15 @@ const REPO = 'molexxxx';
 const OUT = '.github/badges';
 const RAW = `https://raw.githubusercontent.com/${OWNER}/${REPO}/main/${OUT}`;
 
+const USER_AGENT = 'molexxxx-badge-gen (https://github.com/molexxxx/molexxxx)';
+const FETCH_TIMEOUT_MS = 20000;
+
 const BADGES = [
-  // Header pill badges
-  { id: 'header-website', kind: 'header-link', label: 'Website', value: 'molex.cloud', icon: 'globe', accentA: '#f59e0b', accentB: '#ef4444' },
-  { id: 'header-repos', kind: 'header-link', label: 'Repos', source: 'user-repos', icon: 'github', accentA: '#60a5fa', accentB: '#2563eb' },
-  { id: 'header-gists', kind: 'header-link', label: 'Gists', source: 'user-gists', icon: 'gist', accentA: '#a78bfa', accentB: '#7c3aed' },
-  { id: 'header-npm', kind: 'header-link', label: 'npm packages', source: 'npm-packages', npmUser: 'molex222', icon: 'npm-pkg', accentA: '#f87171', accentB: '#dc2626' },
+  // Header registry cells: live package counts per registry account
+  { id: 'header-npm', kind: 'registry-count', label: 'npm', source: 'npm-packages', user: 'molex222', mark: 'siNpm' },
+  { id: 'header-crates', kind: 'registry-count', label: 'crates.io', source: 'crates-packages', user: 'tonywied17', mark: 'siRust' },
+  { id: 'header-nuget', kind: 'registry-count', label: 'NuGet', source: 'nuget-packages', user: 'tonywied17', mark: 'siNuget' },
+  { id: 'header-pypi', kind: 'registry-count', label: 'PyPI', source: 'pypi-packages', user: 'tonywied17', mark: 'siPypi' },
 
   // websites
   { id: 'zero-query-site', kind: 'static-pair', label: 'website', message: 'visit', icon: 'globe' },
@@ -117,10 +122,10 @@ const BADGES = [
   { id: 'plex-poster-helper-2-download', kind: 'static-pair', label: 'download', message: 'latest', icon: 'github', theme: PLEX_THEME('#cc7b19', '#ffffff') },
 
   // pamoja registry versions + CI/license
-  { id: 'pamoja-crates', kind: 'crates', label: 'crates.io', pkg: 'pamoja-core', theme: PAMOJA_THEME('#1fd3b0', '#0b1124') },
-  { id: 'pamoja-npm', kind: 'npm-version', label: 'npm', pkg: '@pamoja/core', icon: 'npm', theme: PAMOJA_THEME('#1fd3b0', '#0b1124') },
-  { id: 'pamoja-pypi', kind: 'pypi', label: 'PyPI', pkg: 'pamoja-core', theme: PAMOJA_THEME('#1fd3b0', '#0b1124') },
-  { id: 'pamoja-nuget', kind: 'nuget', label: 'NuGet', pkg: 'Pamoja.Core', theme: PAMOJA_THEME('#1fd3b0', '#0b1124') },
+  { id: 'pamoja-crates', kind: 'crates', label: 'crates.io', pkg: 'pamoja', theme: PAMOJA_THEME('#1fd3b0', '#0b1124') },
+  { id: 'pamoja-npm', kind: 'npm-version', label: 'npm', pkg: 'pamoja', icon: 'npm', theme: PAMOJA_THEME('#1fd3b0', '#0b1124') },
+  { id: 'pamoja-pypi', kind: 'pypi', label: 'PyPI', pkg: 'pamoja', theme: PAMOJA_THEME('#1fd3b0', '#0b1124') },
+  { id: 'pamoja-nuget', kind: 'nuget', label: 'NuGet', pkg: 'Pamoja', theme: PAMOJA_THEME('#1fd3b0', '#0b1124') },
   { id: 'pamoja-ci', repo: 'pamoja', kind: 'workflow', workflow: 'ci.yml', branch: 'main', label: 'CI', icon: 'github', theme: PAMOJA_THEME('#1fd3b0', '#0b1124') },
   { id: 'pamoja-license', repo: 'pamoja', kind: 'license', label: 'license', icon: 'github', theme: PAMOJA_THEME('#1fd3b0', '#0b1124') },
 ];
@@ -178,9 +183,10 @@ async function gh(p)
   const r = await fetch(`https://api.github.com${p}`, {
     headers: {
       Authorization: `Bearer ${TOKEN}`,
-      'User-Agent': 'molexxxx-badge-gen',
+      'User-Agent': USER_AGENT,
       Accept: 'application/vnd.github+json',
     },
+    signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
   });
   if (!r.ok) throw new Error(`${p}: HTTP ${r.status} ${r.statusText}`);
   return r.json();
@@ -188,11 +194,89 @@ async function gh(p)
 
 async function fetchJson(url, opts = {})
 {
-  const headers = { 'User-Agent': 'molexxxx-badge-gen', ...(opts.headers || {}) };
-  const r = await fetch(url, { ...opts, headers });
+  const headers = { 'User-Agent': USER_AGENT, ...(opts.headers || {}) };
+  const r = await fetch(url, { ...opts, headers, signal: AbortSignal.timeout(FETCH_TIMEOUT_MS) });
   if (!r.ok) throw new Error(`${url}: HTTP ${r.status} ${r.statusText}`);
   return r.json();
 }
+
+/**
+ * Counts packages on npm for a maintainer, preferring the profile page's own total.
+ * @param {string} user
+ * @returns {Promise<number>}
+ */
+async function npmPackageCount(user)
+{
+  try
+  {
+    const out = execFileSync('curl', [
+      '-sSL', '--max-time', '15',
+      '-H', 'x-spiferack: 1',
+      '-H', 'accept: application/json',
+      '-A', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+      `https://www.npmjs.com/~${user}`,
+    ], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] });
+    const j = JSON.parse(out);
+    if (j?.packages?.total != null) return j.packages.total;
+  } catch { /* fall through to registry search */ }
+  const r = await fetchJson(`https://registry.npmjs.org/-/v1/search?text=maintainer:${user}&size=250`);
+  return r.total ?? (r.objects?.length ?? 0);
+}
+
+/**
+ * Counts crates owned by a crates.io user.
+ * @param {string} user
+ * @returns {Promise<number>}
+ */
+async function cratesPackageCount(user)
+{
+  const u = await fetchJson(`https://crates.io/api/v1/users/${encodeURIComponent(user)}`);
+  const r = await fetchJson(`https://crates.io/api/v1/crates?user_id=${u.user.id}&per_page=1`);
+  return r.meta.total;
+}
+
+/**
+ * Counts listed NuGet packages whose owners include the user, via the search service from the V3 index.
+ * @param {string} user
+ * @returns {Promise<number>}
+ */
+async function nugetPackageCount(user)
+{
+  const index = await fetchJson('https://api.nuget.org/v3/index.json');
+  const search = index.resources.find(r => r['@type'].startsWith('SearchQueryService'))?.['@id'];
+  if (!search) throw new Error('NuGet service index has no SearchQueryService');
+  const r = await fetchJson(`${search}?q=owner:${encodeURIComponent(user)}&prerelease=true&semVerLevel=2.0.0&take=1000`);
+  const want = user.toLowerCase();
+  return r.data.filter(p => (p.owners ?? []).some(o => o.toLowerCase() === want)).length;
+}
+
+/**
+ * Counts PyPI projects where the user is an owner or maintainer, via PyPI's XML-RPC user_packages.
+ * @param {string} user
+ * @returns {Promise<number>}
+ */
+async function pypiPackageCount(user)
+{
+  const body = `<?xml version="1.0"?><methodCall><methodName>user_packages</methodName><params><param><value><string>${escapeXml(user)}</string></value></param></params></methodCall>`;
+  const r = await fetch('https://pypi.org/pypi', {
+    method: 'POST',
+    headers: { 'Content-Type': 'text/xml', 'User-Agent': USER_AGENT },
+    body,
+    signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+  });
+  if (!r.ok) throw new Error(`PyPI XML-RPC: HTTP ${r.status} ${r.statusText}`);
+  const xml = await r.text();
+  if (xml.includes('<fault>')) throw new Error('PyPI XML-RPC returned a fault');
+  const names = [...xml.matchAll(/<string>(?:Owner|Maintainer)<\/string><\/value>\s*<value><string>([^<]+)<\/string>/g)].map(m => m[1]);
+  return new Set(names).size;
+}
+
+const REGISTRY_COUNTERS = {
+  'npm-packages': npmPackageCount,
+  'crates-packages': cratesPackageCount,
+  'nuget-packages': nugetPackageCount,
+  'pypi-packages': pypiPackageCount,
+};
 
 function fmtRelative(iso)
 {
@@ -220,37 +304,14 @@ function fmtNum(n)
 
 async function getValue(b)
 {
-  if (b.kind === 'header-link')
+  if (b.kind === 'registry-count')
   {
-    if (!b.source) return b.value ?? '';
-    if (b.source === 'user-repos')
+    const count = await REGISTRY_COUNTERS[b.source](b.user);
+    if (!Number.isInteger(count) || count < 1)
     {
-      const u = await gh(`/users/${OWNER}`);
-      return String(u.public_repos);
+      throw new Error(`${b.label} returned ${count} packages for ${b.user}; keeping the last published count`);
     }
-    if (b.source === 'user-gists')
-    {
-      const list = await gh(`/users/${OWNER}/gists?per_page=100`);
-      return String(list.length);
-    }
-    if (b.source === 'npm-packages')
-    {
-      try
-      {
-        const out = execFileSync('curl', [
-          '-sSL', '--max-time', '15',
-          '-H', 'x-spiferack: 1',
-          '-H', 'accept: application/json',
-          '-A', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-          `https://www.npmjs.com/~${b.npmUser}`,
-        ], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] });
-        const j = JSON.parse(out);
-        if (j?.packages?.total != null) return String(j.packages.total);
-      } catch { /* fall through to registry search */ }
-      const r = await fetchJson(`https://registry.npmjs.org/-/v1/search?text=maintainer:${b.npmUser}&size=250`);
-      return String(r.total ?? (r.objects?.length ?? 0));
-    }
-    return b.value ?? '';
+    return count;
   }
   if (b.kind === 'static-single' || b.kind === 'static-pair')
   {
@@ -282,7 +343,7 @@ async function getValue(b)
       next.setDate(next.getDate() + 1);
       start = iso(next);
     }
-    return fmtNum(total);
+    return total;
   }
   if (b.kind === 'crates')
   {
@@ -335,7 +396,7 @@ async function getValue(b)
       if (list.length < 100) break;
       page++;
     }
-    return fmtNum(total);
+    return total;
   }
   if (b.kind === 'license')
   {
@@ -382,13 +443,6 @@ function textWidth(s)
   return Math.ceil(w);
 }
 
-function escapeXml(s)
-{
-  return s.replace(/[<>&'"]/g, c => ({
-    '<': '&lt;', '>': '&gt;', '&': '&amp;', "'": '&apos;', '"': '&quot;',
-  }[c]));
-}
-
 // 14x14 inline SVG icons.
 // <svg> element positioned at x=5, y=3 inside the parent badge.
 const ICONS = {
@@ -398,70 +452,6 @@ const ICONS = {
   github: c => `<svg x="5" y="3" width="14" height="14" viewBox="0 0 24 24" fill="${c}"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>`,
   git: c => `<svg x="5" y="3" width="14" height="14" viewBox="0 0 24 24" fill="${c}"><path d="M23.546 10.93L13.067.452c-.604-.603-1.582-.603-2.188 0L8.708 2.627l2.76 2.76c.645-.215 1.379-.07 1.889.441.516.515.658 1.258.438 1.9l2.658 2.66c.645-.223 1.387-.078 1.9.435.721.72.721 1.884 0 2.604-.719.719-1.881.719-2.6 0-.539-.541-.674-1.337-.404-1.996L12.86 8.955v6.525c.176.086.342.203.488.348.713.721.713 1.883 0 2.6-.719.721-1.889.721-2.609 0-.719-.719-.719-1.879 0-2.598.182-.18.387-.316.605-.406V8.835c-.217-.091-.424-.222-.6-.401-.545-.545-.676-1.342-.396-2.009L7.636 3.7.45 10.881c-.6.605-.6 1.584 0 2.189l10.48 10.477c.604.604 1.582.604 2.186 0l10.43-10.43c.605-.603.605-1.582 0-2.187"/></svg>`,
 };
-
-// 22px header-pill icons (positioned by the header renderer).
-const HEADER_ICONS = {
-  globe: c => `<g fill="none" stroke="${c}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19"/><path d="M12 2.5a15 15 0 0 1 4 9.5 15 15 0 0 1-4 9.5 15 15 0 0 1-4-9.5 15 15 0 0 1 4-9.5z"/></g>`,
-  github: c => `<path fill="${c}" d="M12 .5a12 12 0 0 0-3.79 23.4c.6.11.82-.26.82-.58v-2.02c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.1-.75.08-.74.08-.74 1.21.09 1.85 1.24 1.85 1.24 1.08 1.85 2.83 1.32 3.52 1.01.11-.78.42-1.32.76-1.62-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.49 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58A12 12 0 0 0 12 .5Z"/>`,
-  gist: c => `<g fill="none" stroke="${c}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></g>`,
-  'npm-pkg': c => `<path fill="${c}" d="M1.763 0C.786 0 0 .786 0 1.763v20.474C0 23.214.786 24 1.763 24h20.474c.977 0 1.763-.786 1.763-1.763V1.763C24 .786 23.214 0 22.237 0H1.763zM5.13 5.323l13.837.019-.009 13.836h-3.464l.01-10.382h-3.456L12.04 19.17H5.113L5.13 5.323z"/>`,
-};
-
-/**
- * Sleek CTA matched to the activity cards: transparent fill, single muted
- * accent (same blue as the activity sweep), and an animated traveling
- * highlight that traces the border.
- */
-function svgHeader({ label, value, icon, dark, id })
-{
-  const W = 177, H = 53, RX = 10;
-  const ink = dark ? '#e6e9f1' : '#0b1220';
-  const muted = dark ? '#7d8590' : '#656d76';
-  const border = dark ? '#30363d' : '#d0d7de';
-  const accent = dark ? '#60a5fa' : '#2563eb';
-
-  const bx = 0.75, by = 0.75, bw = W - 1.5, bh = H - 1.5, br = RX - 0.25;
-  const borderD = `M ${bx + br} ${by} H ${bx + bw - br} A ${br} ${br} 0 0 1 ${bx + bw} ${by + br} V ${by + bh - br} A ${br} ${br} 0 0 1 ${bx + bw - br} ${by + bh} H ${bx + br} A ${br} ${br} 0 0 1 ${bx} ${by + bh - br} V ${by + br} A ${br} ${br} 0 0 1 ${bx + br} ${by} Z`;
-  const perim = Math.round(2 * (bw + bh) - (8 - 2 * Math.PI) * br);
-  const iconSvg = HEADER_ICONS[icon] ? HEADER_ICONS[icon](accent) : '';
-
-  const dur = 6;
-
-  const sweepW = Math.round(W * 0.6);
-
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" shape-rendering="geometricPrecision" role="img" aria-label="${escapeXml(label)}: ${escapeXml(value)}">
-  <defs>
-    <path id="bd-${id}" d="${borderD}" fill="none"/>
-    <linearGradient id="gr-${id}" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%"   stop-color="${accent}" stop-opacity="0"/>
-      <stop offset="50%"  stop-color="${accent}" stop-opacity="0.65"/>
-      <stop offset="100%" stop-color="${accent}" stop-opacity="0"/>
-    </linearGradient>
-    <mask id="mk-${id}" maskUnits="userSpaceOnUse">
-      <use href="#bd-${id}" stroke="#fff" stroke-width="1"/>
-    </mask>
-  </defs>
-
-  <use href="#bd-${id}" stroke="${border}" stroke-width="1"/>
-
-  <g mask="url(#mk-${id})">
-    <rect x="0" y="0" width="${sweepW}" height="${H}" fill="url(#gr-${id})">
-      <animate attributeName="x" from="${-sweepW}" to="${W}" dur="${dur}s" repeatCount="indefinite"/>
-    </rect>
-  </g>
-
-  <g transform="translate(16 15)">
-    <svg viewBox="0 0 24 24" width="22" height="22">${iconSvg}</svg>
-  </g>
-
-  <g font-family="Segoe UI, Inter, -apple-system, BlinkMacSystemFont, sans-serif">
-    <text x="48" y="26" font-size="18" font-weight="800" fill="${ink}" letter-spacing="-0.3">${escapeXml(value)}</text>
-    <text x="48" y="40" font-size="9.5" font-weight="700" fill="${muted}" letter-spacing="1.6">${escapeXml(label.toUpperCase())}</text>
-  </g>
-</svg>
-`;
-}
-
 
 const PILL_H = 22;
 const PILL_RX = 5;
@@ -501,63 +491,183 @@ function svgPill({ label, message, icon, bg, border, borderOpacity = 1, labelCol
 `;
 }
 
-const PILL_DARK  = { bg: '#0d1117', border: '#30363d', label: '#7d8590', ink: '#e6e9f1', accent: '#58a6ff' };
-const PILL_LIGHT = { bg: '#ffffff', border: '#d0d7de', label: '#656d76', ink: '#1f2328', accent: '#0969da' };
-
 // Neutral muted label color that reads cleanly on any dark themed background.
 const THEMED_LABEL = '#8b95a7';
 
-function svg({ label, message, dark, theme, icon })
+/**
+ * Renders a project-themed pill for sibling READMEs. Output is kept identical
+ * to the original design because those repos own their themes.
+ */
+function svgThemed({ label, message, theme, icon })
 {
-  if (theme)
-  {
-    const accent = theme.labelFg;
-    return svgPill({
-      label, message, icon,
-      bg: theme.labelBg,
-      border: accent,
-      borderOpacity: 0.28,
-      labelColor: THEMED_LABEL,
-      valueColor: accent,
-      iconColor: accent,
-    });
-  }
-  const p = dark ? PILL_DARK : PILL_LIGHT;
+  const accent = theme.labelFg;
   return svgPill({
     label, message, icon,
-    bg: p.bg, border: p.border,
-    labelColor: p.label, valueColor: p.ink,
-    iconColor: p.accent,
+    bg: theme.labelBg,
+    border: accent,
+    borderOpacity: 0.28,
+    labelColor: THEMED_LABEL,
+    valueColor: accent,
+    iconColor: accent,
   });
 }
 
-function svgSingle({ message, dark, theme, icon })
+const SPEC_H = 38;
+const SPEC_PAD_L = 2;
+const SPEC_PAD_R = 12;
+const SPEC_ICON = 11;
+const SPEC_ICON_GAP = 4;
+
+const REGISTRY_MARKS = {
+  'npm-version': 'siNpm',
+  crates: 'siRust',
+  pypi: 'siPypi',
+  nuget: 'siNuget',
+};
+
+/**
+ * Looks up a simple-icons path by its export name, such as siNpm.
+ * @param {string} name
+ * @returns {string | undefined}
+ */
+function markPath(name)
 {
-  if (theme)
+  return simpleIcons[name]?.path;
+}
+
+/**
+ * Renders a neutral profile spec cell: ink rule on top, muted label, value in tabular
+ * figures, hairline below. Cells placed side by side form one ruled parameter row.
+ * @param {{ label: string, text: string, mark?: string, state: 'ok' | 'muted' | 'fail', dark: boolean }} p
+ * @returns {string}
+ */
+function svgSpec({ label, text, mark, state, dark })
+{
+  const t = tokens(dark);
+  const path = mark ? markPath(mark) : undefined;
+  const iconW = path ? SPEC_ICON + SPEC_ICON_GAP : 0;
+  const valueWeight = state === 'fail' ? 700 : 600;
+  const contentW = Math.max(iconW + measure(label, 11, 400), measure(text, 13, valueWeight));
+  const W = SPEC_PAD_L + contentW + SPEC_PAD_R;
+  const valueFill = state === 'fail' ? t.danger : state === 'muted' ? t.muted : t.ink;
+  const icon = path
+    ? `\n  <svg x="${SPEC_PAD_L}" y="6" width="${SPEC_ICON}" height="${SPEC_ICON}" viewBox="0 0 24 24"><path fill="${t.muted}" d="${path}"/></svg>`
+    : '';
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${SPEC_H}" viewBox="0 0 ${W} ${SPEC_H}" role="img" aria-label="${escapeXml(label)}: ${escapeXml(text)}">
+  <rect x="0" y="0" width="${W}" height="1.5" fill="${t.ink}"/>${icon}
+  <g font-family="${FONT}" style="font-variant-numeric: tabular-nums">
+    <text x="${SPEC_PAD_L + iconW}" y="15" font-size="11" fill="${t.muted}">${escapeXml(label)}</text>
+    <text x="${SPEC_PAD_L}" y="31" font-size="13" font-weight="${valueWeight}" fill="${valueFill}">${escapeXml(text)}</text>
+  </g>
+  <rect x="0" y="${SPEC_H - 1}" width="${W}" height="1" fill="${t.rule}"/>
+</svg>
+`;
+}
+
+const CELL_W = 144;
+const CELL_H = 60;
+
+/**
+ * Renders one header cell of the registry row: a ruled parameter cell with the
+ * registry mark and name, the live package count, and its unit.
+ * @param {{ label: string, count: number, mark: string, dark: boolean }} p
+ * @returns {string}
+ */
+function svgRegistryCell({ label, count, mark, dark })
+{
+  const t = tokens(dark);
+  const value = fmtCount(count);
+  const unit = plural(count, 'package');
+  const unitX = 2 + measure(value, 24, 700) + 1;
+  const path = markPath(mark);
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${CELL_W}" height="${CELL_H}" viewBox="0 0 ${CELL_W} ${CELL_H}" role="img" aria-label="${escapeXml(label)}: ${value} ${unit}">
+  <rect x="0" y="0" width="${CELL_W}" height="1.5" fill="${t.ink}"/>
+  <svg x="2" y="12" width="13" height="13" viewBox="0 0 24 24"><path fill="${t.muted}" d="${path}"/></svg>
+  <g font-family="${FONT}" style="font-variant-numeric: tabular-nums">
+    <text x="21" y="23" font-size="12" font-weight="500" fill="${t.muted}">${escapeXml(label)}</text>
+    <text x="2" y="49" font-size="24" font-weight="700" fill="${t.ink}" letter-spacing="-0.3">${value}</text>
+    <text x="${unitX}" y="49" font-size="12" fill="${t.muted}">${unit}</text>
+  </g>
+  <rect x="0" y="${CELL_H - 1}" width="${CELL_W}" height="1" fill="${t.rule}"/>
+</svg>
+`;
+}
+
+const PROJECT_NAMES = {
+  'zero-query': 'zQuery',
+  'zero-server': 'zero-server',
+  'zero-transfer': 'zero-transfer',
+  pamoja: 'Pamoja',
+  'youtube-downloader': 'YouTube Downloader',
+  'molex-media': 'molex Media',
+  'plex-poster-helper-2': 'Plex Poster Set Helper 2',
+  magnifyshit: 'MagnifyShit',
+};
+
+const PROFILE_LABELS = { 'last-commit': 'updated' };
+
+const WORKFLOW_WORDS = {
+  success: 'passing',
+  failure: 'failing',
+  startup_failure: 'failing',
+  timed_out: 'timed out',
+  cancelled: 'canceled',
+  action_required: 'action required',
+  'in progress': 'running',
+};
+
+/**
+ * Maps a raw badge value to the profile's wording and display state.
+ * @param {object} b badge definition
+ * @param {string | number} value raw value from getValue
+ * @returns {{ label: string, text: string, state: 'ok' | 'muted' | 'fail' }}
+ */
+function profileCopy(b, value)
+{
+  const label = PROFILE_LABELS[b.kind] ?? b.label;
+  let text = typeof value === 'number' ? fmtCount(value) : value;
+  let state = 'ok';
+  if (b.kind === 'workflow')
   {
-    const accent = theme.labelFg;
-    return svgPill({
-      message, icon,
-      bg: theme.labelBg,
-      border: accent,
-      borderOpacity: 0.28,
-      labelColor: THEMED_LABEL, valueColor: accent,
-      iconColor: accent,
-    });
+    text = WORKFLOW_WORDS[value] ?? value;
+    if (text === 'failing' || text === 'timed out') state = 'fail';
+    else if (text !== 'passing') state = 'muted';
   }
-  const p = dark ? PILL_DARK : PILL_LIGHT;
-  return svgPill({
-    message, icon,
-    bg: p.bg, border: p.border,
-    labelColor: p.label, valueColor: p.ink,
-    iconColor: p.accent,
-  });
+  if (['none', 'unknown', 'no runs', 'NOASSERTION'].includes(text)) state = 'muted';
+  return { label, text, state };
+}
+
+/**
+ * Finds the display name of the project a badge belongs to.
+ * @param {string} id
+ * @returns {string | undefined}
+ */
+function projectName(id)
+{
+  const key = Object.keys(PROJECT_NAMES)
+    .filter(k => id === k || id.startsWith(k + '-'))
+    .sort((a, b) => b.length - a.length)[0];
+  return key ? PROJECT_NAMES[key] : undefined;
+}
+
+/**
+ * Escapes a value for an HTML attribute in README markup.
+ * @param {string} s
+ * @returns {string}
+ */
+function escapeAttr(s)
+{
+  return s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
 mkdirSync(OUT, { recursive: true });
 
+const README = 'README.md';
+let md = readFileSync(README, 'utf8');
+
 // file name -> sha1 of the bytes just written, used to stamp README URLs.
 const hashes = {};
+const alts = {};
 let failed = 0;
 
 function emit(name, body)
@@ -568,35 +678,34 @@ function emit(name, body)
 
 for (const b of BADGES)
 {
+  const onProfile = md.includes(`/${b.id}-light.svg`);
+  if (!onProfile && !b.theme) continue;
   try
   {
-    const message = await getValue(b);
-    let dark, light, themed;
-    if (b.kind === 'header-link')
+    const value = await getValue(b);
+    if (b.kind === 'registry-count')
     {
-      dark = svgHeader({ label: b.label, value: message, icon: b.icon, dark: true, id: b.id + '-d' });
-      light = svgHeader({ label: b.label, value: message, icon: b.icon, dark: false, id: b.id + '-l' });
-    } else if (b.kind === 'static-single')
-    {
-      dark = svgSingle({ message, dark: true, icon: b.icon });
-      light = svgSingle({ message, dark: false, icon: b.icon });
-      if (b.theme)
-      {
-        themed = svgSingle({ message, theme: b.theme, icon: b.icon });
-      }
-    } else
-    {
-      dark = svg({ label: b.label, message, dark: true, icon: b.icon });
-      light = svg({ label: b.label, message, dark: false, icon: b.icon });
-      if (b.theme)
-      {
-        themed = svg({ label: b.label, message, theme: b.theme, icon: b.icon });
-      }
+      emit(`${b.id}-dark.svg`, svgRegistryCell({ label: b.label, count: value, mark: b.mark, dark: true }));
+      emit(`${b.id}-light.svg`, svgRegistryCell({ label: b.label, count: value, mark: b.mark, dark: false }));
+      alts[b.id] = `${b.label}: ${fmtCount(value)} ${plural(value, 'package')}`;
+      console.log(`ok  ${b.id.padEnd(30)} ${value}`);
+      continue;
     }
-    emit(`${b.id}-dark.svg`, dark);
-    emit(`${b.id}-light.svg`, light);
-    if (themed) emit(`${b.id}-${b.theme.name}.svg`, themed);
-    console.log(`ok  ${b.id.padEnd(30)} ${message}`);
+    if (b.theme)
+    {
+      const message = typeof value === 'number' ? fmtNum(value) : value;
+      emit(`${b.id}-${b.theme.name}.svg`, svgThemed({ label: b.label, message, theme: b.theme, icon: b.icon }));
+    }
+    const copy = profileCopy(b, value);
+    if (onProfile)
+    {
+      const mark = REGISTRY_MARKS[b.kind];
+      emit(`${b.id}-dark.svg`, svgSpec({ ...copy, mark, dark: true }));
+      emit(`${b.id}-light.svg`, svgSpec({ ...copy, mark, dark: false }));
+      const name = projectName(b.id);
+      alts[b.id] = `${name ? name + ', ' : ''}${copy.label} ${copy.text}`;
+    }
+    console.log(`ok  ${b.id.padEnd(30)} ${copy.text}`);
   } catch (e)
   {
     failed++;
@@ -607,8 +716,6 @@ for (const b of BADGES)
 // Stamp every badge URL this script owns with ?v=<hash>. GitHub proxies README
 // images through camo, which caches on the URL - without a changing query the
 // profile keeps serving the old SVG long after the file here has moved on.
-const README = 'README.md';
-let md = readFileSync(README, 'utf8');
 let stamped = 0, unreferenced = [];
 
 // raw.githubusercontent.com serves the same file under both a bare branch name
@@ -622,8 +729,6 @@ for (const [name, hash] of Object.entries(hashes))
   for (const base of RAW_FORMS)
   {
     const url = `${base}/${name}`;
-    // Split on the bare URL rather than building a regex, so nothing in the
-    // path or the surrounding HTML needs escaping.
     const parts = md.split(url);
     if (parts.length === 1) continue;
     hit = true;
@@ -631,21 +736,27 @@ for (const [name, hash] of Object.entries(hashes))
     {
       if (i === 0) return part;
       stamped++;
-      // Drop an existing ?v=... so hashes never stack up.
       return `?v=${hash}` + part.replace(/^\?v=[0-9a-f]+/, '');
     }).join(url);
   }
+  if (!hit && !/-(dark|light)\.svg$/.test(name)) continue;
   if (!hit) unreferenced.push(name);
 }
+
+md = md.replace(/<img\b[^>]*>/g, tag =>
+{
+  const m = tag.match(/\/([A-Za-z0-9._-]+)-light\.svg/);
+  if (!m || !alts[m[1]]) return tag;
+  return tag.replace(/\balt="[^"]*"/, `alt="${escapeAttr(alts[m[1]])}"`);
+});
 
 writeFileSync(README, md);
 
 console.log(`\nstamped ${stamped} README badge URLs`);
-if (unreferenced.length) console.log(`note: ${unreferenced.length} generated badges are not referenced in README.md`);
+if (unreferenced.length) console.log(`note: ${unreferenced.length} profile badges are not referenced in README.md: ${unreferenced.join(', ')}`);
 
 if (failed)
 {
   console.error(`\n${failed} badge(s) failed to refresh - the committed files for those are stale`);
   process.exitCode = 1;
 }
-

@@ -26,11 +26,11 @@
   <g><line x1="207.5" y1="42" x2="207.5" y2="154" stroke="#eaecef" stroke-width="1"/><line x1="14" y1="112" x2="401" y2="112" stroke="#eaecef" stroke-width="1"/></g>
   <g font-family="Segoe UI, Inter, -apple-system, BlinkMacSystemFont, sans-serif">
       <g text-anchor="middle">
-        <text x="110.8" y="78" font-size="18" font-weight="800" fill="#0b1220" letter-spacing="-0.4">4,500</text>
+        <text x="110.8" y="78" font-size="18" font-weight="800" fill="#0b1220" letter-spacing="-0.4">4,503</text>
         <text x="110.8" y="91" font-size="9" font-weight="700" fill="#656d76" letter-spacing="1.8">COMMITS</text>
       </g>
       <g text-anchor="middle">
-        <text x="304.3" y="78" font-size="18" font-weight="800" fill="#0b1220" letter-spacing="-0.4">232</text>
+        <text x="304.3" y="78" font-size="18" font-weight="800" fill="#0b1220" letter-spacing="-0.4">233</text>
         <text x="304.3" y="91" font-size="9" font-weight="700" fill="#656d76" letter-spacing="1.8">PULL REQUESTS</text>
       </g>
       <g text-anchor="middle">

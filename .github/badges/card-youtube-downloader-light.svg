@@ -34,7 +34,7 @@
     <text x="255.9" y="150" text-anchor="middle" font-size="13.5" font-weight="800" fill="#0b1220" letter-spacing="-0.2">passing</text>
     <text x="255.9" y="164" text-anchor="middle" font-size="9" font-weight="700" fill="#656d76" letter-spacing="1.4">CI</text>
     <line x1="207.5" y1="137" x2="207.5" y2="168" stroke="#eaecef" stroke-width="1"/>
-    <text x="352.6" y="150" text-anchor="middle" font-size="13.5" font-weight="800" fill="#0b1220" letter-spacing="-0.2">6 days ago</text>
+    <text x="352.6" y="150" text-anchor="middle" font-size="13.5" font-weight="800" fill="#0b1220" letter-spacing="-0.2">5 days ago</text>
     <text x="352.6" y="164" text-anchor="middle" font-size="9" font-weight="700" fill="#656d76" letter-spacing="1.4">UPDATED</text>
     <line x1="304.3" y1="137" x2="304.3" y2="168" stroke="#eaecef" stroke-width="1"/>
   </g>

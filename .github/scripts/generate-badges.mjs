@@ -25,7 +25,7 @@ const FETCH_TIMEOUT_MS = 20000;
 const BADGES = [
   // Header cards: live package counts per registry account
   { id: 'header-npm', kind: 'registry-count', label: 'NPM PACKAGES', altName: 'npm', source: 'npm-packages', user: 'molex222', icon: 'npm-pkg' },
-  { id: 'header-crates', kind: 'registry-count', label: 'CRATES', altName: 'crates.io', source: 'crates-packages', user: 'tonywied17', icon: 'crates' },
+  { id: 'header-crates', kind: 'registry-count', label: 'RUST CRATES', altName: 'Rust crates on crates.io', source: 'crates-packages', user: 'tonywied17', icon: 'crates' },
   { id: 'header-nuget', kind: 'registry-count', label: 'NUGET PACKAGES', altName: 'NuGet', source: 'nuget-packages', user: 'tonywied17', icon: 'nuget' },
   { id: 'header-pypi', kind: 'registry-count', label: 'PYPI PACKAGES', altName: 'PyPI', source: 'pypi-packages', user: 'tonywied17', icon: 'pypi' },
 

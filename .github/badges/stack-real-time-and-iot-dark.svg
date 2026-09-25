@@ -1,19 +1,58 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="415" height="136" viewBox="0 0 415 136" role="img" aria-label="Real-time and IoT: WebSocket, WebRTC, SSE, STUN/TURN, MQTT, CoAP, LoRaWAN, NB-IoT">
-  <rect x="0" y="0" width="415" height="1.5" fill="#e6edf3"/>
-  <g font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif">
-    <text x="2" y="20" font-size="14" font-weight="600" fill="#e6edf3">Real-time and IoT</text>
-    <text x="2" y="48.5" font-size="14" fill="#e6edf3">WebSocket</text>
-    <text x="210" y="48.5" font-size="14" fill="#e6edf3">WebRTC</text>
-    <rect x="0" y="56.5" width="415" height="1" fill="#3d444d"/>
-    <text x="2" y="74.5" font-size="14" fill="#e6edf3">SSE</text>
-    <text x="210" y="74.5" font-size="14" fill="#e6edf3">STUN/TURN</text>
-    <rect x="0" y="82.5" width="415" height="1" fill="#3d444d"/>
-    <text x="2" y="100.5" font-size="14" fill="#e6edf3">MQTT</text>
-    <text x="210" y="100.5" font-size="14" fill="#e6edf3">CoAP</text>
-    <rect x="0" y="108.5" width="415" height="1" fill="#3d444d"/>
-    <text x="2" y="126.5" font-size="14" fill="#e6edf3">LoRaWAN</text>
-    <text x="210" y="126.5" font-size="14" fill="#e6edf3">NB-IoT</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="415" height="107" viewBox="0 0 415 107" role="img" aria-label="Real-time and IoT: WebSocket, WebRTC, SSE, STUN/TURN, MQTT, CoAP, LoRaWAN, NB-IoT">
+  <defs>
+    <linearGradient id="sheen-real-time-and-iot-d" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"   stop-color="#f5a524" stop-opacity="0"/>
+      <stop offset="50%"  stop-color="#f5a524" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#f5a524" stop-opacity="0"/>
+    </linearGradient>
+    <clipPath id="clip-real-time-and-iot-d"><rect x="0" y="0" width="415" height="107" rx="10" ry="10"/></clipPath>
+  </defs>
+
+  <rect x="0.5" y="0.5" width="414" height="106" rx="10" ry="10" fill="none" stroke="#30363d"/>
+
+  <g clip-path="url(#clip-real-time-and-iot-d)">
+    <rect x="-180" y="0" width="180" height="1.5" fill="url(#sheen-real-time-and-iot-d)">
+      <animate attributeName="x" from="-180" to="415" dur="9s" begin="0s" repeatCount="indefinite"/>
+    </rect>
   </g>
-  <rect x="0" y="30" width="415" height="1" fill="#3d444d"/>
-  <rect x="0" y="135" width="415" height="1" fill="#3d444d"/>
+
+  <line x1="14" y1="26" x2="401" y2="26" stroke="#1c222c" stroke-width="1"/>
+
+  <g font-family="Segoe UI, Inter, -apple-system, BlinkMacSystemFont, sans-serif">
+    <text x="14" y="20" font-size="13" font-weight="700" fill="#e6e9f1" letter-spacing="-0.1">Real-time and IoT</text>
+    <text x="401" y="20" text-anchor="end" font-size="11" font-weight="600" fill="#7d8590" letter-spacing="1.2">8</text>
+    <g>
+    <rect x="14" y="32" width="84.74999999999999" height="26" rx="6" fill="none" stroke="#30363d"/>
+    
+    <text x="24" y="49.5" font-size="12.5" font-weight="600" fill="#e6edf3">WebSocket</text>
+  </g><g>
+    <rect x="105.74999999999999" y="32" width="86.44999999999999" height="26" rx="6" fill="none" stroke="#30363d"/>
+    <svg x="115.74999999999999" y="38.5" width="13" height="13" viewBox="0 0 24 24" fill="#a8a8a8"><path d="M11.9998.3598c-2.8272 0-5.1456 2.1733-5.3793 4.94a5.4117 5.4117 0 00-1.2207-.1401C2.418 5.1597 0 7.5779 0 10.5603c0 2.2203 1.341 4.1274 3.2568 4.957a5.3734 5.3734 0 00-.7372 2.7227c0 2.9823 2.4175 5.4002 5.4002 5.4002 1.6627 0 3.1492-.7522 4.1397-1.934.9906 1.1818 2.4773 1.934 4.1398 1.934 2.983 0 5.4004-2.418 5.4004-5.4002 0-.9719-.258-1.883-.7073-2.6708C22.7283 14.7068 24 12.8418 24 10.6795c0-2.9823-2.4175-5.4006-5.3998-5.4006-.417 0-.8223.049-1.2121.1384C17.2112 2.5949 14.867.3598 11.9998.3598zm-5.717 6.8683h10.5924c.7458 0 1.352.605 1.352 1.3487v7.6463c0 .7438-.6062 1.3482-1.352 1.3482h-3.6085l-7.24 3.5491 1.1008-3.5491h-.8447c-.7458 0-1.3522-.6044-1.3522-1.3482V8.5768c0-.7438.6064-1.3487 1.3522-1.3487Z"/></svg>
+    <text x="135.75" y="49.5" font-size="12.5" font-weight="600" fill="#e6edf3">WebRTC</text>
+  </g><g>
+    <rect x="199.2" y="32" width="41.15" height="26" rx="6" fill="none" stroke="#30363d"/>
+    
+    <text x="209.2" y="49.5" font-size="12.5" font-weight="600" fill="#e6edf3">SSE</text>
+  </g><g>
+    <rect x="247.35" y="32" width="80.6" height="26" rx="6" fill="none" stroke="#30363d"/>
+    
+    <text x="257.35" y="49.5" font-size="12.5" font-weight="600" fill="#e6edf3">STUN/TURN</text>
+  </g><g>
+    <rect x="14" y="65" width="71.55" height="26" rx="6" fill="none" stroke="#30363d"/>
+    <svg x="24" y="71.5" width="13" height="13" viewBox="0 0 24 24" fill="#e56ce5"><path d="M10.657 23.994h-9.45A1.212 1.212 0 0 1 0 22.788v-9.18h.071c5.784 0 10.504 4.65 10.586 10.386Zm7.606 0h-4.045C14.135 16.246 7.795 9.977 0 9.942V6.038h.071c9.983 0 18.121 8.044 18.192 17.956Zm4.53 0h-.97C21.754 12.071 11.995 2.407 0 2.372v-1.16C0 .55.544.006 1.207.006h7.64C15.733 2.49 21.257 7.789 24 14.508v8.291c0 .663-.544 1.195-1.207 1.195ZM16.713.006h6.092A1.19 1.19 0 0 1 24 1.2v5.914c-.91-1.242-2.046-2.65-3.158-3.762C19.588 2.11 18.122.987 16.714.005Z"/></svg>
+    <text x="44" y="82.5" font-size="12.5" font-weight="600" fill="#e6edf3">MQTT</text>
+  </g><g>
+    <rect x="92.55" y="65" width="48.2" height="26" rx="6" fill="none" stroke="#30363d"/>
+    
+    <text x="102.55" y="82.5" font-size="12.5" font-weight="600" fill="#e6edf3">CoAP</text>
+  </g><g>
+    <rect x="147.75" y="65" width="73.5" height="26" rx="6" fill="none" stroke="#30363d"/>
+    
+    <text x="157.75" y="82.5" font-size="12.5" font-weight="600" fill="#e6edf3">LoRaWAN</text>
+  </g><g>
+    <rect x="228.25" y="65" width="56.2" height="26" rx="6" fill="none" stroke="#30363d"/>
+    
+    <text x="238.25" y="82.5" font-size="12.5" font-weight="600" fill="#e6edf3">NB-IoT</text>
+  </g>
+  </g>
 </svg>

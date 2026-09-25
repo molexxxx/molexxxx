@@ -5,7 +5,7 @@ import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import path from 'node:path';
 import * as simpleIcons from 'simple-icons';
-import { FONT, tokens, escapeXml, fmtNum as fmtCount, plural, textWidth as measure } from './datasheet.mjs';
+import { FONT, tokens, escapeXml, fmtNum, plural } from './theme.mjs';
 
 const TOKEN = process.env.GH_TOKEN;
 if (!TOKEN)
@@ -23,17 +23,11 @@ const USER_AGENT = 'molexxxx-badge-gen (https://github.com/molexxxx/molexxxx)';
 const FETCH_TIMEOUT_MS = 20000;
 
 const BADGES = [
-  // Header registry cells: live package counts per registry account
-  { id: 'header-npm', kind: 'registry-count', label: 'npm', source: 'npm-packages', user: 'molex222', mark: 'siNpm' },
-  { id: 'header-crates', kind: 'registry-count', label: 'crates.io', source: 'crates-packages', user: 'tonywied17', mark: 'siRust' },
-  { id: 'header-nuget', kind: 'registry-count', label: 'NuGet', source: 'nuget-packages', user: 'tonywied17', mark: 'siNuget' },
-  { id: 'header-pypi', kind: 'registry-count', label: 'PyPI', source: 'pypi-packages', user: 'tonywied17', mark: 'siPypi' },
-
-  // websites
-  { id: 'zero-query-site', kind: 'static-pair', label: 'website', message: 'visit', icon: 'globe' },
-  { id: 'zero-server-site', kind: 'static-pair', label: 'website', message: 'visit', icon: 'globe' },
-  { id: 'zero-transfer-site', kind: 'static-pair', label: 'website', message: 'visit', icon: 'globe' },
-  { id: 'molex-media-site', kind: 'static-pair', label: 'website', message: 'visit', icon: 'globe' },
+  // Header cards: live package counts per registry account
+  { id: 'header-npm', kind: 'registry-count', label: 'NPM PACKAGES', altName: 'npm', source: 'npm-packages', user: 'molex222', icon: 'npm-pkg' },
+  { id: 'header-crates', kind: 'registry-count', label: 'CRATES', altName: 'crates.io', source: 'crates-packages', user: 'tonywied17', icon: 'crates' },
+  { id: 'header-nuget', kind: 'registry-count', label: 'NUGET PACKAGES', altName: 'NuGet', source: 'nuget-packages', user: 'tonywied17', icon: 'nuget' },
+  { id: 'header-pypi', kind: 'registry-count', label: 'PYPI PACKAGES', altName: 'PyPI', source: 'pypi-packages', user: 'tonywied17', icon: 'pypi' },
 
   // docs
   { id: 'zero-query-docs', kind: 'static-pair', label: 'docs', message: 'API.md', icon: 'book' },
@@ -90,7 +84,7 @@ const BADGES = [
   { id: 'molex-media-ci', repo: 'molex-media-electron', kind: 'workflow', label: 'CI', workflow: 'ci.yml', branch: 'main', icon: 'github', theme: MOLEX_THEME('#7c3aed', '#ffffff') },
   { id: 'molex-media-build', repo: 'molex-media-electron', kind: 'workflow', label: 'build', workflow: 'build.yml', branch: 'main', icon: 'github', theme: MOLEX_THEME('#7c3aed', '#ffffff') },
 
-  // YouTube Downloader (red app theme) - profile order: repo, release, downloads, download, last-commit
+  // YouTube Downloader (red app theme)
   { id: 'youtube-downloader-repo', kind: 'static-pair', label: 'repo', message: 'visit', icon: 'github', theme: YTDL_THEME('#ef4444', '#ffffff') },
   { id: 'youtube-downloader-download', kind: 'static-pair', label: 'download', message: 'latest', icon: 'github', theme: YTDL_THEME('#dc2626', '#ffffff') },
   { id: 'youtube-downloader-ci', repo: 'youtube-downloader', kind: 'workflow', label: 'CI', workflow: 'ci.yml', branch: 'main', icon: 'github', theme: YTDL_THEME('#ef4444', '#ffffff') },
@@ -108,9 +102,10 @@ const BADGES = [
   { id: 'magnifyshit-download', kind: 'static-pair', label: 'download', message: 'latest', icon: 'github', theme: MAGNIFY_THEME('#6b3410', '#f5deb3') },
   { id: 'magnifyshit-release', repo: 'MagnifyShit-cpp', kind: 'release', label: 'release', icon: 'github', theme: MAGNIFY_THEME('#8b4513', '#f5deb3') },
   { id: 'magnifyshit-downloads', repo: 'MagnifyShit-cpp', kind: 'downloads', label: 'downloads', icon: 'github', theme: MAGNIFY_THEME('#a0522d', '#fff8dc') },
+  { id: 'magnifyshit-license', repo: 'MagnifyShit-cpp', kind: 'license', label: 'license' },
   { id: 'magnifyshit-last-commit', repo: 'MagnifyShit-cpp', kind: 'last-commit', label: 'last commit', icon: 'git', theme: MAGNIFY_THEME('#5a3a22', '#d4a574') },
 
-  // Plex Poster Set Helper 2 (Plex amber/orange theme) - Electron app
+  // Plex Poster Set Helper 2 (Plex amber/orange theme)
   { id: 'plex-poster-helper-2-repo', kind: 'static-pair', label: 'repo', message: 'visit', icon: 'github', theme: PLEX_THEME('#e5a00d', '#1a1205') },
   { id: 'plex-poster-helper-2-docker', kind: 'static-pair', label: 'docker', message: 'guide', icon: 'book', theme: PLEX_THEME('#cc7b19', '#ffffff') },
   { id: 'plex-poster-helper-2-ci', repo: 'plex-poster-set-helper-2', kind: 'workflow', label: 'CI', workflow: 'ci.yml', branch: 'main', icon: 'github', theme: PLEX_THEME('#e5a00d', '#1a1205') },
@@ -121,13 +116,116 @@ const BADGES = [
   { id: 'plex-poster-helper-2-downloads', repo: 'plex-poster-set-helper-2', kind: 'downloads', label: 'downloads', icon: 'github', theme: PLEX_THEME('#f0b429', '#1a1205') },
   { id: 'plex-poster-helper-2-download', kind: 'static-pair', label: 'download', message: 'latest', icon: 'github', theme: PLEX_THEME('#cc7b19', '#ffffff') },
 
-  // pamoja registry versions + CI/license
+  // pamoja registry versions + CI/license. Versions come from the umbrella packages the profile links to.
   { id: 'pamoja-crates', kind: 'crates', label: 'crates.io', pkg: 'pamoja', theme: PAMOJA_THEME('#1fd3b0', '#0b1124') },
   { id: 'pamoja-npm', kind: 'npm-version', label: 'npm', pkg: 'pamoja', icon: 'npm', theme: PAMOJA_THEME('#1fd3b0', '#0b1124') },
   { id: 'pamoja-pypi', kind: 'pypi', label: 'PyPI', pkg: 'pamoja', theme: PAMOJA_THEME('#1fd3b0', '#0b1124') },
   { id: 'pamoja-nuget', kind: 'nuget', label: 'NuGet', pkg: 'Pamoja', theme: PAMOJA_THEME('#1fd3b0', '#0b1124') },
   { id: 'pamoja-ci', repo: 'pamoja', kind: 'workflow', workflow: 'ci.yml', branch: 'main', label: 'CI', icon: 'github', theme: PAMOJA_THEME('#1fd3b0', '#0b1124') },
   { id: 'pamoja-license', repo: 'pamoja', kind: 'license', label: 'license', icon: 'github', theme: PAMOJA_THEME('#1fd3b0', '#0b1124') },
+];
+
+const GH = `https://github.com/${OWNER}`;
+const ICON_RAW = `https://raw.githubusercontent.com/${OWNER}`;
+
+/**
+ * Project cards, grouped into README sections. Each card shows the project's
+ * icon, name, primary language, description, and four live stats read from the
+ * badge values fetched above.
+ */
+const PROJECT_SECTIONS = [
+  { id: 'libraries', cards: [
+    {
+      id: 'card-pamoja', name: 'Pamoja', repo: 'pamoja', tag: 'IN DEVELOPMENT',
+      icon: `${ICON_RAW}/pamoja/refs/heads/main/assets/pamoja-icon.svg`,
+      description: 'Modular Rust SDK for offline-first IoT, robotics, and edge hardware, with bindings for Node.js, Python, and .NET.',
+      stats: [
+        { use: 'pamoja-crates', label: 'CRATES.IO' },
+        { use: 'pamoja-npm', label: 'NPM' },
+        { use: 'pamoja-pypi', label: 'PYPI' },
+        { use: 'pamoja-nuget', label: 'NUGET' },
+      ],
+    },
+    {
+      id: 'card-zero-query', name: 'zQuery', repo: 'zero-query',
+      icon: `${ICON_RAW}/zero-query/main/.github/images/logo-animated.svg`,
+      description: 'Frontend library with no runtime dependencies: components, SPA router, store, SSR, and WebRTC.',
+      stats: [
+        { use: 'zero-query-npm', label: 'NPM' },
+        { use: 'zero-query-downloads', label: 'DOWNLOADS' },
+        { use: 'zero-query-ci', label: 'CI' },
+        { use: 'zero-query-license', label: 'LICENSE' },
+      ],
+    },
+    {
+      id: 'card-zero-server', name: 'zero-server', repo: 'zero-server',
+      icon: `${ICON_RAW}/zero-server/main/website-docs/public/icons/logo-animated.svg`,
+      description: 'Node.js backend framework with no runtime dependencies: routing, ORM, auth, WebSocket, SSE, WebRTC, gRPC, and observability.',
+      stats: [
+        { use: 'zero-server-npm', label: 'NPM' },
+        { use: 'zero-server-downloads', label: 'DOWNLOADS' },
+        { use: 'zero-server-ci', label: 'CI' },
+        { use: 'zero-server-license', label: 'LICENSE' },
+      ],
+    },
+    {
+      id: 'card-zero-transfer', name: 'zero-transfer', repo: 'zero-transfer',
+      icon: `${ICON_RAW}/zero-transfer/main/assets/zero-transfer-icon.svg`,
+      description: 'TypeScript file-transfer SDK for SFTP, FTPS, S3, Azure, GCS, Google Drive, Dropbox, and WebDAV.',
+      stats: [
+        { use: 'zero-transfer-npm', label: 'NPM' },
+        { use: 'zero-transfer-downloads', label: 'DOWNLOADS' },
+        { use: 'zero-transfer-ci', label: 'CI' },
+        { use: 'zero-transfer-license', label: 'LICENSE' },
+      ],
+    },
+  ] },
+  { id: 'applications', cards: [
+    {
+      id: 'card-youtube-downloader', name: 'YouTube Downloader', repo: 'youtube-downloader',
+      icon: `${ICON_RAW}/youtube-downloader/main/.github/assets/icon.svg`,
+      description: 'Desktop YouTube downloader built on yt-dlp and FFmpeg.',
+      stats: [
+        { use: 'youtube-downloader-release', label: 'RELEASE' },
+        { use: 'youtube-downloader-downloads', label: 'DOWNLOADS' },
+        { use: 'youtube-downloader-ci', label: 'CI' },
+        { use: 'youtube-downloader-last-commit', label: 'UPDATED' },
+      ],
+    },
+    {
+      id: 'card-molex-media', name: 'molex Media', repo: 'molex-media-electron',
+      icon: `${ICON_RAW}/molex-media-electron/main/.github/assets/icon.svg`,
+      description: 'Cross-platform media toolkit built on FFmpeg: batch normalization, conversion, and compression; a timeline editor; and a media player with real-time visualizations.',
+      stats: [
+        { use: 'molex-media-release', label: 'RELEASE' },
+        { use: 'molex-media-downloads', label: 'DOWNLOADS' },
+        { use: 'molex-media-ci', label: 'CI' },
+        { use: 'molex-media-last-commit', label: 'UPDATED' },
+      ],
+    },
+    {
+      id: 'card-plex-poster-helper-2', name: 'Plex Poster Set Helper 2', repo: 'plex-poster-set-helper-2',
+      icon: `${ICON_RAW}/plex-poster-set-helper-2/refs/heads/main/.github/assets/logo.svg`,
+      description: 'Uploads poster sets from ThePosterDB and MediUX to a Plex server.',
+      stats: [
+        { use: 'plex-poster-helper-2-release', label: 'RELEASE' },
+        { use: 'plex-poster-helper-2-downloads', label: 'DOWNLOADS' },
+        { use: 'plex-poster-helper-2-ci', label: 'CI' },
+        { use: 'plex-poster-helper-2-last-commit', label: 'UPDATED' },
+      ],
+    },
+    {
+      id: 'card-magnifyshit', name: 'MagnifyShit', repo: 'MagnifyShit-cpp',
+      icon: `${ICON_RAW}/MagnifyShit-cpp/main/.github/assets/icon.svg`,
+      description: 'Windows screen magnifier in C++ using D3D11, DXGI desktop duplication, and ImGui.',
+      stats: [
+        { use: 'magnifyshit-release', label: 'RELEASE' },
+        { use: 'magnifyshit-downloads', label: 'DOWNLOADS' },
+        { use: 'magnifyshit-license', label: 'LICENSE' },
+        { use: 'magnifyshit-last-commit', label: 'UPDATED' },
+      ],
+    },
+  ] },
 ];
 
 // Molex Media app palette
@@ -278,6 +376,18 @@ const REGISTRY_COUNTERS = {
   'pypi-packages': pypiPackageCount,
 };
 
+/**
+ * Compact count format kept for the project-themed badges sibling repos embed.
+ * @param {number} n
+ * @returns {string}
+ */
+function fmtThemed(n)
+{
+  if (n >= 1e6) return (n / 1e6).toFixed(1).replace(/.0$/, '') + 'M';
+  if (n >= 1e3) return (n / 1e3).toFixed(1).replace(/.0$/, '') + 'k';
+  return String(n);
+}
+
 function fmtRelative(iso)
 {
   const then = new Date(iso);
@@ -293,13 +403,6 @@ function fmtRelative(iso)
   if (dayDiff < 365) return `${Math.floor(dayDiff / 30)} months ago`;
   if (dayDiff < 730) return 'last year';
   return `${Math.floor(dayDiff / 365)} years ago`;
-}
-
-function fmtNum(n)
-{
-  if (n >= 1e6) return (n / 1e6).toFixed(1).replace(/\.0$/, '') + 'M';
-  if (n >= 1e3) return (n / 1e3).toFixed(1).replace(/\.0$/, '') + 'k';
-  return String(n);
 }
 
 async function getValue(b)
@@ -433,7 +536,6 @@ const SEGOE_11_WIDTHS = {
   a: 5.7, b: 6.2, c: 5.2, d: 6.2, e: 5.9, f: 3.6, g: 6.2, h: 6.2, i: 2.6, j: 2.6,
   k: 5.6, l: 2.6, m: 9.5, n: 6.2, o: 6.2, p: 6.2, q: 6.2, r: 4.1, s: 5.0, t: 3.8,
   u: 6.2, v: 5.6, w: 8.2, x: 5.6, y: 5.6, z: 5.0,
-  '{': 6.5, '|': 2.9, '}': 6.5, '~': 6.5,
 };
 
 function textWidth(s)
@@ -443,15 +545,85 @@ function textWidth(s)
   return Math.ceil(w);
 }
 
+/** Text width at an arbitrary font size, scaled from the 11px table. */
+function textWidthAt(s, size)
+{
+  let w = 0;
+  for (const c of s) w += SEGOE_11_WIDTHS[c] ?? 6.2;
+  return w * (size / 11);
+}
+
 // 14x14 inline SVG icons.
 // <svg> element positioned at x=5, y=3 inside the parent badge.
 const ICONS = {
   globe: c => `<svg x="5" y="3" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><line x1="3" y1="12" x2="21" y2="12"/><path d="M12 3a15 15 0 0 1 4 9 15 15 0 0 1-4 9 15 15 0 0 1-4-9 15 15 0 0 1 4-9z"/></svg>`,
   book: c => `<svg x="5" y="3" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>`,
+  download: c => `<svg x="5" y="3" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><polyline points="7 10 12 15 17 10"/><path d="M4 19h16"/></svg>`,
   npm: c => `<svg x="5" y="3" width="14" height="14" viewBox="0 0 24 24" fill="${c}"><path d="M1.763 0C.786 0 0 .786 0 1.763v20.474C0 23.214.786 24 1.763 24h20.474c.977 0 1.763-.786 1.763-1.763V1.763C24 .786 23.214 0 22.237 0H1.763zM5.13 5.323l13.837.019-.009 13.836h-3.464l.01-10.382h-3.456L12.04 19.17H5.113L5.13 5.323z"/></svg>`,
   github: c => `<svg x="5" y="3" width="14" height="14" viewBox="0 0 24 24" fill="${c}"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>`,
   git: c => `<svg x="5" y="3" width="14" height="14" viewBox="0 0 24 24" fill="${c}"><path d="M23.546 10.93L13.067.452c-.604-.603-1.582-.603-2.188 0L8.708 2.627l2.76 2.76c.645-.215 1.379-.07 1.889.441.516.515.658 1.258.438 1.9l2.658 2.66c.645-.223 1.387-.078 1.9.435.721.72.721 1.884 0 2.604-.719.719-1.881.719-2.6 0-.539-.541-.674-1.337-.404-1.996L12.86 8.955v6.525c.176.086.342.203.488.348.713.721.713 1.883 0 2.6-.719.721-1.889.721-2.609 0-.719-.719-.719-1.879 0-2.598.182-.18.387-.316.605-.406V8.835c-.217-.091-.424-.222-.6-.401-.545-.545-.676-1.342-.396-2.009L7.636 3.7.45 10.881c-.6.605-.6 1.584 0 2.189l10.48 10.477c.604.604 1.582.604 2.186 0l10.43-10.43c.605-.603.605-1.582 0-2.187"/></svg>`,
 };
+
+// 22px header-pill icons (positioned by the header renderer).
+const HEADER_ICONS = {
+  'npm-pkg': c => `<path fill="${c}" d="M1.763 0C.786 0 0 .786 0 1.763v20.474C0 23.214.786 24 1.763 24h20.474c.977 0 1.763-.786 1.763-1.763V1.763C24 .786 23.214 0 22.237 0H1.763zM5.13 5.323l13.837.019-.009 13.836h-3.464l.01-10.382h-3.456L12.04 19.17H5.113L5.13 5.323z"/>`,
+  crates: c => `<path fill="${c}" d="${simpleIcons.siRust.path}"/>`,
+  nuget: c => `<path fill="${c}" d="${simpleIcons.siNuget.path}"/>`,
+  pypi: c => `<path fill="${c}" d="${simpleIcons.siPypi.path}"/>`,
+};
+
+/**
+ * Header stat card matched to the activity cards: transparent fill, single
+ * accent, and an animated traveling highlight that traces the border.
+ */
+function svgHeader({ label, value, icon, dark, id })
+{
+  const W = 177, H = 53, RX = 10;
+  const t = tokens(dark);
+  const ink = t.ink;
+  const muted = t.muted;
+  const border = t.border;
+  const accent = t.accent;
+
+  const bx = 0.75, by = 0.75, bw = W - 1.5, bh = H - 1.5, br = RX - 0.25;
+  const borderD = `M ${bx + br} ${by} H ${bx + bw - br} A ${br} ${br} 0 0 1 ${bx + bw} ${by + br} V ${by + bh - br} A ${br} ${br} 0 0 1 ${bx + bw - br} ${by + bh} H ${bx + br} A ${br} ${br} 0 0 1 ${bx} ${by + bh - br} V ${by + br} A ${br} ${br} 0 0 1 ${bx + br} ${by} Z`;
+  const iconSvg = HEADER_ICONS[icon] ? HEADER_ICONS[icon](accent) : '';
+
+  const dur = 6;
+  const sweepW = Math.round(W * 0.6);
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" shape-rendering="geometricPrecision" role="img" aria-label="${escapeXml(label)}: ${escapeXml(value)}">
+  <defs>
+    <path id="bd-${id}" d="${borderD}" fill="none"/>
+    <linearGradient id="gr-${id}" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"   stop-color="${accent}" stop-opacity="0"/>
+      <stop offset="50%"  stop-color="${accent}" stop-opacity="0.65"/>
+      <stop offset="100%" stop-color="${accent}" stop-opacity="0"/>
+    </linearGradient>
+    <mask id="mk-${id}" maskUnits="userSpaceOnUse">
+      <use href="#bd-${id}" stroke="#fff" stroke-width="1"/>
+    </mask>
+  </defs>
+
+  <use href="#bd-${id}" stroke="${border}" stroke-width="1"/>
+
+  <g mask="url(#mk-${id})">
+    <rect x="0" y="0" width="${sweepW}" height="${H}" fill="url(#gr-${id})">
+      <animate attributeName="x" from="${-sweepW}" to="${W}" dur="${dur}s" repeatCount="indefinite"/>
+    </rect>
+  </g>
+
+  <g transform="translate(16 15)">
+    <svg viewBox="0 0 24 24" width="22" height="22">${iconSvg}</svg>
+  </g>
+
+  <g font-family="Segoe UI, Inter, -apple-system, BlinkMacSystemFont, sans-serif">
+    <text x="48" y="26" font-size="18" font-weight="800" fill="${ink}" letter-spacing="-0.3">${escapeXml(value)}</text>
+    <text x="48" y="40" font-size="9.5" font-weight="700" fill="${muted}" letter-spacing="1.6">${escapeXml(label)}</text>
+  </g>
+</svg>
+`;
+}
 
 const PILL_H = 22;
 const PILL_RX = 5;
@@ -495,8 +667,8 @@ function svgPill({ label, message, icon, bg, border, borderOpacity = 1, labelCol
 const THEMED_LABEL = '#8b95a7';
 
 /**
- * Renders a project-themed pill for sibling READMEs. Output is kept identical
- * to the original design because those repos own their themes.
+ * Renders a project-themed pill for sibling READMEs. Kept identical to the
+ * original design because those repos own their themes.
  */
 function svgThemed({ label, message, theme, icon })
 {
@@ -512,100 +684,6 @@ function svgThemed({ label, message, theme, icon })
   });
 }
 
-const SPEC_H = 38;
-const SPEC_PAD_L = 2;
-const SPEC_PAD_R = 12;
-const SPEC_ICON = 11;
-const SPEC_ICON_GAP = 4;
-
-const REGISTRY_MARKS = {
-  'npm-version': 'siNpm',
-  crates: 'siRust',
-  pypi: 'siPypi',
-  nuget: 'siNuget',
-};
-
-/**
- * Looks up a simple-icons path by its export name, such as siNpm.
- * @param {string} name
- * @returns {string | undefined}
- */
-function markPath(name)
-{
-  return simpleIcons[name]?.path;
-}
-
-/**
- * Renders a neutral profile spec cell: ink rule on top, muted label, value in tabular
- * figures, hairline below. Cells placed side by side form one ruled parameter row.
- * @param {{ label: string, text: string, mark?: string, state: 'ok' | 'muted' | 'fail', dark: boolean }} p
- * @returns {string}
- */
-function svgSpec({ label, text, mark, state, dark })
-{
-  const t = tokens(dark);
-  const path = mark ? markPath(mark) : undefined;
-  const iconW = path ? SPEC_ICON + SPEC_ICON_GAP : 0;
-  const valueWeight = state === 'fail' ? 700 : 600;
-  const contentW = Math.max(iconW + measure(label, 11, 400), measure(text, 13, valueWeight));
-  const W = SPEC_PAD_L + contentW + SPEC_PAD_R;
-  const valueFill = state === 'fail' ? t.danger : state === 'muted' ? t.muted : t.ink;
-  const icon = path
-    ? `\n  <svg x="${SPEC_PAD_L}" y="6" width="${SPEC_ICON}" height="${SPEC_ICON}" viewBox="0 0 24 24"><path fill="${t.muted}" d="${path}"/></svg>`
-    : '';
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${SPEC_H}" viewBox="0 0 ${W} ${SPEC_H}" role="img" aria-label="${escapeXml(label)}: ${escapeXml(text)}">
-  <rect x="0" y="0" width="${W}" height="1.5" fill="${t.ink}"/>${icon}
-  <g font-family="${FONT}" style="font-variant-numeric: tabular-nums">
-    <text x="${SPEC_PAD_L + iconW}" y="15" font-size="11" fill="${t.muted}">${escapeXml(label)}</text>
-    <text x="${SPEC_PAD_L}" y="31" font-size="13" font-weight="${valueWeight}" fill="${valueFill}">${escapeXml(text)}</text>
-  </g>
-  <rect x="0" y="${SPEC_H - 1}" width="${W}" height="1" fill="${t.rule}"/>
-</svg>
-`;
-}
-
-const CELL_W = 144;
-const CELL_H = 60;
-
-/**
- * Renders one header cell of the registry row: a ruled parameter cell with the
- * registry mark and name, the live package count, and its unit.
- * @param {{ label: string, count: number, mark: string, dark: boolean }} p
- * @returns {string}
- */
-function svgRegistryCell({ label, count, mark, dark })
-{
-  const t = tokens(dark);
-  const value = fmtCount(count);
-  const unit = plural(count, 'package');
-  const unitX = 2 + measure(value, 24, 700) + 1;
-  const path = markPath(mark);
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${CELL_W}" height="${CELL_H}" viewBox="0 0 ${CELL_W} ${CELL_H}" role="img" aria-label="${escapeXml(label)}: ${value} ${unit}">
-  <rect x="0" y="0" width="${CELL_W}" height="1.5" fill="${t.ink}"/>
-  <svg x="2" y="12" width="13" height="13" viewBox="0 0 24 24"><path fill="${t.muted}" d="${path}"/></svg>
-  <g font-family="${FONT}" style="font-variant-numeric: tabular-nums">
-    <text x="21" y="23" font-size="12" font-weight="500" fill="${t.muted}">${escapeXml(label)}</text>
-    <text x="2" y="49" font-size="24" font-weight="700" fill="${t.ink}" letter-spacing="-0.3">${value}</text>
-    <text x="${unitX}" y="49" font-size="12" fill="${t.muted}">${unit}</text>
-  </g>
-  <rect x="0" y="${CELL_H - 1}" width="${CELL_W}" height="1" fill="${t.rule}"/>
-</svg>
-`;
-}
-
-const PROJECT_NAMES = {
-  'zero-query': 'zQuery',
-  'zero-server': 'zero-server',
-  'zero-transfer': 'zero-transfer',
-  pamoja: 'Pamoja',
-  'youtube-downloader': 'YouTube Downloader',
-  'molex-media': 'molex Media',
-  'plex-poster-helper-2': 'Plex Poster Set Helper 2',
-  magnifyshit: 'MagnifyShit',
-};
-
-const PROFILE_LABELS = { 'last-commit': 'updated' };
-
 const WORKFLOW_WORDS = {
   success: 'passing',
   failure: 'failing',
@@ -617,15 +695,14 @@ const WORKFLOW_WORDS = {
 };
 
 /**
- * Maps a raw badge value to the profile's wording and display state.
+ * Maps a raw badge value to card wording and display state.
  * @param {object} b badge definition
  * @param {string | number} value raw value from getValue
- * @returns {{ label: string, text: string, state: 'ok' | 'muted' | 'fail' }}
+ * @returns {{ text: string, state: 'ok' | 'muted' | 'fail' }}
  */
-function profileCopy(b, value)
+function statCopy(b, value)
 {
-  const label = PROFILE_LABELS[b.kind] ?? b.label;
-  let text = typeof value === 'number' ? fmtCount(value) : value;
+  let text = typeof value === 'number' ? fmtNum(value) : value;
   let state = 'ok';
   if (b.kind === 'workflow')
   {
@@ -634,30 +711,144 @@ function profileCopy(b, value)
     else if (text !== 'passing') state = 'muted';
   }
   if (['none', 'unknown', 'no runs', 'NOASSERTION'].includes(text)) state = 'muted';
-  return { label, text, state };
+  return { text, state };
 }
 
+const CARD_W = 415;
+const CARD_H = 178;
+const CARD_RX = 10;
+const CARD_PAD = 14;
+const CARD_ICON = 40;
+const DESC_SIZE = 12.5;
+const DESC_LINE_H = 17;
+const DESC_TOP = 78;
+const DESC_MAX_LINES = 3;
+const STATS_RULE_Y = 127;
+const STAT_VALUE_Y = 150;
+const STAT_LABEL_Y = 164;
+
 /**
- * Finds the display name of the project a badge belongs to.
- * @param {string} id
- * @returns {string | undefined}
+ * Greedily wraps text into lines that fit a pixel width.
+ * @param {string} text
+ * @param {number} maxW
+ * @param {number} size
+ * @returns {string[]}
  */
-function projectName(id)
+function wrapText(text, maxW, size)
 {
-  const key = Object.keys(PROJECT_NAMES)
-    .filter(k => id === k || id.startsWith(k + '-'))
-    .sort((a, b) => b.length - a.length)[0];
-  return key ? PROJECT_NAMES[key] : undefined;
+  const lines = [];
+  let line = '';
+  for (const word of text.split(' '))
+  {
+    const next = line ? `${line} ${word}` : word;
+    if (line && textWidthAt(next, size) * 1.06 > maxW)
+    {
+      lines.push(line);
+      line = word;
+    } else
+    {
+      line = next;
+    }
+  }
+  if (line) lines.push(line);
+  return lines;
 }
 
 /**
- * Escapes a value for an HTML attribute in README markup.
- * @param {string} s
+ * Renders a project card matched to the activity and stack cards: rounded
+ * border, amber sheen along the top edge, icon and name, wrapped description,
+ * and a row of live stats.
+ * @param {{ id: string, name: string, language?: string, tag?: string, description: string, iconData: string, stats: { label: string, text: string, state: string }[], dark: boolean }} p
  * @returns {string}
  */
-function escapeAttr(s)
+function svgProjectCard({ id, name, language, tag, description, iconData, stats, dark })
 {
-  return s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  const t = tokens(dark);
+  const descFill = dark ? '#adbac7' : '#424a53';
+  const key = `${id}-${dark ? 'd' : 'l'}`;
+  const innerW = CARD_W - CARD_PAD * 2;
+
+  let lines = wrapText(description, innerW, DESC_SIZE);
+  if (lines.length > DESC_MAX_LINES)
+  {
+    lines = lines.slice(0, DESC_MAX_LINES);
+    lines[DESC_MAX_LINES - 1] = lines[DESC_MAX_LINES - 1].replace(/[\s,;:]*\S*$/, '') + '...';
+  }
+  const descSvg = lines.map((l, i) =>
+    `<text x="${CARD_PAD}" y="${DESC_TOP + i * DESC_LINE_H}" font-size="${DESC_SIZE}" fill="${descFill}">${escapeXml(l)}</text>`).join('\n    ');
+
+  const cellW = innerW / stats.length;
+  let statSvg = '';
+  stats.forEach((s, i) =>
+  {
+    const cx = CARD_PAD + cellW * i + cellW / 2;
+    let size = 13.5;
+    while (size > 11 && textWidthAt(s.text, size) * 1.12 > cellW - 8) size -= 0.5;
+    const fill = s.state === 'fail' ? t.danger : s.state === 'muted' ? t.muted : t.ink;
+    statSvg += `
+    <text x="${cx.toFixed(1)}" y="${STAT_VALUE_Y}" text-anchor="middle" font-size="${size}" font-weight="800" fill="${fill}" letter-spacing="-0.2">${escapeXml(s.text)}</text>
+    <text x="${cx.toFixed(1)}" y="${STAT_LABEL_Y}" text-anchor="middle" font-size="9" font-weight="700" fill="${t.muted}" letter-spacing="1.4">${escapeXml(s.label)}</text>`;
+    if (i > 0)
+    {
+      const dx = CARD_PAD + cellW * i;
+      statSvg += `\n    <line x1="${dx.toFixed(1)}" y1="${STATS_RULE_Y + 10}" x2="${dx.toFixed(1)}" y2="${CARD_H - 10}" stroke="${t.sep}" stroke-width="1"/>`;
+    }
+  });
+
+  let tagSvg = '';
+  if (tag)
+  {
+    const tagW = Math.ceil(textWidthAt(tag, 9) * 1.1 + tag.length * 1.2 + 18);
+    const tx = CARD_W - CARD_PAD - tagW;
+    tagSvg = `
+  <rect x="${tx}" y="16" width="${tagW}" height="18" rx="9" fill="rgba(${t.accentRgb},0.14)" stroke="rgba(${t.accentRgb},0.65)" stroke-width="1"/>
+  <text x="${tx + tagW / 2}" y="28.5" text-anchor="middle" font-family="${FONT}" font-size="9" font-weight="700" fill="${t.accent}" letter-spacing="1.2">${escapeXml(tag)}</text>`;
+  }
+
+  const sheenW = 180;
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${CARD_W}" height="${CARD_H}" viewBox="0 0 ${CARD_W} ${CARD_H}" role="img" aria-label="${escapeXml(name)}">
+  <defs>
+    <linearGradient id="sheen-${key}" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"   stop-color="${t.accent}" stop-opacity="0"/>
+      <stop offset="50%"  stop-color="${t.accent}" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="${t.accent}" stop-opacity="0"/>
+    </linearGradient>
+    <clipPath id="clip-${key}"><rect x="0" y="0" width="${CARD_W}" height="${CARD_H}" rx="${CARD_RX}" ry="${CARD_RX}"/></clipPath>
+  </defs>
+
+  <rect x="0.5" y="0.5" width="${CARD_W - 1}" height="${CARD_H - 1}" rx="${CARD_RX}" ry="${CARD_RX}" fill="none" stroke="${t.border}"/>
+
+  <g clip-path="url(#clip-${key})">
+    <rect x="-${sheenW}" y="0" width="${sheenW}" height="1.5" fill="url(#sheen-${key})">
+      <animate attributeName="x" from="-${sheenW}" to="${CARD_W}" dur="9s" begin="0s" repeatCount="indefinite"/>
+    </rect>
+  </g>
+
+  <image href="${iconData}" x="${CARD_PAD}" y="${CARD_PAD}" width="${CARD_ICON}" height="${CARD_ICON}"/>${tagSvg}
+
+  <g font-family="${FONT}">
+    <text x="66" y="31" font-size="15" font-weight="700" fill="${t.ink}" letter-spacing="-0.2">${escapeXml(name)}</text>${language ? `
+    <text x="66" y="48" font-size="11" font-weight="600" fill="${t.muted}" letter-spacing="0.3">${escapeXml(language)}</text>` : ''}
+    ${descSvg}
+  </g>
+
+  <line x1="${CARD_PAD}" y1="${STATS_RULE_Y}" x2="${CARD_W - CARD_PAD}" y2="${STATS_RULE_Y}" stroke="${t.sep}" stroke-width="1"/>
+  <g font-family="${FONT}">${statSvg}
+  </g>
+</svg>
+`;
+}
+
+/**
+ * Fetches a remote SVG icon and returns it as a data URI for embedding.
+ * @param {string} url
+ * @returns {Promise<string>}
+ */
+async function iconDataUri(url)
+{
+  const r = await fetch(url, { headers: { 'User-Agent': USER_AGENT }, signal: AbortSignal.timeout(FETCH_TIMEOUT_MS) });
+  if (!r.ok) throw new Error(`${url}: HTTP ${r.status}`);
+  return 'data:image/svg+xml;base64,' + Buffer.from(await r.text()).toString('base64');
 }
 
 mkdirSync(OUT, { recursive: true });
@@ -668,6 +859,8 @@ let md = readFileSync(README, 'utf8');
 // file name -> sha1 of the bytes just written, used to stamp README URLs.
 const hashes = {};
 const alts = {};
+const values = {};
+const byId = Object.fromEntries(BADGES.map(b => [b.id, b]));
 let failed = 0;
 
 function emit(name, body)
@@ -678,39 +871,59 @@ function emit(name, body)
 
 for (const b of BADGES)
 {
-  const onProfile = md.includes(`/${b.id}-light.svg`);
-  if (!onProfile && !b.theme) continue;
   try
   {
     const value = await getValue(b);
+    values[b.id] = value;
     if (b.kind === 'registry-count')
     {
-      emit(`${b.id}-dark.svg`, svgRegistryCell({ label: b.label, count: value, mark: b.mark, dark: true }));
-      emit(`${b.id}-light.svg`, svgRegistryCell({ label: b.label, count: value, mark: b.mark, dark: false }));
-      alts[b.id] = `${b.label}: ${fmtCount(value)} ${plural(value, 'package')}`;
-      console.log(`ok  ${b.id.padEnd(30)} ${value}`);
-      continue;
+      emit(`${b.id}-dark.svg`, svgHeader({ label: b.label, value: String(value), icon: b.icon, dark: true, id: b.id + '-d' }));
+      emit(`${b.id}-light.svg`, svgHeader({ label: b.label, value: String(value), icon: b.icon, dark: false, id: b.id + '-l' }));
+      alts[b.id] = `${b.altName}: ${value} ${plural(value, 'package')}`;
     }
     if (b.theme)
     {
-      const message = typeof value === 'number' ? fmtNum(value) : value;
+      const message = typeof value === 'number' ? fmtThemed(value) : value;
       emit(`${b.id}-${b.theme.name}.svg`, svgThemed({ label: b.label, message, theme: b.theme, icon: b.icon }));
     }
-    const copy = profileCopy(b, value);
-    if (onProfile)
-    {
-      const mark = REGISTRY_MARKS[b.kind];
-      emit(`${b.id}-dark.svg`, svgSpec({ ...copy, mark, dark: true }));
-      emit(`${b.id}-light.svg`, svgSpec({ ...copy, mark, dark: false }));
-      const name = projectName(b.id);
-      alts[b.id] = `${name ? name + ', ' : ''}${copy.label} ${copy.text}`;
-    }
-    console.log(`ok  ${b.id.padEnd(30)} ${copy.text}`);
+    console.log(`ok  ${b.id.padEnd(32)} ${value}`);
   } catch (e)
   {
     failed++;
-    console.error(`err ${b.id.padEnd(30)} ${e.message}`);
+    console.error(`err ${b.id.padEnd(32)} ${e.message}`);
   }
+}
+
+for (const section of PROJECT_SECTIONS)
+{
+  const pics = [];
+  for (const card of section.cards)
+  {
+    const stats = card.stats.map(s => values[s.use] === undefined ? null : ({ label: s.label, ...statCopy(byId[s.use], values[s.use]) }));
+    let alt = card.name;
+    try
+    {
+      if (stats.includes(null)) throw new Error(`missing ${card.stats.filter((_, i) => !stats[i]).map(s => s.use).join(', ')}`);
+      const [iconData, repoInfo] = await Promise.all([iconDataUri(card.icon), gh(`/repos/${OWNER}/${card.repo}`)]);
+      const opts = { id: card.id, name: card.name, language: repoInfo.language ?? '', tag: card.tag, description: card.description, iconData, stats };
+      emit(`${card.id}-dark.svg`, svgProjectCard({ ...opts, dark: true }));
+      emit(`${card.id}-light.svg`, svgProjectCard({ ...opts, dark: false }));
+      alt = `${card.name}${card.tag ? ', in development' : ''}. ${card.description} ${stats.map(s => `${s.label.toLowerCase()} ${s.text}`).join(', ')}`;
+      console.log(`ok  ${card.id.padEnd(32)} ${stats.map(s => s.text).join(' | ')}`);
+    } catch (e)
+    {
+      failed++;
+      console.error(`err ${card.id.padEnd(32)} ${e.message}; keeping the committed card`);
+    }
+    pics.push(`<a href="${GH}/${card.repo}"><picture><source media="(prefers-color-scheme: dark)" srcset="${RAW}/${card.id}-dark.svg"><img alt="${escapeAttr(alt)}" width="${CARD_W}" src="${RAW}/${card.id}-light.svg" /></picture></a>`);
+  }
+  const re = new RegExp(`<!-- projects:${section.id} -->[\\s\\S]*?<!-- /projects:${section.id} -->`);
+  if (!re.test(md))
+  {
+    console.warn(`  ! projects:${section.id} markers not found in README.md`);
+    continue;
+  }
+  md = md.replace(re, `<!-- projects:${section.id} -->\n<p align="center">\n  ${pics.join('\n  ')}\n</p>\n<!-- /projects:${section.id} -->`);
 }
 
 // Stamp every badge URL this script owns with ?v=<hash>. GitHub proxies README
@@ -739,10 +952,20 @@ for (const [name, hash] of Object.entries(hashes))
       return `?v=${hash}` + part.replace(/^\?v=[0-9a-f]+/, '');
     }).join(url);
   }
-  if (!hit && !/-(dark|light)\.svg$/.test(name)) continue;
-  if (!hit) unreferenced.push(name);
+  if (!hit && /-(dark|light)\.svg$/.test(name)) unreferenced.push(name);
 }
 
+/**
+ * Escapes a value for an HTML attribute in README markup.
+ * @param {string} s
+ * @returns {string}
+ */
+function escapeAttr(s)
+{
+  return s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+// Alt text carries the live values, so they survive a broken image and reach screen readers.
 md = md.replace(/<img\b[^>]*>/g, tag =>
 {
   const m = tag.match(/\/([A-Za-z0-9._-]+)-light\.svg/);
@@ -753,7 +976,7 @@ md = md.replace(/<img\b[^>]*>/g, tag =>
 writeFileSync(README, md);
 
 console.log(`\nstamped ${stamped} README badge URLs`);
-if (unreferenced.length) console.log(`note: ${unreferenced.length} profile badges are not referenced in README.md: ${unreferenced.join(', ')}`);
+if (unreferenced.length) console.log(`note: ${unreferenced.length} generated badges are not referenced in README.md: ${unreferenced.join(', ')}`);
 
 if (failed)
 {

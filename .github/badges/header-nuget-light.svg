@@ -1,10 +1,30 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="144" height="60" viewBox="0 0 144 60" role="img" aria-label="NuGet: 41 packages">
-  <rect x="0" y="0" width="144" height="1.5" fill="#1f2328"/>
-  <svg x="2" y="12" width="13" height="13" viewBox="0 0 24 24"><path fill="#59636e" d="M1.998.342a1.997 1.997 0 1 0 0 3.995 1.997 1.997 0 0 0 0-3.995zm9.18 4.34a6.156 6.156 0 0 0-6.153 6.155v6.667c0 3.4 2.756 6.154 6.154 6.154h6.667c3.4 0 6.154-2.755 6.154-6.154v-6.667a6.154 6.154 0 0 0-6.154-6.155zm-1.477 2.8a2.496 2.496 0 1 1 0 4.993 2.496 2.496 0 0 1 0-4.993zm7.968 6.16a3.996 3.996 0 1 1-.002 7.992 3.996 3.996 0 0 1 .002-7.992z"/></svg>
-  <g font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" style="font-variant-numeric: tabular-nums">
-    <text x="21" y="23" font-size="12" font-weight="500" fill="#59636e">NuGet</text>
-    <text x="2" y="49" font-size="24" font-weight="700" fill="#1f2328" letter-spacing="-0.3">41</text>
-    <text x="34" y="49" font-size="12" fill="#59636e">packages</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="177" height="53" viewBox="0 0 177 53" shape-rendering="geometricPrecision" role="img" aria-label="NUGET PACKAGES: 41">
+  <defs>
+    <path id="bd-header-nuget-l" d="M 10.5 0.75 H 166.5 A 9.75 9.75 0 0 1 176.25 10.5 V 42.5 A 9.75 9.75 0 0 1 166.5 52.25 H 10.5 A 9.75 9.75 0 0 1 0.75 42.5 V 10.5 A 9.75 9.75 0 0 1 10.5 0.75 Z" fill="none"/>
+    <linearGradient id="gr-header-nuget-l" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"   stop-color="#b45309" stop-opacity="0"/>
+      <stop offset="50%"  stop-color="#b45309" stop-opacity="0.65"/>
+      <stop offset="100%" stop-color="#b45309" stop-opacity="0"/>
+    </linearGradient>
+    <mask id="mk-header-nuget-l" maskUnits="userSpaceOnUse">
+      <use href="#bd-header-nuget-l" stroke="#fff" stroke-width="1"/>
+    </mask>
+  </defs>
+
+  <use href="#bd-header-nuget-l" stroke="#d0d7de" stroke-width="1"/>
+
+  <g mask="url(#mk-header-nuget-l)">
+    <rect x="0" y="0" width="106" height="53" fill="url(#gr-header-nuget-l)">
+      <animate attributeName="x" from="-106" to="177" dur="6s" repeatCount="indefinite"/>
+    </rect>
   </g>
-  <rect x="0" y="59" width="144" height="1" fill="#d1d9e0"/>
+
+  <g transform="translate(16 15)">
+    <svg viewBox="0 0 24 24" width="22" height="22"><path fill="#b45309" d="M1.998.342a1.997 1.997 0 1 0 0 3.995 1.997 1.997 0 0 0 0-3.995zm9.18 4.34a6.156 6.156 0 0 0-6.153 6.155v6.667c0 3.4 2.756 6.154 6.154 6.154h6.667c3.4 0 6.154-2.755 6.154-6.154v-6.667a6.154 6.154 0 0 0-6.154-6.155zm-1.477 2.8a2.496 2.496 0 1 1 0 4.993 2.496 2.496 0 0 1 0-4.993zm7.968 6.16a3.996 3.996 0 1 1-.002 7.992 3.996 3.996 0 0 1 .002-7.992z"/></svg>
+  </g>
+
+  <g font-family="Segoe UI, Inter, -apple-system, BlinkMacSystemFont, sans-serif">
+    <text x="48" y="26" font-size="18" font-weight="800" fill="#0b1220" letter-spacing="-0.3">41</text>
+    <text x="48" y="40" font-size="9.5" font-weight="700" fill="#656d76" letter-spacing="1.6">NUGET PACKAGES</text>
+  </g>
 </svg>

@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="415" height="178" viewBox="0 0 415 178" role="img" aria-label="MagnifyShit">
+  <defs>
+    <linearGradient id="sheen-card-magnifyshit-d" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"   stop-color="#f5a524" stop-opacity="0"/>
+      <stop offset="50%"  stop-color="#f5a524" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#f5a524" stop-opacity="0"/>
+    </linearGradient>
+    <clipPath id="clip-card-magnifyshit-d"><rect x="0" y="0" width="415" height="178" rx="10" ry="10"/></clipPath>
+  </defs>
+
+  <rect x="0.5" y="0.5" width="414" height="177" rx="10" ry="10" fill="none" stroke="#30363d"/>
+
+  <g clip-path="url(#clip-card-magnifyshit-d)">
+    <rect x="-180" y="0" width="180" height="1.5" fill="url(#sheen-card-magnifyshit-d)">
+      <animate attributeName="x" from="-180" to="415" dur="9s" begin="0s" repeatCount="indefinite"/>
+    </rect>
+  </g>
+
+  <image href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTYgMjU2IiB3aWR0aD0iMjU2IiBoZWlnaHQ9IjI1NiIgcm9sZT0iaW1nIiBhcmlhLWxhYmVsPSJNYWduaWZ5U2hpdCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImJnSWNvbiIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjMGIxMjIwIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzEwMWEyZSIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0icmltSWNvbiIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjN2RkM2ZjIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzI1NjNlYiIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICAgIDxyYWRpYWxHcmFkaWVudCBpZD0iZ2xhc3NJY29uIiBjeD0iNTAlIiBjeT0iNDAlIiByPSI2NSUiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiAgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIwLjMyIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iNTUlIiBzdG9wLWNvbG9yPSIjN2RkM2ZjIiBzdG9wLW9wYWNpdHk9IjAuMTAiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMGIxMjIwIiBzdG9wLW9wYWNpdHk9IjAuNTUiLz4KICAgIDwvcmFkaWFsR3JhZGllbnQ+CiAgICA8cGF0dGVybiBpZD0iZ3JpZEljb24iIHg9IjAiIHk9IjAiIHdpZHRoPSIxNCIgaGVpZ2h0PSIxNCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+CiAgICAgIDxwYXRoIGQ9Ik0xNCAwSDBWMTQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzFlMjkzYiIgc3Ryb2tlLXdpZHRoPSIxIi8+CiAgICA8L3BhdHRlcm4+CiAgICA8Y2xpcFBhdGggaWQ9ImxlbnNDbGlwSWNvbiI+CiAgICAgIDxjaXJjbGUgY3g9IjAiIGN5PSIwIiByPSI3NCIvPgogICAgPC9jbGlwUGF0aD4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0icG9vcEljb24iIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgIHN0b3AtY29sb3I9IiNhMzY2MWYiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSI1NSUiIHN0b3AtY29sb3I9IiM3YTQ1MTUiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjNGEyNzA4Ii8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPHN5bWJvbCBpZD0icG9vcEljb25Cb2R5IiBvdmVyZmxvdz0idmlzaWJsZSI+CiAgICAgIDxlbGxpcHNlIGN4PSIwIiBjeT0iMjIiICByeD0iMzIiIHJ5PSIxMSIgZmlsbD0idXJsKCNwb29wSWNvbikiLz4KICAgICAgPGVsbGlwc2UgY3g9Ii0yIiBjeT0iNiIgIHJ4PSIyNCIgcnk9IjEwIiBmaWxsPSJ1cmwoI3Bvb3BJY29uKSIvPgogICAgICA8ZWxsaXBzZSBjeD0iMiIgIGN5PSItOSIgcng9IjE2IiByeT0iOSIgIGZpbGw9InVybCgjcG9vcEljb24pIi8+CiAgICAgIDxlbGxpcHNlIGN4PSItMSIgY3k9Ii0yMSIgcng9IjgiICByeT0iNiIgIGZpbGw9InVybCgjcG9vcEljb24pIi8+CiAgICAgIDxlbGxpcHNlIGN4PSItMTAiIGN5PSIyIiAgcng9IjUiIHJ5PSIyIiBmaWxsPSIjYzk4YTNlIiBvcGFjaXR5PSIwLjciLz4KICAgICAgPGVsbGlwc2UgY3g9Ii02IiAgY3k9Ii0xMiIgcng9IjMiIHJ5PSIxLjUiIGZpbGw9IiNjOThhM2UiIG9wYWNpdHk9IjAuNyIvPgogICAgICA8Y2lyY2xlIGN4PSItOSIgY3k9IjgiIHI9IjQiIGZpbGw9IiNmZmZmZmYiLz4KICAgICAgPGNpcmNsZSBjeD0iOSIgIGN5PSI4IiByPSI0IiBmaWxsPSIjZmZmZmZmIi8+CiAgICAgIDxjaXJjbGUgY3g9Ii04IiBjeT0iOSIgcj0iMS44IiBmaWxsPSIjMGIxMjIwIi8+CiAgICAgIDxjaXJjbGUgY3g9IjEwIiBjeT0iOSIgcj0iMS44IiBmaWxsPSIjMGIxMjIwIi8+CiAgICAgIDxwYXRoIGQ9Ik0tNyAxNyBRMCAyMyA3IDE3IiBmaWxsPSJub25lIiBzdHJva2U9IiMwYjEyMjAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgICA8L3N5bWJvbD4KICA8L2RlZnM+CgogIDwhLS0gRHJhd24gZnVsbC1ibGVlZCwgc2NhbGVkICsgcGFkZGVkIHRvIGZpdCB0aGUgMjU2IGNhbnZhcyAtLT4KICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgzOC40LCAzOC40KSBzY2FsZSgwLjcpIj4KICA8cmVjdCB3aWR0aD0iMjU2IiBoZWlnaHQ9IjI1NiIgcng9IjQ4IiBmaWxsPSJ1cmwoI2JnSWNvbikiLz4KCiAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTE4IDExOCkiPgogICAgPGFuaW1hdGVUcmFuc2Zvcm0gYXR0cmlidXRlTmFtZT0idHJhbnNmb3JtIiB0eXBlPSJ0cmFuc2xhdGUiCiAgICAgIHZhbHVlcz0iMTA4IDExODsgMTM4IDExODsgMTA4IDExOCIKICAgICAga2V5VGltZXM9IjA7MC41OzEiIGR1cj0iNnMiIHJlcGVhdENvdW50PSJpbmRlZmluaXRlIiBjYWxjTW9kZT0ic3BsaW5lIgogICAgICBrZXlTcGxpbmVzPSIwLjQyIDAgMC41OCAxOyAwLjQyIDAgMC41OCAxIi8+CgogICAgPGcgY2xpcC1wYXRoPSJ1cmwoI2xlbnNDbGlwSWNvbikiPgogICAgICA8cmVjdCB4PSItMTAwIiB5PSItMTAwIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzBiMTIyMCIvPgogICAgICA8ZyB0cmFuc2Zvcm09InNjYWxlKDIuNCkiPgogICAgICAgIDxyZWN0IHg9Ii01MCIgeT0iLTUwIiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0idXJsKCNncmlkSWNvbikiLz4KICAgICAgPC9nPgogICAgICA8dXNlIGhyZWY9IiNwb29wSWNvbkJvZHkiIHg9IjAiIHk9IjAiLz4KICAgICAgPGNpcmNsZSBjeD0iMCIgY3k9IjAiIHI9Ijc0IiBmaWxsPSJ1cmwoI2dsYXNzSWNvbikiLz4KICAgICAgPGVsbGlwc2UgY3g9Ii0yMiIgY3k9Ii0yOCIgcng9IjMwIiByeT0iMTQiIGZpbGw9IiNmZmZmZmYiIG9wYWNpdHk9IjAuMjgiLz4KICAgIDwvZz4KCiAgICA8Y2lyY2xlIGN4PSIwIiBjeT0iMCIgcj0iNzQiIGZpbGw9Im5vbmUiIHN0cm9rZT0idXJsKCNyaW1JY29uKSIgc3Ryb2tlLXdpZHRoPSI3Ii8+CiAgICA8Y2lyY2xlIGN4PSIwIiBjeT0iMCIgcj0iNzQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzBiMTIyMCIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KCiAgICA8ZyB0cmFuc2Zvcm09InJvdGF0ZSgzNSkiPgogICAgICA8cmVjdCB4PSI3MiIgeT0iLTEwIiB3aWR0aD0iNTYiIGhlaWdodD0iMjAiIHJ4PSIxMCIgZmlsbD0iIzFlMjkzYiIgc3Ryb2tlPSJ1cmwoI3JpbUljb24pIiBzdHJva2Utd2lkdGg9IjIuNSIvPgogICAgPC9nPgoKICAgIDxjaXJjbGUgY3g9IjAiIGN5PSIwIiByPSI4MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjN2RkM2ZjIiBzdHJva2Utd2lkdGg9IjIiIG9wYWNpdHk9IjAuNiI+CiAgICAgIDxhbmltYXRlIGF0dHJpYnV0ZU5hbWU9InIiIHZhbHVlcz0iODA7MTAwOzgwIiBkdXI9IjIuNHMiIHJlcGVhdENvdW50PSJpbmRlZmluaXRlIi8+CiAgICAgIDxhbmltYXRlIGF0dHJpYnV0ZU5hbWU9Im9wYWNpdHkiIHZhbHVlcz0iMC42OzA7MC42IiBkdXI9IjIuNHMiIHJlcGVhdENvdW50PSJpbmRlZmluaXRlIi8+CiAgICA8L2NpcmNsZT4KICA8L2c+CiAgPC9nPgo8L3N2Zz4K" x="14" y="14" width="40" height="40"/>
+
+  <g font-family="Segoe UI, Inter, -apple-system, BlinkMacSystemFont, sans-serif">
+    <text x="66" y="31" font-size="15" font-weight="700" fill="#e6e9f1" letter-spacing="-0.2">MagnifyShit</text>
+    <text x="66" y="48" font-size="11" font-weight="600" fill="#7d8590" letter-spacing="0.3">C++</text>
+    <text x="14" y="78" font-size="12.5" fill="#adbac7">Windows screen magnifier in C++ using D3D11, DXGI desktop</text>
+    <text x="14" y="95" font-size="12.5" fill="#adbac7">duplication, and ImGui.</text>
+  </g>
+
+  <line x1="14" y1="127" x2="401" y2="127" stroke="#1c222c" stroke-width="1"/>
+  <g font-family="Segoe UI, Inter, -apple-system, BlinkMacSystemFont, sans-serif">
+    <text x="62.4" y="150" text-anchor="middle" font-size="13.5" font-weight="800" fill="#e6e9f1" letter-spacing="-0.2">v2.1.1</text>
+    <text x="62.4" y="164" text-anchor="middle" font-size="9" font-weight="700" fill="#7d8590" letter-spacing="1.4">RELEASE</text>
+    <text x="159.1" y="150" text-anchor="middle" font-size="13.5" font-weight="800" fill="#e6e9f1" letter-spacing="-0.2">32</text>
+    <text x="159.1" y="164" text-anchor="middle" font-size="9" font-weight="700" fill="#7d8590" letter-spacing="1.4">DOWNLOADS</text>
+    <line x1="110.8" y1="137" x2="110.8" y2="168" stroke="#1c222c" stroke-width="1"/>
+    <text x="255.9" y="150" text-anchor="middle" font-size="13.5" font-weight="800" fill="#e6e9f1" letter-spacing="-0.2">MIT</text>
+    <text x="255.9" y="164" text-anchor="middle" font-size="9" font-weight="700" fill="#7d8590" letter-spacing="1.4">LICENSE</text>
+    <line x1="207.5" y1="137" x2="207.5" y2="168" stroke="#1c222c" stroke-width="1"/>
+    <text x="352.6" y="150" text-anchor="middle" font-size="12.5" font-weight="800" fill="#e6e9f1" letter-spacing="-0.2">2 months ago</text>
+    <text x="352.6" y="164" text-anchor="middle" font-size="9" font-weight="700" fill="#7d8590" letter-spacing="1.4">UPDATED</text>
+    <line x1="304.3" y1="137" x2="304.3" y2="168" stroke="#1c222c" stroke-width="1"/>
+  </g>
+</svg>

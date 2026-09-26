@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="415" height="178" viewBox="0 0 415 178" role="img" aria-label="WoRTool">
+  <defs>
+    <linearGradient id="sheen-card-wortool-desktop-l" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"   stop-color="#b45309" stop-opacity="0"/>
+      <stop offset="50%"  stop-color="#b45309" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#b45309" stop-opacity="0"/>
+    </linearGradient>
+    <clipPath id="clip-card-wortool-desktop-l"><rect x="0" y="0" width="415" height="178" rx="10" ry="10"/></clipPath>
+  </defs>
+
+  <rect x="0.5" y="0.5" width="414" height="177" rx="10" ry="10" fill="none" stroke="#d0d7de"/>
+
+  <g clip-path="url(#clip-card-wortool-desktop-l)">
+    <rect x="-180" y="0" width="180" height="1.5" fill="url(#sheen-card-wortool-desktop-l)">
+      <animate attributeName="x" from="-180" to="415" dur="9s" begin="0s" repeatCount="indefinite"/>
+    </rect>
+  </g>
+
+  <image href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCIgcm9sZT0iaW1nIiBhcmlhLWxhYmVsPSJXb1JUb29sIj4KICAgIDxkZWZzPgogICAgICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iYnJhc3MiIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj4KICAgICAgICAgICAgPHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZDRiMzZhIiAvPgogICAgICAgICAgICA8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNhODgyMmYiIC8+CiAgICAgICAgPC9saW5lYXJHcmFkaWVudD4KICAgIDwvZGVmcz4KCiAgICA8c3R5bGU+CiAgICAgICAgLnBsb3QKICAgICAgICB7CiAgICAgICAgICAgIHN0cm9rZS1kYXNoYXJyYXk6IDEwMDsKICAgICAgICAgICAgYW5pbWF0aW9uOiBwbG90IDEuNHMgY3ViaWMtYmV6aWVyKDAuMjIsIDEsIDAuMzYsIDEpIGJvdGg7CiAgICAgICAgfQogICAgICAgIC5yaW5nCiAgICAgICAgewogICAgICAgICAgICBhbmltYXRpb246IHNldHRsZSAwLjlzIGN1YmljLWJlemllcigwLjIyLCAxLCAwLjM2LCAxKSBib3RoOwogICAgICAgIH0KICAgICAgICBAa2V5ZnJhbWVzIHBsb3QKICAgICAgICB7CiAgICAgICAgICAgIGZyb20geyBzdHJva2UtZGFzaG9mZnNldDogMTAwOyB9CiAgICAgICAgICAgIHRvIHsgc3Ryb2tlLWRhc2hvZmZzZXQ6IDA7IH0KICAgICAgICB9CiAgICAgICAgQGtleWZyYW1lcyBzZXR0bGUKICAgICAgICB7CiAgICAgICAgICAgIGZyb20geyBvcGFjaXR5OiAwOyB9CiAgICAgICAgICAgIHRvIHsgb3BhY2l0eTogMTsgfQogICAgICAgIH0KICAgICAgICBAbWVkaWEgKHByZWZlcnMtcmVkdWNlZC1tb3Rpb246IHJlZHVjZSkKICAgICAgICB7CiAgICAgICAgICAgIC5wbG90LCAucmluZyB7IGFuaW1hdGlvbjogbm9uZTsgfQogICAgICAgIH0KICAgIDwvc3R5bGU+CgogICAgPGcgY2xhc3M9InJpbmciIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2I4OTIzZSIgc3Ryb2tlLXdpZHRoPSIyLjQiPgogICAgICAgIDxjaXJjbGUgY3g9IjMyIiBjeT0iMzIiIHI9IjI2IiBzdHJva2Utb3BhY2l0eT0iMC43IiAvPgogICAgICAgIDxwYXRoIGQ9Ik0zMiAzIFY5LjUgTTMyIDU0LjUgVjYxIE0zIDMyIEg5LjUgTTU0LjUgMzIgSDYxIiBzdHJva2Utb3BhY2l0eT0iMC45IiBzdHJva2UtbGluZWNhcD0icm91bmQiIC8+CiAgICA8L2c+CiAgICA8cGF0aAogICAgICAgIGNsYXNzPSJwbG90IgogICAgICAgIGQ9Ik0xNyAyMS41IEwyNC41IDQ0LjUgTDMyIDMwIEwzOS41IDQ0LjUgTDQ3IDIxLjUiCiAgICAgICAgZmlsbD0ibm9uZSIKICAgICAgICBzdHJva2U9InVybCgjYnJhc3MpIgogICAgICAgIHN0cm9rZS13aWR0aD0iNiIKICAgICAgICBzdHJva2UtbGluZWNhcD0icm91bmQiCiAgICAgICAgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIKICAgICAgICBwYXRoTGVuZ3RoPSIxMDAiCiAgICAvPgo8L3N2Zz4K" x="14" y="14" width="40" height="40"/>
+
+  <g font-family="Segoe UI, Inter, -apple-system, BlinkMacSystemFont, sans-serif">
+    <text x="66" y="31" font-size="15" font-weight="700" fill="#0b1220" letter-spacing="-0.2">WoRTool</text>
+    <text x="14" y="78" font-size="12.5" fill="#424a53">Desktop app for War of Rights: the offline catalog, the</text>
+    <text x="14" y="95" font-size="12.5" fill="#424a53">WoRSketch planner with a plan over the game, a server editor,</text>
+    <text x="14" y="112" font-size="12.5" fill="#424a53">and unit and operation tools.</text>
+  </g>
+
+  <line x1="14" y1="127" x2="401" y2="127" stroke="#eaecef" stroke-width="1"/>
+  <g font-family="Segoe UI, Inter, -apple-system, BlinkMacSystemFont, sans-serif">
+    <text x="62.4" y="150" text-anchor="middle" font-size="13.5" font-weight="800" fill="#0b1220" letter-spacing="-0.2">v0.1.0</text>
+    <text x="62.4" y="164" text-anchor="middle" font-size="9" font-weight="700" fill="#656d76" letter-spacing="1.4">RELEASE</text>
+    <text x="159.1" y="150" text-anchor="middle" font-size="13.5" font-weight="800" fill="#0b1220" letter-spacing="-0.2">6</text>
+    <text x="159.1" y="164" text-anchor="middle" font-size="9" font-weight="700" fill="#656d76" letter-spacing="1.4">DOWNLOADS</text>
+    <line x1="110.8" y1="137" x2="110.8" y2="168" stroke="#eaecef" stroke-width="1"/>
+    <text x="255.9" y="150" text-anchor="middle" font-size="13.5" font-weight="800" fill="#d1242f" letter-spacing="-0.2">failing</text>
+    <text x="255.9" y="164" text-anchor="middle" font-size="9" font-weight="700" fill="#656d76" letter-spacing="1.4">BUILD</text>
+    <line x1="207.5" y1="137" x2="207.5" y2="168" stroke="#eaecef" stroke-width="1"/>
+    <text x="352.6" y="150" text-anchor="middle" font-size="13.5" font-weight="800" fill="#0b1220" letter-spacing="-0.2">today</text>
+    <text x="352.6" y="164" text-anchor="middle" font-size="9" font-weight="700" fill="#656d76" letter-spacing="1.4">UPDATED</text>
+    <line x1="304.3" y1="137" x2="304.3" y2="168" stroke="#eaecef" stroke-width="1"/>
+  </g>
+</svg>

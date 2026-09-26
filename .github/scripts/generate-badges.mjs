@@ -191,17 +191,6 @@ const PROJECT_SECTIONS = [
   ] },
   { id: 'applications', cards: [
     {
-      id: 'card-wortool-desktop', name: 'WoRTool', repo: 'wortool-desktop',
-      icon: `${ICON_RAW}/wortool-desktop/main/.github/assets/icon.svg`,
-      description: 'Desktop app for War of Rights: the offline catalog, the WoRSketch planner with a plan over the game, a server editor, and unit and operation tools.',
-      stats: [
-        { use: 'wortool-desktop-release', label: 'RELEASE' },
-        { use: 'wortool-desktop-downloads', label: 'DOWNLOADS' },
-        { use: 'wortool-desktop-license', label: 'LICENSE' },
-        { use: 'wortool-desktop-last-commit', label: 'UPDATED' },
-      ],
-    },
-    {
       id: 'card-youtube-downloader', name: 'YouTube Downloader', repo: 'youtube-downloader',
       icon: `${ICON_RAW}/youtube-downloader/main/.github/assets/icon.svg`,
       description: 'Desktop YouTube downloader built on yt-dlp and FFmpeg.',
@@ -243,6 +232,17 @@ const PROJECT_SECTIONS = [
         { use: 'magnifyshit-downloads', label: 'DOWNLOADS' },
         { use: 'magnifyshit-license', label: 'LICENSE' },
         { use: 'magnifyshit-last-commit', label: 'UPDATED' },
+      ],
+    },
+    {
+      id: 'card-wortool-desktop', name: 'WoRTool', repo: 'wortool-desktop',
+      icon: `${ICON_RAW}/wortool-desktop/main/.github/assets/icon.svg`,
+      description: 'Desktop app for War of Rights: the offline catalog, the WoRSketch planner with a plan over the game, a server editor, and unit and operation tools.',
+      stats: [
+        { use: 'wortool-desktop-release', label: 'RELEASE' },
+        { use: 'wortool-desktop-downloads', label: 'DOWNLOADS' },
+        { use: 'wortool-desktop-license', label: 'LICENSE' },
+        { use: 'wortool-desktop-last-commit', label: 'UPDATED' },
       ],
     },
   ] },

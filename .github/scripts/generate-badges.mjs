@@ -116,6 +116,15 @@ const BADGES = [
   { id: 'plex-poster-helper-2-downloads', repo: 'plex-poster-set-helper-2', kind: 'downloads', label: 'downloads', icon: 'github', theme: PLEX_THEME('#f0b429', '#1a1205') },
   { id: 'plex-poster-helper-2-download', kind: 'static-pair', label: 'download', message: 'latest', icon: 'github', theme: PLEX_THEME('#cc7b19', '#ffffff') },
 
+  // WoRTool desktop (the site's ink and brass)
+  { id: 'wortool-desktop-release', repo: 'wortool-desktop', kind: 'release', label: 'release', icon: 'github', theme: WORTOOL_THEME('#c6a254', '#0a0d11') },
+  { id: 'wortool-desktop-downloads', repo: 'wortool-desktop', kind: 'downloads', label: 'downloads', icon: 'github', theme: WORTOOL_THEME('#b8923e', '#0a0d11') },
+  { id: 'wortool-desktop-build', repo: 'wortool-desktop', kind: 'workflow', label: 'build', workflow: 'release.yml', branch: false, icon: 'github', theme: WORTOOL_THEME('#c6a254', '#0a0d11') },
+  { id: 'wortool-desktop-license', repo: 'wortool-desktop', kind: 'license', label: 'license', icon: 'github', theme: WORTOOL_THEME('#d4b36a', '#0a0d11') },
+  { id: 'wortool-desktop-last-commit', repo: 'wortool-desktop', kind: 'last-commit', label: 'last commit', icon: 'git', theme: WORTOOL_THEME('#e8e2d2', '#0a0d11') },
+  { id: 'wortool-desktop-download', kind: 'static-pair', label: 'download', message: 'latest', icon: 'github', theme: WORTOOL_THEME('#b8923e', '#0a0d11') },
+  { id: 'wortool-desktop-site', kind: 'static-pair', label: 'site', message: 'wortool.com', icon: 'book', theme: WORTOOL_THEME('#e8e2d2', '#0a0d11') },
+
   // pamoja registry versions + CI/license. Versions come from the umbrella packages the profile links to.
   { id: 'pamoja-crates', kind: 'crates', label: 'crates.io', pkg: 'pamoja', theme: PAMOJA_THEME('#1fd3b0', '#0b1124') },
   { id: 'pamoja-npm', kind: 'npm-version', label: 'npm', pkg: 'pamoja', icon: 'npm', theme: PAMOJA_THEME('#1fd3b0', '#0b1124') },
@@ -181,6 +190,17 @@ const PROJECT_SECTIONS = [
     },
   ] },
   { id: 'applications', cards: [
+    {
+      id: 'card-wortool-desktop', name: 'WoRTool', repo: 'wortool-desktop',
+      icon: `${ICON_RAW}/wortool-desktop/main/.github/assets/icon.svg`,
+      description: 'Desktop app for War of Rights: the offline catalog, the WoRSketch planner with a plan over the game, a server editor, and unit and operation tools.',
+      stats: [
+        { use: 'wortool-desktop-release', label: 'RELEASE' },
+        { use: 'wortool-desktop-downloads', label: 'DOWNLOADS' },
+        { use: 'wortool-desktop-build', label: 'BUILD' },
+        { use: 'wortool-desktop-last-commit', label: 'UPDATED' },
+      ],
+    },
     {
       id: 'card-youtube-downloader', name: 'YouTube Downloader', repo: 'youtube-downloader',
       icon: `${ICON_RAW}/youtube-downloader/main/.github/assets/icon.svg`,
@@ -268,6 +288,12 @@ function MAGNIFY_THEME(messageColor, textColor)
 function PLEX_THEME(messageColor, textColor)
 {
   return { name: 'plex', labelBg: '#1a1205', labelFg: '#e5a00d', messageColor, textColor };
+}
+
+// WoRTool palette (the site's ink ground and brass)
+function WORTOOL_THEME(messageColor, textColor)
+{
+  return { name: 'wortool', labelBg: '#0a0d11', labelFg: '#c6a254', messageColor, textColor };
 }
 
 // pamoja palette (the dashboard's deep navy glass + teal accent)

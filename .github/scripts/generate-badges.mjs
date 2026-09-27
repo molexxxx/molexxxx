@@ -241,7 +241,7 @@ const PROJECT_SECTIONS = [
       stats: [
         { use: 'wortool-desktop-release', label: 'RELEASE' },
         { use: 'wortool-desktop-downloads', label: 'DOWNLOADS' },
-        { use: 'wortool-desktop-license', label: 'LICENSE' },
+        { use: 'wortool-desktop-build', label: 'BUILD' },
         { use: 'wortool-desktop-last-commit', label: 'UPDATED' },
       ],
     },

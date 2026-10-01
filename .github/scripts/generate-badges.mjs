@@ -197,17 +197,6 @@ const PROJECT_SECTIONS = [
         { use: 'zero-transfer-license', label: 'LICENSE' },
       ],
     },
-    {
-      id: 'card-zero-server-node', name: 'zero-server-node', repo: 'zero-server-node', tag: 'MAINTENANCE',
-      icon: `${ICON_RAW}/zero-server-node/main/website-docs/public/icons/logo-animated.svg`,
-      description: 'The Node.js line of zero-server (@zero-server/sdk 1.x), kept on fixes only: routing, ORM, auth, WebSocket, SSE, WebRTC, and gRPC with no runtime dependencies.',
-      stats: [
-        { use: 'zero-server-npm', label: 'NPM' },
-        { use: 'zero-server-downloads', label: 'DOWNLOADS' },
-        { use: 'zero-server-ci', label: 'CI' },
-        { use: 'zero-server-license', label: 'LICENSE' },
-      ],
-    },
   ] },
   { id: 'applications', cards: [
     {

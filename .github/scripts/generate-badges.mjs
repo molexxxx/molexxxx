@@ -982,7 +982,7 @@ for (const section of PROJECT_SECTIONS)
     console.warn(`  ! projects:${section.id} markers not found in README.md`);
     continue;
   }
-  md = md.replace(re, `<!-- projects:${section.id} -->\n<p align="center">\n  ${pics.join('\n  ')}\n</p>\n<!-- /projects:${section.id} -->`);
+  md = md.replace(re, `<!-- projects:${section.id} -->\n<p align="left">\n  ${pics.join('\n  ')}\n</p>\n<!-- /projects:${section.id} -->`);
 }
 
 // Stamp every badge URL this script owns with ?v=<hash>. GitHub proxies README

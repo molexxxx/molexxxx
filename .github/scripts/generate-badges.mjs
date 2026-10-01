@@ -147,7 +147,8 @@ const ICON_RAW = `https://raw.githubusercontent.com/${OWNER}`;
  * Project cards, grouped into README sections. Each card shows the project's
  * icon, name, primary language, description, and four live stats read from the
  * badge values fetched above. `tag` adds a status pill; `accent` ({ dark, light }
- * hex) recolors the sheen and the pill in the project's own palette.
+ * hex) recolors the sheen and the pill in the project's own palette. A section's
+ * `sortBy` names a stat label whose live value orders its cards, highest first.
  */
 const PROJECT_SECTIONS = [
   { id: 'libraries', cards: [
@@ -198,7 +199,7 @@ const PROJECT_SECTIONS = [
       ],
     },
   ] },
-  { id: 'applications', cards: [
+  { id: 'applications', sortBy: 'DOWNLOADS', cards: [
     {
       id: 'card-youtube-downloader', name: 'YouTube Downloader', repo: 'youtube-downloader',
       icon: `${ICON_RAW}/youtube-downloader/main/.github/assets/icon.svg`,
@@ -949,10 +950,24 @@ for (const b of BADGES)
   }
 }
 
+/**
+ * Returns a section's cards in display order. Keeps the declared order when the
+ * section has no `sortBy` or any card lacks a numeric value for that stat.
+ * @param {{ sortBy?: string, cards: object[] }} section
+ * @returns {object[]}
+ */
+function orderCards(section)
+{
+  if (!section.sortBy) return section.cards;
+  const key = card => values[card.stats.find(s => s.label === section.sortBy)?.use];
+  if (!section.cards.every(card => typeof key(card) === 'number')) return section.cards;
+  return [...section.cards].sort((a, b) => key(b) - key(a));
+}
+
 for (const section of PROJECT_SECTIONS)
 {
   const pics = [];
-  for (const card of section.cards)
+  for (const card of orderCards(section))
   {
     const stats = card.stats.map(s => values[s.use] === undefined ? null : ({ label: s.label, ...statCopy(byId[s.use], values[s.use]) }));
     let alt = card.name;

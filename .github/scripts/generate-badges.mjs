@@ -176,8 +176,9 @@ const PROJECT_SECTIONS = [
     {
       id: 'card-zero-server', name: 'zero-server', repo: 'zero-server', tag: 'IN DEVELOPMENT',
       icon: `${ICON_RAW}/zero-server/main/assets/zero-icon-animated.svg`,
-      accent: { dark: '#CFAE45', light: '#5F470F' },
-      description: 'Memory-safe HTTP server core in Rust, bound to TypeScript, Python, and C# through one C ABI and packaged for crates.io, npm, PyPI, and NuGet. Every parser is held to its RFC.',
+      iconDark: `${ICON_RAW}/zero-server/main/assets/zero-symbol-animated-dark.svg`,
+      accent: { dark: '#CFAE45', light: '#8C6A12' },
+      description: 'Memory-safe HTTP server core in Rust, being built for TypeScript, Python, and C# through one C ABI. Pre-release: nothing is published yet.',
       stats: [
         { use: 'zero-server-rs-crates', label: 'CRATES.IO' },
         { use: 'zero-server-rs-ci', label: 'CI' },
@@ -969,9 +970,13 @@ for (const section of PROJECT_SECTIONS)
     try
     {
       if (stats.includes(null)) throw new Error(`missing ${card.stats.filter((_, i) => !stats[i]).map(s => s.use).join(', ')}`);
-      const [iconData, repoInfo] = await Promise.all([iconDataUri(card.icon), gh(`/repos/${OWNER}/${card.repo}`)]);
+      const [iconData, iconDataDark, repoInfo] = await Promise.all([
+        iconDataUri(card.icon),
+        card.iconDark ? iconDataUri(card.iconDark) : null,
+        gh(`/repos/${OWNER}/${card.repo}`),
+      ]);
       const opts = { id: card.id, name: card.name, language: repoInfo.language ?? '', tag: card.tag, accent: card.accent, description: card.description, iconData, stats };
-      emit(`${card.id}-dark.svg`, svgProjectCard({ ...opts, dark: true }));
+      emit(`${card.id}-dark.svg`, svgProjectCard({ ...opts, iconData: iconDataDark ?? iconData, dark: true }));
       emit(`${card.id}-light.svg`, svgProjectCard({ ...opts, dark: false }));
       alt = `${card.name}${card.tag ? `, ${card.tag.toLowerCase()}` : ''}. ${card.description} ${stats.map(s => `${s.label.toLowerCase()} ${s.text}`).join(', ')}`;
       console.log(`ok  ${card.id.padEnd(32)} ${stats.map(s => s.text).join(' | ')}`);

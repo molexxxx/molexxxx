@@ -1,9 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="415" height="178" viewBox="0 0 415 178" role="img" aria-label="zero-server">
   <defs>
     <linearGradient id="sheen-card-zero-server-l" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%"   stop-color="#5F470F" stop-opacity="0"/>
-      <stop offset="50%"  stop-color="#5F470F" stop-opacity="0.55"/>
-      <stop offset="100%" stop-color="#5F470F" stop-opacity="0"/>
+      <stop offset="0%"   stop-color="#8C6A12" stop-opacity="0"/>
+      <stop offset="50%"  stop-color="#8C6A12" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#8C6A12" stop-opacity="0"/>
     </linearGradient>
     <clipPath id="clip-card-zero-server-l"><rect x="0" y="0" width="415" height="178" rx="10" ry="10"/></clipPath>
   </defs>
@@ -16,23 +16,23 @@
     </rect>
   </g>
 
-  <image href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCIgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByb2xlPSJpbWciIGFyaWEtbGFiZWw9Inplcm8tc2VydmVyIj48c3R5bGU+Lmxvb3B7dHJhbnNmb3JtLWJveDpmaWxsLWJveDt0cmFuc2Zvcm0tb3JpZ2luOmNlbnRlcjthbmltYXRpb246bGFwIDNzIGxpbmVhciBpbmZpbml0ZX0udHJhaWx7YW5pbWF0aW9uOmhvbGQgM3MgbGluZWFyIGluZmluaXRlfUBrZXlmcmFtZXMgbGFwe3Rve3RyYW5zZm9ybTpyb3RhdGUoMzYwZGVnKX19QGtleWZyYW1lcyBob2xke2Zyb20sdG97b3BhY2l0eToxfX1AbWVkaWEgKHByZWZlcnMtcmVkdWNlZC1tb3Rpb246cmVkdWNlKXsubG9vcHthbmltYXRpb246bm9uZTt0cmFuc2Zvcm06cm90YXRlKC00NWRlZyl9LnRyYWlse2FuaW1hdGlvbjpub25lfX08L3N0eWxlPjxyZWN0IHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgcng9IjE0IiBmaWxsPSIjMTYxNDBGIi8+PGcgY2xhc3M9Imxvb3AiIGZpbGw9Im5vbmUiIHN0cm9rZS13aWR0aD0iOSI+PHBhdGggZD0iTTUzLjM0IDI5LjM4QTIxLjUgMjEuNSAwIDEgMSAzNC42MiAxMC42NiIgc3Ryb2tlPSIjQ0ZBRTQ1Ii8+PGcgY2xhc3M9InRyYWlsIiBvcGFjaXR5PSIwIiBzdHJva2U9IiNEOUY1NDIiPjxwYXRoIGQ9Ik0yNy4xNiAxMS4wNUEyMS41IDIxLjUgMCAwIDEgMzQuNjIgMTAuNjYiIHN0cm9rZS1vcGFjaXR5PSIwLjQ1Ii8+PHBhdGggZD0iTTIwLjI5IDEzLjk3QTIxLjUgMjEuNSAwIDAgMSAyNy4xNiAxMS4wNSIgc3Ryb2tlLW9wYWNpdHk9IjAuMjUiLz48cGF0aCBkPSJNMTQuODMgMTkuMDZBMjEuNSAyMS41IDAgMCAxIDIwLjI5IDEzLjk3IiBzdHJva2Utb3BhY2l0eT0iMC4xIi8+PC9nPjxwYXRoIGQ9Ik0zOSAxMS42N0EyMS41IDIxLjUgMCAwIDEgNTIuMzMgMjUiIHN0cm9rZT0iI0Q5RjU0MiIvPjwvZz48L3N2Zz4K" x="14" y="14" width="40" height="40"/>
-  <rect x="283" y="16" width="118" height="18" rx="9" fill="rgba(95,71,15,0.14)" stroke="rgba(95,71,15,0.65)" stroke-width="1"/>
-  <text x="342" y="28.5" text-anchor="middle" font-family="Segoe UI, Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="9" font-weight="700" fill="#5F470F" letter-spacing="1.2">IN DEVELOPMENT</text>
+  <image href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCIgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByb2xlPSJpbWciIGFyaWEtbGFiZWw9Inplcm8tc2VydmVyIj48c3R5bGU+Lmxvb3B7dHJhbnNmb3JtLWJveDpmaWxsLWJveDt0cmFuc2Zvcm0tb3JpZ2luOmNlbnRlcjthbmltYXRpb246dGljayAzLjJzIGN1YmljLWJlemllciguMiwuOCwuMiwxKSAuNnMgMSBib3RofUBrZXlmcmFtZXMgdGlja3swJXt0cmFuc2Zvcm06cm90YXRlKDBkZWcpfTQuNjkle3RyYW5zZm9ybTpyb3RhdGUoNDVkZWcpfTEyLjUle3RyYW5zZm9ybTpyb3RhdGUoNDVkZWcpfTE3LjE5JXt0cmFuc2Zvcm06cm90YXRlKDkwZGVnKX0yNSV7dHJhbnNmb3JtOnJvdGF0ZSg5MGRlZyl9MjkuNjkle3RyYW5zZm9ybTpyb3RhdGUoMTM1ZGVnKX0zNy41JXt0cmFuc2Zvcm06cm90YXRlKDEzNWRlZyl9NDIuMTkle3RyYW5zZm9ybTpyb3RhdGUoMTgwZGVnKX01MCV7dHJhbnNmb3JtOnJvdGF0ZSgxODBkZWcpfTU0LjY5JXt0cmFuc2Zvcm06cm90YXRlKDIyNWRlZyl9NjIuNSV7dHJhbnNmb3JtOnJvdGF0ZSgyMjVkZWcpfTY3LjE5JXt0cmFuc2Zvcm06cm90YXRlKDI3MGRlZyl9NzUle3RyYW5zZm9ybTpyb3RhdGUoMjcwZGVnKX03OS42OSV7dHJhbnNmb3JtOnJvdGF0ZSgzMTVkZWcpfTg3LjUle3RyYW5zZm9ybTpyb3RhdGUoMzE1ZGVnKX05Mi4xOSV7dHJhbnNmb3JtOnJvdGF0ZSgzNjBkZWcpfTEwMCV7dHJhbnNmb3JtOnJvdGF0ZSgzNjBkZWcpfX1AbWVkaWEgKHByZWZlcnMtcmVkdWNlZC1tb3Rpb246cmVkdWNlKXsubG9vcHthbmltYXRpb246bm9uZX19PC9zdHlsZT48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHJ4PSIxNCIgZmlsbD0iIzE2MTQwRiIvPjxnIGNsYXNzPSJsb29wIiBmaWxsPSJub25lIiBzdHJva2Utd2lkdGg9IjkiPjxwYXRoIGQ9Ik01My4zNCAyOS4zOEEyMS41IDIxLjUgMCAxIDEgMzQuNjIgMTAuNjYiIHN0cm9rZT0iI0NGQUU0NSIvPjxwYXRoIGQ9Ik0zOSAxMS42N0EyMS41IDIxLjUgMCAwIDEgNTIuMzMgMjUiIHN0cm9rZT0iI0Q5RjU0MiIvPjwvZz48L3N2Zz4K" x="14" y="14" width="40" height="40"/>
+  <rect x="283" y="16" width="118" height="18" rx="9" fill="rgba(140,106,18,0.14)" stroke="rgba(140,106,18,0.65)" stroke-width="1"/>
+  <text x="342" y="28.5" text-anchor="middle" font-family="Segoe UI, Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="9" font-weight="700" fill="#8C6A12" letter-spacing="1.2">IN DEVELOPMENT</text>
 
   <g font-family="Segoe UI, Inter, -apple-system, BlinkMacSystemFont, sans-serif">
     <text x="66" y="31" font-size="15" font-weight="700" fill="#0b1220" letter-spacing="-0.2">zero-server</text>
     <text x="66" y="48" font-size="11" font-weight="600" fill="#656d76" letter-spacing="0.3">Rust</text>
-    <text x="14" y="78" font-size="12.5" fill="#424a53">Memory-safe HTTP server core in Rust, bound to TypeScript,</text>
-    <text x="14" y="95" font-size="12.5" fill="#424a53">Python, and C# through one C ABI and packaged for crates.io,</text>
-    <text x="14" y="112" font-size="12.5" fill="#424a53">npm, PyPI, and NuGet. Every parser is held to its RFC.</text>
+    <text x="14" y="78" font-size="12.5" fill="#424a53">Memory-safe HTTP server core in Rust, being built for</text>
+    <text x="14" y="95" font-size="12.5" fill="#424a53">TypeScript, Python, and C# through one C ABI. Pre-release:</text>
+    <text x="14" y="112" font-size="12.5" fill="#424a53">nothing is published yet.</text>
   </g>
 
   <line x1="14" y1="127" x2="401" y2="127" stroke="#eaecef" stroke-width="1"/>
   <g font-family="Segoe UI, Inter, -apple-system, BlinkMacSystemFont, sans-serif">
     <text x="62.4" y="150" text-anchor="middle" font-size="13.5" font-weight="800" fill="#656d76" letter-spacing="-0.2">unreleased</text>
     <text x="62.4" y="164" text-anchor="middle" font-size="9" font-weight="700" fill="#656d76" letter-spacing="1.4">CRATES.IO</text>
-    <text x="159.1" y="150" text-anchor="middle" font-size="13.5" font-weight="800" fill="#0b1220" letter-spacing="-0.2">passing</text>
+    <text x="159.1" y="150" text-anchor="middle" font-size="13.5" font-weight="800" fill="#656d76" letter-spacing="-0.2">running</text>
     <text x="159.1" y="164" text-anchor="middle" font-size="9" font-weight="700" fill="#656d76" letter-spacing="1.4">CI</text>
     <line x1="110.8" y1="137" x2="110.8" y2="168" stroke="#eaecef" stroke-width="1"/>
     <text x="255.9" y="150" text-anchor="middle" font-size="13.5" font-weight="800" fill="#0b1220" letter-spacing="-0.2">Apache-2.0</text>

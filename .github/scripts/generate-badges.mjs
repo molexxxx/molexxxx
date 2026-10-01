@@ -49,7 +49,7 @@ const BADGES = [
   { id: 'bladewake-download', kind: 'static-pair', label: 'download', message: 'latest', icon: 'github', theme: { name: 'game', labelBg: '#0a0510', labelFg: '#22d4f0', messageColor: '#22d4f0', textColor: '#0a0510' } },
   { id: 'bladewake-feedback', kind: 'static-pair', label: 'feedback', message: 'welcome', icon: 'github', theme: { name: 'game', labelBg: '#0a0510', labelFg: '#22d4f0', messageColor: '#22d4f0', textColor: '#0a0510' } },
 
-  // zero-server static facts (tests/coverage/node/sdk-name update manually as project changes)
+  // zero-server Node line (molexxxx/zero-server-node) static facts; tests/coverage/node/sdk-name update manually
   { id: 'zero-server-sdk-name', kind: 'static-pair', label: 'npm', message: '@zero-server/sdk', icon: 'npm', theme: ZSERVER_THEME('#1a1b3a', '#a78bfa') },
   { id: 'zero-server-tests', kind: 'static-pair', label: 'tests', message: '8016 passing', icon: 'github', theme: ZSERVER_THEME('#3b82f6', '#ffffff') },
   { id: 'zero-server-coverage', kind: 'static-pair', label: 'coverage', message: '95.86%', icon: 'github', theme: ZSERVER_THEME('#6366f1', '#ffffff') },
@@ -69,14 +69,14 @@ const BADGES = [
 
   // GitHub-API badges
   { id: 'zero-query-last-commit', repo: 'zero-query', kind: 'last-commit', label: 'last commit', icon: 'git', theme: ZQUERY_THEME('#4fc3f7', '#0a1929') },
-  { id: 'zero-server-last-commit', repo: 'zero-server', kind: 'last-commit', label: 'last commit', icon: 'git', theme: ZSERVER_THEME('#a78bfa', '#1a1b3a') },
+  { id: 'zero-server-last-commit', repo: 'zero-server-node', kind: 'last-commit', label: 'last commit', icon: 'git', theme: ZSERVER_THEME('#a78bfa', '#1a1b3a') },
   { id: 'zero-transfer-last-commit', repo: 'zero-transfer', kind: 'last-commit', label: 'last commit', icon: 'git', theme: ZTRANSFER_THEME('#48cae4', '#0d1117') },
   { id: 'zero-transfer-ci', repo: 'zero-transfer', kind: 'workflow', label: 'CI', workflow: 'ci.yml', branch: 'main', icon: 'github', theme: ZTRANSFER_THEME('#00b4d8', '#0d1117') },
   { id: 'zero-transfer-license', repo: 'zero-transfer', kind: 'license', label: 'license', icon: 'github', theme: ZTRANSFER_THEME('#0096c7', '#ffffff') },
   { id: 'zero-query-ci', repo: 'zero-query', kind: 'workflow', label: 'CI', workflow: 'ci.yml', branch: 'main', icon: 'github', theme: ZQUERY_THEME('#007acc', '#ffffff') },
   { id: 'zero-query-license', repo: 'zero-query', kind: 'license', label: 'license', icon: 'github', theme: ZQUERY_THEME('#0288d1', '#ffffff') },
-  { id: 'zero-server-ci', repo: 'zero-server', kind: 'workflow', label: 'CI', workflow: 'ci.yml', branch: 'main', icon: 'github', theme: ZSERVER_THEME('#7c3aed', '#ffffff') },
-  { id: 'zero-server-license', repo: 'zero-server', kind: 'license', label: 'license', icon: 'github', theme: ZSERVER_THEME('#6366f1', '#ffffff') },
+  { id: 'zero-server-ci', repo: 'zero-server-node', kind: 'workflow', label: 'CI', workflow: 'ci.yml', branch: 'main', icon: 'github', theme: ZSERVER_THEME('#7c3aed', '#ffffff') },
+  { id: 'zero-server-license', repo: 'zero-server-node', kind: 'license', label: 'license', icon: 'github', theme: ZSERVER_THEME('#6366f1', '#ffffff') },
   { id: 'molex-media-release', repo: 'molex-media-electron', kind: 'release', label: 'release', icon: 'github', theme: MOLEX_THEME('#7c3aed', '#ffffff') },
   { id: 'molex-media-downloads', repo: 'molex-media-electron', kind: 'downloads', label: 'downloads', icon: 'github', theme: MOLEX_THEME('#4f46e5', '#ffffff') },
   { id: 'molex-media-last-commit', repo: 'molex-media-electron', kind: 'last-commit', label: 'last commit', icon: 'git', theme: MOLEX_THEME('#a78bfa', '#1a0b2e') },
@@ -132,6 +132,12 @@ const BADGES = [
   { id: 'pamoja-nuget', kind: 'nuget', label: 'NuGet', pkg: 'Pamoja', theme: PAMOJA_THEME('#1fd3b0', '#0b1124') },
   { id: 'pamoja-ci', repo: 'pamoja', kind: 'workflow', workflow: 'ci.yml', branch: 'main', label: 'CI', icon: 'github', theme: PAMOJA_THEME('#1fd3b0', '#0b1124') },
   { id: 'pamoja-license', repo: 'pamoja', kind: 'license', label: 'license', icon: 'github', theme: PAMOJA_THEME('#1fd3b0', '#0b1124') },
+
+  // zero-server Rust core. Card values only: the repository draws its own badges in its own palette.
+  { id: 'zero-server-rs-crates', kind: 'crates', label: 'crates.io', pkg: 'zero-server' },
+  { id: 'zero-server-rs-ci', repo: 'zero-server', kind: 'workflow', workflow: 'ci.yml', branch: 'main', label: 'CI' },
+  { id: 'zero-server-rs-license', repo: 'zero-server', kind: 'license', label: 'license' },
+  { id: 'zero-server-rs-last-commit', repo: 'zero-server', kind: 'last-commit', label: 'last commit' },
 ];
 
 const GH = `https://github.com/${OWNER}`;
@@ -140,7 +146,8 @@ const ICON_RAW = `https://raw.githubusercontent.com/${OWNER}`;
 /**
  * Project cards, grouped into README sections. Each card shows the project's
  * icon, name, primary language, description, and four live stats read from the
- * badge values fetched above.
+ * badge values fetched above. `tag` adds a status pill; `accent` ({ dark, light }
+ * hex) recolors the sheen and the pill in the project's own palette.
  */
 const PROJECT_SECTIONS = [
   { id: 'libraries', cards: [
@@ -167,14 +174,15 @@ const PROJECT_SECTIONS = [
       ],
     },
     {
-      id: 'card-zero-server', name: 'zero-server', repo: 'zero-server',
-      icon: `${ICON_RAW}/zero-server/main/website-docs/public/icons/logo-animated.svg`,
-      description: 'Node.js backend framework with no runtime dependencies: routing, ORM, auth, WebSocket, SSE, WebRTC, gRPC, and observability.',
+      id: 'card-zero-server', name: 'zero-server', repo: 'zero-server', tag: 'IN DEVELOPMENT',
+      icon: `${ICON_RAW}/zero-server/main/assets/zero-icon-animated.svg`,
+      accent: { dark: '#CFAE45', light: '#5F470F' },
+      description: 'Memory-safe HTTP server core in Rust, bound to TypeScript, Python, and C# through one C ABI and packaged for crates.io, npm, PyPI, and NuGet. Every parser is held to its RFC.',
       stats: [
-        { use: 'zero-server-npm', label: 'NPM' },
-        { use: 'zero-server-downloads', label: 'DOWNLOADS' },
-        { use: 'zero-server-ci', label: 'CI' },
-        { use: 'zero-server-license', label: 'LICENSE' },
+        { use: 'zero-server-rs-crates', label: 'CRATES.IO' },
+        { use: 'zero-server-rs-ci', label: 'CI' },
+        { use: 'zero-server-rs-license', label: 'LICENSE' },
+        { use: 'zero-server-rs-last-commit', label: 'UPDATED' },
       ],
     },
     {
@@ -186,6 +194,17 @@ const PROJECT_SECTIONS = [
         { use: 'zero-transfer-downloads', label: 'DOWNLOADS' },
         { use: 'zero-transfer-ci', label: 'CI' },
         { use: 'zero-transfer-license', label: 'LICENSE' },
+      ],
+    },
+    {
+      id: 'card-zero-server-node', name: 'zero-server-node', repo: 'zero-server-node', tag: 'MAINTENANCE',
+      icon: `${ICON_RAW}/zero-server-node/main/website-docs/public/icons/logo-animated.svg`,
+      description: 'The Node.js line of zero-server (@zero-server/sdk 1.x), kept on fixes only: routing, ORM, auth, WebSocket, SSE, WebRTC, and gRPC with no runtime dependencies.',
+      stats: [
+        { use: 'zero-server-npm', label: 'NPM' },
+        { use: 'zero-server-downloads', label: 'DOWNLOADS' },
+        { use: 'zero-server-ci', label: 'CI' },
+        { use: 'zero-server-license', label: 'LICENSE' },
       ],
     },
   ] },
@@ -320,8 +339,26 @@ async function fetchJson(url, opts = {})
 {
   const headers = { 'User-Agent': USER_AGENT, ...(opts.headers || {}) };
   const r = await fetch(url, { ...opts, headers, signal: AbortSignal.timeout(FETCH_TIMEOUT_MS) });
-  if (!r.ok) throw new Error(`${url}: HTTP ${r.status} ${r.statusText}`);
+  if (!r.ok) throw Object.assign(new Error(`${url}: HTTP ${r.status} ${r.statusText}`), { status: r.status });
   return r.json();
+}
+
+/**
+ * Reads a package version from a registry, reporting a package the registry does not know as unreleased.
+ * @param {string} url
+ * @param {(r: any) => string} pick
+ * @returns {Promise<string>}
+ */
+async function registryVersion(url, pick)
+{
+  try
+  {
+    return `v${pick(await fetchJson(url))}`;
+  } catch (e)
+  {
+    if (e.status === 404) return 'unreleased';
+    throw e;
+  }
 }
 
 /**
@@ -476,18 +513,15 @@ async function getValue(b)
   }
   if (b.kind === 'crates')
   {
-    const r = await fetchJson(`https://crates.io/api/v1/crates/${b.pkg}`);
-    return `v${r.crate.max_stable_version || r.crate.max_version}`;
+    return registryVersion(`https://crates.io/api/v1/crates/${b.pkg}`, r => r.crate.max_stable_version || r.crate.max_version);
   }
   if (b.kind === 'pypi')
   {
-    const r = await fetchJson(`https://pypi.org/pypi/${b.pkg}/json`);
-    return `v${r.info.version}`;
+    return registryVersion(`https://pypi.org/pypi/${b.pkg}/json`, r => r.info.version);
   }
   if (b.kind === 'nuget')
   {
-    const r = await fetchJson(`https://api.nuget.org/v3-flatcontainer/${b.pkg.toLowerCase()}/index.json`);
-    return `v${r.versions[r.versions.length - 1]}`;
+    return registryVersion(`https://api.nuget.org/v3-flatcontainer/${b.pkg.toLowerCase()}/index.json`, r => r.versions[r.versions.length - 1]);
   }
   if (b.kind === 'last-commit')
   {
@@ -736,7 +770,7 @@ function statCopy(b, value)
     if (text === 'failing' || text === 'timed out') state = 'fail';
     else if (text !== 'passing') state = 'muted';
   }
-  if (['none', 'unknown', 'no runs', 'NOASSERTION'].includes(text)) state = 'muted';
+  if (['none', 'unknown', 'no runs', 'NOASSERTION', 'unreleased'].includes(text)) state = 'muted';
   return { text, state };
 }
 
@@ -784,12 +818,17 @@ function wrapText(text, maxW, size)
  * Renders a project card matched to the activity and stack cards: rounded
  * border, amber sheen along the top edge, icon and name, wrapped description,
  * and a row of live stats.
- * @param {{ id: string, name: string, language?: string, tag?: string, description: string, iconData: string, stats: { label: string, text: string, state: string }[], dark: boolean }} p
+ * @param {{ id: string, name: string, language?: string, tag?: string, accent?: { dark: string, light: string }, description: string, iconData: string, stats: { label: string, text: string, state: string }[], dark: boolean }} p
  * @returns {string}
  */
-function svgProjectCard({ id, name, language, tag, description, iconData, stats, dark })
+function svgProjectCard({ id, name, language, tag, accent, description, iconData, stats, dark })
 {
-  const t = tokens(dark);
+  const t = { ...tokens(dark) };
+  if (accent)
+  {
+    t.accent = dark ? accent.dark : accent.light;
+    t.accentRgb = [1, 3, 5].map(i => parseInt(t.accent.slice(i, i + 2), 16)).join(',');
+  }
   const descFill = dark ? '#adbac7' : '#424a53';
   const key = `${id}-${dark ? 'd' : 'l'}`;
   const innerW = CARD_W - CARD_PAD * 2;
@@ -931,10 +970,10 @@ for (const section of PROJECT_SECTIONS)
     {
       if (stats.includes(null)) throw new Error(`missing ${card.stats.filter((_, i) => !stats[i]).map(s => s.use).join(', ')}`);
       const [iconData, repoInfo] = await Promise.all([iconDataUri(card.icon), gh(`/repos/${OWNER}/${card.repo}`)]);
-      const opts = { id: card.id, name: card.name, language: repoInfo.language ?? '', tag: card.tag, description: card.description, iconData, stats };
+      const opts = { id: card.id, name: card.name, language: repoInfo.language ?? '', tag: card.tag, accent: card.accent, description: card.description, iconData, stats };
       emit(`${card.id}-dark.svg`, svgProjectCard({ ...opts, dark: true }));
       emit(`${card.id}-light.svg`, svgProjectCard({ ...opts, dark: false }));
-      alt = `${card.name}${card.tag ? ', in development' : ''}. ${card.description} ${stats.map(s => `${s.label.toLowerCase()} ${s.text}`).join(', ')}`;
+      alt = `${card.name}${card.tag ? `, ${card.tag.toLowerCase()}` : ''}. ${card.description} ${stats.map(s => `${s.label.toLowerCase()} ${s.text}`).join(', ')}`;
       console.log(`ok  ${card.id.padEnd(32)} ${stats.map(s => s.text).join(' | ')}`);
     } catch (e)
     {

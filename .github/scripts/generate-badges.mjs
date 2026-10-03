@@ -178,7 +178,6 @@ const PROJECT_SECTIONS = [
       id: 'card-zero-server', name: 'zero-server', repo: 'zero-server', tag: 'IN DEVELOPMENT',
       icon: `${ICON_RAW}/zero-server/main/assets/zero-icon-animated.svg`,
       iconDark: `${ICON_RAW}/zero-server/main/assets/zero-symbol-animated-dark.svg`,
-      accent: { dark: '#CFAE45', light: '#8C6A12' },
       description: 'Memory-safe HTTP server core in Rust, being built for TypeScript, Python, and C# through one C ABI. Pre-release: nothing is published yet.',
       stats: [
         { use: 'zero-server-rs-crates', label: 'CRATES.IO' },

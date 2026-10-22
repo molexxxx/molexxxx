@@ -77,12 +77,12 @@ const BADGES = [
   { id: 'zero-query-license', repo: 'zero-query', kind: 'license', label: 'license', icon: 'github', theme: ZQUERY_THEME('#0288d1', '#ffffff') },
   { id: 'zero-server-ci', repo: 'zero-server-node', kind: 'workflow', label: 'CI', workflow: 'ci.yml', branch: 'main', icon: 'github', theme: ZSERVER_THEME('#7c3aed', '#ffffff') },
   { id: 'zero-server-license', repo: 'zero-server-node', kind: 'license', label: 'license', icon: 'github', theme: ZSERVER_THEME('#6366f1', '#ffffff') },
-  { id: 'molex-media-release', repo: 'molex-media-electron', kind: 'release', label: 'release', icon: 'github', theme: MOLEX_THEME('#7c3aed', '#ffffff') },
-  { id: 'molex-media-downloads', repo: 'molex-media-electron', kind: 'downloads', label: 'downloads', icon: 'github', theme: MOLEX_THEME('#4f46e5', '#ffffff') },
-  { id: 'molex-media-last-commit', repo: 'molex-media-electron', kind: 'last-commit', label: 'last commit', icon: 'git', theme: MOLEX_THEME('#a78bfa', '#1a0b2e') },
-  { id: 'molex-media-license', repo: 'molex-media-electron', kind: 'license', label: 'license', icon: 'github', theme: MOLEX_THEME('#8b5cf6', '#ffffff') },
-  { id: 'molex-media-ci', repo: 'molex-media-electron', kind: 'workflow', label: 'CI', workflow: 'ci.yml', branch: 'main', icon: 'github', theme: MOLEX_THEME('#7c3aed', '#ffffff') },
-  { id: 'molex-media-build', repo: 'molex-media-electron', kind: 'workflow', label: 'build', workflow: 'build.yml', branch: 'main', icon: 'github', theme: MOLEX_THEME('#7c3aed', '#ffffff') },
+  { id: 'molex-media-release', repo: 'molex-media-electron', kind: 'release', label: 'release', icon: 'github', theme: MOLEX_THEME('#4fc3f7', '#031420') },
+  { id: 'molex-media-downloads', repo: 'molex-media-electron', kind: 'downloads', label: 'downloads', icon: 'github', theme: MOLEX_THEME('#38b3ea', '#031420') },
+  { id: 'molex-media-last-commit', repo: 'molex-media-electron', kind: 'last-commit', label: 'last commit', icon: 'git', theme: MOLEX_THEME('#66d2ff', '#031420') },
+  { id: 'molex-media-license', repo: 'molex-media-electron', kind: 'license', label: 'license', icon: 'github', theme: MOLEX_THEME('#6fd0fa', '#031420') },
+  { id: 'molex-media-ci', repo: 'molex-media-electron', kind: 'workflow', label: 'CI', workflow: 'ci.yml', branch: 'main', icon: 'github', theme: MOLEX_THEME('#4fc3f7', '#031420') },
+  { id: 'molex-media-build', repo: 'molex-media-electron', kind: 'workflow', label: 'build', workflow: 'build.yml', branch: 'main', icon: 'github', theme: MOLEX_THEME('#4fc3f7', '#031420') },
 
   // YouTube Downloader (red app theme)
   { id: 'youtube-downloader-repo', kind: 'static-pair', label: 'repo', message: 'visit', icon: 'github', theme: YTDL_THEME('#ef4444', '#ffffff') },
@@ -213,7 +213,7 @@ const PROJECT_SECTIONS = [
     {
       id: 'card-molex-media', name: 'molex Media', repo: 'molex-media-electron',
       icon: `${ICON_RAW}/molex-media-electron/main/.github/assets/icon.svg`,
-      description: 'Cross-platform media toolkit built on FFmpeg: batch normalization, conversion, and compression; a timeline editor; and a media player with real-time visualizations.',
+      description: 'Desktop media toolkit on FFmpeg: batches normalized to named loudness standards, converted, and compressed with a review step; a trim and timeline editor; and a player for files and links.',
       stats: [
         { use: 'molex-media-release', label: 'RELEASE' },
         { use: 'molex-media-downloads', label: 'DOWNLOADS' },
@@ -257,10 +257,10 @@ const PROJECT_SECTIONS = [
   ] },
 ];
 
-// Molex Media app palette
+// Molex Media app palette (ice blue on neutral graphite, from the app's tokens.css)
 function MOLEX_THEME(messageColor, textColor)
 {
-  return { name: 'molex', labelBg: '#1a0b2e', labelFg: '#c4b5fd', messageColor, textColor };
+  return { name: 'molex', labelBg: '#111215', labelFg: '#66d2ff', messageColor, textColor };
 }
 
 // YouTube Downloader app palette (red)

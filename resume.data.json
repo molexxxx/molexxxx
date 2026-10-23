@@ -93,7 +93,7 @@
     {
       "name": "molex Media",
       "url": "https://media.molex.cloud",
-      "icon": "https://raw.githubusercontent.com/molexxxx/molex-media-electron/main/.github/assets/icon.svg",
+      "icon": "https://raw.githubusercontent.com/molexxxx/molex-media-toolkit/main/.github/assets/icon.svg",
       "blurb": "Cross-platform Electron media toolkit powered by FFmpeg - batch normalize/convert/compress, NLE timeline editor, and a player with real-time audio visualizations."
     },
     {

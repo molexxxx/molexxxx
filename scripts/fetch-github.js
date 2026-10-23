@@ -13,7 +13,7 @@ const ICON_MAP = {
   'zero-query': 'https://raw.githubusercontent.com/molexxxx/zero-query/main/.github/images/logo-animated.svg',
   'zero-server': 'https://raw.githubusercontent.com/molexxxx/zero-server/main/website-docs/public/icons/logo-animated.svg',
   'zero-transfer': 'https://molexxxx.github.io/zero-transfer/assets/zero-transfer-logo.svg',
-  'molex-media-electron': 'https://raw.githubusercontent.com/molexxxx/molex-media-electron/main/.github/assets/logo.svg',
+  'molex-media-toolkit': 'https://raw.githubusercontent.com/molexxxx/molex-media-toolkit/main/.github/assets/logo.svg',
   'bladewake-demo': 'https://raw.githubusercontent.com/molexxxx/bladewake-demo/main/assets/bladewake_icon.svg',
   'MagnifyShit-cpp': 'https://raw.githubusercontent.com/molexxxx/MagnifyShit-cpp/main/.github/assets/icon.svg',
 };

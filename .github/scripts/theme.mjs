@@ -1,20 +1,26 @@
 /**
  * Shared palette and helpers for the profile's SVG cards, chips, and badges.
- * The grays match GitHub's own theme; amber is the single accent.
+ * The grays match GitHub's own theme. The accent is the theme's extreme,
+ * white on dark and black on light, so the only hue on the page belongs to
+ * the project icons and the failure red.
  */
 
 /** Font stack used by every profile SVG. */
 export const FONT = 'Segoe UI, Inter, -apple-system, BlinkMacSystemFont, sans-serif';
 
-/** Color tokens per GitHub theme. */
+/**
+ * Color tokens per GitHub theme. `onAccent` is text set on an accent fill,
+ * and `sheen` is the peak opacity of the animated accent highlights.
+ */
 export const THEME = {
   dark: {
     ink: '#e6e9f1',
     muted: '#7d8590',
     border: '#30363d',
     sep: '#1c222c',
-    accent: '#f5a524',
-    accentRgb: '245,165,36',
+    accent: '#ffffff',
+    onAccent: '#0d1117',
+    sheen: 0.32,
     danger: '#f85149',
   },
   light: {
@@ -22,8 +28,9 @@ export const THEME = {
     muted: '#656d76',
     border: '#d0d7de',
     sep: '#eaecef',
-    accent: '#b45309',
-    accentRgb: '180,83,9',
+    accent: '#000000',
+    onAccent: '#ffffff',
+    sheen: 0.4,
     danger: '#d1242f',
   },
 };

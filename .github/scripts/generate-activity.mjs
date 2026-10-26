@@ -4,6 +4,7 @@ import { writeFileSync, readFileSync, mkdirSync, rmSync, existsSync } from 'node
 import { createHash } from 'node:crypto';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { THEME } from './theme.mjs';
 
 const TOKEN = process.env.GH_TOKEN;
 if (!TOKEN)
@@ -248,17 +249,17 @@ function escapeXml(s)
 const CARD_W = 415;
 const RX = 10;
 const COLORS = {
-  dark:  { border: '#30363d', ink: '#e6e9f1', muted: '#7d8590', sep: '#1c222c', grid: '#1c222c', accent: '#f5a524' },
-  light: { border: '#d0d7de', ink: '#0b1220', muted: '#656d76', sep: '#eaecef', grid: '#eaecef', accent: '#b45309' },
+  dark:  { ...THEME.dark, grid: THEME.dark.sep, area: 0.16 },
+  light: { ...THEME.light, grid: THEME.light.sep, area: 0.09 },
 };
 
-function headerAnim(id, accent)
+function headerAnim(id, c)
 {
   return `
     <linearGradient id="pulse-${id}" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%"   stop-color="${accent}" stop-opacity="0"/>
-      <stop offset="50%"  stop-color="${accent}" stop-opacity="0.55"/>
-      <stop offset="100%" stop-color="${accent}" stop-opacity="0"/>
+      <stop offset="0%"   stop-color="${c.accent}" stop-opacity="0"/>
+      <stop offset="50%"  stop-color="${c.accent}" stop-opacity="${c.sheen}"/>
+      <stop offset="100%" stop-color="${c.accent}" stop-opacity="0"/>
     </linearGradient>`;
 }
 
@@ -334,9 +335,9 @@ function svgContributions(dark)
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Contributions in the last year: ${totalContrib}">
   <defs>
-    ${headerAnim(id, c.accent)}
+    ${headerAnim(id, c)}
     <linearGradient id="area-${id}" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="${c.accent}" stop-opacity="${dark ? 0.32 : 0.22}"/>
+      <stop offset="0%" stop-color="${c.accent}" stop-opacity="${c.area}"/>
       <stop offset="100%" stop-color="${c.accent}" stop-opacity="0"/>
     </linearGradient>
     <clipPath id="clip-${id}"><rect x="0" y="0" width="${W}" height="${H}" rx="${RX}" ry="${RX}"/></clipPath>
@@ -346,7 +347,7 @@ function svgContributions(dark)
 
   <g clip-path="url(#clip-${id})">
     <line x1="0" y1="${DIVIDER_Y}" x2="${W}" y2="${DIVIDER_Y}" stroke="${c.sep}" stroke-width="1"/>
-    ${headerSweep(id, W, DIVIDER_Y - 1, 7)}
+    ${headerSweep(id, W, DIVIDER_Y - 1, 9)}
   </g>
 
   <g font-family="Segoe UI, Inter, -apple-system, BlinkMacSystemFont, sans-serif">
@@ -369,8 +370,8 @@ function svgContributions(dark)
   <g opacity="0">
     <circle cx="${lastX.toFixed(1)}" cy="${lastY.toFixed(1)}" r="2.5" fill="${c.accent}"/>
     <circle cx="${lastX.toFixed(1)}" cy="${lastY.toFixed(1)}" r="5" fill="${c.accent}" fill-opacity="0.25">
-      <animate attributeName="r" values="5;10;5" dur="2.4s" repeatCount="indefinite"/>
-      <animate attributeName="fill-opacity" values="0.35;0;0.35" dur="2.4s" repeatCount="indefinite"/>
+      <animate attributeName="r" values="5;10;5" dur="3.2s" repeatCount="indefinite"/>
+      <animate attributeName="fill-opacity" values="0.25;0;0.25" dur="3.2s" repeatCount="indefinite"/>
     </circle>
     <animate attributeName="opacity" from="0" to="1" dur="0.6s" begin="2s" fill="freeze"/>
   </g>
@@ -424,7 +425,7 @@ function svgStats(dark)
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="GitHub stats, ${STATS_SUBTITLE}">
   <defs>
-    ${headerAnim(id, c.accent)}
+    ${headerAnim(id, c)}
     <clipPath id="clip-${id}"><rect x="0" y="0" width="${W}" height="${H}" rx="${RX}" ry="${RX}"/></clipPath>
   </defs>
 
@@ -432,7 +433,7 @@ function svgStats(dark)
 
   <g clip-path="url(#clip-${id})">
     <line x1="0" y1="${DIVIDER_Y}" x2="${W}" y2="${DIVIDER_Y}" stroke="${c.sep}" stroke-width="1"/>
-    ${headerSweep(id, W, DIVIDER_Y - 1, 7)}
+    ${headerSweep(id, W, DIVIDER_Y - 1, 9)}
   </g>
 
   <g font-family="Segoe UI, Inter, -apple-system, BlinkMacSystemFont, sans-serif">

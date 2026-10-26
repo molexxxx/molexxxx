@@ -3,6 +3,7 @@
 import { writeFileSync, readFileSync, mkdirSync, existsSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import path from 'node:path';
+import { tokens } from './theme.mjs';
 
 const OUT = '.github/badges';
 const README = 'README.md';
@@ -30,21 +31,16 @@ const measure = (s, t) => { let w = 0; for (const c of s) w += t[c] ?? t.default
 
 function buildBadge(tag, dark)
 {
-  const ink = dark ? '#e6edf3' : '#1f2328';
+  const { accent, onAccent } = tokens(dark);
   const muted = dark ? '#a9b3bf' : '#57606a';
   const borderMuted = dark ? 'rgba(110,118,129,0.45)' : 'rgba(154,163,173,0.55)';
   const bgMuted = dark ? 'rgba(110,118,129,0.10)' : 'rgba(154,163,173,0.10)';
-  const primaryAccent = dark ? '#f5a524' : '#b45309';
-  const primaryBorder = dark ? 'rgba(245,165,36,0.65)' : 'rgba(180,83,9,0.60)';
-  const primaryBg = dark ? 'rgba(245,165,36,0.14)' : 'rgba(180,83,9,0.10)';
 
   const H = 26;
   const PAD_X = 11;
   const font = tag.primary ? 13 : 12.5;
   const weight = tag.primary ? 700 : 600;
-  const fill = tag.primary ? ink : muted;
-  const bg = tag.primary ? primaryBg : bgMuted;
-  const border = tag.primary ? primaryBorder : borderMuted;
+  const fill = tag.primary ? onAccent : muted;
   const table = tag.primary ? CW_PRI : CW;
 
   const textW = measure(tag.label, table);
@@ -55,14 +51,14 @@ function buildBadge(tag, dark)
   const textX = W / 2;
   const RX = H / 2;
 
-  // Primary gets a soft pulsing glow on the outline.
-  const pulse = tag.primary
-    ? `<rect x="0.5" y="0.5" width="${W - 1}" height="${H - 1}" rx="${RX - 0.5}" fill="none" stroke="${primaryAccent}" stroke-width="1" opacity="0.6"><animate attributeName="opacity" values="0.25;0.85;0.25" dur="3.4s" repeatCount="indefinite"/></rect>`
-    : '';
+  // Primary is a solid accent pill inside a pulsing outer ring; the pill itself never fades.
+  const body = tag.primary
+    ? `<rect x="2" y="2" width="${W - 4}" height="${H - 4}" rx="${RX - 2}" fill="${accent}"/>
+  <rect x="0.5" y="0.5" width="${W - 1}" height="${H - 1}" rx="${RX - 0.5}" fill="none" stroke="${accent}" stroke-width="1" opacity="0.35"><animate attributeName="opacity" values="0.1;0.5;0.1" dur="4.5s" repeatCount="indefinite"/></rect>`
+    : `<rect x="0.5" y="0.5" width="${W - 1}" height="${H - 1}" rx="${RX - 0.5}" fill="${bgMuted}" stroke="${borderMuted}" stroke-width="1"/>`;
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${xml(tag.label)}">
-  <rect x="0.5" y="0.5" width="${W - 1}" height="${H - 1}" rx="${RX - 0.5}" fill="${bg}" stroke="${border}" stroke-width="1"/>
-  ${pulse}
+  ${body}
   <text x="${textX}" y="${yText}" text-anchor="middle" font-family="Segoe UI, Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="${font}" font-weight="${weight}" fill="${fill}" letter-spacing="${tag.primary ? 0.1 : 0.3}">${xml(tag.label)}</text>
 </svg>
 `;

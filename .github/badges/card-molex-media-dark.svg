@@ -1,9 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="415" height="178" viewBox="0 0 415 178" role="img" aria-label="molex Media">
   <defs>
     <linearGradient id="sheen-card-molex-media-d" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%"   stop-color="#f5a524" stop-opacity="0"/>
-      <stop offset="50%"  stop-color="#f5a524" stop-opacity="0.55"/>
-      <stop offset="100%" stop-color="#f5a524" stop-opacity="0"/>
+      <stop offset="0%"   stop-color="#ffffff" stop-opacity="0"/>
+      <stop offset="50%"  stop-color="#ffffff" stop-opacity="0.32"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
     </linearGradient>
     <clipPath id="clip-card-molex-media-d"><rect x="0" y="0" width="415" height="178" rx="10" ry="10"/></clipPath>
   </defs>
@@ -12,7 +12,7 @@
 
   <g clip-path="url(#clip-card-molex-media-d)">
     <rect x="-180" y="0" width="180" height="1.5" fill="url(#sheen-card-molex-media-d)">
-      <animate attributeName="x" from="-180" to="415" dur="9s" begin="0s" repeatCount="indefinite"/>
+      <animate attributeName="x" from="-180" to="415" dur="12s" begin="0s" repeatCount="indefinite"/>
     </rect>
   </g>
 

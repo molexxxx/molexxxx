@@ -639,7 +639,7 @@ function svgHeader({ label, value, icon, dark, id })
   const borderD = `M ${bx + br} ${by} H ${bx + bw - br} A ${br} ${br} 0 0 1 ${bx + bw} ${by + br} V ${by + bh - br} A ${br} ${br} 0 0 1 ${bx + bw - br} ${by + bh} H ${bx + br} A ${br} ${br} 0 0 1 ${bx} ${by + bh - br} V ${by + br} A ${br} ${br} 0 0 1 ${bx + br} ${by} Z`;
   const iconSvg = HEADER_ICONS[icon] ? HEADER_ICONS[icon](accent) : '';
 
-  const dur = 6;
+  const dur = 8;
   const sweepW = Math.round(W * 0.6);
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" shape-rendering="geometricPrecision" role="img" aria-label="${escapeXml(label)}: ${escapeXml(value)}">
@@ -647,7 +647,7 @@ function svgHeader({ label, value, icon, dark, id })
     <path id="bd-${id}" d="${borderD}" fill="none"/>
     <linearGradient id="gr-${id}" x1="0" y1="0" x2="1" y2="0">
       <stop offset="0%"   stop-color="${accent}" stop-opacity="0"/>
-      <stop offset="50%"  stop-color="${accent}" stop-opacity="0.65"/>
+      <stop offset="50%"  stop-color="${accent}" stop-opacity="${t.sheen}"/>
       <stop offset="100%" stop-color="${accent}" stop-opacity="0"/>
     </linearGradient>
     <mask id="mk-${id}" maskUnits="userSpaceOnUse">
@@ -806,7 +806,7 @@ function wrapText(text, maxW, size)
 
 /**
  * Renders a project card matched to the activity and stack cards: rounded
- * border, amber sheen along the top edge, icon and name, wrapped description,
+ * border, accent sheen along the top edge, icon and name, wrapped description,
  * and a row of live stats.
  * @param {{ id: string, name: string, language?: string, tag?: string, accent?: { dark: string, light: string }, description: string, iconData: string, stats: { label: string, text: string, state: string }[], dark: boolean }} p
  * @returns {string}
@@ -814,11 +814,7 @@ function wrapText(text, maxW, size)
 function svgProjectCard({ id, name, language, tag, accent, description, iconData, stats, dark })
 {
   const t = { ...tokens(dark) };
-  if (accent)
-  {
-    t.accent = dark ? accent.dark : accent.light;
-    t.accentRgb = [1, 3, 5].map(i => parseInt(t.accent.slice(i, i + 2), 16)).join(',');
-  }
+  if (accent) t.accent = dark ? accent.dark : accent.light;
   const descFill = dark ? '#adbac7' : '#424a53';
   const key = `${id}-${dark ? 'd' : 'l'}`;
   const innerW = CARD_W - CARD_PAD * 2;
@@ -856,8 +852,8 @@ function svgProjectCard({ id, name, language, tag, accent, description, iconData
     const tagW = Math.ceil(textWidthAt(tag, 9) * 1.1 + tag.length * 1.2 + 18);
     const tx = CARD_W - CARD_PAD - tagW;
     tagSvg = `
-  <rect x="${tx}" y="16" width="${tagW}" height="18" rx="9" fill="rgba(${t.accentRgb},0.14)" stroke="rgba(${t.accentRgb},0.65)" stroke-width="1"/>
-  <text x="${tx + tagW / 2}" y="28.5" text-anchor="middle" font-family="${FONT}" font-size="9" font-weight="700" fill="${t.accent}" letter-spacing="1.2">${escapeXml(tag)}</text>`;
+  <rect x="${tx}" y="16" width="${tagW}" height="18" rx="9" fill="${t.accent}"/>
+  <text x="${tx + tagW / 2}" y="28.5" text-anchor="middle" font-family="${FONT}" font-size="9" font-weight="700" fill="${t.onAccent}" letter-spacing="1.2">${escapeXml(tag)}</text>`;
   }
 
   const sheenW = 180;
@@ -865,7 +861,7 @@ function svgProjectCard({ id, name, language, tag, accent, description, iconData
   <defs>
     <linearGradient id="sheen-${key}" x1="0" y1="0" x2="1" y2="0">
       <stop offset="0%"   stop-color="${t.accent}" stop-opacity="0"/>
-      <stop offset="50%"  stop-color="${t.accent}" stop-opacity="0.55"/>
+      <stop offset="50%"  stop-color="${t.accent}" stop-opacity="${t.sheen}"/>
       <stop offset="100%" stop-color="${t.accent}" stop-opacity="0"/>
     </linearGradient>
     <clipPath id="clip-${key}"><rect x="0" y="0" width="${CARD_W}" height="${CARD_H}" rx="${CARD_RX}" ry="${CARD_RX}"/></clipPath>
@@ -875,7 +871,7 @@ function svgProjectCard({ id, name, language, tag, accent, description, iconData
 
   <g clip-path="url(#clip-${key})">
     <rect x="-${sheenW}" y="0" width="${sheenW}" height="1.5" fill="url(#sheen-${key})">
-      <animate attributeName="x" from="-${sheenW}" to="${CARD_W}" dur="9s" begin="0s" repeatCount="indefinite"/>
+      <animate attributeName="x" from="-${sheenW}" to="${CARD_W}" dur="12s" begin="0s" repeatCount="indefinite"/>
     </rect>
   </g>
 

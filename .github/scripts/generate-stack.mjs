@@ -5,6 +5,7 @@ import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';
 import * as simpleIcons from 'simple-icons';
+import { tokens } from './theme.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const OUT = resolve(ROOT, '.github', 'badges');
@@ -37,8 +38,6 @@ const measureText = (s) =>
   return w;
 };
 
-const ACCENT = '#f5a524';
-
 const STACK = [
   {
     label: 'Languages', chips: [
@@ -54,7 +53,7 @@ const STACK = [
   },
   {
     label: 'Backend', chips: [
-      { name: 'zero-server', color: ACCENT },
+      { name: 'zero-server', mark: true },
       { name: 'Node.js', slug: 'nodedotjs' },
       { name: 'Express', slug: 'express' },
       { name: 'ASP.NET Core', slug: 'dotnet' },
@@ -66,7 +65,7 @@ const STACK = [
   },
   {
     label: 'Frontend and Desktop', chips: [
-      { name: 'zQuery', color: ACCENT },
+      { name: 'zQuery', mark: true },
       { name: 'React', slug: 'react' },
       { name: 'Angular', slug: 'angular' },
       { name: 'Tailwind CSS', slug: 'tailwindcss' },
@@ -139,73 +138,21 @@ const STACK = [
 const slugify = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 const escapeXml = (s) => String(s).replace(/[<>&"']/g, (c) => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;', "'": '&apos;' }[c]));
 
-// Resolve a slug to { path, hex } from simple-icons first, then our custom set.
+// Resolve a slug to { path } from simple-icons first, then our custom set.
 function resolveIcon(slug)
 {
   if (!slug) return undefined;
   const si = simpleIcons['si' + slug.charAt(0).toUpperCase() + slug.slice(1)];
-  if (si) return { path: si.path, hex: '#' + si.hex };
+  if (si) return { path: si.path };
   const custom = CUSTOM_ICONS[slug];
-  if (custom) return { path: custom.path, hex: '#' + custom.hex };
+  if (custom) return { path: custom.path };
   return undefined;
-}
-
-// WCAG relative luminance of an #rrggbb color (0 = black, 1 = white).
-function relLuminance(hex)
-{
-  const [r, g, b] = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255);
-  const lin = (v) => (v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4));
-  return 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b);
-}
-
-function rgbToHsl(r, g, b)
-{
-  r /= 255; g /= 255; b /= 255;
-  const max = Math.max(r, g, b), min = Math.min(r, g, b), l = (max + min) / 2;
-  if (max === min) return [0, 0, l];
-  const d = max - min;
-  const s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
-  let h;
-  if (max === r) h = (g - b) / d + (g < b ? 6 : 0);
-  else if (max === g) h = (b - r) / d + 2;
-  else h = (r - g) / d + 4;
-  return [h / 6, s, l];
-}
-
-function hslToHex(h, s, l)
-{
-  const hue = (p, q, t) =>
-  {
-    if (t < 0) t += 1; if (t > 1) t -= 1;
-    if (t < 1 / 6) return p + (q - p) * 6 * t;
-    if (t < 1 / 2) return q;
-    if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
-    return p;
-  };
-  let r, g, b;
-  if (s === 0) { r = g = b = l; }
-  else
-  {
-    const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
-    const p = 2 * l - q;
-    r = hue(p, q, h + 1 / 3); g = hue(p, q, h); b = hue(p, q, h - 1 / 3);
-  }
-  return '#' + [r, g, b].map((v) => Math.round(v * 255).toString(16).padStart(2, '0')).join('');
-}
-
-// On the dark card, brand colors that are near-black (Express, JWT, Three.js,
-// WebSocket, Rust, AWS, ...) vanish. Lift only those, preserving hue.
-function darkSafe(hex)
-{
-  if (relLuminance(hex) >= 0.14) return hex;
-  const [h, s] = rgbToHsl(parseInt(hex.slice(1, 3), 16), parseInt(hex.slice(3, 5), 16), parseInt(hex.slice(5, 7), 16));
-  return hslToHex(h, Math.min(s, 0.7), 0.66);
 }
 
 function chipWidth(chip)
 {
   const textW = measureText(chip.name);
-  const iconW = resolveIcon(chip.slug) || chip.color ? ICON_SIZE + ICON_TEXT_GAP : 0;
+  const iconW = resolveIcon(chip.slug) || chip.mark ? ICON_SIZE + ICON_TEXT_GAP : 0;
   return CHIP_PAD_X + iconW + textW + CHIP_PAD_X;
 }
 
@@ -232,17 +179,16 @@ function layoutChips(chips, maxW)
 
 function renderChip(chip, x, y, dark)
 {
-  const fallbackColor = dark ? '#94a3b8' : '#5b6472';
+  const t = tokens(dark);
   const icon = resolveIcon(chip.slug);
-  let color = chip.color || (icon ? icon.hex : fallbackColor);
-  if (dark) color = darkSafe(color);
+  const color = t.ink;
   const chipBg = 'none';
-  const chipBorder = dark ? '#30363d' : '#d0d7de';
-  const textFill = dark ? '#e6edf3' : '#1f2328';
+  const chipBorder = t.border;
+  const textFill = t.ink;
   const w = chip._w;
   const iconX = x + CHIP_PAD_X;
   const iconY = y + (CHIP_H - ICON_SIZE) / 2;
-  const hasMark = Boolean(icon || chip.color);
+  const hasMark = Boolean(icon || chip.mark);
   const textX = hasMark ? iconX + ICON_SIZE + ICON_TEXT_GAP : x + CHIP_PAD_X;
   const textY = y + CHIP_H / 2 + CHIP_FONT * 0.36;
 
@@ -280,11 +226,7 @@ function renderCard(section, dark)
   const n = PAIR_ROWS[section.label] ?? rows.length;
   const cardH = PAD_TOP + n * CHIP_H + (n - 1) * CHIP_GAP_Y + PAD_BOTTOM;
 
-  const border = dark ? '#30363d' : '#d0d7de';
-  const ink = dark ? '#e6e9f1' : '#0b1220';
-  const muted = dark ? '#7d8590' : '#656d76';
-  const sheen = dark ? '#f5a524' : '#b45309';
-  const sep = dark ? '#1c222c' : '#eaecef';
+  const { border, ink, muted, accent: sheen, sheen: sheenPeak, sep } = tokens(dark);
   const RX = 10;
 
   let chipsSvg = '';
@@ -303,13 +245,13 @@ function renderCard(section, dark)
   const count = section.chips.length;
 
   const sheenW = 180;
-  const sheenDur = 9;
+  const sheenDur = 12;
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${CARD_W}" height="${cardH}" viewBox="0 0 ${CARD_W} ${cardH}" role="img" aria-label="${escapeXml(section.label)}: ${section.chips.map(c => c.name).join(', ')}">
   <defs>
     <linearGradient id="sheen-${id}" x1="0" y1="0" x2="1" y2="0">
       <stop offset="0%"   stop-color="${sheen}" stop-opacity="0"/>
-      <stop offset="50%"  stop-color="${sheen}" stop-opacity="0.55"/>
+      <stop offset="50%"  stop-color="${sheen}" stop-opacity="${sheenPeak}"/>
       <stop offset="100%" stop-color="${sheen}" stop-opacity="0"/>
     </linearGradient>
     <clipPath id="clip-${id}"><rect x="0" y="0" width="${CARD_W}" height="${cardH}" rx="${RX}" ry="${RX}"/></clipPath>

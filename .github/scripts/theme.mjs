@@ -9,27 +9,37 @@
 export const FONT = 'Segoe UI, Inter, -apple-system, BlinkMacSystemFont, sans-serif';
 
 /**
- * Color tokens per GitHub theme. `onAccent` is text set on an accent fill,
- * and `sheen` is the peak opacity of the animated accent highlights.
+ * Color tokens per GitHub theme. `body` is running text such as card
+ * descriptions, `onAccent` is text set on an accent fill, `pill*` style the
+ * secondary domain tags, and `sheen` is the peak opacity of the animated
+ * accent highlights.
  */
 export const THEME = {
   dark: {
     ink: '#e6e9f1',
+    body: '#adbac7',
     muted: '#7d8590',
     border: '#30363d',
     sep: '#1c222c',
     accent: '#ffffff',
     onAccent: '#0d1117',
+    pillText: '#a9b3bf',
+    pillBorder: 'rgba(110,118,129,0.45)',
+    pillFill: 'rgba(110,118,129,0.10)',
     sheen: 0.32,
     danger: '#f85149',
   },
   light: {
     ink: '#0b1220',
+    body: '#424a53',
     muted: '#656d76',
     border: '#d0d7de',
     sep: '#eaecef',
     accent: '#000000',
     onAccent: '#ffffff',
+    pillText: '#57606a',
+    pillBorder: 'rgba(154,163,173,0.55)',
+    pillFill: 'rgba(154,163,173,0.10)',
     sheen: 0.4,
     danger: '#d1242f',
   },

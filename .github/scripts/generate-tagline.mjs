@@ -31,16 +31,13 @@ const measure = (s, t) => { let w = 0; for (const c of s) w += t[c] ?? t.default
 
 function buildBadge(tag, dark)
 {
-  const { accent, onAccent } = tokens(dark);
-  const muted = dark ? '#a9b3bf' : '#57606a';
-  const borderMuted = dark ? 'rgba(110,118,129,0.45)' : 'rgba(154,163,173,0.55)';
-  const bgMuted = dark ? 'rgba(110,118,129,0.10)' : 'rgba(154,163,173,0.10)';
+  const { accent, onAccent, pillText, pillBorder, pillFill } = tokens(dark);
 
   const H = 26;
   const PAD_X = 11;
   const font = tag.primary ? 13 : 12.5;
   const weight = tag.primary ? 700 : 600;
-  const fill = tag.primary ? onAccent : muted;
+  const fill = tag.primary ? onAccent : pillText;
   const table = tag.primary ? CW_PRI : CW;
 
   const textW = measure(tag.label, table);
@@ -55,7 +52,7 @@ function buildBadge(tag, dark)
   const body = tag.primary
     ? `<rect x="2" y="2" width="${W - 4}" height="${H - 4}" rx="${RX - 2}" fill="${accent}"/>
   <rect x="0.5" y="0.5" width="${W - 1}" height="${H - 1}" rx="${RX - 0.5}" fill="none" stroke="${accent}" stroke-width="1" opacity="0.35"><animate attributeName="opacity" values="0.1;0.5;0.1" dur="4.5s" repeatCount="indefinite"/></rect>`
-    : `<rect x="0.5" y="0.5" width="${W - 1}" height="${H - 1}" rx="${RX - 0.5}" fill="${bgMuted}" stroke="${borderMuted}" stroke-width="1"/>`;
+    : `<rect x="0.5" y="0.5" width="${W - 1}" height="${H - 1}" rx="${RX - 0.5}" fill="${pillFill}" stroke="${pillBorder}" stroke-width="1"/>`;
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${xml(tag.label)}">
   ${body}

@@ -815,7 +815,6 @@ function svgProjectCard({ id, name, language, tag, accent, description, iconData
 {
   const t = { ...tokens(dark) };
   if (accent) t.accent = dark ? accent.dark : accent.light;
-  const descFill = dark ? '#adbac7' : '#424a53';
   const key = `${id}-${dark ? 'd' : 'l'}`;
   const innerW = CARD_W - CARD_PAD * 2;
 
@@ -826,7 +825,7 @@ function svgProjectCard({ id, name, language, tag, accent, description, iconData
     lines[DESC_MAX_LINES - 1] = lines[DESC_MAX_LINES - 1].replace(/[\s,;:]*\S*$/, '') + '...';
   }
   const descSvg = lines.map((l, i) =>
-    `<text x="${CARD_PAD}" y="${DESC_TOP + i * DESC_LINE_H}" font-size="${DESC_SIZE}" fill="${descFill}">${escapeXml(l)}</text>`).join('\n    ');
+    `<text x="${CARD_PAD}" y="${DESC_TOP + i * DESC_LINE_H}" font-size="${DESC_SIZE}" fill="${t.body}">${escapeXml(l)}</text>`).join('\n    ');
 
   const cellW = innerW / stats.length;
   let statSvg = '';

@@ -359,7 +359,7 @@ function svgContributions(dark)
   <line x1="${plotLeft}" y1="${baseY}" x2="${plotRight}" y2="${baseY}" stroke="${c.grid}" stroke-width="1"/>
 
   <path d="${area}" fill="url(#area-${id})">
-    <animate attributeName="opacity" values="0;0;1" keyTimes="0;0.25;1" dur="1.6s" fill="freeze"/>
+    <animate attributeName="opacity" values="0;0;1" keyTimes="0;0.77;1" dur="2.6s" fill="freeze"/>
   </path>
 
   <path d="${line}" fill="none" stroke="${c.accent}" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"

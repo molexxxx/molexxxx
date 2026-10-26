@@ -358,22 +358,22 @@ function svgContributions(dark)
   <line x1="${plotLeft}" y1="${midY}" x2="${plotRight}" y2="${midY}" stroke="${c.grid}" stroke-width="1" stroke-opacity="0.6"/>
   <line x1="${plotLeft}" y1="${baseY}" x2="${plotRight}" y2="${baseY}" stroke="${c.grid}" stroke-width="1"/>
 
-  <path d="${area}" fill="url(#area-${id})" opacity="0">
-    <animate attributeName="opacity" from="0" to="1" dur="1.2s" begin="0.4s" fill="freeze"/>
+  <path d="${area}" fill="url(#area-${id})">
+    <animate attributeName="opacity" values="0;0;1" keyTimes="0;0.25;1" dur="1.6s" fill="freeze"/>
   </path>
 
   <path d="${line}" fill="none" stroke="${c.accent}" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"
-    stroke-dasharray="${approxLen}" stroke-dashoffset="${approxLen}" opacity="0.95">
-    <animate attributeName="stroke-dashoffset" from="${approxLen}" to="0" dur="1.8s" begin="0.2s" fill="freeze"/>
+    stroke-dasharray="${approxLen}" stroke-dashoffset="0" opacity="0.95">
+    <animate attributeName="stroke-dashoffset" values="${approxLen};${approxLen};0" keyTimes="0;0.1;1" dur="2s" fill="freeze"/>
   </path>
 
-  <g opacity="0">
+  <g>
     <circle cx="${lastX.toFixed(1)}" cy="${lastY.toFixed(1)}" r="2.5" fill="${c.accent}"/>
     <circle cx="${lastX.toFixed(1)}" cy="${lastY.toFixed(1)}" r="5" fill="${c.accent}" fill-opacity="0.25">
       <animate attributeName="r" values="5;10;5" dur="3.2s" repeatCount="indefinite"/>
       <animate attributeName="fill-opacity" values="0.25;0;0.25" dur="3.2s" repeatCount="indefinite"/>
     </circle>
-    <animate attributeName="opacity" from="0" to="1" dur="0.6s" begin="2s" fill="freeze"/>
+    <animate attributeName="opacity" values="0;0;1" keyTimes="0;0.77;1" dur="2.6s" fill="freeze"/>
   </g>
 
   <g font-family="Segoe UI, Inter, -apple-system, BlinkMacSystemFont, sans-serif">${strip}</g>

@@ -107,7 +107,6 @@ const BADGES = [
 
   // Plex Poster Set Helper 2 (Plex amber/orange theme)
   { id: 'plex-poster-helper-2-repo', kind: 'static-pair', label: 'repo', message: 'visit', icon: 'github', theme: PLEX_THEME('#e5a00d', '#1a1205') },
-  { id: 'plex-poster-helper-2-website', kind: 'static-pair', label: 'website', message: 'visit', icon: 'globe', theme: PLEX_THEME('#cc7b19', '#ffffff') },
   { id: 'plex-poster-helper-2-docker', kind: 'static-pair', label: 'docker', message: 'guide', icon: 'book', theme: PLEX_THEME('#cc7b19', '#ffffff') },
   { id: 'plex-poster-helper-2-ci', repo: 'plex-poster-set-helper-2', kind: 'workflow', label: 'CI', workflow: 'ci.yml', branch: 'main', icon: 'github', theme: PLEX_THEME('#e5a00d', '#1a1205') },
   { id: 'plex-poster-helper-2-build', repo: 'plex-poster-set-helper-2', kind: 'workflow', label: 'build', workflow: 'build.yml', branch: false, icon: 'github', theme: PLEX_THEME('#c4880a', '#1a1205') },

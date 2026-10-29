@@ -65,7 +65,7 @@ const STACK = [
   },
   {
     label: 'Frontend and Desktop', chips: [
-      { name: 'zQuery', mark: true },
+      { name: 'zerolith', mark: true },
       { name: 'React', slug: 'react' },
       { name: 'Angular', slug: 'angular' },
       { name: 'Tailwind CSS', slug: 'tailwindcss' },

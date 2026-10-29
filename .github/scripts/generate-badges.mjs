@@ -138,6 +138,12 @@ const BADGES = [
   { id: 'zero-server-rs-ci', repo: 'zero-server', kind: 'workflow', workflow: 'ci.yml', branch: 'main', label: 'CI' },
   { id: 'zero-server-rs-license', repo: 'zero-server', kind: 'license', label: 'license' },
   { id: 'zero-server-rs-last-commit', repo: 'zero-server', kind: 'last-commit', label: 'last commit' },
+
+  // zerolith. Card values only, like the zero-server core.
+  { id: 'zerolith-npm', kind: 'npm-version', label: 'npm', pkg: 'zerolith' },
+  { id: 'zerolith-crates', kind: 'crates', label: 'crates.io', pkg: 'zerolith' },
+  { id: 'zerolith-ci', repo: 'zerolith', kind: 'workflow', workflow: 'ci.yml', branch: 'main', label: 'CI' },
+  { id: 'zerolith-last-commit', repo: 'zerolith', kind: 'last-commit', label: 'last commit' },
 ];
 
 const GH = `https://github.com/${OWNER}`;
@@ -164,14 +170,14 @@ const PROJECT_SECTIONS = [
       ],
     },
     {
-      id: 'card-zero-query', name: 'zQuery', repo: 'zero-query',
-      icon: `${ICON_RAW}/zero-query/main/.github/images/logo-animated.svg`,
-      description: 'Frontend library with no runtime dependencies: components, SPA router, store, SSR, and WebRTC.',
+      id: 'card-zerolith', name: 'zerolith', repo: 'zerolith', tag: 'ALPHA',
+      icon: `${ICON_RAW}/zerolith/main/brand/app-icon/app-icon.svg`,
+      description: 'Full framework, zero guesswork. Routing, forms, rendering, and i18n with clear patterns for you and your agent; buildless or bundled, for any backend.',
       stats: [
-        { use: 'zero-query-npm', label: 'NPM' },
-        { use: 'zero-query-downloads', label: 'DOWNLOADS' },
-        { use: 'zero-query-ci', label: 'CI' },
-        { use: 'zero-query-license', label: 'LICENSE' },
+        { use: 'zerolith-npm', label: 'NPM' },
+        { use: 'zerolith-crates', label: 'CRATES.IO' },
+        { use: 'zerolith-ci', label: 'CI' },
+        { use: 'zerolith-last-commit', label: 'UPDATED' },
       ],
     },
     {
@@ -252,6 +258,19 @@ const PROJECT_SECTIONS = [
         { use: 'wortool-desktop-downloads', label: 'DOWNLOADS' },
         { use: 'wortool-desktop-build', label: 'BUILD' },
         { use: 'wortool-desktop-last-commit', label: 'UPDATED' },
+      ],
+    },
+  ] },
+  { id: 'maintenance', cards: [
+    {
+      id: 'card-zero-query', name: 'zQuery', repo: 'zero-query', tag: 'MAINTENANCE',
+      icon: `${ICON_RAW}/zero-query/main/.github/images/logo-animated.svg`,
+      description: 'Frontend library with no runtime dependencies: components, SPA router, store, SSR, and WebRTC. Fixes only; zerolith is its successor.',
+      stats: [
+        { use: 'zero-query-npm', label: 'NPM' },
+        { use: 'zero-query-downloads', label: 'DOWNLOADS' },
+        { use: 'zero-query-ci', label: 'CI' },
+        { use: 'zero-query-license', label: 'LICENSE' },
       ],
     },
   ] },

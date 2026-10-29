@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="415" height="178" viewBox="0 0 415 178" role="img" aria-label="zero-server for Node.js">
+  <defs>
+    <linearGradient id="sheen-card-zero-server-node-l" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"   stop-color="#000000" stop-opacity="0"/>
+      <stop offset="50%"  stop-color="#000000" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </linearGradient>
+    <clipPath id="clip-card-zero-server-node-l"><rect x="0" y="0" width="415" height="178" rx="10" ry="10"/></clipPath>
+  </defs>
+
+  <rect x="0.5" y="0.5" width="414" height="177" rx="10" ry="10" fill="none" stroke="#d0d7de"/>
+
+  <g clip-path="url(#clip-card-zero-server-node-l)">
+    <rect x="-180" y="0" width="180" height="1.5" fill="url(#sheen-card-zero-server-node-l)">
+      <animate attributeName="x" from="-180" to="415" dur="12s" begin="0s" repeatCount="indefinite"/>
+    </rect>
+  </g>
+
+  <image href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjYwIDQwIDM5MiA0MzIiIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiBhcmlhLWxhYmVsPSJ6ZXJvLXNlcnZlciBsb2dvIj4KICA8ZGVmcz4KICAgIDwhLS0gUHJpbWFyeSBwdXJwbGUtdG8tY3lhbiBncmFkaWVudCAtLT4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0ibG9nby1ncmFkIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiM3YjYxZmYiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSI1MCUiIHN0b3AtY29sb3I9IiM1ODY1ZjIiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjM2VjNmZmIi8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPCEtLSBMaWdodGVyIGdsb3cgdmVyc2lvbiAtLT4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0ibG9nby1nbG93IiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNhNzhiZmEiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjNjdlOGY5Ii8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPCEtLSBTdWJ0bGUgaW5uZXIgaGlnaGxpZ2h0IC0tPgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJsb2dvLWhpIiB4MT0iMC41IiB5MT0iMCIgeDI9IjAuNSIgeTI9IjEiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMjUpIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0icmdiYSgyNTUsMjU1LDI1NSwwKSIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICAgIDwhLS0gQmFja2dyb3VuZCByYWRpYWwgZ2xvdyAtLT4KICAgIDxyYWRpYWxHcmFkaWVudCBpZD0iYmctZ2xvdyIgY3g9IjUwJSIgY3k9IjUwJSIgcj0iNTAlIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzU4NjVmMiIgc3RvcC1vcGFjaXR5PSIwLjEyIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzBlMTExNCIgc3RvcC1vcGFjaXR5PSIwIi8+CiAgICA8L3JhZGlhbEdyYWRpZW50PgogICAgPCEtLSBEcm9wIHNoYWRvdyBmaWx0ZXIgLS0+CiAgICA8ZmlsdGVyIGlkPSJsb2dvLXNoYWRvdyIgeD0iLTIwJSIgeT0iLTIwJSIgd2lkdGg9IjE0MCUiIGhlaWdodD0iMTQwJSI+CiAgICAgIDxmZURyb3BTaGFkb3cgZHg9IjAiIGR5PSI0IiBzdGREZXZpYXRpb249IjgiIGZsb29kLWNvbG9yPSIjNTg2NWYyIiBmbG9vZC1vcGFjaXR5PSIwLjM1Ii8+CiAgICA8L2ZpbHRlcj4KICAgIDwhLS0gU29mdCBnbG93IGZpbHRlciAtLT4KICAgIDxmaWx0ZXIgaWQ9ImJvbHQtZ2xvdyIgeD0iLTMwJSIgeT0iLTMwJSIgd2lkdGg9IjE2MCUiIGhlaWdodD0iMTYwJSI+CiAgICAgIDxmZUdhdXNzaWFuQmx1ciBzdGREZXZpYXRpb249IjQiIHJlc3VsdD0iYmx1ciIvPgogICAgICA8ZmVDb21wb3NpdGUgaW49IlNvdXJjZUdyYXBoaWMiIGluMj0iYmx1ciIgb3BlcmF0b3I9Im92ZXIiLz4KICAgIDwvZmlsdGVyPgogIDwvZGVmcz4KCiAgPCEtLSBCYWNrZ3JvdW5kIGdsb3cgLS0+CiAgPGNpcmNsZSBjeD0iMjU2IiBjeT0iMjU2IiByPSIyMDAiIGZpbGw9InVybCgjYmctZ2xvdykiLz4KCiAgPCEtLSBPdXRlciByaW5nIC0gcGVyZmVjdCBjaXJjbGUgLS0+CiAgPGNpcmNsZSBjeD0iMjU2IiBjeT0iMjU2IiByPSIxOTUiIGZpbGw9Im5vbmUiCiAgICAgICAgICBzdHJva2U9InVybCgjbG9nby1ncmFkKSIgc3Ryb2tlLXdpZHRoPSIyNCIKICAgICAgICAgIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgb3BhY2l0eT0iMC4xNSIvPgoKICA8IS0tIE1haW4gcmluZyAtIHBlcmZlY3QgY2lyY2xlIC0tPgogIDxjaXJjbGUgY3g9IjI1NiIgY3k9IjI1NiIgcj0iMTcwIiBmaWxsPSJub25lIgogICAgICAgICAgc3Ryb2tlPSJ1cmwoI2xvZ28tZ3JhZCkiIHN0cm9rZS13aWR0aD0iMzIiCiAgICAgICAgICBzdHJva2UtbGluZWNhcD0icm91bmQiIGZpbHRlcj0idXJsKCNsb2dvLXNoYWRvdykiLz4KCiAgPCEtLSBIaWdobGlnaHQgYXJjIG9uIHRvcC1sZWZ0IG9mIHRoZSByaW5nIC0tPgogIDxwYXRoIGQ9Ik0gMTQwLDE3NSBBIDE3MCwxNzAgMCAwLDEgMzMwLDEwMCIKICAgICAgICBmaWxsPSJub25lIiBzdHJva2U9InVybCgjbG9nby1oaSkiIHN0cm9rZS13aWR0aD0iMTQiCiAgICAgICAgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBvcGFjaXR5PSIwLjYiLz4KCiAgPCEtLSBMaWdodG5pbmcgYm9sdCAtIGNlbnRlcmVkIGFuZCB0aGlja2VyIC0tPgogIDxnIGZpbHRlcj0idXJsKCNib2x0LWdsb3cpIj4KICAgIDwhLS0gQm9sdCBib2R5IC0tPgogICAgPHBhdGggZD0iCiAgICAgIE0gMjIyIDgyCiAgICAgIEwgMTg2IDI0MgogICAgICBMIDI1MiAyNDIKICAgICAgTCAxODIgNDM1CiAgICAgIEwgMzMwIDIwNQogICAgICBMIDI1OCAyMDUKICAgICAgTCAyOTYgODIKICAgICAgWgogICAgIiBmaWxsPSJ1cmwoI2xvZ28tZ3JhZCkiLz4KCiAgICA8IS0tIEJvbHQgaW5uZXIgaGlnaGxpZ2h0IC0tPgogICAgPHBhdGggZD0iCiAgICAgIE0gMjI4IDEwMAogICAgICBMIDIwMiAyMzgKICAgICAgTCAyNTIgMjM4CiAgICAgIEwgMjA0IDM5NQogICAgICBMIDMxOCAyMTIKICAgICAgTCAyNjIgMjEyCiAgICAgIEwgMjg4IDEwMAogICAgICBaCiAgICAiIGZpbGw9InVybCgjbG9nby1oaSkiIG9wYWNpdHk9IjAuNSIvPgogIDwvZz4KCiAgPCEtLSBTbWFsbCBvcmJpdGFsIGRvdHMgLSByZXByZXNlbnRpbmcgSFRUUCBjb25uZWN0aW9ucyAtLT4KICA8Y2lyY2xlIGN4PSIxMDAiIGN5PSIxNTUiIHI9IjgiIGZpbGw9IiM3YjYxZmYiIG9wYWNpdHk9IjAuNyIvPgogIDxjaXJjbGUgY3g9IjQxMCIgY3k9IjM2MCIgcj0iOCIgZmlsbD0iIzNlYzZmZiIgb3BhY2l0eT0iMC43Ii8+CiAgPGNpcmNsZSBjeD0iODgiIGN5PSIzMzAiIHI9IjUiIGZpbGw9IiM1ODY1ZjIiIG9wYWNpdHk9IjAuNSIvPgogIDxjaXJjbGUgY3g9IjQyNSIgY3k9IjE3MCIgcj0iNSIgZmlsbD0iIzY3ZThmOSIgb3BhY2l0eT0iMC41Ii8+CgogIDwhLS0gU3VidGxlIGFuZ2xlZCBzY2FuIGxpbmVzIGZvciB0ZWNoIGZlZWwgLS0+CiAgPGxpbmUgeDE9IjEyMCIgeTE9IjQwMCIgeDI9IjE2MCIgeTI9IjQxNSIgc3Ryb2tlPSIjM2VjNmZmIiBzdHJva2Utd2lkdGg9IjIiIG9wYWNpdHk9IjAuMTUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogIDxsaW5lIHgxPSIzNTAiIHkxPSI5NSIgeDI9IjM5MCIgeTI9IjExMCIgc3Ryb2tlPSIjN2I2MWZmIiBzdHJva2Utd2lkdGg9IjIiIG9wYWNpdHk9IjAuMTUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8L3N2Zz4K" x="14" y="14" width="40" height="40"/>
+  <rect x="301" y="16" width="100" height="18" rx="9" fill="#000000"/>
+  <text x="351" y="28.5" text-anchor="middle" font-family="Segoe UI, Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="9" font-weight="700" fill="#ffffff" letter-spacing="1.2">MAINTENANCE</text>
+
+  <g font-family="Segoe UI, Inter, -apple-system, BlinkMacSystemFont, sans-serif">
+    <text x="66" y="31" font-size="15" font-weight="700" fill="#0b1220" letter-spacing="-0.2">zero-server for Node.js</text>
+    <text x="66" y="48" font-size="11" font-weight="600" fill="#656d76" letter-spacing="0.3">JavaScript</text>
+    <text x="14" y="78" font-size="12.5" fill="#424a53">Zero-dependency backend framework for Node.js: routing, ORM,</text>
+    <text x="14" y="95" font-size="12.5" fill="#424a53">auth, WebSocket, SSE, gRPC, and observability. Fixes only; the</text>
+    <text x="14" y="112" font-size="12.5" fill="#424a53">zero-server Rust core is its successor.</text>
+  </g>
+
+  <line x1="14" y1="127" x2="401" y2="127" stroke="#eaecef" stroke-width="1"/>
+  <g font-family="Segoe UI, Inter, -apple-system, BlinkMacSystemFont, sans-serif">
+    <text x="62.4" y="150" text-anchor="middle" font-size="13.5" font-weight="800" fill="#0b1220" letter-spacing="-0.2">v1.1.0</text>
+    <text x="62.4" y="164" text-anchor="middle" font-size="9" font-weight="700" fill="#656d76" letter-spacing="1.4">NPM</text>
+    <text x="159.1" y="150" text-anchor="middle" font-size="13.5" font-weight="800" fill="#0b1220" letter-spacing="-0.2">2,658</text>
+    <text x="159.1" y="164" text-anchor="middle" font-size="9" font-weight="700" fill="#656d76" letter-spacing="1.4">DOWNLOADS</text>
+    <line x1="110.8" y1="137" x2="110.8" y2="168" stroke="#eaecef" stroke-width="1"/>
+    <text x="255.9" y="150" text-anchor="middle" font-size="13.5" font-weight="800" fill="#656d76" letter-spacing="-0.2">running</text>
+    <text x="255.9" y="164" text-anchor="middle" font-size="9" font-weight="700" fill="#656d76" letter-spacing="1.4">CI</text>
+    <line x1="207.5" y1="137" x2="207.5" y2="168" stroke="#eaecef" stroke-width="1"/>
+    <text x="352.6" y="150" text-anchor="middle" font-size="13.5" font-weight="800" fill="#0b1220" letter-spacing="-0.2">MIT</text>
+    <text x="352.6" y="164" text-anchor="middle" font-size="9" font-weight="700" fill="#656d76" letter-spacing="1.4">LICENSE</text>
+    <line x1="304.3" y1="137" x2="304.3" y2="168" stroke="#eaecef" stroke-width="1"/>
+  </g>
+</svg>

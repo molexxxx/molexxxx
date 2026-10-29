@@ -273,6 +273,17 @@ const PROJECT_SECTIONS = [
         { use: 'zero-query-license', label: 'LICENSE' },
       ],
     },
+    {
+      id: 'card-zero-server-node', name: 'zero-server for Node.js', repo: 'zero-server-node', tag: 'MAINTENANCE',
+      icon: `${ICON_RAW}/zero-server-node/main/.github/assets/icon.svg`,
+      description: 'Zero-dependency backend framework for Node.js: routing, ORM, auth, WebSocket, SSE, gRPC, and observability. Fixes only; the zero-server Rust core is its successor.',
+      stats: [
+        { use: 'zero-server-npm', label: 'NPM' },
+        { use: 'zero-server-downloads', label: 'DOWNLOADS' },
+        { use: 'zero-server-ci', label: 'CI' },
+        { use: 'zero-server-license', label: 'LICENSE' },
+      ],
+    },
   ] },
 ];
 

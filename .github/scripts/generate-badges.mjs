@@ -159,7 +159,7 @@ const ICON_RAW = `https://raw.githubusercontent.com/${OWNER}`;
 const PROJECT_SECTIONS = [
   { id: 'libraries', cards: [
     {
-      id: 'card-pamoja', name: 'Pamoja', repo: 'pamoja', tag: 'IN DEVELOPMENT',
+      id: 'card-pamoja', name: 'Pamoja', repo: 'pamoja', tag: 'ALPHA',
       icon: `${ICON_RAW}/pamoja/refs/heads/main/assets/pamoja-icon.svg`,
       description: 'Modular Rust SDK for offline-first IoT, robotics, and edge hardware, with bindings for Node.js, Python, and .NET.',
       stats: [

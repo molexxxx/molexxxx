@@ -139,11 +139,13 @@ const BADGES = [
   { id: 'zero-server-rs-license', repo: 'zero-server', kind: 'license', label: 'license' },
   { id: 'zero-server-rs-last-commit', repo: 'zero-server', kind: 'last-commit', label: 'last commit' },
 
-  // zerolith. Card values only, like the zero-server core.
-  { id: 'zerolith-npm', kind: 'npm-version', label: 'npm', pkg: 'zerolith' },
-  { id: 'zerolith-crates', kind: 'crates', label: 'crates.io', pkg: 'zerolith' },
-  { id: 'zerolith-ci', repo: 'zerolith', kind: 'workflow', workflow: 'ci.yml', branch: 'main', label: 'CI' },
-  { id: 'zerolith-last-commit', repo: 'zerolith', kind: 'last-commit', label: 'last commit' },
+  // zerolith: its README badges and the card's values, in the brand's basalt and chartreuse.
+  { id: 'zerolith-npm', kind: 'npm-version', label: 'npm', pkg: 'zerolith', icon: 'npm', theme: ZEROLITH_THEME('#AACF16', '#0F1114') },
+  { id: 'zerolith-crates', kind: 'crates', label: 'crates.io', pkg: 'zerolith', theme: ZEROLITH_THEME('#AACF16', '#0F1114') },
+  { id: 'zerolith-ci', repo: 'zerolith', kind: 'workflow', workflow: 'ci.yml', branch: 'main', label: 'CI', icon: 'github', theme: ZEROLITH_THEME('#2A2F37', '#E8EAED') },
+  { id: 'zerolith-license', repo: 'zerolith', kind: 'license', label: 'license', icon: 'github', theme: ZEROLITH_THEME('#2A2F37', '#E8EAED') },
+  { id: 'zerolith-last-commit', repo: 'zerolith', kind: 'last-commit', label: 'last commit', icon: 'git', theme: ZEROLITH_THEME('#2A2F37', '#E8EAED') },
+  { id: 'zerolith-docs', kind: 'static-pair', label: 'docs', message: 'guide', icon: 'book', theme: ZEROLITH_THEME('#2A2F37', '#E8EAED') },
 ];
 
 const GH = `https://github.com/${OWNER}`;
@@ -339,6 +341,12 @@ function WORTOOL_THEME(messageColor, textColor)
 function PAMOJA_THEME(messageColor, textColor)
 {
   return { name: 'pamoja', labelBg: '#0b1124', labelFg: '#1fd3b0', messageColor, textColor };
+}
+
+// zerolith palette (basalt label with the chartreuse of the mark)
+function ZEROLITH_THEME(messageColor, textColor)
+{
+  return { name: 'zerolith', labelBg: '#0F1114', labelFg: '#AACF16', messageColor, textColor };
 }
 
 async function gh(p)

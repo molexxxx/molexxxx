@@ -16,7 +16,7 @@
 </p>
 <p align="center">
 <!-- activity:start -->
-  <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/molexxxx/molexxxx/main/.github/badges/activity-contributions-dark.svg?v=b1ba8715"><img alt="Contributions" width="415" src="https://raw.githubusercontent.com/molexxxx/molexxxx/main/.github/badges/activity-contributions-light.svg?v=6476d13b" /></picture> <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/molexxxx/molexxxx/main/.github/badges/activity-stats-dark.svg?v=aab674de"><img alt="Stats" width="415" src="https://raw.githubusercontent.com/molexxxx/molexxxx/main/.github/badges/activity-stats-light.svg?v=3b8040b8" /></picture>
+  <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/molexxxx/molexxxx/main/.github/badges/activity-contributions-dark.svg?v=18a0a8a3"><img alt="Contributions" width="415" src="https://raw.githubusercontent.com/molexxxx/molexxxx/main/.github/badges/activity-contributions-light.svg?v=ab704c15" /></picture> <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/molexxxx/molexxxx/main/.github/badges/activity-stats-dark.svg?v=08c8c033"><img alt="Stats" width="415" src="https://raw.githubusercontent.com/molexxxx/molexxxx/main/.github/badges/activity-stats-light.svg?v=b7521aa4" /></picture>
 <!-- activity:end -->
 </p>
 

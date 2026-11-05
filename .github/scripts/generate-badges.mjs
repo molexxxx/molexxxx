@@ -161,7 +161,7 @@ const ICON_RAW = `https://raw.githubusercontent.com/${OWNER}`;
 const PROJECT_SECTIONS = [
   { id: 'libraries', cards: [
     {
-      id: 'card-pamoja', name: 'Pamoja', repo: 'pamoja', tag: 'ALPHA',
+      id: 'card-pamoja', name: 'Pamoja', repo: 'pamoja',
       icon: `${ICON_RAW}/pamoja/refs/heads/main/assets/pamoja-icon.svg`,
       description: 'Modular Rust SDK for offline-first IoT, robotics, and edge hardware, with bindings for Node.js, Python, and .NET.',
       stats: [
@@ -172,7 +172,7 @@ const PROJECT_SECTIONS = [
       ],
     },
     {
-      id: 'card-zerolith', name: 'zerolith', repo: 'zerolith', tag: 'ALPHA',
+      id: 'card-zerolith', name: 'zerolith', repo: 'zerolith',
       icon: `${ICON_RAW}/zerolith/main/brand/app-icon/app-icon.svg`,
       description: 'Full framework, zero guesswork. Routing, forms, rendering, and i18n with clear patterns for you and your agent; buildless or bundled, for any backend.',
       stats: [

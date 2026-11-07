@@ -21,7 +21,7 @@
   <g font-family="Segoe UI, Inter, -apple-system, BlinkMacSystemFont, sans-serif">
     <text x="66" y="31" font-size="15" font-weight="700" fill="#0b1220" letter-spacing="-0.2">zerolith</text>
     <text x="66" y="48" font-size="11" font-weight="600" fill="#656d76" letter-spacing="0.3">TypeScript</text>
-    <text x="14" y="78" font-size="12.5" fill="#424a53">Full framework, zero guesswork. Routing, forms, rendering, and</text>
+    <text x="14" y="78" font-size="12.5" fill="#424a53">A web framework built on signals. Routing, forms, rendering, and</text>
     <text x="14" y="95" font-size="12.5" fill="#424a53">i18n with clear patterns for you and your agent; buildless or</text>
     <text x="14" y="112" font-size="12.5" fill="#424a53">bundled, for any backend.</text>
   </g>

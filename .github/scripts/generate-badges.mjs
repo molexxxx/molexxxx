@@ -174,7 +174,7 @@ const PROJECT_SECTIONS = [
     {
       id: 'card-zerolith', name: 'zerolith', repo: 'zerolith',
       icon: `${ICON_RAW}/zerolith/main/brand/app-icon/app-icon.svg`,
-      description: 'Full framework, zero guesswork. Routing, forms, rendering, and i18n with clear patterns for you and your agent; buildless or bundled, for any backend.',
+      description: 'A web framework built on signals. Routing, forms, rendering, and i18n with clear patterns for you and your agent; buildless or bundled, for any backend.',
       stats: [
         { use: 'zerolith-npm', label: 'NPM' },
         { use: 'zerolith-crates', label: 'CRATES.IO' },

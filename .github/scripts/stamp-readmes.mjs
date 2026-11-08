@@ -59,7 +59,8 @@ for (const rel of targets)
       missing.push(name);
       return whole;
     }
-    const hash = createHash('sha1').update(readFileSync(svg, 'utf8')).digest('hex').slice(0, 8);
+    // A checkout with core.autocrlf rewrites the SVGs to CRLF; hash the LF bytes the generator wrote.
+    const hash = createHash('sha1').update(readFileSync(svg, 'utf8').replace(/\r\n/g, '\n')).digest('hex').slice(0, 8);
     stamped++;
     return `${whole.split('?')[0]}?v=${hash}`;
   });

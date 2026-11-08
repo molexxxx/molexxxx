@@ -113,7 +113,7 @@ const BADGES = [
   { id: 'plex-poster-helper-2-license', repo: 'plex-poster-set-helper-2', kind: 'license', label: 'license', icon: 'github', theme: PLEX_THEME('#f0b429', '#1a1205') },
   { id: 'plex-poster-helper-2-last-commit', repo: 'plex-poster-set-helper-2', kind: 'last-commit', label: 'last commit', icon: 'git', theme: PLEX_THEME('#c4880a', '#ffffff') },
   { id: 'plex-poster-helper-2-release', repo: 'plex-poster-set-helper-2', kind: 'release', label: 'release', icon: 'github', theme: PLEX_THEME('#e5a00d', '#1a1205') },
-  { id: 'plex-poster-helper-2-downloads', repo: 'plex-poster-set-helper-2', kind: 'downloads', label: 'downloads', icon: 'github', theme: PLEX_THEME('#f0b429', '#1a1205') },
+  { id: 'plex-poster-helper-2-downloads', repo: 'plex-poster-set-helper-2', kind: 'downloads', label: 'downloads', dockerHub: 'tonywied17/plex-poster-helper-2', icon: 'github', theme: PLEX_THEME('#f0b429', '#1a1205') },
   { id: 'plex-poster-helper-2-download', kind: 'static-pair', label: 'download', message: 'latest', icon: 'github', theme: PLEX_THEME('#cc7b19', '#ffffff') },
 
   // WoRTool desktop (the site's ink and brass)
@@ -460,6 +460,18 @@ async function pypiPackageCount(user)
   return new Set(names).size;
 }
 
+/**
+ * Reads the lifetime pull count of a public Docker Hub repository.
+ * @param {string} repo namespace/name
+ * @returns {Promise<number>}
+ */
+async function dockerHubPulls(repo)
+{
+  const r = await fetchJson(`https://hub.docker.com/v2/repositories/${repo}/`);
+  if (!Number.isInteger(r.pull_count)) throw new Error(`Docker Hub returned no pull_count for ${repo}`);
+  return r.pull_count;
+}
+
 const REGISTRY_COUNTERS = {
   'npm-packages': npmPackageCount,
   'crates-packages': cratesPackageCount,
@@ -577,7 +589,10 @@ async function getValue(b)
     // `baseline` seeds the count with downloads from releases that no longer
     // exist on GitHub (e.g. a deleted tag whose download_count is gone for
     // good). It keeps the lifetime total honest across re-tagging.
+    // `dockerHub` adds that image's pull count, the same figure Unraid
+    // Community Applications lists as the app's downloads.
     let total = b.baseline ?? 0;
+    if (b.dockerHub) total += await dockerHubPulls(b.dockerHub);
     let page = 1;
     while (true)
     {
